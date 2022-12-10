@@ -1,0 +1,71 @@
+@use '../../styles/variable' as *
+
+.input-box
+  display: flex
+  justify-content: center
+  align-items: center
+  border: 1px solid #b7b7b7
+  border-radius: 4px
+  padding: .5rem 1rem
+  width: 100%
+  transition: all ease .35s
+  box-sizing: border-box
+
+  &:hover
+    border-color: #40A9FFFF
+
+  &-focus
+    border-color: #40A9FFFF
+    box-shadow: 0 0 3px #40A9FFFF
+
+  &-base
+    height: $input-height-base
+    font-size: $font-size-base
+
+  &-sm
+    height: $input-height-sm
+    font-size: $font-size-sm
+
+  &-lg
+    height: $input-height-lg
+    font-size: $font-size-lg
+
+  .input
+    width: 100%
+    display: inline-block
+    box-sizing: border-box
+    color: var(--color)
+    background: transparent
+    border: none
+    outline: none
+    appearance: none
+    font-size: var(--font-size)
+    text-align: var(--text-align)
+    padding: 0 .5rem
+
+    &::placeholder
+      color: var(--color-weak)
+
+    &:focus
+      &::placeholder
+        color: var(--color-light)
+        font-family: inherit
+
+
+  .prefix .append
+    display: flex
+    width: 1.5em
+    height: 1.5em
+    justify-content: center
+    align-items: center
+
+    //color: var(--color-light)
+    font-size: var(--font-size-8)
+
+  .clearable
+    display: flex
+    width: 1.5em
+    height: 1.5em
+    justify-content: center
+    align-items: center
+    cursor: pointer
