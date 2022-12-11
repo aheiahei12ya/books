@@ -109,8 +109,14 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
           >
           { props.append }
         </span>
-      ) }
-    </div>
+        ) }
+      </div>
+      <div
+        className={ styles.inputWarning }
+      >
+        <span>aaa</span>
+      </div>
+    </>
   )
 })
 
