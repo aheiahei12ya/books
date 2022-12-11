@@ -8,7 +8,7 @@ import { useIntl } from 'react-intl';
 
 export default function Home() {
   const router = useRouter()
-  const appendIcon = <i className="fa-solid fa-user"></i>
+  const appendIcon = <i className="fa-light fa-user"></i>
   const [value, setValue] = useState('')
   const i18n = useIntl()
 
