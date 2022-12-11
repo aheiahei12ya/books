@@ -10,9 +10,11 @@ export default function App({ Component, pageProps }: AppProps) {
   const message = loadLocale(locale)
   return (
     <IntlProvider locale={ locale } messages={ message }>
-      <button onClick={ () => setLocale('en-US') }>en-US</button>
-      <button onClick={ () => setLocale('zh-CN') }>zh-CN</button>
-      <Component { ...pageProps } />
+      <div style={ { position: "absolute", right: "0",} }>
+        <button onClick={ () => setLocale('en-US') }>en-US</button>
+        <button onClick={ () => setLocale('zh-CN') }>zh-CN</button>
+      </div>
+      <Component { ...pageProps }/>
     </IntlProvider>
   )
 
