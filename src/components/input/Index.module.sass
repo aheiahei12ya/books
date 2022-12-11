@@ -1,23 +1,23 @@
 @use '../../styles/variable' as *
 
 .input-box
+  width: 100%
   display: flex
   justify-content: center
   align-items: center
-  border: 1px solid #b7b7b7
-  border-radius: 4px
-  padding: .5rem 1rem
-  width: 100%
-  transition: all ease .4s
+  border: 1px solid $grey-lighten-1
+  border-radius: var(--radius-s)
+  padding: .5rem 0.75rem
+  transition: all .35s ease
   box-sizing: border-box
   box-shadow: none
 
   &:hover
-    border-color: #40A9FFFF
+    border-color: $blue
 
   &-focus
-    border-color: #40A9FFFF
-    box-shadow: 0 0 3px #40A9FFFF
+    border-color: $blue
+    box-shadow: 0 0 3px $blue
 
   &-base
     height: $input-height-base
@@ -42,7 +42,6 @@
     appearance: none
     font-size: var(--font-size)
     text-align: var(--text-align)
-    padding: 0 .5rem
 
     &::placeholder
       color: var(--color-weak)
@@ -53,20 +52,25 @@
         font-family: inherit
 
 
-  .prefix .append
-    display: flex
-    width: 1.5em
-    height: 1.5em
-    justify-content: center
-    align-items: center
-
-    //color: var(--color-light)
+  @mixin icon
+    color: var(--color-light)
     font-size: var(--font-size-8)
 
+  .prefix
+    @include icon
+    margin-right: 0.5rem
+
+  .append
+    @include icon
+    margin-left: 0.25rem
+
+
   .clearable
-    display: flex
-    width: 1.5em
-    height: 1.5em
-    justify-content: center
-    align-items: center
+    @include icon
     cursor: pointer
+    margin-left: 0.25rem
+
+    &-append
+      margin-right: 2rem
+
+
