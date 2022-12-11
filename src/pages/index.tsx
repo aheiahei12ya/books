@@ -4,12 +4,14 @@ import styles from '../styles/Home.module.css'
 import { useRouter } from 'next/router'
 import Input from "../components/input";
 import { useState } from "react";
-
+import { useIntl } from 'react-intl';
 
 export default function Home() {
   const router = useRouter()
   const appendIcon = <i className="fa-solid fa-user"></i>
-  const [value, setValue] = useState('11')
+  const [value, setValue] = useState('')
+  const i18n = useIntl()
+
   return (
     <div className={ styles.container }>
       <Head>
@@ -21,12 +23,11 @@ export default function Home() {
       <main className={ styles.main }>
         <button type="button" onClick={ () => router.push('/login') }>login</button>
         <div style={ { 'width': '300px' } }>
-          { value }
           <Input
             value={ value }
             onChange={ (val) => setValue(val) }
             prepend={ appendIcon }
-            placeholder={ 'a' }
+            placeholder={ i18n.formatMessage({ id: 'welcome' }, { value: '你' }) }
             clearable={ true }
           ></Input>
           <br/>
