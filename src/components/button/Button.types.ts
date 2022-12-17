@@ -4,14 +4,12 @@ export interface ButtonRef {
 
 export interface ButtonProps {
   color?: 'default' | 'primary' | 'success' | 'warning' | 'danger'
-  type?: 'submit' | 'reset' | 'button'
+  type?: 'default' | 'text'
   shape?: 'default' | 'rounded' | 'rectangular'
   fill?: 'solid' | 'outline' | 'none'
-  size?: 'mini' | 'small' | 'middle' | 'large'
+  size?: 'default' | 'mini' | 'small' | 'middle' | 'large'
   block?: boolean
   loading?: boolean | 'auto'
-  loadingText?: string
-  loadingIcon?: React.ReactNode
   disabled?: boolean
   className?: string;
   onClick?: (

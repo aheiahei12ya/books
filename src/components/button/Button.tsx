@@ -8,8 +8,9 @@ export const Button = forwardRef<ButtonRef, ButtonProps>((props, ref) => {
   Button.displayName = 'Button'
   const {
     color = 'default',
-    shape,
-    type,
+    shape = 'default',
+    type = 'default',
+    size = 'default',
     children,
     loading,
     block,
@@ -17,6 +18,8 @@ export const Button = forwardRef<ButtonRef, ButtonProps>((props, ref) => {
     className,
     ...rest
   } = props
+
+  let btnColor = type === 'text' ? `text-${ color }` : color
 
   return (
     <button
@@ -27,12 +30,13 @@ export const Button = forwardRef<ButtonRef, ButtonProps>((props, ref) => {
         classNames(
           styles.button,
           {
-            [styles[`button-${ color }`]]: color,
-            [styles[`button-${ shape }`]]: shape !== 'default' && shape,
-            [styles[`button-${ type }`]]: type,
+            [styles[`button-type-${ type }`]]: type,
+            [styles[`button-color-${ btnColor }`]]: btnColor,
+            [styles[`button-shape-${ shape }`]]: shape,
+            [styles[`button-size-${ size }`]]: size,
             [styles['button-icon-only']]: !children && children !== 0,
             [styles['button-loading']]: loading,
-            [styles['button-block']]: block,
+            [styles['button-type-block']]: block,
             [styles['button-disabled']]: disabled,
           },
           className,
