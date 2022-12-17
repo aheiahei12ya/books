@@ -1,12 +1,12 @@
 @use '../../styles/variable' as *
+
 .login-page
   height: 100%
   display: flex
 
   .login-panel
-    flex: 3
-    border-right: 1px solid red
-    overflow: hidden
+    flex: 4
+    overflow: auto
 
     .logo
       height: 40%
@@ -14,7 +14,6 @@
       align-items: center
       justify-content: center
       font-size: $text-h2
-      border-bottom: 1px solid red
       box-sizing: border-box
 
     .login-form
@@ -22,5 +21,26 @@
       padding: 10%
       box-sizing: border-box
 
+    @media (min-width: 600px)
+      .login-form
+        max-width: 100%
+        margin: auto
+
+    @media (min-width: 960px)
+      .login-form
+        max-width: 90%
+        margin: auto
+
+    @media (min-width: 1920px)
+      .login-form
+        max-width: 85%
+        margin: auto
+
+
   .illustrate
-    flex: 5
+    flex: 9
+    background: center url('../../assets/login/illustrate.png')
+    background-size: contain
+    background-repeat: no-repeat
+    background-color: #FAFAFA
+
