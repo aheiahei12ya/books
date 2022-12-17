@@ -1,7 +1,7 @@
 import styles from './Index.module.sass';
 import { InputRef, InputProps } from "./Input.types";
 import classNames from 'classnames';
-import { forwardRef, useState, useRef, useImperativeHandle, useId } from "react";
+import { forwardRef, useState, useRef, useImperativeHandle, useId, useMemo } from "react";
 
 export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
   Input.displayName = "Input"
@@ -20,6 +20,28 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
     return [localValue, setLocalValue]
   })()
 
+  const [rule, setRule] = useState({
+    error: false,
+    message: <></>
+  })
+
+  const checkRules = (rules: InputProps['rules']) => {
+    rules?.forEach((rule) => {
+      if (rule.required && value.length === 0) {
+        setRule({
+          error: true,
+          message: rule.message
+        })
+        return
+      } else {
+        setRule({
+          error: false,
+          message: rule.message
+        })
+        return
+      }
+    })
+  }
   useImperativeHandle(ref, () => ({
     clear: () => {
       setValue('')
@@ -33,6 +55,9 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
     get nativeElement() {
       return inputRef.current
     },
+    touch: () => {
+      checkRules(props.rules)
+    }
   }))
 
   const shouldShowClear = (() => {
@@ -50,7 +75,8 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
               [styles.inputBoxSm]: size === 'small',
               [styles.inputBoxLg]: size === 'large',
               [styles.inputBoxBase]: size === 'default',
-              [styles.inputBoxFocus]: hasFocus
+              [styles.inputBoxFocus]: hasFocus,
+              [styles.inputBoxError]: rule.error
             },
           ) }
         onClick={ () => inputRef.current?.focus() }
@@ -74,28 +100,32 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
           className={ styles.input }
           placeholder={ props.placeholder }
           value={ value }
+          type={ props.type }
           onChange={ e => {
             setValue(e.target.value)
+            rule.error ? checkRules(props.rules) : ''
           } }
           onFocus={ e => {
             setHasFocus(true)
           } }
           onBlur={ e => {
             setHasFocus(false)
+            checkRules(props.rules)
           } }
           disabled={ props.disabled }
           readOnly={ props.readOnly }
         />
         { shouldShowClear && (
-          <span className={
-            classNames(
-              styles.clearable,
-              { [styles.clearableAppend]: hasAppend }
-            ) }
-                onClick={ () => setValue('') }
-                onMouseDown={ e => {
-                  e.preventDefault()
-                } }
+          <span
+            className={
+              classNames(
+                styles.clearable,
+                { [styles.clearableAppend]: hasAppend }
+              ) }
+            onClick={ () => setValue('') }
+            onMouseDown={ e => {
+              e.preventDefault()
+            } }
           >
           <i className="fa-solid fa-close"></i>
         </span>
@@ -114,7 +144,7 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
       <div
         className={ styles.inputWarning }
       >
-        <span>aaa</span>
+        { rule.error && rule.message }
       </div>
     </>
   )

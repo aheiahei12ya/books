@@ -1,16 +1,20 @@
-import type {
-  ReactNode,
-} from 'react';
+interface inputRule {
+  required: boolean;
+  message: JSX.Element;
+  rule?: string;
+}
 
 export interface InputProps {
   id?: string
-  prepend?: ReactNode;
-  append?: ReactNode;
-  addonBefore?: ReactNode;
-  addonAfter?: ReactNode;
+  prepend?: React.ReactNode;
+  append?: React.ReactNode;
+  addonBefore?: React.ReactNode;
+  addonAfter?: React.ReactNode;
   affixWrapperClassName?: string;
   value?: string
   placeholder?: string
+  type?: string
+  rules?: inputRule[];
   disabled?: boolean
   readOnly?: boolean
   clearable?: boolean
@@ -32,4 +36,5 @@ export interface InputRef {
   focus: () => void
   blur: () => void
   nativeElement: HTMLInputElement | null
+  touch: () => void
 }

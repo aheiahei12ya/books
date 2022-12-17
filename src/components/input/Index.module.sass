@@ -5,12 +5,16 @@
   display: flex
   justify-content: center
   align-items: center
-  border: 1px solid $grey-lighten-1
+  border: 1px solid var(--color-border)
   border-radius: $radius-s
   padding: .5rem 0.75rem
   transition: all .35s ease
   box-sizing: border-box
   box-shadow: none
+
+  &-error
+    border-color: $red !important
+    box-shadow: 0 0 3px $red !important
 
   &:hover
     border-color: $blue
@@ -30,6 +34,19 @@
   &-lg
     height: $input-height-lg
     font-size: $font-size-lg
+
+  @media (min-width: 1920px)
+    &-base
+      height: $input-height-lg
+      font-size: $font-size-lg
+
+    &-sm
+      height: $input-height-base
+      font-size: $font-size-base
+
+    &-lg
+      height: $input-height-lg
+      font-size: $font-size-lg
 
   .input
     width: 100%
@@ -73,6 +90,7 @@
 .input-warning
   height: 1.25rem
   line-height: 1.25rem
+  font-size: $font-size-sm
   color: $red
   overflow: hidden
   white-space: nowrap
