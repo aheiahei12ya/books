@@ -6,4 +6,5 @@ export const en_US = {
   'pages.login.password.required': 'Please enter your password!',
   'pages.login.button.login': 'Log In',
   'pages.login.checkbox.remember': 'Remember Password',
+  'pages.login.button.forget': 'Forget Password?',
 }

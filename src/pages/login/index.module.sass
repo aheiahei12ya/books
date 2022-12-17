@@ -1,43 +1,49 @@
 @use '../../styles/variable' as *
 
-.login-page
+.login
   height: 100%
   display: flex
 
-  .login-panel
+  &-panel
     flex: 4
     overflow: auto
 
-    .logo
-      height: 40%
+    &-extra
       display: flex
+      justify-content: space-between
+      margin-bottom: 1.25rem
       align-items: center
-      justify-content: center
-      font-size: $text-h2
-      box-sizing: border-box
 
-    .login-form
-      height: 60%
-      padding: 10%
-      box-sizing: border-box
+  &-logo
+    height: 40%
+    display: flex
+    align-items: center
+    justify-content: center
+    font-size: $text-h2
+    box-sizing: border-box
 
-    @media (min-width: 600px)
-      .login-form
-        max-width: 100%
-        margin: auto
+  &-form
+    height: 60%
+    padding: 10%
+    box-sizing: border-box
 
-    @media (min-width: 960px)
-      .login-form
-        max-width: 90%
-        margin: auto
+  @media (min-width: 600px)
+    &-form
+      max-width: 100%
+      margin: auto
 
-    @media (min-width: 1920px)
-      .login-form
-        max-width: 85%
-        margin: auto
+  @media (min-width: 960px)
+    &-form
+      max-width: 90%
+      margin: auto
+
+  @media (min-width: 1920px)
+    &-form
+      max-width: 85%
+      margin: auto
 
 
-  .illustrate
+  &-illustrate
     flex: 9
     background: center url('../../assets/login/illustrate.png')
     background-size: contain

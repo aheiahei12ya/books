@@ -6,4 +6,5 @@ export const zh_CN = {
   'pages.login.password.required': '请输入密码!',
   'pages.login.button.login': '登录',
   'pages.login.checkbox.remember': '记住密码',
+  'pages.login.button.forget': '忘记密码？',
 }

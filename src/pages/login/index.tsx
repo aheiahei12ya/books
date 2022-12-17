@@ -1,11 +1,10 @@
 import React, { useRef, useState } from "react";
 import styles from './index.module.sass';
 import Input, { InputRef } from "../../components/input";
-import { useIntl, FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import classNames from "classnames";
 import Button from "../../components/button";
 import Checkbox from "../../components/checkbox";
-import { string } from "prop-types";
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState('')
@@ -18,11 +17,11 @@ const Login: React.FC = () => {
   const passwordRef = useRef<InputRef>(null)
 
   return (
-    <div className={ styles.loginPage }>
+    <div className={ styles.login }>
       <div
         className={ styles.loginPanel }
       >
-        <div className={ styles.logo }>
+        <div className={ styles.loginLogo }>
           <span>
             <FormattedMessage id={ 'pages.login.title.welcome' }></FormattedMessage>
           </span>
@@ -57,7 +56,7 @@ const Login: React.FC = () => {
               }
             ] }
           ></Input>
-          <div>
+          <div className={ styles.loginPanelExtra }>
             <Checkbox
               onChange={ (e) => {
                 setRemember(e)
@@ -66,6 +65,9 @@ const Login: React.FC = () => {
             >
               <FormattedMessage id={ 'pages.login.checkbox.remember' }></FormattedMessage>
             </Checkbox>
+            <Button type={ 'text' } size={ 'small' } color={ 'warning' }>
+              <FormattedMessage id={ 'pages.login.button.forget' }></FormattedMessage>
+            </Button>
           </div>
           <Button
             block
@@ -80,7 +82,7 @@ const Login: React.FC = () => {
         </div>
       </div>
       <div
-        className={ classNames(styles.illustrate, styles.hiddenSmAndDown) }
+        className={ classNames(styles.loginIllustrate, styles.hiddenSmAndDown) }
       ></div>
     </div>
   )
