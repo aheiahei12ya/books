@@ -1,0 +1,81 @@
+@use '../../styles/variable' as *
+
+.button
+  display: inline-block
+  position: relative
+  white-space: nowrap
+  text-align: center
+  border: 1px solid var(--color-border)
+  background: transparent
+  color: var(--color-text)
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015)
+  cursor: pointer
+  transition: all 0.3s $ease-in-out
+  touch-action: manipulation
+  height: $height-base
+  font-size: $font-size-base
+  border-radius: $radius-s
+  padding: 0 1.5rem
+
+  &,
+  &:active,
+  &:focus
+    outline: 0
+
+  &:not([disabled]):hover
+    text-decoration: none
+
+  &:not([disabled]):active
+    outline: 0
+    box-shadow: none
+
+  &[disabled]
+    cursor: not-allowed
+    color: $grey-darken-1
+
+    > *
+      pointer-events: none
+
+  &-block
+    width: 100%
+
+  &-rounded
+    border-radius: calc($height-base / 2)
+
+  &-rectangle
+    border-radius: 0
+
+  &-default
+    &:not([disabled]):hover
+      border: 1px solid $blue-lighten-2
+      color: $blue-lighten-2
+
+  &-primary
+    background: $blue
+    color: var(--color-white)
+
+    &:not([disabled]):hover
+      background: $blue-lighten-1
+
+  &-success
+    background: $green
+    color: var(--color-white)
+
+    &:not([disabled]):hover
+      background: $green-lighten-1
+
+  &-warning
+    background: $orange
+    color: var(--color-white)
+
+    &:not([disabled]):hover
+      background: $orange-lighten-1
+
+  &-danger
+    background: $red
+    color: var(--color-white)
+
+    &:not([disabled]):hover
+      background: $red-lighten-1
+
+
