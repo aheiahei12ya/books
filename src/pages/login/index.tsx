@@ -21,12 +21,12 @@ const Login: React.FC = () => {
       <div
         className={ styles.loginPanel }
       >
-        <div className={ styles.loginLogo }>
+        <div className={ styles.loginPanelLogo }>
           <span>
             <FormattedMessage id={ 'pages.login.title.welcome' }></FormattedMessage>
           </span>
         </div>
-        <div className={ classNames(styles.loginForm) }>
+        <div className={ classNames(styles.loginPanelForm) }>
           <Input
             ref={ usernameRef }
             value={ username }

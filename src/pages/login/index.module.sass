@@ -14,35 +14,47 @@
       margin-bottom: 1.25rem
       align-items: center
 
-  &-logo
-    height: 40%
-    display: flex
-    align-items: center
-    justify-content: center
-    font-size: $text-h2
-    box-sizing: border-box
-
-  &-form
-    height: 60%
-    padding: 10%
-    box-sizing: border-box
-
-    @media (max-width: #{ $x-small-screen-max }px)
+    &-logo
+      height: 40%
       display: flex
-      flex-direction: column
-      justify-content: end
+      align-items: center
+      justify-content: center
+      font-size: $text-h2
+      box-sizing: border-box
 
-    @media (min-width: #{ $x-small-screen-min }px)
-      max-width: 100%
-      margin: auto
+      @media (max-width: #{ $x-small-screen-max }px)
+        height: calc(100% - 270px)
+        min-height: 60%
+        color: white
+        -webkit-text-stroke: 1px $blue
+        vertical-align: 10px
+        background: center url('../../assets/login/illustrate.png')
+        background-size: cover
 
-    @media (min-width: #{ $small-screen-min }px)
-      max-width: 90%
-      margin: auto
+    &-form
+      height: 60%
+      padding: 10%
+      box-sizing: border-box
 
-    @media (min-width: #{ $large-screen-min }px)
-      max-width: 85%
-      margin: auto
+      @media (max-width: #{ $x-small-screen-max }px)
+        height: 270px
+        display: flex
+        flex-direction: column
+        justify-content: flex-end
+        padding-top: 3%
+        padding-bottom: 7%
+
+      @media (min-width: #{ $x-small-screen-min }px)
+        max-width: 100%
+        margin: auto
+
+      @media (min-width: #{ $small-screen-min }px)
+        max-width: 90%
+        margin: auto
+
+      @media (min-width: #{ $large-screen-min }px)
+        max-width: 85%
+        margin: auto
 
 
   &-illustrate

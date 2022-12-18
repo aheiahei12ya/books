@@ -1,4 +1,4 @@
-import styles from './Index.module.sass';
+import styles from './index.module.sass';
 import { InputRef, InputProps } from "./Input.types";
 import classNames from 'classnames';
 import { forwardRef, useState, useRef, useImperativeHandle, useId, useMemo } from "react";
