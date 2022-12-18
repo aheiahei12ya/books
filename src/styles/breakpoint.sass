@@ -1,3 +1,30 @@
+$x-small-screen: 600
+$small-screen: 960
+$middle-screen: 1280
+$large-screen: 1920
+$x-large-screen: 2560
+
+$x-small-screen-min: $x-small-screen
+$small-screen-min: $small-screen
+$middle-screen-min: $middle-screen
+$large-screen-min: $large-screen
+$x-large-screen-min: $x-large-screen
+
+// 959.98
+$x-small-screen-max: $small-screen-min - .02
+// 1198.98
+$small-screen-max: $middle-screen-min - .02
+// 1919.98
+$middle-screen-max: $large-screen-min - .02
+// 2559.98
+$large-screen-max: $x-large-screen-min - .02
+
+$x-small-screen-container: $x-small-screen
+$small-screen-container: $small-screen - 60
+$middle-screen-container: $middle-screen - 80
+$large-screen-container: $large-screen - 120
+$x-large-screen-container: $x-large-screen - 160
+
 .container
   width: 100%
   padding: 16px
@@ -7,114 +34,114 @@
 .d-none
   display: none !important
 
-@media (min-width: 600px)
+@media (min-width: #{ $x-small-screen-min }px)
   .d-sm-none
     display: none !important
 
   .container
-    max-width: 600px
+    max-width: #{ $x-small-screen-container }px
 
   .flex-container
     max-width: 100%
     margin: auto
 
-@media (min-width: 960px)
+@media (min-width: #{ $small-screen-min }px)
   .d-md-none
     display: none !important
 
   .container
-    max-width: 900px
+    max-width: #{ $small-screen-container }px
 
   .flex-container
     max-width: 90%
     margin: auto
 
-@media (min-width: 1280px)
+@media (min-width: #{ $middle-screen-min }px)
   .d-lg-none
     display: none !important
 
   .container
-    max-width: 1200px
+    max-width: #{ $middle-screen-container }px
 
   .flex-container
     max-width: 80%
     margin: auto
 
-@media (min-width: 1920px)
+@media (min-width: #{ $large-screen-min }px)
   .d-xl-none
     display: none !important
 
   .container
-    max-width: 1800px
+    max-width: #{ $large-screen-container }px
 
   .flex-container
     max-width: 70%
     margin: auto
 
-@media (min-width: 2560px)
+@media (min-width: #{ $x-large-screen-min }px)
   .d-xxl-none
     display: none !important
 
   .container
-    max-width: 2400px
+    max-width: #{ $x-large-screen-container }px
 
   .flex-container
     max-width: 70%
     margin: auto
 
-@media (max-width: 599.98px)
+@media (max-width: #{ $x-small-screen-max }px)
   .hidden-xs
     display: none !important
 
-@media (min-width: 600px) and (max-width: 959.98px)
+@media (min-width: #{ $x-small-screen-min }px) and (max-width: #{ $x-small-screen-max }px)
   .hidden-sm
     display: none !important
 
-@media (min-width: 960px) and (max-width: 1279.98px)
+@media (min-width: #{ $small-screen-min }px) and (max-width: #{ $small-screen-max }px)
   .hidden-md
     display: none !important
 
-@media (min-width: 1280px) and (max-width: 1919.98px)
+@media (min-width: #{ $middle-screen-min }px) and (max-width: #{ $middle-screen-max }px)
   .hidden-lg
     display: none !important
 
-@media (min-width: 1920px) and (max-width: 2559.98px)
+@media (min-width: #{ $large-screen-min }px) and (max-width: #{ $large-screen-max }px)
   .hidden-xl
     display: none !important
 
-@media (min-width: 2560px)
+@media (min-width: #{ $x-large-screen-min }px)
   .hidden-xxl
     display: none !important
 
-@media (min-width: 600px)
+@media (min-width: #{ $x-small-screen-min }px)
   .hidden-sm-and-up
     display: none !important
 
-@media (min-width: 960px)
+@media (min-width: #{ $small-screen-min }px)
   .hidden-md-and-up
     display: none !important
 
-@media (min-width: 1280px)
+@media (min-width: #{ $middle-screen-min }px)
   .hidden-lg-and-up
     display: none !important
 
-@media (min-width: 1920px)
+@media (min-width: #{ $large-screen-min }px)
   .hidden-xl-and-up
     display: none !important
 
-@media (max-width: 959.98px)
+@media (max-width: #{ $x-small-screen-max }px)
   .hidden-sm-and-down
     display: none !important
 
-@media (max-width: 1279.98px)
+@media (max-width: #{ $small-screen-max }px)
   .hidden-md-and-down
     display: none !important
 
-@media (max-width: 1919.98px)
+@media (max-width: #{ $middle-screen-max }px)
   .hidden-lg-and-down
     display: none !important
 
-@media (max-width: 2559.98px)
+@media (max-width: #{ $large-screen-max }px)
   .hidden-xl-and-down
     display: none !important
 
