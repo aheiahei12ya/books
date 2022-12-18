@@ -1,20 +1,20 @@
 interface inputRule {
-  required: boolean;
-  message: JSX.Element;
-  rule?: string;
+  required: boolean
+  message: JSX.Element
+  rule?: string
 }
 
 export interface InputProps {
   id?: string
-  prepend?: React.ReactNode;
-  append?: React.ReactNode;
-  addonBefore?: React.ReactNode;
-  addonAfter?: React.ReactNode;
-  affixWrapperClassName?: string;
+  prepend?: React.ReactNode
+  append?: React.ReactNode
+  addonBefore?: React.ReactNode
+  addonAfter?: React.ReactNode
+  affixWrapperClassName?: string
   value?: string
   placeholder?: string
   type?: string
-  rules?: inputRule[];
+  rules?: inputRule[]
   disabled?: boolean
   readOnly?: boolean
   clearable?: boolean

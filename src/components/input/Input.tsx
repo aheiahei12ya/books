@@ -1,10 +1,11 @@
-import styles from './index.module.sass';
-import { InputRef, InputProps } from "./Input.types";
-import classNames from 'classnames';
-import { forwardRef, useState, useRef, useImperativeHandle, useId, useMemo } from "react";
+import classNames from 'classnames'
+import { forwardRef, useId, useImperativeHandle, useRef, useState } from 'react'
+
+import styles from './index.module.sass'
+import { InputProps, InputRef } from './Input.types'
 
 export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
-  Input.displayName = "Input"
+  Input.displayName = 'Input'
 
   const hasPrepend = !!props.prepend
   const hasAppend = !!props.append
@@ -68,31 +69,27 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
   return (
     <>
       <div
-        className={
-          classNames(
-            styles.inputBox,
-            {
-              [styles.inputBoxSm]: size === 'small',
-              [styles.inputBoxLg]: size === 'large',
-              [styles.inputBoxBase]: size === 'default',
-              [styles.inputBoxFocus]: hasFocus,
-              [styles.inputBoxError]: rule.error
-            },
-          ) }
+        className={ classNames(styles.inputBox, {
+          [styles.inputBoxSm]: size === 'small',
+          [styles.inputBoxLg]: size === 'large',
+          [styles.inputBoxBase]: size === 'default',
+          [styles.inputBoxFocus]: hasFocus,
+          [styles.inputBoxError]: rule.error
+        }) }
         onClick={ () => inputRef.current?.focus() }
-        onMouseDown={ e => {
+        onMouseDown={ (e) => {
           e.preventDefault()
         } }
       >
         { hasPrepend && (
           <span
             className={ styles.prefix }
-            onMouseDown={ e => {
+            onMouseDown={ (e) => {
               e.preventDefault()
             } }
           >
-          { props.prepend }
-        </span>
+            { props.prepend }
+          </span>
         ) }
         <input
           ref={ inputRef }
@@ -101,14 +98,14 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
           placeholder={ props.placeholder }
           value={ value }
           type={ props.type }
-          onChange={ e => {
+          onChange={ (e) => {
             setValue(e.target.value)
             rule.error ? checkRules(props.rules) : ''
           } }
-          onFocus={ e => {
+          onFocus={ (e) => {
             setHasFocus(true)
           } }
-          onBlur={ e => {
+          onBlur={ (e) => {
             setHasFocus(false)
             checkRules(props.rules)
           } }
@@ -117,36 +114,29 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
         />
         { shouldShowClear && (
           <span
-            className={
-              classNames(
-                styles.clearable,
-                { [styles.clearableAppend]: hasAppend }
-              ) }
+            className={ classNames(styles.clearable, {
+              [styles.clearableAppend]: hasAppend
+            }) }
             onClick={ () => setValue('') }
-            onMouseDown={ e => {
+            onMouseDown={ (e) => {
               e.preventDefault()
             } }
           >
-          <i className="fa-solid fa-close"></i>
-        </span>
+            <i className="fa-solid fa-close"></i>
+          </span>
         ) }
         { hasAppend && (
           <span
             className={ styles.append }
-            onMouseDown={ e => {
+            onMouseDown={ (e) => {
               e.preventDefault()
             } }
           >
-          { props.append }
-        </span>
+            { props.append }
+          </span>
         ) }
       </div>
-      <div
-        className={ styles.inputWarning }
-      >
-        { rule.error && rule.message }
-      </div>
+      <div className={ styles.inputWarning }>{ rule.error && rule.message }</div>
     </>
   )
 })
-
