@@ -27,13 +27,14 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
   })
 
   const checkRules = (rules: InputProps['rules']) => {
+    let error = false
     rules?.forEach((rule) => {
       if (rule.required && value.length === 0) {
         setRule({
           error: true,
           message: rule.message
         })
-        return
+        error = true
       } else {
         setRule({
           error: false,
@@ -42,6 +43,7 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
         return
       }
     })
+    return error
   }
   useImperativeHandle(ref, () => ({
     clear: () => {
@@ -57,7 +59,7 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
       return inputRef.current
     },
     touch: () => {
-      checkRules(props.rules)
+      return checkRules(props.rules)
     }
   }))
 

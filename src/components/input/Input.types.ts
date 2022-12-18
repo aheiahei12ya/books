@@ -36,5 +36,5 @@ export interface InputRef {
   focus: () => void
   blur: () => void
   nativeElement: HTMLInputElement | null
-  touch: () => void
+  touch: () => boolean
 }
