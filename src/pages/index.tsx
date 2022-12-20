@@ -1,17 +1,11 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
-import { useIntl } from 'react-intl'
 
-import Input from '../components/input'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
   const router = useRouter()
-  const appendIcon = <i className="fa-light fa-user"></i>
-  const [value, setValue] = useState('')
-  const i18n = useIntl()
 
   return (
     <div className={styles.container}>
@@ -24,28 +18,6 @@ export default function Home() {
         <button type="button" onClick={() => router.push('/login')}>
           login
         </button>
-        <div style={{ width: '300px' }}>
-          <Input
-            value={value}
-            onChange={(val) => setValue(val)}
-            prepend={appendIcon}
-            placeholder={i18n.formatMessage({ id: 'welcome' }, { value: '你' })}
-            clearable={true}
-          ></Input>
-          <br />
-          <Input
-            size={'small'}
-            value={value}
-            append={appendIcon}
-            clearable={true}
-          ></Input>
-          <br />
-          <Input
-            size={'large'}
-            onChange={(val) => setValue(val)}
-            clearable={true}
-          ></Input>
-        </div>
         <p className={styles.description}>
           Get started by editing{' '}
           <code className={styles.code}>pages/index.tsx</code>
