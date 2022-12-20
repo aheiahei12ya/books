@@ -1,5 +1,7 @@
 import login from './login'
 
-export default {
+const services = {
   login
 }
+
+export default services
