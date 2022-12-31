@@ -29,6 +29,8 @@ export interface InputProps {
     | 'search'
     | 'send'
   size?: 'small' | 'large'
+  error?: boolean
+  errorMessage?: string | React.ReactNode
 }
 
 export interface InputRef {
