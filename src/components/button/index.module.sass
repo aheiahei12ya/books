@@ -11,6 +11,8 @@
   background: transparent
   padding: 0
   margin: 0
+  display: flex
+  align-items: center
 
   &,
   &:active,
@@ -31,12 +33,37 @@
     > *
       pointer-events: none
 
+  &-loading
+    cursor: default
+
+    &.button-color-default, &.button-color-text-default
+      background: $blue-lighten-1
+
+    &.button-color-primary, &.button-color-text-primary
+      background: $blue-lighten-1
+
+    &.button-color-success, &.button-color-text-success
+      background: $green-lighten-1
+
+    &.button-color-warning, &.button-color-text-warning
+      background: $orange-lighten-1
+
+    &.button-color-danger, &.button-color-text-danger
+      background: $red-lighten-1
+
+  &-loading i
+    position: relative
+    //top: 25%
+    //left: 20%
+    animation: rotation linear 1s infinite
+
+
   &-type-default
     display: inline-block
     border: 1px solid var(--color-border)
     box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015)
-    padding: 0 1.5rem
-
+    //padding: 0 2.5rem
+    width: 3rem
 
   &-type-text
     height: 1rem
@@ -122,7 +149,7 @@
     color: $green-lighten-1
 
     &:not([disabled]):hover
-      color: $green-lighten-1
+      color: $green-lighten-2
 
   &-color-text-warning
     color: $orange-lighten-1
@@ -137,3 +164,6 @@
       color: $red-lighten-2
 
 
+@keyframes rotation
+  100%
+    transform: rotate(360deg)
