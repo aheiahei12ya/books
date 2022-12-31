@@ -1,11 +1,12 @@
 import { rest } from 'msw'
 
-import { BaseResponse } from '@/utils/response/types'
+import { invokeSuccess } from '@/constants/resultCode'
+import { BaseResponse } from '@/lib/response/types'
 
 const mockGet = (
   path: string,
   data?: object,
-  resultCode: string = '1000',
+  resultCode: string = invokeSuccess,
   resultMessage: string = '',
   success: boolean = true
 ) =>
@@ -22,7 +23,7 @@ const mockGet = (
 const mockPost = (
   path: string,
   data?: object,
-  resultCode: string = '1000',
+  resultCode: string = invokeSuccess,
   resultMessage: string = 'success',
   success: boolean = true
 ) =>
@@ -36,4 +37,33 @@ const mockPost = (
     return res(ctx.json(response))
   })
 
-export { mockGet, mockPost }
+const mockLogin = (
+  path: string,
+  data?: object,
+  resultCode: string = invokeSuccess,
+  resultMessage: string = 'success',
+  success: boolean = true
+) =>
+  rest.post(path, (_req, res, ctx) => {
+    const maxAge = 60 * 60 * 8
+
+    const expires = new Date()
+    expires.setSeconds(expires.getSeconds() + maxAge)
+
+    const cookieOptions = {
+      maxAge,
+      expires
+    }
+    const response: BaseResponse = {
+      success: success,
+      data: data,
+      resultCode: resultCode,
+      resultMessage: resultMessage
+    }
+    return res(
+      ctx.json(response),
+      ctx.cookie('session_token', 'abc', cookieOptions)
+    )
+  })
+
+export { mockGet, mockLogin, mockPost }
