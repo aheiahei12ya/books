@@ -1,10 +1,14 @@
+import { createRequest } from '@/lib/request'
+import { BaseResponse } from '@/lib/response/types'
 import { LoginRequest, LoginResponse } from '@/services/login/types'
-import { createRequest } from '@/utils/request'
-import { BaseResponse } from '@/utils/response/types'
 
 const login = {
-  submit: createRequest<LoginRequest, BaseResponse<LoginResponse>>(
-    '/submit',
+  login: createRequest<LoginRequest, BaseResponse<LoginResponse>>(
+    '/api/userLogin',
+    'POST'
+  ),
+  userInfo: createRequest<LoginRequest, BaseResponse<LoginResponse>>(
+    '/api/userInfo',
     'POST'
   )
 }
