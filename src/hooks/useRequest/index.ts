@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import { useRequestOptions, useRequestReturn } from '@/hooks/useRequest/types'
-import { BaseResponse } from '@/utils/response/types'
+import { BaseResponse } from '@/lib/response/types'
 
 function useRequest<T = any>(
   requestFn: (data?: T) => Promise<any>,
@@ -18,15 +18,17 @@ function useRequest<T = any>(
         .then((res: Response) => res.json())
         .then((jsonData: BaseResponse) => {
           setData(jsonData)
+          options.onSuccess?.(jsonData)
         })
         .catch((err: Error) => {
           setError(err as Error)
+          options.onError?.()
         })
         .finally(() => {
-          setLoading(false)
+          setTimeout(() => setLoading(false), 3000)
         })
     },
-    [requestFn]
+    [options, requestFn]
   )
 
   useEffect(() => {

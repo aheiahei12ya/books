@@ -10,4 +10,6 @@ export interface useRequestOptions<P = any> {
   manual?: boolean
   defaultLoading?: boolean
   defaultParams?: P
+  onSuccess?: (data?: any) => void
+  onError?: (data?: any) => void
 }
