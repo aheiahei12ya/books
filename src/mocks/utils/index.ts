@@ -1,21 +1,20 @@
 import { rest } from 'msw'
 
-import { invokeSuccess } from '@/constants/resultCode'
 import { BaseResponse } from '@/lib/response/types'
 
 const mockGet = (
   path: string,
   data?: object,
-  resultCode: string = invokeSuccess,
-  resultMessage: string = '',
+  errorCode?: string,
+  errorMessage?: string,
   success: boolean = true
 ) =>
   rest.get(path, (_req, res, ctx) => {
     const response: BaseResponse = {
       success: success,
       data: data,
-      resultCode: resultCode,
-      resultMessage: resultMessage
+      errorCode: errorCode,
+      errorMessage: errorMessage
     }
     return res(ctx.json(response))
   })
@@ -23,16 +22,16 @@ const mockGet = (
 const mockPost = (
   path: string,
   data?: object,
-  resultCode: string = invokeSuccess,
-  resultMessage: string = 'success',
+  errorCode?: string,
+  errorMessage?: string,
   success: boolean = true
 ) =>
   rest.post(path, (_req, res, ctx) => {
     const response: BaseResponse = {
       success: success,
       data: data,
-      resultCode: resultCode,
-      resultMessage: resultMessage
+      errorCode: errorCode,
+      errorMessage: errorMessage
     }
     return res(ctx.json(response))
   })
@@ -40,8 +39,8 @@ const mockPost = (
 const mockLogin = (
   path: string,
   data?: object,
-  resultCode: string = invokeSuccess,
-  resultMessage: string = 'success',
+  errorCode?: string,
+  errorMessage?: string,
   success: boolean = true
 ) =>
   rest.post(path, (_req, res, ctx) => {
@@ -57,8 +56,8 @@ const mockLogin = (
     const response: BaseResponse = {
       success: success,
       data: data,
-      resultCode: resultCode,
-      resultMessage: resultMessage
+      errorCode: errorCode,
+      errorMessage: errorMessage
     }
     return res(
       ctx.json(response),

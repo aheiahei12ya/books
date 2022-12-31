@@ -44,8 +44,8 @@ const Login: React.FC = () => {
       manual: true,
       onSuccess: (data) => {
         if (!data.success) {
-          data.resultCode === accountError && setUsernameIncorrect(true)
-          data.resultCode === passwordError && setPasswordIncorrect(true)
+          data.errorCode === accountError && setUsernameIncorrect(true)
+          data.errorCode === passwordError && setPasswordIncorrect(true)
         } else {
           auth.setLogin(true)
           auth.setUserInfo(data.data)
