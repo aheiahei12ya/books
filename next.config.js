@@ -23,6 +23,16 @@ const nextConfig = {
       })
 
     return config
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'aheiahei.imdo.co',
+        port: '8081',
+        pathname: '/repository/blob/**'
+      }
+    ]
   }
 }
 

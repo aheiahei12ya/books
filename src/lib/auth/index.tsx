@@ -1,22 +1,24 @@
 import Router from 'next/router'
 import { createContext, useContext, useEffect, useState } from 'react'
 
+import { LoginResponse } from '@/services/login/types'
+
 interface authContext {
   isLogin: boolean
-  userInfo: object
+  userInfo: LoginResponse
   setLogin: (val: boolean) => void
   setLogout: () => void
-  setUserInfo: (val: object) => void
+  setUserInfo: (val: LoginResponse) => void
 }
 
 const AuthContext = createContext<authContext>({} as authContext)
 
 export const AuthContextProvider = ({ children }: any) => {
   const [isLogin, setLogin] = useState<boolean>(false)
-  const [userInfo, setUserInfo] = useState({})
+  const [userInfo, setUserInfo] = useState<LoginResponse>({} as LoginResponse)
   const setLogout = () => {
     setLogin(false)
-    setUserInfo({})
+    setUserInfo({} as LoginResponse)
   }
   const contextValue = {
     isLogin: isLogin,

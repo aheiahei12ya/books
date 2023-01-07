@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import avatarImage from '@/assets/avatar.png'
 import Sidebar from '@/components/sidebar'
 import { useAuth } from '@/lib/auth'
 
@@ -16,8 +15,10 @@ interface layoutProps {
 const Layout = ({ children }: layoutProps) => {
   const auth = useAuth()
   const router = useRouter()
-  const avatar = (
-    <Image src={avatarImage} width="60" height="60" alt={'avatar'} />
+  const avatar = auth?.userInfo?.avatar ? (
+    <Image src={auth?.userInfo?.avatar} width="60" height="60" alt={'avatar'} />
+  ) : (
+    <span></span>
   )
 
   const items = [
@@ -45,6 +46,7 @@ const Layout = ({ children }: layoutProps) => {
       icon: <i className="fa-solid fa-arrow-right-from-bracket"></i>,
       onClick: () => {
         sessionStorage.removeItem('userInfo')
+        sessionStorage.removeItem('selectedKey')
         router.replace('/login')
       }
     }

@@ -6,6 +6,7 @@ export interface LoginRequest {
 export interface LoginResponse {
   permissions?: string[]
   nickName: string
+  avatar?: string
   userInfo: {
     id: string
   }
