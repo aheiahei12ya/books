@@ -1,0 +1,113 @@
+@use '@/styles/variable' as *
+
+@mixin sidebar-button
+  position: relative
+
+  display: flex
+  height: 2rem
+  padding: 6px 12px
+  margin: 4px 0
+  overflow: hidden
+
+  line-height: 2rem
+
+  cursor: pointer
+  transition: background ease 0.25s, color ease 0.35s
+
+  &-icon
+    position: absolute
+    font-size: 1.2rem
+    width: 1.2rem
+    text-align: center
+
+  &-text
+    position: absolute
+    left: 3rem
+
+    width: 75px
+
+    overflow: hidden
+    //white-space: nowrap
+    //text-overflow: ellipsis
+
+    &-hidden
+      animation-name: shrink
+      animation-duration: .2s
+      animation-fill-mode: both
+
+
+@mixin sidebar-center
+  position: relative
+
+  display: flex
+  justify-content: center
+
+  height: 4.25rem
+  margin: 0.923rem auto
+
+  line-height: 3rem
+  text-align: center
+
+
+.sidebar-button
+  @include sidebar-button
+
+  &:hover, &-selected
+    background: var(--color-selected)
+    border-radius: 4px
+
+
+.sidebar-tool-button
+  @include sidebar-button
+
+  &:hover
+    color: $blue
+
+
+.sidebar-tool-button-center
+  @include sidebar-button
+  justify-content: center
+
+  &:hover
+    color: $blue
+
+
+.sidebar-brand
+  @include sidebar-center
+
+  &-icon
+    font-size: 2rem
+
+  &-text
+    position: relative
+    left: 0.615rem
+
+    font-size: 1.5rem
+    overflow: hidden
+
+    &-hidden
+      width: 0
+
+
+.sidebar-avatar
+  @include sidebar-center
+
+  &-icon
+    position: relative
+    width: 3rem
+
+    img
+      position: absolute
+      //top: -.85rem
+      left: -.35rem
+
+      width: 3.5rem
+      height: 3.5rem
+      border: $grey-lighten-1 double 2px
+      border-radius: 50%
+
+
+@keyframes shrink
+  to
+    width: 0
+
