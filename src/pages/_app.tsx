@@ -2,7 +2,6 @@ import '@/styles/global.sass'
 
 import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
-import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { IntlProvider } from 'react-intl'
 
@@ -23,21 +22,12 @@ type AppPropsWithLayout = AppProps & {
 }
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
-  const router = useRouter()
   const [locale, setLocale] = useState('zh-CN')
   const message = loadLocale(locale)
 
   const basic = (children: JSX.Element) => (
     <IntlProvider locale={locale} messages={message}>
       <div style={{ position: 'absolute', right: '0' }}>
-        <button
-          onClick={() => {
-            sessionStorage.removeItem('userInfo')
-            router.replace('/login')
-          }}
-        >
-          logout
-        </button>
         <button onClick={() => setLocale('en-US')}>en-US</button>
         <button onClick={() => setLocale('zh-CN')}>zh-CN</button>
       </div>
