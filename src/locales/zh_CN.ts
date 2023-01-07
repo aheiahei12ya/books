@@ -8,5 +8,10 @@ export const zh_CN = {
   'pages.login.password.incorrect': '请输入正确的密码!',
   'pages.login.button.login': '登录',
   'pages.login.checkbox.remember': '记住密码',
-  'pages.login.button.forget': '忘记密码？'
+  'pages.login.button.forget': '忘记密码？',
+
+  'layout.sidebar.button.dashboard': '总览',
+  'layout.sidebar.button.statistic': '统计',
+  'layout.sidebar.button.logout': '退出',
+  'layout.sidebar.button.setting': '设置'
 }

@@ -8,5 +8,10 @@ export const en_US = {
   'pages.login.password.incorrect': 'Please enter correct password!',
   'pages.login.button.login': 'Log In',
   'pages.login.checkbox.remember': 'Remember Password',
-  'pages.login.button.forget': 'Forget Password?'
+  'pages.login.button.forget': 'Forget Password?',
+
+  'layout.sidebar.button.dashboard': 'Dashboard',
+  'layout.sidebar.button.statistic': 'Statistic',
+  'layout.sidebar.button.logout': 'Logout',
+  'layout.sidebar.button.setting': 'Setting'
 }
