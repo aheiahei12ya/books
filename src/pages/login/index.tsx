@@ -175,8 +175,10 @@ const Login: React.FC = () => {
           </Button>
         </div>
       </div>
-      { resize.isPC && (
-        <div className={ classNames(styles.loginIllustrate) }>
+      <div
+        className={ classNames(styles.loginIllustrate, styles.hiddenSmAndDown) }
+      >
+        { resize.isPC && (
           <Image
             src={ illustrateUrl }
             alt={ '' }
@@ -184,8 +186,8 @@ const Login: React.FC = () => {
             placeholder="blur"
             blurDataURL={ rgbDataURL(250, 250, 250) }
           />
-        </div>
-      ) }
+        ) }
+      </div>
     </div>
   )
 }
