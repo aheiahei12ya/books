@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
@@ -6,9 +7,12 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import Button from '@/components/button'
 import Checkbox from '@/components/checkbox'
 import Input, { InputRef } from '@/components/input'
+import { illustrateUrl } from '@/constants/resource'
 import { accountError, passwordError } from '@/constants/resultCode'
 import useRequest from '@/hooks/useRequest'
+import useResize from '@/hooks/useResize'
 import { useAuth } from '@/lib/auth'
+import { rgbDataURL } from '@/lib/image'
 import services from '@/services'
 
 import styles from './index.module.sass'
@@ -18,6 +22,7 @@ const Login: React.FC = () => {
   const i18n = useIntl()
   const router = useRouter()
   const auth = useAuth()
+  const resize = useResize()
 
   const usernameRef = useRef<InputRef>(null)
   const passwordRef = useRef<InputRef>(null)
@@ -79,6 +84,17 @@ const Login: React.FC = () => {
               id={ 'pages.login.title.welcome' }
             ></FormattedMessage>
           </span>
+          { resize.isMobile && (
+            <>
+              <Image
+                src={ illustrateUrl }
+                alt={ '' }
+                fill
+                placeholder="blur"
+                blurDataURL={ rgbDataURL(250, 250, 250) }
+              />
+            </>
+          ) }
         </div>
         <div className={ classNames(styles.loginPanelForm) }>
           <Input
@@ -159,9 +175,17 @@ const Login: React.FC = () => {
           </Button>
         </div>
       </div>
-      <div
-        className={ classNames(styles.loginIllustrate, styles.hiddenSmAndDown) }
-      ></div>
+      { resize.isPC && (
+        <div className={ classNames(styles.loginIllustrate) }>
+          <Image
+            src={ illustrateUrl }
+            alt={ '' }
+            fill
+            placeholder="blur"
+            blurDataURL={ rgbDataURL(250, 250, 250) }
+          />
+        </div>
+      ) }
     </div>
   )
 }

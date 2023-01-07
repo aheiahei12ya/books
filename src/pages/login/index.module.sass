@@ -1,8 +1,8 @@
 @use '../../styles/variable' as *
 
 .login
-  height: 100%
   display: flex
+  height: 100%
 
   &-panel
     flex: 4
@@ -15,12 +15,20 @@
       align-items: center
 
     &-logo
-      height: 40%
+      position: relative
+
       display: flex
+      box-sizing: border-box
+      height: 40%
       align-items: center
       justify-content: center
+
       font-size: $text-h2
-      box-sizing: border-box
+      overflow: hidden
+
+      img
+        z-index: -1
+        object-fit: cover
 
       @media (max-width: #{ $x-small-screen-max }px)
         height: calc(100% - 270px)
@@ -28,21 +36,20 @@
         color: white
         -webkit-text-stroke: 1px $blue
         vertical-align: 10px
-        background: center url('../../assets/login/illustrate.png')
-        background-size: cover
+        background-position: center
 
     &-form
+      box-sizing: border-box
       height: 60%
       padding: 10%
-      box-sizing: border-box
 
       @media (max-width: #{ $x-small-screen-max }px)
-        height: 270px
         display: flex
         flex-direction: column
-        justify-content: flex-end
+        height: 270px
         padding-top: 3%
         padding-bottom: 7%
+        justify-content: flex-end
 
       @media (min-width: #{ $x-small-screen-min }px)
         max-width: 100%
@@ -58,9 +65,16 @@
 
 
   &-illustrate
+    position: relative
+
     flex: 9
-    background: center url('../../assets/login/illustrate.png')
+    overflow: hidden
+
+    background-position: center
     background-size: contain
     background-repeat: no-repeat
-    background-color: #FAFAFA
+    background-color: #fafafa
+
+    img
+      object-fit: contain
 

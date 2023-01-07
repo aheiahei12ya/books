@@ -4,7 +4,7 @@ import { mockLogin, mockPost } from '@/mocks/utils'
 const login = [
   mockLogin('/api/userLogin', {
     nickName: '12ya',
-    avatar: 'http://aheiahei.imdo.co:8081/repository/blob/blob%2Favatar%2Favatar.png',
+    avatar: 'http://aheiahei.imdo.co:8081/repository/blob/avatar/avatar.png',
     userInfo: {
       id: '1'
     }

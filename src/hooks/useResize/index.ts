@@ -16,7 +16,7 @@ const useResize = () => {
     })
   }, [])
   useEffect(() => {
-    getSize
+    getSize()
     window.addEventListener('resize', getSize)
     return () => window.removeEventListener('resize', getSize)
   }, [getSize])
