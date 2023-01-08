@@ -85,15 +85,14 @@ const Login: React.FC = () => {
             ></FormattedMessage>
           </span>
           { resize.isMobile && (
-            <>
-              <Image
-                src={ illustrateUrl }
-                alt={ '' }
-                fill
-                placeholder="blur"
-                blurDataURL={ rgbDataURL(250, 250, 250) }
-              />
-            </>
+            <Image
+              src={ illustrateUrl }
+              alt={ '' }
+              fill
+              priority
+              placeholder="blur"
+              blurDataURL={ rgbDataURL(250, 250, 250) }
+            />
           ) }
         </div>
         <div className={ classNames(styles.loginPanelForm) }>
@@ -183,6 +182,7 @@ const Login: React.FC = () => {
             src={ illustrateUrl }
             alt={ '' }
             fill
+            priority
             placeholder="blur"
             blurDataURL={ rgbDataURL(250, 250, 250) }
           />

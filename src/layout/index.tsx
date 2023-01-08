@@ -16,7 +16,7 @@ const Layout = ({ children }: layoutProps) => {
   const auth = useAuth()
   const router = useRouter()
   const avatar = auth?.userInfo?.avatar ? (
-    <Image src={auth?.userInfo?.avatar} width="60" height="60" alt={'avatar'} />
+    <Image src={auth?.userInfo?.avatar} width="60" height="60" alt={'avatar'} priority />
   ) : (
     <span></span>
   )
