@@ -26,6 +26,7 @@ export const Sidebar = forwardRef<unknown, SidebarProps>((props, ref) => {
   useEffect(() => {
     if (props.autoShrink) {
       size.isMobile ? setShrink(true) : setShrink(false)
+      window.dispatchEvent(new Event('resize'))
     }
   }, [props.autoShrink, size])
 
