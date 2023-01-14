@@ -31,7 +31,6 @@
         object-fit: cover
 
       @media (max-width: #{ $x-small-screen-max }px)
-        height: calc(100% - 270px)
         min-height: 60%
         color: white
         -webkit-text-stroke: 1px $blue
@@ -39,29 +38,26 @@
         background-position: center
 
     &-form
+      position: relative
       box-sizing: border-box
       height: 60%
-      padding: 10%
+      padding: 0 10%
+      margin: 10% 0 auto
+
 
       @media (max-width: #{ $x-small-screen-max }px)
         display: flex
         flex-direction: column
         height: 270px
-        padding-top: 3%
-        padding-bottom: 7%
-        justify-content: flex-end
 
       @media (min-width: #{ $x-small-screen-min }px)
         max-width: 100%
-        margin: auto
 
       @media (min-width: #{ $small-screen-min }px)
         max-width: 90%
-        margin: auto
 
       @media (min-width: #{ $large-screen-min }px)
         max-width: 85%
-        margin: auto
 
 
   &-illustrate
