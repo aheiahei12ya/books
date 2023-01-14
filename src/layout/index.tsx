@@ -16,7 +16,13 @@ const Layout = ({ children }: layoutProps) => {
   const auth = useAuth()
   const router = useRouter()
   const avatar = auth?.userInfo?.avatar ? (
-    <Image src={auth?.userInfo?.avatar} width="60" height="60" alt={'avatar'} priority />
+    <Image
+      src={auth?.userInfo?.avatar}
+      width="60"
+      height="60"
+      alt={'avatar'}
+      priority
+    />
   ) : (
     <span></span>
   )
@@ -25,7 +31,7 @@ const Layout = ({ children }: layoutProps) => {
     {
       name: <FormattedMessage id={'layout.sidebar.button.dashboard'} />,
       icon: <i className="fa-solid fa-chart-tree-map"></i>,
-      path: '/dashboard',
+      path: '/home',
       selected: true
     },
     {
