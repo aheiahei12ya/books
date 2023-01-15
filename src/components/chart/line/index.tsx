@@ -18,7 +18,7 @@ const Line = forwardRef<unknown, LineProps>((props, ref) => {
       canvasDom: HTMLCanvasElement,
       xs: number[],
       ys: number[],
-      padding: number = 10
+      padding: number = 15
     ) => {
       const context = canvasRef.current.getContext('2d')
       const xTicks = setCoordinate(

@@ -35,11 +35,11 @@ export const drawCurve = (
 
   ctx.beginPath()
   ctx.strokeStyle = lineColor || '#aeaeae'
-  ctx.lineWidth = 2
+  ctx.lineWidth = 1
 
   // 公式推导
   // https://wenku.baidu.com/view/c790f8d46bec0975f565e211.html?_wkts_=1673767798427
-  for (let i = 0; i < points.length; ++i) {
+  for (let i = 0; i < points.length - 1; ++i) {
     const nextPoints = i + 1 < points.length ? points[i + 1] : points[i]
     const [previousX, previousY] = i - 1 > 0 ? points[i - 1] : points[i]
     const [x, y] = points[i]
