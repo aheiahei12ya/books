@@ -1,0 +1,75 @@
+@use '@/styles/variable' as *
+@use '@/styles/breakpoint.sass' as *
+
+.main
+  display: flex
+  height: 100%
+  width: 100%
+
+.main-content
+  flex: 5
+  display: flex
+  flex-direction: column
+  box-sizing: border-box
+  height: 100%
+  width: 100%
+  gap: 12px
+  padding: 24px 16px
+  overflow: auto
+
+  .title
+    flex: 0
+
+  .trend
+    flex: 2
+    display: flex
+    gap: 12px
+    height: 20%
+    min-height: 20%
+
+    @media (max-width: #{ $x-small-screen-min }px)
+      flex-direction: column
+
+    span
+      margin: 0
+
+    &-outcome
+      flex: 1
+      border-radius: 16px
+      text-align: center
+
+
+    &-balance
+      flex: 1
+      border-radius: 16px
+      text-align: center
+
+  .booking
+    flex: 4
+
+  .booking2
+    flex: 4
+
+
+.vice-content
+  flex: 4
+  display: flex
+  flex-direction: column
+  box-sizing: border-box
+  height: 100%
+  width: 100%
+  gap: 12px
+  padding: 24px 16px
+
+  box-shadow: -10px 0 54px 30px rgba(0, 0, 0, 0.04)
+  @media (prefers-color-scheme: dark)
+    box-shadow: -10px 0 54px 30px rgba(148, 148, 148, 0.06)
+
+  .currentCount
+    flex: 1
+
+  .spendDiff
+    flex: 3
+
+  .spendDays
+    flex: 2
