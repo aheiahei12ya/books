@@ -5,7 +5,7 @@ import { BaseResponse } from '@/lib/response/types'
 
 function useRequest<T = any>(
   requestFn: (data?: T) => Promise<any>,
-  options: useRequestOptions
+  options?: useRequestOptions
 ): useRequestReturn {
   const [loading, setLoading] = useState<boolean>(false)
   const [data, setData] = useState<object>()
@@ -18,11 +18,11 @@ function useRequest<T = any>(
         .then((res: Response) => res.json())
         .then((jsonData: BaseResponse) => {
           setData(jsonData)
-          options.onSuccess?.(jsonData)
+          options?.onSuccess?.(jsonData)
         })
         .catch((err: Error) => {
           setError(err as Error)
-          options.onError?.()
+          options?.onError?.()
         })
         .finally(() => {
           setTimeout(() => setLoading(false), 3000)
@@ -32,10 +32,10 @@ function useRequest<T = any>(
   )
 
   useEffect(() => {
-    if (!options.manual) {
-      run(options.defaultParams)
+    if (!options?.manual) {
+      run(options?.defaultParams)
     }
-  }, [options, run])
+  }, [])
 
   return {
     loading,
