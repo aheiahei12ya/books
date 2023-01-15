@@ -1,3 +1,3 @@
-import Line from './Line'
+import Line from './line'
 
 export { Line }
