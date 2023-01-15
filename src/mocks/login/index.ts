@@ -2,7 +2,7 @@ import { accountError, passwordError } from '@/constants/resultCode'
 import { mockLogin, mockPost } from '@/mocks/utils'
 
 const login = [
-  mockLogin('/api/userLogin', {
+  mockLogin('/api/user-login', {
     nickName: '12ya',
     avatar: 'http://aheiahei.imdo.co:8081/repository/blob/avatar/avatar.png',
     userInfo: {
@@ -10,7 +10,7 @@ const login = [
     }
   }),
   mockLogin(
-    '/api/userLogin(accountError)',
+    '/api/user-login(accountError)',
     {
       nickName: '12ya',
       userInfo: {
@@ -22,7 +22,7 @@ const login = [
     false
   ),
   mockLogin(
-    '/api/userLogin(passwordError)',
+    '/api/user-login(passwordError)',
     {
       nickName: '12ya',
       userInfo: {
@@ -33,7 +33,7 @@ const login = [
     'password error',
     false
   ),
-  mockPost('/api/userInfo', {
+  mockPost('/api/user-info', {
     nickName: '12ya',
     userInfo: {
       id: '1'
