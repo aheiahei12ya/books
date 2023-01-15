@@ -6,17 +6,19 @@ export function setCoordinate(
   canvasWidth: number,
   splitNumber: number,
   hideAxes?: boolean,
-  padding?: number,
+  paddingX?: number,
+  paddingY?: number,
   lineColor?: string
 ) {
-  const _padding = padding || 10
-  const gap = (canvasWidth - _padding * 2) / (splitNumber - 1)
+  const _paddingX = paddingX || 15
+  const _paddingY = paddingY || 10
+  const gap = (canvasWidth - _paddingX * 2) / (splitNumber - 1)
   return range(splitNumber).map((i) => {
-    const x = i ? i * gap + _padding : _padding
+    const x = i ? i * gap + _paddingX : _paddingX
     if (!hideAxes) {
       ctx.beginPath()
-      ctx.moveTo(x, _padding)
-      ctx.lineTo(x, canvasHeight - _padding)
+      ctx.moveTo(x, _paddingY)
+      ctx.lineTo(x, canvasHeight - _paddingY)
       ctx.strokeStyle = lineColor || '#aeaeae'
       ctx.stroke()
       ctx.closePath()
