@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { Device, SizeProps } from './types'
 
-const useResize = () => {
+const useResize = (callback?: Function) => {
   const [size, setSize] = useState<SizeProps>({ width: 0, height: 0 })
   const getSize = useCallback(() => {
     const width = document.documentElement.clientWidth
@@ -14,11 +14,15 @@ const useResize = () => {
       isPC: device === Device.PC,
       isMobile: device === Device.mobile
     })
-  }, [])
+    callback?.()
+  }, [callback])
+
   useEffect(() => {
     getSize()
     window.addEventListener('resize', getSize)
-    return () => window.removeEventListener('resize', getSize)
+    return () => {
+      window.removeEventListener('resize', getSize)
+    }
   }, [getSize])
 
   return size
