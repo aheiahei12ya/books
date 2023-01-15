@@ -5,7 +5,7 @@ export function setCoordinate(
   canvasHeight: number,
   canvasWidth: number,
   splitNumber: number,
-  showLine?: boolean,
+  hideAxes?: boolean,
   padding?: number,
   lineColor?: string
 ) {
@@ -13,7 +13,7 @@ export function setCoordinate(
   const gap = (canvasWidth - _padding * 2) / (splitNumber - 1)
   return range(splitNumber).map((i) => {
     const x = i ? i * gap + _padding : _padding
-    if (!!showLine) {
+    if (!hideAxes) {
       ctx.beginPath()
       ctx.moveTo(x, _padding)
       ctx.lineTo(x, canvasHeight - _padding)

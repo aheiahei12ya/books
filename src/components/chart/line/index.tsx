@@ -1,9 +1,10 @@
-import React, { forwardRef, useCallback, useEffect, useRef } from 'react'
+import React, { forwardRef, useCallback, useRef } from 'react'
 
 import { adjustSize } from '@/components/chart/lib/canvas'
 import { drawCircle, drawHollowCircles } from '@/components/chart/lib/circle'
 import { setCoordinate } from '@/components/chart/lib/coordinate'
 import { drawLine } from '@/components/chart/lib/line'
+import useResize from '@/hooks/useResize'
 
 import styles from './index.module.sass'
 import { LineProps } from './index.types'
@@ -17,7 +18,7 @@ const Line = forwardRef<unknown, LineProps>((props, ref) => {
       canvasDom: HTMLCanvasElement,
       xs: number[],
       ys: number[],
-      padding: number = 20
+      padding: number = 10
     ) => {
       const context = canvasRef.current.getContext('2d')
       const xTicks = setCoordinate(
@@ -25,11 +26,11 @@ const Line = forwardRef<unknown, LineProps>((props, ref) => {
         canvasDom.height,
         canvasDom.width,
         xs.length,
-        true
+        props.hideAxes
       )
-      const yRatio = (canvasDom.height - padding) / Math.max(...ys)
+      const yRatio = (canvasDom.height - padding * 2) / Math.max(...ys)
       const yTicks = ys.map((y) => {
-        return canvasDom.height - y * yRatio - padding / 2
+        return canvasDom.height - y * yRatio - padding
       })
 
       drawLine(context, xTicks, yTicks)
@@ -41,7 +42,8 @@ const Line = forwardRef<unknown, LineProps>((props, ref) => {
           yTicks[yTicks.length - 1]
         )
     },
-    [props.accentLast, props.hidePoints]
+
+    [props.accentLast, props.hideAxes, props.hidePoints]
   )
 
   const initialCanvas = useCallback(() => {
@@ -50,13 +52,7 @@ const Line = forwardRef<unknown, LineProps>((props, ref) => {
     draw(canvasDom, props.xs, props.ys)
   }, [draw, props.xs, props.ys])
 
-  useEffect(() => {
-    initialCanvas()
-    window.addEventListener('resize', initialCanvas)
-    return () => {
-      window.removeEventListener('resize', initialCanvas)
-    }
-  }, [initialCanvas, canvasRef])
+  useResize(initialCanvas)
 
   return <canvas ref={canvasRef} className={styles.lineChart}></canvas>
 })

@@ -3,7 +3,8 @@ import { zip } from '@/lib/pythonic'
 export const drawLine = (
   ctx: CanvasRenderingContext2D,
   xs: number[],
-  ys: number[]
+  ys: number[],
+  lineColor?: string
 ) => {
   const points = zip(xs, ys)
   let previousX = 0
@@ -13,6 +14,7 @@ export const drawLine = (
     if (index) {
       ctx.moveTo(previousX, previousY)
       ctx.lineTo(x, y)
+      ctx.strokeStyle = lineColor || '#aeaeae'
       ctx.stroke()
     }
     if (index === points.length - 1) return
