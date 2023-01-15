@@ -1,7 +1,7 @@
 import React, { forwardRef, useCallback, useRef } from 'react'
 
 import { adjustSize } from '@/components/chart/lib/canvas'
-import { drawCircle, drawHollowCircles } from '@/components/chart/lib/circle'
+import { drawCircle, drawHollowCircle } from '@/components/chart/lib/circle'
 import { setCoordinate } from '@/components/chart/lib/coordinate'
 import { drawLine } from '@/components/chart/lib/line'
 import useResize from '@/hooks/useResize'
@@ -36,7 +36,7 @@ const Line = forwardRef<unknown, LineProps>((props, ref) => {
       drawLine(context, xTicks, yTicks)
       props.hidePoints || drawCircle(context, xTicks, yTicks)
       props.accentLast &&
-        drawHollowCircles(
+        drawHollowCircle(
           context,
           xTicks[xTicks.length - 1],
           yTicks[yTicks.length - 1]
