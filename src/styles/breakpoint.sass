@@ -1,12 +1,14 @@
 $x-small-screen: 600
 $small-screen: 960
 $middle-screen: 1280
+$normal-screen: 1600
 $large-screen: 1920
 $x-large-screen: 2560
 
 $x-small-screen-min: $x-small-screen
 $small-screen-min: $small-screen
 $middle-screen-min: $middle-screen
+$normal-screen-min: $normal-screen
 $large-screen-min: $large-screen
 $x-large-screen-min: $x-large-screen
 
@@ -14,14 +16,17 @@ $x-large-screen-min: $x-large-screen
 $x-small-screen-max: $small-screen-min - .02
 // 1198.98
 $small-screen-max: $middle-screen-min - .02
+// 1439.98
+$middle-screen-max: $normal-screen-min - .02
 // 1919.98
-$middle-screen-max: $large-screen-min - .02
+$normal-screen-max: $large-screen-min - .02
 // 2559.98
 $large-screen-max: $x-large-screen-min - .02
 
 $x-small-screen-container: $x-small-screen
 $small-screen-container: $small-screen
 $middle-screen-container: $middle-screen
+$normal-screen-container: $normal-screen
 $large-screen-container: $large-screen
 $x-large-screen-container: $x-large-screen
 
@@ -54,6 +59,10 @@ $x-large-screen-container: $x-large-screen
 
   .container
     max-width: #{ $middle-screen-container }px
+
+@media (min-width: #{ $normal-screen-min }px)
+  .container
+    max-width: #{ $normal-screen-container }px
 
 @media (min-width: #{ $large-screen-min }px)
   .d-xl-none
