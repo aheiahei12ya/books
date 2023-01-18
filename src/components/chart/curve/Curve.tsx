@@ -3,14 +3,14 @@ import React, { forwardRef, useCallback, useRef } from 'react'
 import { adjustSize } from '@/components/chart/lib/canvas'
 import { drawCircle, drawHollowCircle } from '@/components/chart/lib/circle'
 import { setCoordinate } from '@/components/chart/lib/coordinate'
-import { drawLine } from '@/components/chart/lib/line'
+import { drawCurve } from '@/components/chart/lib/line'
 import useResize from '@/hooks/useResize'
 
-import styles from './index.module.sass'
-import { LineProps } from './index.types'
+import styles from './Curve.module.sass'
+import { CurveProps } from './Curve.types'
 
-const Line = forwardRef<unknown, LineProps>((props, ref) => {
-  Line.displayName = 'Line'
+const Curve = forwardRef<unknown, CurveProps>((props, ref) => {
+  Curve.displayName = 'Curve'
   const canvasRef: any = useRef(null)
 
   const draw = useCallback(
@@ -33,7 +33,7 @@ const Line = forwardRef<unknown, LineProps>((props, ref) => {
         return canvasDom.height - y * yRatio - padding
       })
 
-      drawLine(context, xTicks, yTicks)
+      drawCurve(context, xTicks, yTicks)
       props.hidePoints || drawCircle(context, xTicks, yTicks)
       props.accentLast &&
         drawHollowCircle(
@@ -42,7 +42,6 @@ const Line = forwardRef<unknown, LineProps>((props, ref) => {
           yTicks[yTicks.length - 1]
         )
     },
-
     [props.accentLast, props.hideAxes, props.hidePoints]
   )
 
@@ -54,7 +53,7 @@ const Line = forwardRef<unknown, LineProps>((props, ref) => {
 
   useResize(initialCanvas)
 
-  return <canvas ref={canvasRef} className={styles.lineChart}></canvas>
+  return <canvas ref={canvasRef} className={styles.curveChart}></canvas>
 })
 
-export default Line
+export { Curve }

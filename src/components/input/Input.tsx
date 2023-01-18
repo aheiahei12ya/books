@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import { forwardRef, useId, useImperativeHandle, useRef, useState } from 'react'
 
-import styles from './index.module.sass'
+import styles from './Input.module.sass'
 import { InputProps, InputRef } from './Input.types'
 
 export const Input = forwardRef<InputRef, InputProps>((props, ref) => {

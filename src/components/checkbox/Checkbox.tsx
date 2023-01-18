@@ -1,8 +1,8 @@
 import classNames from 'classnames'
 import React, { forwardRef } from 'react'
 
+import styles from './Checkbox.module.sass'
 import { CheckboxProps, CheckboxRef } from './Checkbox.types'
-import styles from './index.module.sass'
 
 export const Checkbox = forwardRef<CheckboxRef, CheckboxProps>((props, ref) => {
   Checkbox.displayName = 'Checkbox'

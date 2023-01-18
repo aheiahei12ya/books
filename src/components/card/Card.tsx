@@ -3,7 +3,7 @@ import React, { forwardRef } from 'react'
 
 import { CardProps } from '@/components/card/Card.types'
 
-import styles from './index.module.sass'
+import styles from './Card.module.sass'
 
 const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
   Card.displayName = 'Card'

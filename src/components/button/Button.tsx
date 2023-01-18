@@ -1,8 +1,8 @@
 import classNames from 'classnames'
 import React, { forwardRef } from 'react'
 
+import styles from './Button.module.sass'
 import { ButtonProps, ButtonRef } from './Button.types'
-import styles from './index.module.sass'
 
 export const Button = forwardRef<ButtonRef, ButtonProps>((props, ref) => {
   Button.displayName = 'Button'

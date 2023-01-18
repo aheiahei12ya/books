@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import React, { forwardRef } from 'react'
 
-import styles from './index.module.sass'
+import styles from './SidebarButton.module.sass'
 import { SidebarButtonProps } from './SidebarButton.types'
 
 export const SidebarButton = forwardRef<unknown, SidebarButtonProps>(
