@@ -5,6 +5,7 @@ export interface ChartProps {
   hidePoints?: boolean
   hideAxes?: boolean
   paddingX?: number
-  paddingY?: number
+  paddingTop?: number
+  paddingBottom?: number
   coordinateColor?: string
 }

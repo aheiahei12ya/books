@@ -1,14 +1,14 @@
-import { zip } from '@/lib/pythonic'
+import { getValue, zip } from '@/lib/pythonic'
 
 export const drawLine = (
   ctx: CanvasRenderingContext2D,
   xs: number[],
   ys: number[],
-  lineWidth: number,
-  lineColor: string
+  lineWidth?: number | undefined,
+  lineColor?: string | undefined
 ) => {
-  ctx.strokeStyle = lineColor
-  ctx.lineWidth = lineWidth
+  ctx.strokeStyle = getValue(lineColor, '#aeaeae')
+  ctx.lineWidth = getValue(lineWidth, 3)
 
   const points = zip(xs, ys)
   let previousX = 0
@@ -32,15 +32,15 @@ export const drawCurve = (
   ctx: CanvasRenderingContext2D,
   xs: number[],
   ys: number[],
-  lineWidth: number,
-  lineColor: string
+  lineWidth?: number | undefined,
+  lineColor?: string | undefined
 ) => {
   const points = zip(xs, ys)
   const factor = 0.15
 
   ctx.beginPath()
-  ctx.strokeStyle = lineColor
-  ctx.lineWidth = lineWidth
+  ctx.strokeStyle = getValue(lineColor, '#aeaeae')
+  ctx.lineWidth = getValue(lineWidth, 3)
 
   // 公式推导
   // https://wenku.baidu.com/view/c790f8d46bec0975f565e211.html?_wkts_=1673767798427

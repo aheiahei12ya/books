@@ -4,8 +4,8 @@ export const drawHollowCircle = (
   ctx: CanvasRenderingContext2D,
   xs: number[] | number,
   ys: number[] | number,
-  circleColor: string,
-  shadowColor: string
+  circleColor?: string | undefined,
+  shadowColor?: string | undefined
 ) => {
   const dpr = window.devicePixelRatio
   const radius = 8 * dpr
@@ -13,9 +13,9 @@ export const drawHollowCircle = (
   const shadowWith = 3.5 * dpr
 
   ctx.lineWidth = ringWidth
-  ctx.strokeStyle = circleColor
+  ctx.strokeStyle = circleColor || '#fff'
   ctx.shadowBlur = shadowWith
-  ctx.shadowColor = shadowColor
+  ctx.shadowColor = shadowColor || 'rgba(0, 0, 0, 0.45)'
 
   if (isArrayLike(xs) && isArrayLike(ys)) {
     zip(xs, ys).forEach(([x, y]) => {
@@ -36,15 +36,15 @@ export const drawCircle = (
   ctx: CanvasRenderingContext2D,
   xs: number[] | number,
   ys: number[] | number,
-  circleColor: string,
-  shadowColor: string
+  circleColor?: string | undefined,
+  shadowColor?: string | undefined
 ) => {
   const dpr = window.devicePixelRatio
   const radius = 5 * dpr
   const shadowWith = 3.5 * dpr
   if (isArrayLike(xs) && isArrayLike(ys)) {
-    ctx.fillStyle = circleColor
-    ctx.shadowColor = shadowColor
+    ctx.fillStyle = circleColor || '#fff'
+    ctx.shadowColor = shadowColor || 'rgba(0, 0, 0, 0.45)'
     ctx.shadowBlur = shadowWith
 
     zip(xs, ys).forEach(([x, y]) => {

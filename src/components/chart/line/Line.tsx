@@ -5,6 +5,7 @@ import { drawCircle, drawHollowCircle } from '@/components/chart/lib/circle'
 import { setCoordinate } from '@/components/chart/lib/coordinate'
 import { drawLine } from '@/components/chart/lib/line'
 import useResize from '@/hooks/useResize'
+import { getValue } from '@/lib/pythonic'
 
 import styles from './Line.module.sass'
 import { LineProps } from './Line.types'
@@ -12,16 +13,9 @@ import { LineProps } from './Line.types'
 const Line = forwardRef<unknown, LineProps>((props, ref) => {
   Line.displayName = 'Line'
   const canvasRef: any = useRef(null)
-  const _paddingX = props.paddingX === undefined ? 30 : props.paddingX
-  const _paddingY = props.paddingY === undefined ? 30 : props.paddingY
-  const _lineWidth = props.lineWidth === undefined ? 3 : props.lineWidth
-  const _lineColor = props.lineColor === undefined ? '#aeaeae' : props.lineColor
-  const _shadowColor =
-    props.shadowColor === undefined ? 'rgba(0, 0, 0, 0.45)' : props.shadowColor
-  const _circleColor =
-    props.circleColor === undefined ? '#fff' : props.circleColor
-  const _coordinateColor =
-    props.coordinateColor === undefined ? '#aeaeae' : props.coordinateColor
+  const _paddingX = getValue(props.paddingX, 15)
+  const _paddingTop = getValue(props.paddingTop, 15)
+  const _paddingBottom = getValue(props.paddingBottom, 15)
 
   const draw = useCallback(
     (
@@ -29,53 +23,57 @@ const Line = forwardRef<unknown, LineProps>((props, ref) => {
       xs: number[],
       ys: number[],
       paddingX: number,
-      paddingY: number
+      paddingTop: number,
+      paddingBottom: number
     ) => {
       const context = canvasRef.current.getContext('2d')
-      const xTicks = setCoordinate(
+      const [xTicks, yTicks] = setCoordinate(
         context,
         canvasDom.height,
         canvasDom.width,
-        xs.length,
-        props.hideAxes,
+        xs,
+        ys,
         paddingX,
-        paddingY,
-        _coordinateColor
+        paddingTop,
+        paddingBottom,
+        !!props.hideAxes
       )
-      const yRatio = (canvasDom.height - paddingY * 2) / Math.max(...ys)
-      const yTicks = ys.map((y) => {
-        return canvasDom.height - y * yRatio - paddingY
-      })
 
-      drawLine(context, xTicks, yTicks, _lineWidth, _lineColor)
+      drawLine(context, xTicks, yTicks, props.lineWidth, props.lineColor)
       props.hidePoints ||
-        drawCircle(context, xTicks, yTicks, _circleColor, _shadowColor)
+        drawCircle(
+          context,
+          xTicks,
+          yTicks,
+          props.circleColor,
+          props.shadowColor
+        )
       props.accentLast &&
         drawHollowCircle(
           context,
           xTicks[xTicks.length - 1],
           yTicks[yTicks.length - 1],
-          _circleColor,
-          _shadowColor
+          props.circleColor,
+          props.shadowColor
         )
     },
 
     [
-      _circleColor,
-      _lineColor,
-      _lineWidth,
-      _shadowColor,
       props.accentLast,
+      props.circleColor,
       props.hideAxes,
-      props.hidePoints
+      props.hidePoints,
+      props.lineColor,
+      props.lineWidth,
+      props.shadowColor
     ]
   )
 
   const initialCanvas = useCallback(() => {
     const canvasDom = canvasRef?.current!
     adjustSize(canvasDom)
-    draw(canvasDom, props.xs, props.ys, _paddingX, _paddingY)
-  }, [_paddingX, _paddingY, draw, props.xs, props.ys])
+    draw(canvasDom, props.xs, props.ys, _paddingX, _paddingTop, _paddingBottom)
+  }, [_paddingBottom, _paddingTop, _paddingX, draw, props.xs, props.ys])
 
   useResize(initialCanvas)
 
