@@ -13,9 +13,13 @@ const Bar = forwardRef<unknown, BarProps>((props, ref) => {
   Bar.displayName = 'Bar'
   const canvasRef: any = useRef(null)
   const _gap = getValue(props.gap, 5)
-  const _paddingX = getValue(props.paddingX, 15)
-  const _paddingTop = getValue(props.paddingTop, 0)
-  const _paddingBottom = getValue(props.paddingBottom, 10)
+  const _paddingLeft = getValue(props.paddingLeft, !!props.showYTicks ? 16 : 0)
+  const _paddingRight = getValue(props.paddingRight, 0)
+  const _paddingTop = getValue(props.paddingTop, 4)
+  const _paddingBottom = getValue(
+    props.paddingBottom,
+    !!props.showXTicks ? 14 : 0
+  )
 
   const draw = useCallback(
     (
@@ -23,7 +27,8 @@ const Bar = forwardRef<unknown, BarProps>((props, ref) => {
       xs: number[],
       ys: number[],
       gap: number,
-      paddingX: number,
+      paddingLeft: number,
+      paddingRight: number,
       paddingTop: number,
       paddingBottom: number
     ) => {
@@ -36,12 +41,17 @@ const Bar = forwardRef<unknown, BarProps>((props, ref) => {
         canvasDom.width,
         xs,
         ys,
-        paddingX,
+        paddingLeft,
+        paddingRight,
         paddingTop,
         paddingBottom,
-        !!props.hideAxes,
+        !!props.showXAxes,
+        !!props.showYAxes,
+        !!props.showXTicks,
+        !!props.showYTicks,
         'bar'
       )
+
       const barGap = xTicks[1] - xTicks[0] - gap * dpr
       drawRect(
         context,
@@ -50,11 +60,10 @@ const Bar = forwardRef<unknown, BarProps>((props, ref) => {
         canvasDom.height,
         canvasDom.width,
         barGap,
-        paddingTop,
         paddingBottom
       )
     },
-    [props.coordinateColor, props.hideAxes]
+    [props.showXAxes, props.showXTicks, props.showYAxes, props.showYTicks]
   )
 
   const initialCanvas = useCallback(() => {
@@ -65,14 +74,24 @@ const Bar = forwardRef<unknown, BarProps>((props, ref) => {
       props.xs,
       props.ys,
       _gap,
-      _paddingX,
+      _paddingLeft,
+      _paddingRight,
       _paddingTop,
       _paddingBottom
     )
-  }, [draw, props.xs, props.ys, _gap, _paddingX, _paddingTop, _paddingBottom])
+  }, [
+    draw,
+    props.xs,
+    props.ys,
+    _gap,
+    _paddingLeft,
+    _paddingRight,
+    _paddingTop,
+    _paddingBottom
+  ])
 
   useResize(initialCanvas)
-  return <canvas ref={ canvasRef } className={ styles.bar }></canvas>
+  return <canvas ref={canvasRef} className={styles.bar}></canvas>
 })
 
 export { Bar }

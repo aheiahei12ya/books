@@ -13,7 +13,8 @@ import { LineProps } from './Line.types'
 const Line = forwardRef<unknown, LineProps>((props, ref) => {
   Line.displayName = 'Line'
   const canvasRef: any = useRef(null)
-  const _paddingX = getValue(props.paddingX, 15)
+  const _paddingLeft = getValue(props.paddingLeft, !!props.showYTicks ? 20 : 8)
+  const _paddingRight = getValue(props.paddingRight, 14)
   const _paddingTop = getValue(props.paddingTop, 15)
   const _paddingBottom = getValue(props.paddingBottom, 15)
 
@@ -22,7 +23,8 @@ const Line = forwardRef<unknown, LineProps>((props, ref) => {
       canvasDom: HTMLCanvasElement,
       xs: number[],
       ys: number[],
-      paddingX: number,
+      paddingLeft: number,
+      paddingRight: number,
       paddingTop: number,
       paddingBottom: number
     ) => {
@@ -33,10 +35,14 @@ const Line = forwardRef<unknown, LineProps>((props, ref) => {
         canvasDom.width,
         xs,
         ys,
-        paddingX,
+        paddingLeft,
+        paddingRight,
         paddingTop,
         paddingBottom,
-        !!props.hideAxes
+        !!props.showXAxes,
+        !!props.showYAxes,
+        !!props.showXTicks,
+        !!props.showYTicks
       )
 
       drawLine(context, xTicks, yTicks, props.lineWidth, props.lineColor)
@@ -61,19 +67,38 @@ const Line = forwardRef<unknown, LineProps>((props, ref) => {
     [
       props.accentLast,
       props.circleColor,
-      props.hideAxes,
       props.hidePoints,
       props.lineColor,
       props.lineWidth,
-      props.shadowColor
+      props.shadowColor,
+      props.showXAxes,
+      props.showXTicks,
+      props.showYAxes,
+      props.showYTicks
     ]
   )
 
   const initialCanvas = useCallback(() => {
     const canvasDom = canvasRef?.current!
     adjustSize(canvasDom)
-    draw(canvasDom, props.xs, props.ys, _paddingX, _paddingTop, _paddingBottom)
-  }, [_paddingBottom, _paddingTop, _paddingX, draw, props.xs, props.ys])
+    draw(
+      canvasDom,
+      props.xs,
+      props.ys,
+      _paddingLeft,
+      _paddingRight,
+      _paddingTop,
+      _paddingBottom
+    )
+  }, [
+    _paddingBottom,
+    _paddingLeft,
+    _paddingRight,
+    _paddingTop,
+    draw,
+    props.xs,
+    props.ys
+  ])
 
   useResize(initialCanvas)
 
