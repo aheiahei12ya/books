@@ -4,4 +4,7 @@ export interface ChartProps {
   accentLast?: boolean
   hidePoints?: boolean
   hideAxes?: boolean
+  paddingX?: number
+  paddingY?: number
+  coordinateColor?: string
 }
