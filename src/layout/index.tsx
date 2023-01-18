@@ -61,7 +61,7 @@ const Layout = ({ children }: layoutProps) => {
   return (
     <div className={styles.layout}>
       <Sidebar avatar={avatar} items={items} tools={tools} autoShrink />
-      <div className={styles.content}>{children}</div>
+      <div className={styles.container}>{children}</div>
     </div>
   )
 }
