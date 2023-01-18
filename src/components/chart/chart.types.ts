@@ -3,9 +3,13 @@ export interface ChartProps {
   ys: number[]
   accentLast?: boolean
   hidePoints?: boolean
-  hideAxes?: boolean
-  paddingX?: number
+  paddingLeft?: number
+  paddingRight?: number
   paddingTop?: number
   paddingBottom?: number
+  showXAxes?: boolean
+  showYAxes?: boolean
+  showXTicks?: boolean
+  showYTicks?: boolean
   coordinateColor?: string
 }
