@@ -20,10 +20,10 @@ $middle-screen-max: $large-screen-min - .02
 $large-screen-max: $x-large-screen-min - .02
 
 $x-small-screen-container: $x-small-screen
-$small-screen-container: $small-screen - 60
-$middle-screen-container: $middle-screen - 80
-$large-screen-container: $large-screen - 120
-$x-large-screen-container: $x-large-screen - 160
+$small-screen-container: $small-screen
+$middle-screen-container: $middle-screen
+$large-screen-container: $large-screen
+$x-large-screen-container: $x-large-screen
 
 .container
   width: 100%
@@ -39,11 +39,7 @@ $x-large-screen-container: $x-large-screen - 160
     display: none !important
 
   .container
-    max-width: #{ $x-small-screen-container }px
-
-  .flex-container
-    max-width: 100%
-    margin: auto
+    max-width: 90%
 
 @media (min-width: #{ $small-screen-min }px)
   .d-md-none
@@ -52,20 +48,12 @@ $x-large-screen-container: $x-large-screen - 160
   .container
     max-width: #{ $small-screen-container }px
 
-  .flex-container
-    max-width: 90%
-    margin: auto
-
 @media (min-width: #{ $middle-screen-min }px)
   .d-lg-none
     display: none !important
 
   .container
     max-width: #{ $middle-screen-container }px
-
-  .flex-container
-    max-width: 80%
-    margin: auto
 
 @media (min-width: #{ $large-screen-min }px)
   .d-xl-none
@@ -74,20 +62,12 @@ $x-large-screen-container: $x-large-screen - 160
   .container
     max-width: #{ $large-screen-container }px
 
-  .flex-container
-    max-width: 70%
-    margin: auto
-
 @media (min-width: #{ $x-large-screen-min }px)
   .d-xxl-none
     display: none !important
 
   .container
     max-width: #{ $x-large-screen-container }px
-
-  .flex-container
-    max-width: 70%
-    margin: auto
 
 @media (max-width: #{ $x-small-screen-min }px)
   .hidden-xs
@@ -144,9 +124,6 @@ $x-large-screen-container: $x-large-screen - 160
 @media (max-width: #{ $large-screen-max }px)
   .hidden-xl-and-down
     display: none !important
-
-.container--fluid
-  max-width: 100%
 
 .row
   display: flex
