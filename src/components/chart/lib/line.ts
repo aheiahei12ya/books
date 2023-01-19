@@ -7,7 +7,7 @@ export const drawLine = (
   lineWidth?: number | undefined,
   lineColor?: string | undefined
 ) => {
-  ctx.strokeStyle = getValue(lineColor, '#aeaeae')
+  ctx.strokeStyle = getValue(lineColor, '#4066B3')
   ctx.lineWidth = getValue(lineWidth, 3)
 
   const points = zip(xs, ys)
@@ -39,7 +39,7 @@ export const drawCurve = (
   const factor = 0.15
 
   ctx.beginPath()
-  ctx.strokeStyle = getValue(lineColor, '#aeaeae')
+  ctx.strokeStyle = getValue(lineColor, '#4066B3')
   ctx.lineWidth = getValue(lineWidth, 3)
 
   // 公式推导
