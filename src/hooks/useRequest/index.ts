@@ -17,7 +17,7 @@ function useRequest<T = any>(
       requestFn(data)
         .then((res: Response) => res.json())
         .then((jsonData: BaseResponse) => {
-          setData(jsonData.data)
+          setData(jsonData)
           options?.onSuccess?.(jsonData)
         })
         .catch((err: Error) => {
