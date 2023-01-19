@@ -80,10 +80,10 @@ function Home() {
               className={styles.trendInner}
               elevation={1}
             >
-              {expenditureTrendData && (
+              {expenditureTrendData?.success && (
                 <Curve
-                  xs={expenditureTrendData.month}
-                  ys={expenditureTrendData.trend}
+                  xs={expenditureTrendData.data.month}
+                  ys={expenditureTrendData.data.trend}
                   accentLast
                   showXTicks
                   showYTicks
@@ -97,10 +97,10 @@ function Home() {
               className={styles.trendInner}
               elevation={1}
             >
-              {balanceTrendData && (
+              {balanceTrendData?.success && (
                 <Curve
-                  xs={balanceTrendData.month}
-                  ys={balanceTrendData.trend}
+                  xs={balanceTrendData.data.month}
+                  ys={balanceTrendData.data.trend}
                   accentLast
                   showXTicks
                   showYTicks
@@ -131,10 +131,13 @@ function Home() {
               className={styles.spendCompareInner}
               elevation={1}
             >
-              {lastYearExpenditureData && (
+              {lastYearExpenditureData?.success && (
                 <Bar
-                  xs={range(1, lastYearExpenditureData.expenditure.length + 1)}
-                  ys={lastYearExpenditureData.expenditure}
+                  xs={range(
+                    1,
+                    lastYearExpenditureData.data.expenditure.length + 1
+                  )}
+                  ys={lastYearExpenditureData.data.expenditure}
                   gap={2.5}
                   showXTicks
                   showYTicks
@@ -148,10 +151,10 @@ function Home() {
               className={styles.spendCompareInner}
               elevation={1}
             >
-              {expenditureData && (
+              {expenditureData?.success && (
                 <Bar
-                  xs={range(1, expenditureData.expenditure.length + 1)}
-                  ys={expenditureData.expenditure}
+                  xs={range(1, expenditureData.data.expenditure.length + 1)}
+                  ys={expenditureData.data.expenditure}
                   gap={2.5}
                   showXTicks
                   showYTicks
