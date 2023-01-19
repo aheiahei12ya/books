@@ -32,6 +32,7 @@ export const AuthContextProvider = ({ children }: any) => {
     const userInfo = JSON.parse(sessionStorage.getItem('userInfo') || '{}')
     if (!userInfo.nickName) {
       Router.replace('/login')
+      sessionStorage.clear()
     } else {
       setUserInfo(userInfo)
       setLogin(true)

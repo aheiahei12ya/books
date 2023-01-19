@@ -39,9 +39,14 @@ export const Sidebar = forwardRef<unknown, SidebarProps>((props, ref) => {
     ></i>
   )
 
-  const handleSelect = (index: number, path: string | undefined) => {
+  const handleSelect = (
+    index: number,
+    path: string | undefined,
+    click?: Function
+  ) => {
     setSelected(index)
     sessionStorage.setItem('selectedKey', index.toString())
+    click?.()
     path && router.replace(path)
   }
 
@@ -82,10 +87,7 @@ export const Sidebar = forwardRef<unknown, SidebarProps>((props, ref) => {
             type={ 'tool' }
             icon={ item.icon }
             hideText={ shrink }
-            onClick={ () => {
-              item?.onClick?.()
-              item?.path && router.replace(item.path)
-            } }
+            onClick={ () => handleSelect(-1, item?.path, item.onClick) }
           >
             { item.name }
           </SidebarButton>

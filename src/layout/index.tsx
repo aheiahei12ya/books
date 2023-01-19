@@ -51,8 +51,7 @@ const Layout = ({ children }: layoutProps) => {
       name: <FormattedMessage id={'layout.sidebar.button.logout'} />,
       icon: <i className="fa-solid fa-arrow-right-from-bracket"></i>,
       onClick: () => {
-        sessionStorage.removeItem('userInfo')
-        sessionStorage.removeItem('selectedKey')
+        sessionStorage.clear()
         router.replace('/login')
       }
     }
