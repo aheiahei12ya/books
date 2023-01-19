@@ -13,5 +13,14 @@ export const zh_CN = {
   'layout.sidebar.button.dashboard': '总览',
   'layout.sidebar.button.statistic': '统计',
   'layout.sidebar.button.logout': '退出',
-  'layout.sidebar.button.setting': '设置'
+  'layout.sidebar.button.setting': '设置',
+
+  'pages.home.head.title': '数据概览',
+  'pages.home.greet.morning': '早上好',
+  'pages.home.greet.afternoon': '中午好',
+  'pages.home.greet.evening': '晚上好',
+  'pages.home.greet.subtitle': '欢迎回来',
+
+  'pages.home.trend.expenditure': '支出趋势',
+  'pages.home.trend.balance': '余额趋势'
 }

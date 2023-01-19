@@ -1,5 +1,4 @@
 @use '@/styles/variable' as *
-@use '@/styles/breakpoint.sass' as *
 
 .main
   display: flex
@@ -21,33 +20,24 @@
     flex: 0
 
   .trend
-    flex: 2
+    flex: none
     display: flex
     gap: 12px
-    height: 20%
-    min-height: 20%
+    height: 150px
 
     @media (max-width: #{ $x-small-screen-min }px)
       flex-direction: column
+      min-height: 40%
 
     span
       margin: 0
 
-    &-outcome
-      flex: 1
-      border-radius: 16px
-      text-align: center
-
-
-    &-balance
+    &-inner
       flex: 1
       border-radius: 16px
       text-align: center
 
   .booking
-    flex: 4
-
-  .booking2
     flex: 4
 
 
@@ -65,11 +55,19 @@
   @media (prefers-color-scheme: dark)
     box-shadow: -10px 0 54px 30px rgba(148, 148, 148, 0.06)
 
-  .currentCount
-    flex: 1
+  .spendCompare
+    flex: none
+    display: flex
+    gap: 12px
+    height: 150px
+
+    &-inner
+      flex: 1
+      border-radius: 16px
+      text-align: center
 
   .spendDiff
     flex: 3
 
   .spendDays
-    flex: 2
+    flex: 3

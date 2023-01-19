@@ -13,5 +13,14 @@ export const en_US = {
   'layout.sidebar.button.dashboard': 'Dashboard',
   'layout.sidebar.button.statistic': 'Statistic',
   'layout.sidebar.button.logout': 'Logout',
-  'layout.sidebar.button.setting': 'Setting'
+  'layout.sidebar.button.setting': 'Setting',
+
+  'pages.home.head.title': 'Statistics',
+  'pages.home.greet.morning': 'Good Morning',
+  'pages.home.greet.afternoon': 'Good Afternoon',
+  'pages.home.greet.evening': 'Good Evening',
+  'pages.home.greet.subtitle': 'Welcome Back',
+
+  'pages.home.trend.expenditure': 'Expenditure Trend',
+  'pages.home.trend.balance': 'Balance Trend'
 }
