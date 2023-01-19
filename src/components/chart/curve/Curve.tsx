@@ -13,7 +13,7 @@ import { CurveProps } from './Curve.types'
 const Curve = forwardRef<unknown, CurveProps>((props, ref) => {
   Curve.displayName = 'Curve'
   const canvasRef: any = useRef(null)
-  const _paddingLeft = getValue(props.paddingLeft, !!props.showYTicks ? 20 : 8)
+  const _paddingLeft = getValue(props.paddingLeft, !!props.showYTicks ? 32 : 8)
   const _paddingRight = getValue(props.paddingRight, 14)
   const _paddingTop = getValue(props.paddingTop, 14)
   const _paddingBottom = getValue(
