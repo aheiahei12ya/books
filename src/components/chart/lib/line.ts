@@ -7,8 +7,9 @@ export const drawLine = (
   lineWidth?: number | undefined,
   lineColor?: string | undefined
 ) => {
+  const dpr = window.devicePixelRatio
   ctx.strokeStyle = getValue(lineColor, '#4066B3')
-  ctx.lineWidth = getValue(lineWidth, 3)
+  ctx.lineWidth = getValue(lineWidth, 3 * dpr)
 
   const points = zip(xs, ys)
   let previousX = 0
@@ -35,12 +36,13 @@ export const drawCurve = (
   lineWidth?: number | undefined,
   lineColor?: string | undefined
 ) => {
+  const dpr = window.devicePixelRatio
   const points = zip(xs, ys)
   const factor = 0.15
 
   ctx.beginPath()
   ctx.strokeStyle = getValue(lineColor, '#4066B3')
-  ctx.lineWidth = getValue(lineWidth, 3)
+  ctx.lineWidth = getValue(lineWidth, 1.5 * dpr)
 
   // 公式推导
   // https://wenku.baidu.com/view/c790f8d46bec0975f565e211.html?_wkts_=1673767798427

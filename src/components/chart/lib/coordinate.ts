@@ -36,13 +36,13 @@ export function setCoordinate(
     _paddingLeft += halfGap
   }
 
-  const fontSize = 20
+  const fontSize = 10 * dpr
   const yRatio = (canvasHeight - _paddingBottom - _paddingTop) / Math.max(...ys)
 
   const xTicks: number[] = []
   const yTicks: number[] = []
 
-  ctx.setLineDash([10, 10])
+  ctx.setLineDash([5 * dpr, 5 * dpr])
   ctx.strokeStyle = lineColor || '#aeaeae'
 
   zip(xs, ys).forEach(([x, y], i) => {
