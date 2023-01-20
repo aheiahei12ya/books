@@ -73,20 +73,16 @@ const Calendar = forwardRef<unknown, CalendarProps>((props, ref) => {
       const ratio = (() => {
         const value = getValue(props?.expenditure?.[index], 0)
         if (type !== 'current') return
-        if (value === 0) return
-        if (value <= 1) return 'low'
-        if (value <= 3) return 'normal'
-        if (value <= 5) return 'middle'
-        return 'extreme'
+        if (value === 0) return styles.calendarCellEmpty
+        if (value <= 1) return styles.calendarCellLow
+        if (value <= 3) return styles.calendarCellNormal
+        if (value <= 5) return styles.calendarCellMiddle
+        return styles.calendarCellExtreme
       })()
       return (
         <div
-          className={classNames(styles.calendarCell, {
+          className={classNames(styles.calendarCell, ratio, {
             [styles.calendarCellDisabled]: type !== 'current',
-            [styles.calendarCellLow]: ratio === 'low',
-            [styles.calendarCellNormal]: ratio === 'normal',
-            [styles.calendarCellMiddle]: ratio === 'middle',
-            [styles.calendarCellExtreme]: ratio === 'extreme',
             [styles.calendarCellSelected]: !!props.onSelect
           })}
           key={`${type}-${date}`}
