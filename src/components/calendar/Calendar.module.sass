@@ -96,17 +96,29 @@
     color: $blue-grey-darken-4
     background-color: $red-lighten-5
 
+    @media (prefers-color-scheme: dark)
+      background-color: $teal-lighten-4
+
   &-normal
     color: $blue-grey-darken-4
     background-color: $red-lighten-4
+
+    @media (prefers-color-scheme: dark)
+      background-color: $teal-lighten-2
 
   &-middle
     color: $blue-grey-darken-4
     background-color: $red-lighten-3
 
+    @media (prefers-color-scheme: dark)
+      background-color: $teal-darken-1
+
   &-extreme
-    color: $blue-grey-darken-4
+    color: var(--color-text)
     background-color: $red-lighten-2
+
+    @media (prefers-color-scheme: dark)
+      background-color: $teal-darken-3
 
   &-disabled
     color: var(--color-disabled)
