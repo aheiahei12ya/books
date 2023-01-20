@@ -5,6 +5,8 @@ import {
   balanceTrendResponse,
   expenditureRequest,
   expenditureResponse,
+  expenditureTimesRequest,
+  expenditureTimesResponse,
   expenditureTrendRequest,
   expenditureTrendResponse
 } from '@/services/statistic/types'
@@ -21,7 +23,11 @@ const statistic = {
   expenditure: createRequest<
     expenditureRequest,
     BaseResponse<expenditureResponse>
-  >('/api/statistics/expenditure', 'POST')
+  >('/api/statistics/expenditure', 'POST'),
+  expenditureTimes: createRequest<
+    expenditureTimesRequest,
+    BaseResponse<expenditureTimesResponse>
+  >('/api/statistics/expenditure/times', 'POST')
 }
 
-export default statistic
+export default statistic;

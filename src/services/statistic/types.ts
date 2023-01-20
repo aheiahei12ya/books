@@ -24,3 +24,12 @@ export interface expenditureRequest {
 export interface expenditureResponse {
   expenditure: number[]
 }
+
+export interface expenditureTimesRequest {
+  year: number
+  month: number
+}
+
+export interface expenditureTimesResponse {
+  expenditure: number[]
+}
