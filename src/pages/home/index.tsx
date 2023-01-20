@@ -4,6 +4,7 @@ import Head from 'next/head'
 import React from 'react'
 import { useIntl } from 'react-intl'
 
+import Calendar from '@/components/calendar'
 import Card from '@/components/card'
 import { Curve } from '@/components/chart'
 import Bar from '@/components/chart/bar'
@@ -31,29 +32,36 @@ function Home() {
       greet = 'pages.home.greet.evening'
       break
   }
-
+  const thisYear = dayjs().year()
+  const thisMonth = dayjs().month()
   const { data: expenditureTrendData } = useRequest(() =>
     services.statistic.expenditureTrend({
-      year: dayjs().year(),
-      month: dayjs().month()
+      year: thisYear,
+      month: thisMonth
     })
   )
   const { data: balanceTrendData } = useRequest(() =>
     services.statistic.balanceTrend({
-      year: dayjs().year(),
-      month: dayjs().month()
+      year: thisYear,
+      month: thisMonth
     })
   )
   const { data: lastYearExpenditureData } = useRequest(() =>
     services.statistic.expenditure({
-      year: dayjs().year(),
-      month: dayjs().month()
+      year: thisYear,
+      month: thisMonth
     })
   )
   const { data: expenditureData } = useRequest(() =>
     services.statistic.expenditure({
-      year: dayjs().year(),
-      month: dayjs().month()
+      year: thisYear,
+      month: thisMonth
+    })
+  )
+  const { data: expenditureTimes } = useRequest(() =>
+    services.statistic.expenditureTimes({
+      year: thisYear,
+      month: thisMonth
     })
   )
   return (
@@ -165,11 +173,19 @@ function Home() {
             </Card>
           </div>
 
-          <Card title={'消费日历'} className={styles.spendDiff} elevation={1}>
+          <Card className={styles.spendDiff} elevation={1}>
+            {expenditureTimes?.success && (
+              <Calendar
+                locale={i18n.locale}
+                showToolbar
+                hideToolButton
+                expenditure={expenditureTimes.data.expenditureTimes}
+              ></Calendar>
+            )}
             {/*{currentDate}消费 <br />*/}
             {/*{lastYear}*/}
           </Card>
-          <Card title={'收支统计'} className={styles.spendDiff} elevation={1}>
+          <Card title={'收支统计'} className={styles.spendDays} elevation={1}>
             {/*{currentDate}消费 <br />*/}
             {/*{lastYear}*/}
           </Card>
