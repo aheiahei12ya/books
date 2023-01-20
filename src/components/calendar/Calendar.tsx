@@ -51,6 +51,23 @@ const Calendar = forwardRef<unknown, CalendarProps>((props, ref) => {
         break
     }
   }
+  const handleSelect = useCallback(
+    (date: number, type: 'past' | 'current' | 'future') => {
+      switch (type) {
+        case 'past':
+          if (!month) props.onSelect?.(year - 1, 11, date)
+          else props.onSelect?.(year, month - 1, date)
+          break
+        case 'future':
+          if (month === 11) props.onSelect?.(year + 1, 0, date)
+          else props.onSelect?.(year, month + 1, date)
+          break
+        default:
+          props.onSelect?.(year, month, date)
+      }
+    },
+    [month, props, year]
+  )
   const makeCell = useCallback(
     (date: number, type: 'past' | 'current' | 'future', index: number) => {
       const ratio = (() => {
@@ -70,9 +87,11 @@ const Calendar = forwardRef<unknown, CalendarProps>((props, ref) => {
             [styles.calendarCellNormal]: ratio === 'normal',
             [styles.calendarCellMiddle]: ratio === 'middle',
             [styles.calendarCellExtreme]: ratio === 'extreme',
-            [styles.calendarCellSelect]: !!props.selectDate
+            [styles.calendarCellNoAppend]: !props.expenditure,
+            [styles.calendarCellSelected]: !!props.onSelect
           })}
           key={`${type}-${date}`}
+          onClick={() => handleSelect(date, type)}
         >
           <span
             className={classNames(
@@ -96,10 +115,11 @@ const Calendar = forwardRef<unknown, CalendarProps>((props, ref) => {
       )
     },
     [
+      handleSelect,
       month,
       props.expenditure,
       props.locale,
-      props.selectDate,
+      props.onSelect,
       thisMonth,
       thisYear,
       today,
@@ -146,7 +166,7 @@ const Calendar = forwardRef<unknown, CalendarProps>((props, ref) => {
       {!!props.showToolbar && (
         <div className={styles.toolBar}>
           <div className={styles.toolBarDate}>{getDate()}</div>
-          {!props.hideTools && (
+          {!props.hideToolButton && (
             <div className={styles.toolBarTools}>
               <div
                 className={styles.toolButton}
