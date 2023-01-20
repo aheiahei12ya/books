@@ -71,7 +71,7 @@ const Calendar = forwardRef<unknown, CalendarProps>((props, ref) => {
   const makeCell = useCallback(
     (date: number, type: 'past' | 'current' | 'future', index: number) => {
       const ratio = (() => {
-        const value = getValue(props?.expenditure?.[index], 0)
+        const value = getValue(props?.expense?.[index], 0)
         if (type !== 'current') return
         if (value === 0) return styles.calendarCellEmpty
         if (value <= 1) return styles.calendarCellLow
@@ -98,10 +98,10 @@ const Calendar = forwardRef<unknown, CalendarProps>((props, ref) => {
           >
             {date}
           </span>
-          {props.expenditure && (
+          {props.expense && (
             <div className={classNames(styles.calendarCellAppend)}>
               <span>
-                {props.expenditure[index]}
+                {props.expense[index]}
                 {props.locale === 'zh-CN' ? '次' : ''}
               </span>
             </div>
@@ -112,7 +112,7 @@ const Calendar = forwardRef<unknown, CalendarProps>((props, ref) => {
     [
       handleSelect,
       month,
-      props.expenditure,
+      props.expense,
       props.locale,
       props.onSelect,
       thisMonth,

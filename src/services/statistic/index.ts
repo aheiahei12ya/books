@@ -3,31 +3,31 @@ import { BaseResponse } from '@/lib/response/types'
 import {
   balanceTrendRequest,
   balanceTrendResponse,
-  expenditureRequest,
-  expenditureResponse,
-  expenditureTimesRequest,
-  expenditureTimesResponse,
-  expenditureTrendRequest,
-  expenditureTrendResponse
+  expenseRequest,
+  expenseResponse,
+  expenseTimesRequest,
+  expenseTimesResponse,
+  expenseTrendRequest,
+  expenseTrendResponse
 } from '@/services/statistic/types'
 
 const statistic = {
-  expenditureTrend: createRequest<
-    expenditureTrendRequest,
-    BaseResponse<expenditureTrendResponse>
-  >('/api/statistics/expenditure-trend', 'POST'),
+  expenseTrend: createRequest<
+    expenseTrendRequest,
+    BaseResponse<expenseTrendResponse>
+  >('/api/statistics/expense-trend', 'POST'),
   balanceTrend: createRequest<
     balanceTrendRequest,
     BaseResponse<balanceTrendResponse>
   >('/api/statistics/balance-trend', 'POST'),
-  expenditure: createRequest<
-    expenditureRequest,
-    BaseResponse<expenditureResponse>
-  >('/api/statistics/expenditure', 'POST'),
-  expenditureTimes: createRequest<
-    expenditureTimesRequest,
-    BaseResponse<expenditureTimesResponse>
-  >('/api/statistics/expenditure/times', 'POST')
+  expense: createRequest<
+    expenseRequest,
+    BaseResponse<expenseResponse>
+  >('/api/statistics/expense', 'POST'),
+  expenseTimes: createRequest<
+    expenseTimesRequest,
+    BaseResponse<expenseTimesResponse>
+  >('/api/statistics/expense/times', 'POST')
 }
 
 export default statistic;

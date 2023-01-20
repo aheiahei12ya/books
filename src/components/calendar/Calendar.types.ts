@@ -1,5 +1,5 @@
 export interface CalendarProps {
-  expenditure?: number[]
+  expense?: number[]
   showToolbar?: boolean
   hideToolButton?: boolean
   onSelect?: (year: number, month: number, date: number) => void

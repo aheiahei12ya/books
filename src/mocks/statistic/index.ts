@@ -1,7 +1,7 @@
 import { mockPost } from '@/mocks/utils'
 
 const statistic = [
-  mockPost('/api/statistics/expenditure-trend', {
+  mockPost('/api/statistics/expense-trend', {
     trend: [
       18767.98, 15102.37, 6495.19, 36532.22, 3422.41, 4305.09, 19535.71,
       5418.95, 24092.87, 18596.1, 5204.55, 3341.49
@@ -41,15 +41,15 @@ const statistic = [
       '7月'
     ]
   }),
-  mockPost('/api/statistics/expenditure', {
-    expenditure: [
+  mockPost('/api/statistics/expense', {
+    expense: [
       29.9, 4.0, 42.45, 656.58, 0.0, 10.11, 34.8, 227.0, 6.04, 99.37, 14.48,
       150.92, 10.11, 1.6, 4.0, 6.0, 83.32, 748.89, 44.68, 43.19, 0, 69.48, 0, 0,
       114.0, 0, 0, 26.2, 460.51, 65.42, 388.44
     ]
   }),
-  mockPost('/api/statistics/expenditure/times', {
-    expenditureTimes: [
+  mockPost('/api/statistics/expense/times', {
+    expenseTimes: [
       2, 1, 1, 8, 1, 1, 2,
       2, 1, 1, 1, 2, 5, 1,
       1, 1, 2, 0, 3, 2, 3,

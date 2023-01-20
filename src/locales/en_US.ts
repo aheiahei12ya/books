@@ -21,6 +21,6 @@ export const en_US = {
   'pages.home.greet.evening': 'Good Evening',
   'pages.home.greet.subtitle': 'Welcome Back',
 
-  'pages.home.trend.expenditure': 'Expenditure Trend',
+  'pages.home.trend.expense': 'Expense Trend',
   'pages.home.trend.balance': 'Balance Trend'
 }

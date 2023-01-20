@@ -1,9 +1,9 @@
-export interface expenditureTrendRequest {
+export interface expenseTrendRequest {
   year: number
   month: number
 }
 
-export interface expenditureTrendResponse {
+export interface expenseTrendResponse {
   trend: number[]
 }
 
@@ -16,20 +16,20 @@ export interface balanceTrendResponse {
   trend: number[]
 }
 
-export interface expenditureRequest {
+export interface expenseRequest {
   year: number
   month: number
 }
 
-export interface expenditureResponse {
-  expenditure: number[]
+export interface expenseResponse {
+  expense: number[]
 }
 
-export interface expenditureTimesRequest {
+export interface expenseTimesRequest {
   year: number
   month: number
 }
 
-export interface expenditureTimesResponse {
-  expenditure: number[]
+export interface expenseTimesResponse {
+  expense: number[]
 }
