@@ -72,8 +72,8 @@
   align-items: center
   font-size: 0.9rem
   margin: 2px
-  color: $blue-grey-darken-4
   border-radius: 4px
+  color: var(--color-text)
 
   &-selected
     cursor: pointer
@@ -86,9 +86,6 @@
     border-radius: 5px
     box-shadow: 0 0 10px $blue-darken-1
 
-  &-no-append
-    color: var(--color-text)
-
   &-append
     display: flex
     flex-direction: column
@@ -96,15 +93,19 @@
     align-items: flex-end
 
   &-low
+    color: $blue-grey-darken-4
     background-color: $red-lighten-5
 
   &-normal
+    color: $blue-grey-darken-4
     background-color: $red-lighten-4
 
   &-middle
+    color: $blue-grey-darken-4
     background-color: $red-lighten-3
 
   &-extreme
+    color: $blue-grey-darken-4
     background-color: $red-lighten-2
 
   &-disabled

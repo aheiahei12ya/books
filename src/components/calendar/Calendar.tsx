@@ -87,7 +87,6 @@ const Calendar = forwardRef<unknown, CalendarProps>((props, ref) => {
             [styles.calendarCellNormal]: ratio === 'normal',
             [styles.calendarCellMiddle]: ratio === 'middle',
             [styles.calendarCellExtreme]: ratio === 'extreme',
-            [styles.calendarCellNoAppend]: !props.expenditure,
             [styles.calendarCellSelected]: !!props.onSelect
           })}
           key={`${type}-${date}`}
@@ -103,7 +102,7 @@ const Calendar = forwardRef<unknown, CalendarProps>((props, ref) => {
           >
             {date}
           </span>
-          {props.expenditure?.[index] && (
+          {props.expenditure && (
             <div className={classNames(styles.calendarCellAppend)}>
               <span>
                 {props.expenditure[index]}
