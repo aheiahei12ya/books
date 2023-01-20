@@ -2,7 +2,7 @@ import { en_US } from './en_US'
 import { zh_CN } from './zh_CN'
 
 function loadLocale(lang: string) {
-  let message = null
+  let message
   switch (lang) {
     case 'en-US':
       message = en_US
