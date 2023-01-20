@@ -1,0 +1,109 @@
+@use '@/styles/variable' as *
+
+.calendar
+  display: flex
+  flex-direction: column
+  height: 100%
+  text-align: center
+  cursor: default
+
+.tool-bar
+  flex: none
+  display: flex
+  height: 15%
+  max-height: 40px
+  padding: 0 4px
+  box-sizing: border-box
+  justify-content: space-between
+  border-bottom: .15rem solid var(--color-border)
+
+  &-date
+    display: flex
+    align-items: center
+    font-size: 1.15rem
+
+  &-tools
+    display: flex
+    align-items: center
+    justify-content: space-around
+
+  .tool-button
+    width: 36px
+    line-height: 36px
+    cursor: pointer
+    transition: color .3s ease
+    font-size: .9rem
+
+    i
+      font-size: 1.15rem
+
+    &:hover
+      color: var(--color-primary)
+
+.calendar-header
+  flex: none
+  display: flex
+  height: 12.5%
+  max-height: 40px
+  align-items: center
+  color: $grey-darken-1
+  font-size: .9rem
+
+  span
+    box-sizing: border-box
+    width: 14.28571%
+    overflow: hidden
+    text-overflow: ellipsis
+
+.calendar-cells
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+  height: 100%
+  justify-content: space-evenly
+  align-content: space-evenly
+
+.calendar-cell
+  position: relative
+  flex: none
+  display: flex
+  box-sizing: border-box
+  width: calc(14.28571% - 4px)
+  justify-content: space-evenly
+  align-items: center
+  font-size: 0.9rem
+  margin: 2px
+  color: $blue-grey-darken-4
+  border-radius: 4px
+
+  &-selected
+    cursor: pointer
+
+  &-today
+    position: relative
+    color: var(--color-white)
+    background: $blue-darken-3
+    border: 3px solid $blue-darken-3
+    border-radius: 5px
+    box-shadow: 0 0 10px $blue-darken-1
+
+  &-append
+    display: flex
+    flex-direction: column
+    font-size: 0.75rem
+    align-items: flex-end
+
+  &-low
+    background-color: $red-lighten-5
+
+  &-normal
+    background-color: $red-lighten-4
+
+  &-middle
+    background-color: $red-lighten-3
+
+  &-extreme
+    background-color: $red-lighten-2
+
+  &-disabled
+    color: var(--color-disabled)
