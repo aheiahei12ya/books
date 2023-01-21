@@ -138,9 +138,11 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
           </span>
         ) }
       </div>
-      <div className={ styles.inputWarning }>
-        { (props.error && props.errorMessage) || (rule.error && rule.message) }
-      </div>
+      { !props.hideMessage && (
+        <div className={ styles.inputWarning }>
+          { (props.error && props.errorMessage) || (rule.error && rule.message) }
+        </div>
+      ) }
     </>
   )
 })

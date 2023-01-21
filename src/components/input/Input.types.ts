@@ -31,6 +31,7 @@ export interface InputProps {
   size?: 'small' | 'large'
   error?: boolean
   errorMessage?: string | React.ReactNode
+  hideMessage?: boolean
 }
 
 export interface InputRef {
