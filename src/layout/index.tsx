@@ -4,6 +4,7 @@ import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import Sidebar from '@/components/sidebar'
+import useResize from '@/hooks/useResize'
 import { useAuth } from '@/lib/auth'
 
 import styles from './index.module.sass'
@@ -15,6 +16,7 @@ interface layoutProps {
 const Layout = ({ children }: layoutProps) => {
   const auth = useAuth()
   const router = useRouter()
+  const resize = useResize()
   const avatar = auth?.userInfo?.avatar ? (
     <Image
       src={auth?.userInfo?.avatar}
@@ -59,7 +61,15 @@ const Layout = ({ children }: layoutProps) => {
 
   return (
     <div className={styles.layout}>
-      <Sidebar avatar={avatar} items={items} tools={tools} autoShrink />
+      {resize.isLandscape && (
+        <Sidebar
+          avatar={avatar}
+          items={items}
+          tools={tools}
+          defaultShrink={resize.isMobile}
+          autoShrink
+        />
+      )}
       <div className={styles.container}>{children}</div>
     </div>
   )

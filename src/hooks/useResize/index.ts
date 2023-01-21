@@ -12,7 +12,9 @@ const useResize = (callback?: Function) => {
       width,
       height,
       isPC: device === Device.PC,
-      isMobile: device === Device.mobile
+      isMobile: device === Device.mobile,
+      isPortrait: height >= width,
+      isLandscape: height < width
     })
     callback?.()
   }, [callback])
