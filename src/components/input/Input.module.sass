@@ -43,7 +43,7 @@
     border: none
     outline: none
     appearance: none
-    font-size: $font-size-base
+    font-size: 0.925rem
 
     &::placeholder
       color: $grey
@@ -60,6 +60,10 @@
   .prefix
     @include icon
     margin-right: 0.5rem
+    transition: color .35s ease
+
+    &-active
+      color: $blue
 
   .append
     @include icon

@@ -98,7 +98,9 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
       >
         { hasPrepend && (
           <span
-            className={ styles.prefix }
+            className={ classNames(styles.prefix, {
+              [styles.prefixActive]: hasFocus
+            }) }
             onMouseDown={ (e) => {
               e.preventDefault()
             } }
