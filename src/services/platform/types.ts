@@ -8,5 +8,5 @@ type platform = {
 }
 
 export interface platformListResponse {
-  platforms: platform[]
+  platformList: platform[]
 }

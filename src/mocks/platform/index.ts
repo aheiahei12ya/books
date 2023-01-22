@@ -2,7 +2,7 @@ import { mockPost } from '@/mocks/utils'
 
 const statistic = [
   mockPost('/api/platform/list', {
-    platforms: [
+    platformList: [
       {
         id: 5,
         name: '线下'
