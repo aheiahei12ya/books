@@ -1,0 +1,62 @@
+@use '@/styles/variable' as *
+
+.expense-container
+  height: 100%
+  width: 100%
+  display: flex
+
+.expense-form
+  flex: 7
+  display: flex
+  flex-direction: column
+  gap: 12px
+
+  &-row
+    display: flex
+    gap: 12px
+
+  &-button
+    flex: 1
+
+.expense-receipt
+  flex: 3
+  display: flex
+  flex-direction: column
+  padding: 12px
+  justify-content: flex-start
+  gap: 12px
+
+.receipt-header
+  display: flex
+  flex-direction: column
+  align-items: center
+
+  &-note
+    font-size: 0.85rem
+    text-align: center
+    height: 1rem
+    line-height: 1rem
+    width: 150px
+    overflow: hidden
+    text-overflow: ellipsis
+
+  &-expense
+    margin: 6px auto
+    font-size: 1.5rem
+
+.receipt-detail
+  display: flex
+  flex-direction: column
+  font-size: 0.85rem
+
+  &-row
+    display: flex
+    justify-content: space-between
+
+  &-key
+    margin-bottom: 4px
+    color: $grey-darken-1
+
+  &-value
+    color: $red-accent-2
+
