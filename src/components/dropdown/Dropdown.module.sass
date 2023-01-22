@@ -59,6 +59,10 @@
   color: $grey-lighten-1
   width: 2rem
   margin-right: 0.5rem
+  transition: color .35s ease
+
+  &-active
+    color: $blue
 
 .dropdown-append
   color: $grey-lighten-1
@@ -107,9 +111,11 @@
     list-style: none
 
   &-item
-    margin: 2px auto
+    margin: 4px auto
     padding: 6px 12px
     line-height: 1.5rem
+    border-radius: 4px
+    cursor: pointer
 
     &:hover
       background-color: var(--selected-background-color)

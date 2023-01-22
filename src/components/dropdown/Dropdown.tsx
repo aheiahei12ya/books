@@ -22,8 +22,8 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
   const activateDropdown = useCallback(
     (type: 'activate' | 'deactivate') => {
       const nodeRef = sheetRef.current!
-      if (!buttonRef.current) return
       const onClickOutsideHandler = (e: Event) => {
+        if (!buttonRef.current) return
         buttonRef.current.contains(e.target) || activateDropdown('deactivate')
       }
       if (type === 'activate') {
@@ -62,7 +62,13 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
         onClick={ handleClick }
       >
         { !!props.prepend && (
-          <span className={ styles.dropdownPrefix }>{ props.prepend }</span>
+          <span
+            className={ classNames(styles.dropdownPrefix, {
+              [styles.dropdownPrefixActive]: active
+            }) }
+          >
+            { props.prepend }
+          </span>
         ) }
         <div
           className={ classNames(styles.inputBox, {
