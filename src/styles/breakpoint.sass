@@ -40,15 +40,7 @@ $x-large-screen-container: $x-large-screen
   display: none !important
 
 @media (orientation: portrait)
-  .hidden-on-portrait,
-  .hidden-on-portrait-or-sm-and-up,
-  .hidden-on-portrait-or-md-and-up,
-  .hidden-on-portrait-or-lg-and-up,
-  .hidden-on-portrait-or-xl-and-up,
-  .hidden-on-portrait-or-sm-and-down,
-  .hidden-on-portrait-or-md-and-down,
-  .hidden-on-portrait-or-lg-and-down,
-  .hidden-on-portrait-or-xl-and-down
+  .hidden-on-portrait
     display: none !important
 
 @media (min-width: #{ $x-small-screen-min }px)
@@ -114,6 +106,31 @@ $x-large-screen-container: $x-large-screen
   .hidden-xxl
     display: none !important
 
+@media (max-width: #{ $x-small-screen-min }px) and (orientation: portrait)
+  .hidden-xs-and-portrait
+    display: none !important
+
+@media (min-width: #{ $x-small-screen-min }px) and (max-width: #{ $x-small-screen-max }px) and (orientation: portrait)
+  .hidden-sm-and-portrait
+    display: none !important
+
+@media (min-width: #{ $small-screen-min }px) and (max-width: #{ $small-screen-max }px) and (orientation: portrait)
+  .hidden-md-and-portrait
+    display: none !important
+
+@media (min-width: #{ $middle-screen-min }px) and (max-width: #{ $middle-screen-max }px) and (orientation: portrait)
+  .hidden-lg-and-portrait
+    display: none !important
+
+@media (min-width: #{ $large-screen-min }px) and (max-width: #{ $large-screen-max }px) and (orientation: portrait)
+  .hidden-xl-and-portrait
+    display: none !important
+
+@media (min-width: #{ $x-large-screen-min }px)
+  .hidden-xxl-and-portrait
+    display: none !important
+
+
 @media (min-width: #{ $x-small-screen-min }px)
   .hidden-sm-and-up
     display: none !important
@@ -131,19 +148,19 @@ $x-large-screen-container: $x-large-screen
     display: none !important
 
 @media (max-width: #{ $x-small-screen-max }px)
-  .hidden-sm-and-down, .hidden-on-portrait-or-sm-and-down
+  .hidden-sm-and-down
     display: none !important
 
 @media (max-width: #{ $small-screen-max }px)
-  .hidden-md-and-down, .hidden-on-portrait-or-md-and-down
+  .hidden-md-and-down
     display: none !important
 
 @media (max-width: #{ $middle-screen-max }px)
-  .hidden-lg-and-down, .hidden-on-portrait-or-lg-and-down
+  .hidden-lg-and-down
     display: none !important
 
 @media (max-width: #{ $large-screen-max }px)
-  .hidden-xl-and-down, .hidden-on-portrait-or-xl-and-down
+  .hidden-xl-and-down
     display: none !important
 
 .row
