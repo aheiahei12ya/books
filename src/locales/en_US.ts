@@ -22,5 +22,8 @@ export const en_US = {
   'pages.home.greet.subtitle': 'Welcome Back',
 
   'pages.home.trend.expense': 'Expense Trend',
-  'pages.home.trend.balance': 'Balance Trend'
+  'pages.home.trend.balance': 'Balance Trend',
+
+  'pages.record.button.expense': 'Expense',
+  'pages.record.button.income': 'Income'
 }

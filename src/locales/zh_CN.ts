@@ -22,5 +22,8 @@ export const zh_CN = {
   'pages.home.greet.subtitle': '欢迎回来',
 
   'pages.home.trend.expense': '支出趋势',
-  'pages.home.trend.balance': '余额趋势'
+  'pages.home.trend.balance': '余额趋势',
+
+  'pages.record.button.expense': '支出',
+  'pages.record.button.income': '收入'
 }
