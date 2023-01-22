@@ -1,5 +1,12 @@
 import classNames from 'classnames'
-import { forwardRef, useId, useImperativeHandle, useRef, useState } from 'react'
+import {
+  ChangeEvent,
+  forwardRef,
+  useId,
+  useImperativeHandle,
+  useRef,
+  useState
+} from 'react'
 
 import styles from './Input.module.sass'
 import { InputProps, InputRef } from './Input.types'
@@ -10,7 +17,7 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
   const hasPrepend = !!props.prepend
   const hasAppend = !!props.append
   const size = props.size || 'default'
-  const [hasFocus, setHasFocus] = useState(false)
+  const [hasFocus, setHasFocus] = useState<boolean>(false)
   const [localValue, setLocalValue] = useState(props.value ? props.value : '')
   const inputRef = useRef<HTMLInputElement>(null)
   const inputId = useId()
@@ -29,7 +36,7 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
   const checkRules = (rules: InputProps['rules']) => {
     let error = false
     rules?.forEach((rule) => {
-      if (rule.required && value.length === 0) {
+      if (rule.required && value?.length === 0) {
         setRule({
           error: true,
           message: rule.message
@@ -44,6 +51,12 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
       }
     })
     return error
+  }
+  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
+    if (props.type === 'digit' && isNaN(Number(e.target.value))) return
+    setValue(e.target.value)
+    props.onChange?.(e.target.value)
+    rule.error ? checkRules(props.rules) : ''
   }
   useImperativeHandle(ref, () => ({
     clear: () => {
@@ -65,7 +78,7 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
 
   const shouldShowClear = (() => {
     if (!props.clearable || !value || props.readOnly) return false
-    return hasFocus
+    return props.showClearIfFill || hasFocus
   })()
 
   return (
@@ -101,8 +114,7 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
           value={ value }
           type={ props.type }
           onChange={ (e) => {
-            setValue(e.target.value)
-            rule.error ? checkRules(props.rules) : ''
+            handleInput(e)
           } }
           onFocus={ (e) => {
             setHasFocus(true)
@@ -119,7 +131,10 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
             className={ classNames(styles.clearable, {
               [styles.clearableAppend]: hasAppend
             }) }
-            onClick={ () => setValue('') }
+            onClick={ () => {
+              setValue('')
+              props.onClear?.()
+            } }
             onMouseDown={ (e) => {
               e.preventDefault()
             } }

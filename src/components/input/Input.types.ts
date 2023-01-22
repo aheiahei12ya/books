@@ -8,26 +8,17 @@ export interface InputProps {
   id?: string
   prepend?: React.ReactNode
   append?: React.ReactNode
-  addonBefore?: React.ReactNode
-  addonAfter?: React.ReactNode
-  affixWrapperClassName?: string
   value?: string
   placeholder?: string
-  type?: string
+  type?: 'string' | 'digit' | 'password'
   rules?: inputRule[]
   disabled?: boolean
   readOnly?: boolean
   clearable?: boolean
+  onClear?: () => void
   onChange?: (val: string) => void
+  showClearIfFill?: boolean
   onEnterPress?: (e: React.KeyboardEvent<HTMLInputElement>) => void
-  enterKeyHint?:
-    | 'enter'
-    | 'done'
-    | 'go'
-    | 'next'
-    | 'previous'
-    | 'search'
-    | 'send'
   size?: 'small' | 'large'
   error?: boolean
   errorMessage?: string | React.ReactNode
