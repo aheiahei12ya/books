@@ -47,6 +47,7 @@
 
     &::placeholder
       color: $grey
+      opacity: 1
 
     &:focus
       &::placeholder
@@ -54,12 +55,14 @@
 
 
   @mixin icon
+    width: 1.5rem
     color: $grey-lighten-1
     font-size: $font-size-lg
+    text-align: center
 
   .prefix
     @include icon
-    margin-right: 0.5rem
+    margin-right: 0.25rem
     transition: color .35s ease
 
     &-active
