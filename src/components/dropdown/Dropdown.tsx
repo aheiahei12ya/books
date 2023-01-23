@@ -102,7 +102,11 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
           { (props.error && props.errorMessage) || (rule.error && rule.message) }
         </div>
       ) }
-      <div ref={ sheetRef } className={ styles.dropdownMenu }>
+      <div
+        ref={ sheetRef }
+        className={ styles.dropdownMenu }
+        onClick={ (e) => e.stopPropagation() }
+      >
         <ul ref={ itemsRef }>
           { props.items?.map((items, index) => {
             const value = props.itemName ? items[props.itemName] : items
