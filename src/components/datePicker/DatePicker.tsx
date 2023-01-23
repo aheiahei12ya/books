@@ -4,6 +4,7 @@ import {
   forwardRef,
   ReactElement,
   useCallback,
+  useEffect,
   useMemo,
   useRef,
   useState
@@ -21,7 +22,7 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
   const size = props.size || 'default'
   const activate = props.activate || 'click'
   const [buttonRef, hover] = useHover()
-  const sheetRef = useRef<HTMLDivElement>(null)
+  const calendarRef = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState<boolean>(false)
   const [selected, setSelected] = useState(props.defaultSelected)
   const [rule, setRule] = useState({
@@ -34,12 +35,12 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
   const [year, setYear] = useState<number>(thisYear)
   const [month, setMonth] = useState<number>(thisMonth)
 
-  const activateDropdown = useCallback(
+  const handleCalendar = useCallback(
     (type: 'activate' | 'deactivate') => {
-      const nodeRef = sheetRef.current!
+      const nodeRef = calendarRef.current!
       const onClickOutsideHandler = (e: Event) => {
         if (!buttonRef.current) return
-        buttonRef.current.contains(e.target) || activateDropdown('deactivate')
+        buttonRef.current.contains(e.target) || handleCalendar('deactivate')
       }
       if (type === 'activate') {
         setActive(true)
@@ -55,14 +56,23 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
     [buttonRef]
   )
 
-  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation()
+  const handleClick = () => {
     if (!active) {
-      activateDropdown('activate')
+      handleCalendar('activate')
     } else {
-      activateDropdown('deactivate')
+      handleCalendar('deactivate')
     }
   }
+
+  useEffect(() => {
+    if (activate === 'hover') {
+      if (hover) {
+        handleCalendar('activate')
+      } else {
+        handleCalendar('deactivate')
+      }
+    }
+  }, [hover])
 
   const getDate = () => {
     if (props.locale === 'zh-CN') {
@@ -124,10 +134,10 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
       props.onSelect?.(selectedYear, selectedMonth + 1, date)
       const selectedDate = `${ selectedYear }-${ selectedMonth + 1 }-${ date }`
       setSelected(selectedDate)
-      activateDropdown('deactivate')
+      handleCalendar('deactivate')
       return selectedDate
     },
-    [activateDropdown, month, props, year]
+    [handleCalendar, month, props, year]
   )
   const makeCell = useCallback(
     (date: number, type: 'past' | 'current' | 'future', index: number) => {
@@ -193,9 +203,8 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
   }, [makeCell, month, year])
 
   return (
-    <>
+    <div ref={ buttonRef }>
       <div
-        ref={ buttonRef }
         className={ classNames(styles.datePickerBox, {
           [styles.datePickerBoxSm]: size === 'small',
           [styles.datePickerBoxLg]: size === 'large',
@@ -203,9 +212,7 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
           [styles.datePickerBoxError]: rule.error,
           [styles.datePickerBoxFocus]: active
         }) }
-        onClick={ (e) => {
-          handleClick(e)
-        } }
+        onClick={ handleClick }
       >
         { !!props.prepend && (
           <span
@@ -233,7 +240,7 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
       ) }
       <div
         onClick={ (e) => e.stopPropagation() }
-        ref={ sheetRef }
+        ref={ calendarRef }
         className={ styles.calendarBox }
       >
         <div className={ styles.datePickerCalendar }>
@@ -277,7 +284,7 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 })
 

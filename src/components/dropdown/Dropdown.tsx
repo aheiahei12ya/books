@@ -12,7 +12,6 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
   const activate = props.activate || 'click'
   const [buttonRef, hover] = useHover()
   const sheetRef = useRef<HTMLDivElement>(null)
-  const itemsRef = useRef<HTMLUListElement>(null)
   const [active, setActive] = useState<boolean>(false)
   const [selected, setSelected] = useState(props.defaultSelected)
   const [rule, setRule] = useState({
@@ -107,7 +106,7 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
         className={ styles.dropdownMenu }
         onClick={ (e) => e.stopPropagation() }
       >
-        <ul ref={ itemsRef }>
+        <ul>
           { props.items?.map((items, index) => {
             const value = props.itemName ? items[props.itemName] : items
             return (
