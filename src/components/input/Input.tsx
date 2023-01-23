@@ -92,9 +92,9 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
           [styles.inputBoxError]: rule.error
         }) }
         onClick={ () => inputRef.current?.focus() }
-        onMouseDown={ (e) => {
-          e.preventDefault()
-        } }
+        // onMouseDown={ (e) => {
+        //   e.preventDefault()
+        // } }
       >
         { hasPrepend && (
           <span
@@ -118,10 +118,10 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
           onChange={ (e) => {
             handleInput(e)
           } }
-          onFocus={ (e) => {
+          onFocus={ () => {
             setHasFocus(true)
           } }
-          onBlur={ (e) => {
+          onBlur={ () => {
             setHasFocus(false)
             checkRules(props.rules)
           } }
