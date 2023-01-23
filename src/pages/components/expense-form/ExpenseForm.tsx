@@ -1,13 +1,18 @@
 import classNames from 'classnames'
 import React, { forwardRef, useCallback, useState } from 'react'
 
+import Checkbox from '@/components/checkbox'
 import Dropdown from '@/components/dropdown'
 import Input from '@/components/input'
 import useRequest from '@/hooks/useRequest'
 import {
+  autoDebitKeys,
   expenseConfig,
   expenseFormKeys,
-  receiptDetailKeys
+  expenseFormKeysAppend,
+  installmentKeys,
+  receiptDetailKeys,
+  reimbursementKeys
 } from '@/pages/components/expense-form/config'
 import services from '@/services'
 
@@ -22,40 +27,201 @@ import {
 const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
   ExpenseForm.displayName = 'ExpenseForm'
   const [expense, setExpense] = useState<expenseType>({
-    realAmount: 0,
-    amount: 0,
-    coupon: 0,
-    paymentMethod: undefined,
-    platform: undefined,
-    category: undefined,
-    subcategory: undefined,
-    date: undefined,
-    time: undefined,
-    account: undefined,
-    note: undefined
+    realAmount: 0
   })
 
+  const handleReimbursement = useCallback(
+    (amount: number, coupon: number, reimbursementAmount: number) => {
+      const realAmount = expense.reimbursementFullAmount
+        ? 0
+        : Math.max(amount - coupon - reimbursementAmount, 0)
+      expense.reimbursementFullAmount &&
+      setExpense((prevState) => ({
+        ...prevState,
+        reimbursementAmount: Number(Math.max(amount - coupon, 0).toFixed(2))
+      }))
+      return realAmount
+    },
+    [expense.reimbursementFullAmount]
+  )
+
   const handleChange = useCallback(
-    (key: string, value: string | number | undefined) => {
-      if (key === 'coupon') {
-        const amount = expense.amount || 0
-        const coupon = value ? (value as number) : 0
-        setExpense((prevState) => ({
-          ...prevState,
-          realAmount: Math.max(amount - coupon, 0)
-        }))
-      } else if (key === 'amount') {
-        const amount = value ? (value as number) : 0
-        const coupon = expense.coupon || 0
-        setExpense((prevState) => ({
-          ...prevState,
-          realAmount: Math.max(amount - coupon, 0)
-        }))
+    (key: string, value: string | number | undefined | boolean) => {
+      switch (key) {
+        case 'coupon': {
+          const amount = expense.amount || 0
+          const coupon = value ? (value as number) : 0
+          const reimbursementAmount = expense.reimbursementAmount || 0
+          const realAmount = handleReimbursement(
+            amount,
+            coupon,
+            reimbursementAmount
+          )
+          setExpense((prevState) => ({
+            ...prevState,
+            realAmount: realAmount
+          }))
+          break
+        }
+        case 'amount': {
+          const amount = value ? (value as number) : 0
+          const coupon = expense.coupon || 0
+          const reimbursementAmount = expense.reimbursementAmount || 0
+          const realAmount = handleReimbursement(
+            amount,
+            coupon,
+            reimbursementAmount
+          )
+          setExpense((prevState) => ({
+            ...prevState,
+            realAmount: realAmount
+          }))
+          break
+        }
+        case 'reimbursementAmount': {
+          const amount = expense.amount || 0
+          const coupon = expense.coupon || 0
+          const reimbursementAmount = value ? (value as number) : 0
+          setExpense((prevState) => ({
+            ...prevState,
+            realAmount: Math.max(amount - coupon - reimbursementAmount, 0)
+          }))
+          break
+        }
+        default:
+          break
       }
       setExpense((prevState) => ({ ...prevState, [key]: value }))
     },
-    [expense.amount, expense.coupon]
+    [
+      expense.amount,
+      expense.coupon,
+      expense.reimbursementAmount,
+      handleReimbursement
+    ]
   )
+  const makeInputUnit = (formKey: keyof expenseConfigType) => {
+    switch (expenseConfig[formKey].type) {
+      case 'input':
+        return (
+          <div key={ formKey } className={ styles.expenseFormButton }>
+            <Input
+              prepend={ expenseConfig[formKey].icon }
+              hideMessage
+              value={ expense[formKey] as string | undefined }
+              placeholder={ expenseConfig[formKey].name }
+              clearable
+              showClearIfFill
+              type={ formKey === 'note' ? 'string' : 'digit' }
+              onChange={ (val) => handleChange(formKey, val) }
+              onClear={ () => handleChange(formKey, '') }
+            ></Input>
+          </div>
+        )
+
+      case 'select':
+        return (
+          <div key={ formKey } className={ styles.expenseFormButton }>
+            <Dropdown
+              prepend={ expenseConfig[formKey].icon }
+              hideMessage
+              placeholder={ expenseConfig[formKey].name }
+              items={ expenseConfig[formKey].items }
+              itemName={ 'name' }
+              returnObject
+              onSelect={ (val) => handleChange(formKey, val) }
+              rules={ [
+                {
+                  required: true
+                }
+              ] }
+            ></Dropdown>
+          </div>
+        )
+
+      case 'checkbox':
+        return (
+          <div key={ formKey } className={ styles.expenseFormButton }>
+            <Checkbox onChange={ handleCheck }>
+              { expenseConfig[formKey].name }
+            </Checkbox>
+          </div>
+        )
+
+      default:
+        return
+    }
+  }
+  const handleCheck = (e: boolean) => {
+    if (e) {
+      handleChange('reimbursementFullAmount', true)
+      !!expense.realAmount &&
+      handleChange('reimbursementAmount', expense.realAmount)
+    } else {
+      handleChange('reimbursementFullAmount', false)
+    }
+  }
+  const makeExtraRow = () => {
+    switch (expense.paymentMethod?.key) {
+      case 'installment':
+        return (
+          <div className={ styles.expenseFormRow }>
+            { installmentKeys.map((formKey) =>
+              makeInputUnit(formKey as keyof expenseConfigType)
+            ) }
+          </div>
+        )
+      case 'auto-debit':
+        return (
+          <div className={ styles.expenseFormRow }>
+            { autoDebitKeys.map((formKey) =>
+              makeInputUnit(formKey as keyof expenseConfigType)
+            ) }
+          </div>
+        )
+      case 'reimbursement':
+        return (
+          <div className={ styles.expenseFormRow }>
+            { reimbursementKeys.map((formKey) =>
+              makeInputUnit(formKey as keyof expenseConfigType)
+            ) }
+          </div>
+        )
+      default:
+        return
+    }
+  }
+  const getReceiptValue = (value: string | undefined | number) => {
+    if (value === undefined) {
+      return value
+    } else if (isNaN(Number(value))) {
+      return value
+    } else {
+      return `-${ Number(value).toFixed(2) }`
+    }
+  }
+  const makeReceiptDetail = (type: string) => {
+    const config = expenseConfig[type as keyof expenseConfigType]
+    let receiptValue: string
+    if (config.type === 'select') {
+      receiptValue = (expense[type as keyof expenseType] as itemType)?.name
+    } else {
+      receiptValue = expense[type as keyof expenseType] as string
+      if (type === 'coupon' && !receiptValue) return
+    }
+    return (
+      <div key={ type } className={ styles.receiptDetailRow }>
+        <span className={ styles.receiptDetailKey }>{ config.name }</span>
+        <span
+          className={ classNames({
+            [styles.receiptDetailValue]: type === 'coupon'
+          }) }
+        >
+          { getReceiptValue(receiptValue) }
+        </span>
+      </div>
+    )
+  }
 
   useRequest(
     () =>
@@ -64,9 +230,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
       }),
     {
       onSuccess: (data) => {
-        if (data.success) {
-          expenseConfig.platform.items = data?.data.platformList
-        }
+        data.success && (expenseConfig.platform.items = data?.data.platformList)
       }
     }
   )
@@ -77,22 +241,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
       }),
     {
       onSuccess: (data) => {
-        if (data.success) {
-          expenseConfig.account.items = data?.data.accountList
-        }
-      }
-    }
-  )
-  useRequest(
-    () =>
-      services.paymentMethod.list({
-        user: 1
-      }),
-    {
-      onSuccess: (data) => {
-        if (data.success) {
-          expenseConfig.paymentMethod.items = data?.data.paymentMethodList
-        }
+        data.success && (expenseConfig.account.items = data?.data.accountList)
       }
     }
   )
@@ -104,9 +253,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
       }),
     {
       onSuccess: (data) => {
-        if (data.success) {
-          expenseConfig.category.items = data?.data.categoryList
-        }
+        data.success && (expenseConfig.category.items = data?.data.categoryList)
       }
     }
   )
@@ -118,9 +265,8 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
       }),
     {
       onSuccess: (data) => {
-        if (data.success) {
-          expenseConfig.subcategory.items = data?.data.categoryList
-        }
+        data.success &&
+        (expenseConfig.subcategory.items = data?.data.categoryList)
       }
     }
   )
@@ -128,80 +274,34 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
   return (
     <div className={ styles.expenseContainer }>
       <div className={ styles.expenseForm }>
-        { expenseFormKeys.map((formRow, index) => {
-          return (
-            <div key={ `row-${ index }` } className={ styles.expenseFormRow }>
-              { formRow.map((node) => {
-                const config = expenseConfig[node as keyof expenseConfigType]
-                return config.type === 'input' ? (
-                  <div key={ node } className={ styles.expenseFormButton }>
-                    <Input
-                      prepend={ config.icon }
-                      hideMessage
-                      placeholder={ config.name }
-                      clearable
-                      showClearIfFill
-                      type={ node === 'note' ? 'string' : 'digit' }
-                      onChange={ (val) => handleChange(node, val) }
-                      onClear={ () => handleChange(node, undefined) }
-                    ></Input>
-                  </div>
-                ) : (
-                  <div key={ node } className={ styles.expenseFormButton }>
-                    <Dropdown
-                      prepend={ config.icon }
-                      hideMessage
-                      placeholder={ config.name }
-                      items={ config.items }
-                      itemName={ 'name' }
-                      returnObject
-                      onSelect={ (val) => handleChange(node, val) }
-                      rules={ [
-                        {
-                          required: true
-                        }
-                      ] }
-                    ></Dropdown>
-                  </div>
-                )
-              }) }
-            </div>
-          )
-        }) }
+        { expenseFormKeys.map((formRow, index) => (
+          <div key={ `row-${ index }` } className={ styles.expenseFormRow }>
+            { formRow.map((formKey) =>
+              makeInputUnit(formKey as keyof expenseConfigType)
+            ) }
+          </div>
+        )) }
+        { makeExtraRow() }
+        { expenseFormKeysAppend.map((formRow, index) => (
+          <div key={ `row-${ index }` } className={ styles.expenseFormRow }>
+            { formRow.map((formKey) =>
+              makeInputUnit(formKey as keyof expenseConfigType)
+            ) }
+          </div>
+        )) }
       </div>
-
-      <div className={ classNames(styles.expenseReceipt, styles.hiddenSmAndDown) }>
+      <div
+        className={ classNames(styles.expenseReceipt, styles.hiddenSmAndDown) }
+      >
         <div className={ styles.receiptHeader }>
           <span className={ styles.receiptHeaderNote }>{ expense.note }</span>
           <span className={ styles.receiptHeaderExpense }>
-            { expense.realAmount && `-${ expense.realAmount.toFixed(2) }` }
+            { `-${ expense?.realAmount?.toFixed(2) }` }
           </span>
         </div>
         <div className={ styles.receiptDetail }>
-          { receiptDetailKeys.map((type, index) => {
-            const config = expenseConfig[type as keyof expenseConfigType]
-            let receiptValue: string
-            if (config.type === 'select') {
-              receiptValue = (expense[type as keyof expenseType] as itemType)
-                ?.name
-            } else {
-              receiptValue = expense[type as keyof expenseType] as string
-              if (type === 'coupon' && !receiptValue) return
-            }
-            return (
-              <div key={ index } className={ styles.receiptDetailRow }>
-                <span className={ styles.receiptDetailKey }>{ config.name }</span>
-                <span
-                  className={ classNames({
-                    [styles.receiptDetailValue]: type === 'coupon'
-                  }) }
-                >
-                  { receiptValue && type === 'coupon'
-                    ? `-${ Number(receiptValue).toFixed(2) }`
-                    : receiptValue }
-                </span>
-              </div>
-            )
+          { receiptDetailKeys.map((type) => {
+            return makeReceiptDetail(type)
           }) }
         </div>
       </div>

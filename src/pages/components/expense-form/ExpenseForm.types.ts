@@ -15,15 +15,23 @@ export type expenseType = {
   platform?: itemType | undefined
   category?: itemType | undefined
   subcategory?: itemType | undefined
+  installmentDate?: string | undefined
+  installmentNumber?: number | undefined
+  autoDebitDate?: string | undefined
+  autoDebitNumber?: number | undefined
+  reimbursementAmount?: number | undefined
+  reimbursementState?: string | undefined
+  reimbursementFullAmount?: boolean | undefined
 }
 
 export type itemType = {
-  id: number
+  id?: number
+  key?: string
   name: string
 }
 
 type receiptType = {
-  type: 'input' | 'select'
+  type: 'input' | 'select' | 'checkbox'
   name: string
   icon: ReactNode
   items?: itemType[]
@@ -40,4 +48,11 @@ export type expenseConfigType = {
   time: receiptType
   account: receiptType
   note: receiptType
+  installmentDate: receiptType
+  installmentNumber: receiptType
+  autoDebitDate: receiptType
+  autoDebitNumber: receiptType
+  reimbursementAmount: receiptType
+  reimbursementState: receiptType
+  reimbursementFullAmount: receiptType
 }
