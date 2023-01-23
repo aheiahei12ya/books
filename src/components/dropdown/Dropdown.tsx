@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { forwardRef, useCallback, useRef, useState } from 'react'
+import { forwardRef, useCallback, useEffect, useRef, useState } from 'react'
 
 import useHover from '@/hooks/useHover'
 
@@ -19,12 +19,12 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
     error: false,
     message: <></>
   })
-  const activateDropdown = useCallback(
+  const handleDropdown = useCallback(
     (type: 'activate' | 'deactivate') => {
       const nodeRef = sheetRef.current!
       const onClickOutsideHandler = (e: Event) => {
         if (!buttonRef.current) return
-        buttonRef.current.contains(e.target) || activateDropdown('deactivate')
+        buttonRef.current.contains(e.target) || handleDropdown('deactivate')
       }
       if (type === 'activate') {
         setActive(true)
@@ -42,16 +42,25 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
 
   const handleClick = () => {
     if (!active) {
-      activateDropdown('activate')
+      handleDropdown('activate')
     } else {
-      activateDropdown('deactivate')
+      handleDropdown('deactivate')
     }
   }
 
+  useEffect(() => {
+    if (activate === 'hover') {
+      if (hover) {
+        handleDropdown('activate')
+      } else {
+        handleDropdown('deactivate')
+      }
+    }
+  }, [hover])
+
   return (
-    <>
+    <div ref={ buttonRef }>
       <div
-        ref={ buttonRef }
         className={ classNames(styles.dropdown, {
           [styles.dropdownSm]: size === 'small',
           [styles.dropdownLg]: size === 'large',
@@ -64,7 +73,8 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
         { !!props.prepend && (
           <span
             className={ classNames(styles.dropdownPrefix, {
-              [styles.dropdownPrefixActive]: active
+              [styles.dropdownPrefixActive]:
+              (hover && activate === 'hover') || active
             }) }
           >
             { props.prepend }
@@ -73,7 +83,7 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
         <div
           className={ classNames(styles.inputBox, {
             [styles.inputBoxPlaceholder]: !selected,
-            [styles.inputBoxFocus]: active
+            [styles.inputBoxFocus]: (hover && activate === 'hover') || active
           }) }
         >
           { selected || props.placeholder }
@@ -104,6 +114,7 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
                 }) }
                 onClick={ () => {
                   setSelected(value)
+                  handleDropdown('deactivate')
                   props.onSelect?.(props.returnObject ? items : value)
                 } }
               >
@@ -113,7 +124,7 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
           }) }
         </ul>
       </div>
-    </>
+    </div>
   )
 })
 
