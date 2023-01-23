@@ -72,7 +72,7 @@ const Calendar = forwardRef<unknown, CalendarProps>((props, ref) => {
     (date: number, type: 'past' | 'current' | 'future', index: number) => {
       const ratio = (() => {
         const value = getValue(props?.expense?.[index], 0)
-        if (type !== 'current') return
+        if (type !== 'current' || !props.expense) return
         if (value === 0) return styles.calendarCellEmpty
         if (value <= 1) return styles.calendarCellLow
         if (value <= 3) return styles.calendarCellNormal
