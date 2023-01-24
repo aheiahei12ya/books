@@ -28,11 +28,13 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
       if (type === 'activate') {
         setActive(true)
         nodeRef.style.width = buttonRef.current.clientWidth + 'px'
+        nodeRef.style.maxWidth = buttonRef.current.clientWidth + 'px'
         nodeRef.style.maxHeight = '200px'
         document.addEventListener('click', onClickOutsideHandler)
       } else {
         setActive(false)
         nodeRef.style.maxHeight = '0'
+        nodeRef.style.maxWidth = '0'
         document.removeEventListener('click', onClickOutsideHandler)
       }
     },

@@ -46,10 +46,13 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
         setActive(true)
         nodeRef.style.maxHeight = '230px'
         nodeRef.style.height = '230px'
+        nodeRef.style.maxWidth = '220px'
+        nodeRef.style.width = '220px'
         document.addEventListener('click', onClickOutsideHandler)
       } else {
         setActive(false)
         nodeRef.style.maxHeight = '0'
+        nodeRef.style.maxWidth = '0'
         document.removeEventListener('click', onClickOutsideHandler)
       }
     },
@@ -243,45 +246,43 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
         ref={ calendarRef }
         className={ styles.calendarBox }
       >
-        <div className={ styles.datePickerCalendar }>
-          <div className={ styles.calendar }>
-            <div className={ styles.toolBar }>
-              <div
-                className={ styles.toolButton }
-                onClick={ () => setYear(year - 1) }
-              >
-                <i className="fa-regular fa-angles-left"></i>
-              </div>
-              <div
-                className={ styles.toolButton }
-                onClick={ () => handleMonthChange('sub') }
-              >
-                <i className="fa-regular fa-angle-left"></i>
-              </div>
-              <div className={ styles.toolBarDate }>{ getDate() }</div>
-              <div
-                className={ styles.toolButton }
-                onClick={ () => handleMonthChange('add') }
-              >
-                <i className="fa-regular fa-angle-right"></i>
-              </div>
-              <div
-                className={ styles.toolButton }
-                onClick={ () => setYear(year + 1) }
-              >
-                <i className="fa-regular fa-angles-right"></i>
-              </div>
+        <div className={ styles.calendar }>
+          <div className={ styles.toolBar }>
+            <div
+              className={ styles.toolButton }
+              onClick={ () => setYear(year - 1) }
+            >
+              <i className="fa-regular fa-angles-left"></i>
             </div>
-            <div className={ styles.calendarHeader }>
-              { weekNames(props.locale).map((weekName) => {
-                return <span key={ weekName }>{ weekName }</span>
-              }) }
+            <div
+              className={ styles.toolButton }
+              onClick={ () => handleMonthChange('sub') }
+            >
+              <i className="fa-regular fa-angle-left"></i>
             </div>
-            <div className={ styles.calendarCells }>{ calendar }</div>
-            {/*<div onClick={ backToToday } className={ styles.toolButton }>*/ }
-            {/*  { props.locale === 'zh-CN' ? '今天' : 'Today' }*/ }
-            {/*</div>*/ }
+            <div className={ styles.toolBarDate }>{ getDate() }</div>
+            <div
+              className={ styles.toolButton }
+              onClick={ () => handleMonthChange('add') }
+            >
+              <i className="fa-regular fa-angle-right"></i>
+            </div>
+            <div
+              className={ styles.toolButton }
+              onClick={ () => setYear(year + 1) }
+            >
+              <i className="fa-regular fa-angles-right"></i>
+            </div>
           </div>
+          <div className={ styles.calendarHeader }>
+            { weekNames(props.locale).map((weekName) => {
+              return <span key={ weekName }>{ weekName }</span>
+            }) }
+          </div>
+          <div className={ styles.calendarCells }>{ calendar }</div>
+          {/*<div onClick={ backToToday } className={ styles.toolButton }>*/ }
+          {/*  { props.locale === 'zh-CN' ? '今天' : 'Today' }*/ }
+          {/*</div>*/ }
         </div>
       </div>
     </div>
