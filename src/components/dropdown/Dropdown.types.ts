@@ -22,4 +22,5 @@ export interface DropdownProps {
   itemName?: string
   returnObject?: boolean
   defaultSelected?: string | undefined
+  value?: string
 }

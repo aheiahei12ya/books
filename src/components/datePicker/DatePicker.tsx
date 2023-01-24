@@ -1,21 +1,19 @@
 import classNames from 'classnames'
 import dayjs from 'dayjs'
-import {
-  forwardRef,
-  ReactElement,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState
-} from 'react'
+import { forwardRef, useCallback, useEffect, useRef, useState } from 'react'
 
+import {
+  calendar,
+  getDate,
+  handleDaySelect,
+  handleMonthChange,
+  handleSelect
+} from '@/components/lib/calendar'
 import useHover from '@/hooks/useHover'
-import { range } from '@/lib/pythonic'
 
 import styles from './DatePicker.module.sass'
 import { DatePickerProps } from './DatePicker.types'
-import { monthNames, weekNames } from './locale'
+import { weekNames } from './locale'
 
 const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
   DatePicker.displayName = 'DatePicker'
@@ -34,29 +32,37 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
   const today = dayjs().date()
   const [year, setYear] = useState<number>(thisYear)
   const [month, setMonth] = useState<number>(thisMonth)
+  const width = props.width || '220px'
+  const height = props.height || '230px'
+
+  const onClickOutsideHandler = useCallback(
+    (e: Event) => {
+      if (!buttonRef.current) return
+      buttonRef.current.contains(e.target) || handleCalendar('deactivate')
+    },
+    [buttonRef]
+  )
 
   const handleCalendar = useCallback(
     (type: 'activate' | 'deactivate') => {
       const nodeRef = calendarRef.current!
-      const onClickOutsideHandler = (e: Event) => {
-        if (!buttonRef.current) return
-        buttonRef.current.contains(e.target) || handleCalendar('deactivate')
-      }
       if (type === 'activate') {
         setActive(true)
-        nodeRef.style.maxHeight = '230px'
-        nodeRef.style.height = '230px'
-        nodeRef.style.maxWidth = '220px'
-        nodeRef.style.width = '220px'
+        nodeRef.style.maxHeight = height
+        nodeRef.style.height = height
+        nodeRef.style.maxWidth = width
+        nodeRef.style.width = width
         document.addEventListener('click', onClickOutsideHandler)
       } else {
         setActive(false)
         nodeRef.style.maxHeight = '0'
-        nodeRef.style.maxWidth = '0'
+        setTimeout(() => {
+          nodeRef.style.maxWidth = '0'
+        }, 300)
         document.removeEventListener('click', onClickOutsideHandler)
       }
     },
-    [buttonRef]
+    [height, onClickOutsideHandler, width]
   )
 
   const handleClick = () => {
@@ -77,133 +83,56 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
     }
   }, [hover])
 
-  const getDate = () => {
-    if (props.locale === 'zh-CN') {
-      return `${ year }年${ month + 1 }月`
-    } else {
-      return `${ monthNames[month] } ${ year }`
-    }
-  }
-  const backToToday = () => {
-    setYear(thisYear)
-    setMonth(thisMonth)
-  }
-  const handleMonthChange = (method: 'sub' | 'add') => {
-    switch (method) {
-      case 'add':
-        if (month >= 11) {
-          setYear(year + 1)
-          setMonth(0)
-        } else {
-          setMonth(month + 1)
-        }
-        break
-      case 'sub':
-        if (month <= 0) {
-          setYear(year - 1)
-          setMonth(11)
-        } else {
-          setMonth(month - 1)
-        }
-        break
-      default:
-        break
-    }
-  }
-  const handleSelect = useCallback(
-    (date: number, type: 'past' | 'current' | 'future', index: number) => {
-      let selectedYear = year
-      let selectedMonth = month
-      switch (type) {
-        case 'past':
-          if (!month) {
-            selectedYear = year - 1
-            selectedMonth = 11
-          } else {
-            selectedMonth = month - 1
-          }
-          break
-        case 'future':
-          if (month === 11) {
-            selectedYear = year + 1
-            selectedMonth = 0
-          } else {
-            selectedMonth = month + 1
-          }
-          break
-        default:
-          props.onSelect?.(selectedYear, selectedMonth, date)
-      }
-      props.onSelect?.(selectedYear, selectedMonth + 1, date)
-      const selectedDate = `${ selectedYear }-${ selectedMonth + 1 }-${ date }`
-      setSelected(selectedDate)
-      handleCalendar('deactivate')
-      return selectedDate
-    },
-    [handleCalendar, month, props, year]
-  )
   const makeCell = useCallback(
-    (date: number, type: 'past' | 'current' | 'future', index: number) => {
-      const isToday = date === today && year === thisYear && month === thisMonth
+    (selectedDay: number, type: 'past' | 'current' | 'future') => {
+      const isToday =
+        selectedDay === today && year === thisYear && month === thisMonth
+      const [selectedYear, selectedMonth] = handleDaySelect(type, year, month)
       return (
         <div
           className={ classNames(styles.calendarCell, {
             [styles.calendarCellDisabled]: type !== 'current'
           }) }
-          key={ `${ type }-${ date }` }
-          onClick={ () => handleSelect(date, type, index) }
+          key={ `${ type }-${ selectedDay }` }
+          onClick={ () =>
+            handleSelect(
+              selectedYear,
+              selectedMonth,
+              selectedDay,
+              setYear,
+              setMonth,
+              setSelected,
+              () => handleCalendar('deactivate'),
+              props.onSelect
+            )
+          }
         >
           <span
             className={ classNames(
               classNames(styles.calendarCellContainer, {
                 [styles.calendarCellToday]: isToday,
                 [styles.calendarCellSelected]:
-                selected === `${ year }-${ month + 1 }-${ date }`
+                selected ===
+                `${ selectedYear }-${ selectedMonth + 1 }-${ selectedDay }`
               })
             ) }
           >
-            { date }
+            { selectedDay }
           </span>
         </div>
       )
     },
-    [handleSelect, month, selected, thisMonth, thisYear, today, year]
+    [
+      buttonRef,
+      month,
+      props.onSelect,
+      selected,
+      thisMonth,
+      thisYear,
+      today,
+      year
+    ]
   )
-  const calendar = useMemo(() => {
-    const calendar: ReactElement[] = []
-    const beforeMonth: number[] = []
-    const afterMonth: number[] = []
-
-    const days = new Date(year, month + 1, 0).getDate()
-    const lastMonthDays = new Date(year, month, 0).getDate()
-    let firstDay = dayjs().year(year).month(month).date(1).day()
-    let lastDay = 6 - dayjs().year(year).month(month).date(days).day()
-
-    while (firstDay) {
-      --firstDay
-      beforeMonth.push(lastMonthDays - firstDay)
-    }
-    let lastIndex = 0
-    while (lastDay) {
-      --lastDay
-      afterMonth.push(++lastIndex)
-    }
-
-    let count = 0
-    beforeMonth.forEach((i) => {
-      calendar.push(makeCell(i, 'past', count))
-      ++count
-    })
-    range(1, days + 1).forEach((i) => {
-      calendar.push(makeCell(i, 'current', count))
-      ++count
-    })
-    afterMonth.forEach((i) => {
-      calendar.push(makeCell(i, 'future', count))
-      ++count
-    })
-    return calendar
-  }, [makeCell, month, year])
 
   return (
     <div ref={ buttonRef }>
@@ -256,14 +185,20 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
             </div>
             <div
               className={ styles.toolButton }
-              onClick={ () => handleMonthChange('sub') }
+              onClick={ () =>
+                handleMonthChange('sub', year, month, setYear, setMonth)
+              }
             >
               <i className="fa-regular fa-angle-left"></i>
             </div>
-            <div className={ styles.toolBarDate }>{ getDate() }</div>
+            <div className={ styles.toolBarDate }>
+              { getDate(props.locale, year, month) }
+            </div>
             <div
               className={ styles.toolButton }
-              onClick={ () => handleMonthChange('add') }
+              onClick={ () =>
+                handleMonthChange('add', year, month, setYear, setMonth)
+              }
             >
               <i className="fa-regular fa-angle-right"></i>
             </div>
@@ -279,7 +214,9 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
               return <span key={ weekName }>{ weekName }</span>
             }) }
           </div>
-          <div className={ styles.calendarCells }>{ calendar }</div>
+          <div className={ styles.calendarCells }>
+            { calendar(year, month, makeCell) }
+          </div>
           {/*<div onClick={ backToToday } className={ styles.toolButton }>*/ }
           {/*  { props.locale === 'zh-CN' ? '今天' : 'Today' }*/ }
           {/*</div>*/ }

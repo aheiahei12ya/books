@@ -18,13 +18,16 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
     error: false,
     message: <></>
   })
+  const onClickOutsideHandler = useCallback(
+    (e: Event) => {
+      if (!buttonRef.current) return
+      buttonRef.current.contains(e.target) || handleDropdown('deactivate')
+    },
+    [buttonRef]
+  )
   const handleDropdown = useCallback(
     (type: 'activate' | 'deactivate') => {
       const nodeRef = sheetRef.current!
-      const onClickOutsideHandler = (e: Event) => {
-        if (!buttonRef.current) return
-        buttonRef.current.contains(e.target) || handleDropdown('deactivate')
-      }
       if (type === 'activate') {
         setActive(true)
         nodeRef.style.width = buttonRef.current.clientWidth + 'px'
@@ -34,11 +37,13 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
       } else {
         setActive(false)
         nodeRef.style.maxHeight = '0'
-        nodeRef.style.maxWidth = '0'
+        setTimeout(() => {
+          nodeRef.style.maxWidth = '0'
+        }, 300)
         document.removeEventListener('click', onClickOutsideHandler)
       }
     },
-    [buttonRef]
+    [buttonRef, onClickOutsideHandler]
   )
 
   const handleClick = () => {

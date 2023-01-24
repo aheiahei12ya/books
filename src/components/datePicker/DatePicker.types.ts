@@ -16,4 +16,6 @@ export interface DatePickerProps {
   activate?: 'hover' | 'click'
   defaultSelected?: string | undefined
   locale?: string
+  width?: string
+  height?: string
 }
