@@ -1,4 +1,4 @@
-import { expenseType } from '@/pages/components/expense-form/ExpenseForm.types'
+import { expenseType } from '@/components/biz/expense-form/ExpenseForm.types'
 
 export interface presetExpenseFormRequest {
   user: number

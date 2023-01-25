@@ -127,3 +127,5 @@ export const expenseConfig: expenseConfigType = {
     ]
   }
 }
+
+export default expenseConfig

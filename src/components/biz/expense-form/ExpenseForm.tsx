@@ -9,6 +9,8 @@ import Dropdown from '@/components/dropdown'
 import Input from '@/components/input'
 import TimePicker from '@/components/timePicker'
 import useRequest from '@/hooks/useRequest'
+import services from '@/services'
+
 import {
   autoDebitKeys,
   expenseConfig,
@@ -17,9 +19,7 @@ import {
   installmentKeys,
   receiptDetailKeys,
   reimbursementKeys
-} from '@/pages/components/expense-form/config'
-import services from '@/services'
-
+} from './config'
 import styles from './ExpenseForm.module.sass'
 import {
   expenseConfigType,
@@ -130,7 +130,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
               itemName={ 'name' }
               returnObject
               onSelect={ (val) => handleChange(formKey, val) }
-              // defaultSelected={ expense[formKey]?.name }
+              defaultSelected={ (expense[formKey] as itemType)?.name }
               rules={ [
                 {
                   required: true
@@ -256,7 +256,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
     )
   }
 
-  useRequest(() => services.expense.initial({ user: 1 }), {
+  const { loading } = useRequest(() => services.expense.initial({ user: 1 }), {
     onSuccess: (data) => {
       if (data.success) {
         expenseConfig.platform.items = data?.data.platformList
@@ -271,84 +271,9 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
     }
   })
 
-  // useRequest(
-  //   () =>
-  //     services.platform.list({
-  //       user: 1
-  //     }),
-  //   {
-  //     onSuccess: (data) => {
-  //       data.success && (expenseConfig.platform.items = data?.data.platformList)
-  //     }
-  //   }
-  // )
-  // useRequest(
-  //   () =>
-  //     services.account.list({
-  //       user: 1
-  //     }),
-  //   {
-  //     onSuccess: (data) => {
-  //       data.success && (expenseConfig.account.items = data?.data.accountList)
-  //     }
-  //   }
-  // )
-  // useRequest(
-  //   () =>
-  //     services.category.list({
-  //       user: 1,
-  //       root: 0
-  //     }),
-  //   {
-  //     onSuccess: (data) => {
-  //       data.success && (expenseConfig.category.items = data?.data.categoryList)
-  //     }
-  //   }
-  // )
-  // useRequest(
-  //   () =>
-  //     services.category.list({
-  //       user: 1,
-  //       root: 1
-  //     }),
-  //   {
-  //     onSuccess: (data) => {
-  //       data.success &&
-  //       (expenseConfig.subcategory.items = data?.data.categoryList)
-  //     }
-  //   }
-  // )
-  // useRequest(
-  //   () =>
-  //     services.paymentMethod.list({
-  //       user: 1
-  //     }),
-  //   {
-  //     onSuccess: (data) => {
-  //       data.success &&
-  //       (expenseConfig.paymentMethod.items = data?.data.paymentMethodList)
-  //     }
-  //   }
-  // )
-  // useRequest(
-  //   () =>
-  //     services.setting.preset({
-  //       user: 1
-  //     }),
-  //   {
-  //     onSuccess: (data) => {
-  //       data.success &&
-  //       Object.getOwnPropertyNames(data?.data.presetData).forEach(
-  //         (key: string) => {
-  //           console.log(data?.data.presetData[key])
-  //           handleChange(key, data?.data.presetData[key])
-  //         }
-  //       )
-  //     }
-  //   }
-  // )
-
-  return (
+  return loading ? (
+    <></>
+  ) : (
     <div className={ styles.expenseContainer }>
       <div className={ styles.expenseForm }>
         { expenseFormKeys.map((formRow, index) => (
@@ -387,4 +312,4 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
   )
 })
 
-export { ExpenseForm }
+export default ExpenseForm

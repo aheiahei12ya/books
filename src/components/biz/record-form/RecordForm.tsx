@@ -1,9 +1,9 @@
 import classNames from 'classnames'
 import { forwardRef, useState } from 'react'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 
-import ExpenseForm from '@/pages/components/expense-form'
-import IncomeForm from '@/pages/components/income-form'
+import ExpenseForm from '@/components/biz/expense-form'
+import IncomeForm from '@/components/biz/income-form'
 
 import styles from './RecordForm.module.sass'
 import { RecordFormProps } from './RecordForm.types'
@@ -11,6 +11,7 @@ import { RecordFormProps } from './RecordForm.types'
 const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
   RecordForm.displayName = 'RecordForm'
   const [type, setType] = useState<string>('expense')
+  const i18n = useIntl()
   return (
     <div className={styles.recordForm}>
       <div className={styles.recordType}>
@@ -44,7 +45,11 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
         </div>
       </div>
       <div className={styles.recordContainer}>
-        {type === 'expense' ? <ExpenseForm /> : <IncomeForm />}
+        {type === 'expense' ? (
+          <ExpenseForm locale={i18n.locale} />
+        ) : (
+          <IncomeForm />
+        )}
       </div>
       {/*<div className={styles.recordTool}>*/}
       {/*  <div className={styles.recordToolButton}>*/}

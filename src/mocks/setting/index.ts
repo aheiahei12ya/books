@@ -36,7 +36,10 @@ const presetData: { presetData: presetType } = {
       name: '吃饭',
       root: 1
     },
-    reimbursementState: 'waiting'
+    reimbursementState: {
+      name: '待报销',
+      key: 'waiting'
+    }
   }
 }
 

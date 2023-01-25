@@ -4,13 +4,13 @@ import Head from 'next/head'
 import React from 'react'
 import { useIntl } from 'react-intl'
 
+import RecordForm from '@/components/biz/record-form'
 import Calendar from '@/components/calendar'
 import Card from '@/components/card'
 import { Curve } from '@/components/chart'
 import Bar from '@/components/chart/bar'
 import useRequest from '@/hooks/useRequest'
 import { range } from '@/lib/pythonic'
-import RecordForm from '@/pages/components/record-form'
 import services from '@/services'
 
 import styles from './index.module.sass'
@@ -120,7 +120,7 @@ function Home() {
             </Card>
           </div>
           <Card className={classNames(styles.booking)} elevation={1} fill>
-            <RecordForm></RecordForm>
+            <RecordForm locale={i18n.locale}></RecordForm>
           </Card>
           <Card
             title={'xx'}
