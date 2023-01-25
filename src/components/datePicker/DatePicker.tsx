@@ -90,8 +90,8 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
       const [selectedYear, selectedMonth] = handleDaySelect(type, year, month)
       return (
         <div
-          className={ classNames(styles.calendarCell, {
-            [styles.calendarCellDisabled]: type !== 'current'
+          className={ classNames(styles.datePickerCalendarCell, {
+            [styles.datePickerCalendarCellDisabled]: type !== 'current'
           }) }
           key={ `${ type }-${ selectedDay }` }
           onClick={ () =>
@@ -109,9 +109,9 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
         >
           <span
             className={ classNames(
-              classNames(styles.calendarCellContainer, {
-                [styles.calendarCellToday]: isToday,
-                [styles.calendarCellSelected]:
+              classNames(styles.datePickerCalendarCellContainer, {
+                [styles.datePickerCalendarCellToday]: isToday,
+                [styles.datePickerCalendarCellSelected]:
                 selected ===
                 `${ selectedYear }-${ selectedMonth + 1 }-${ selectedDay }`
               })
@@ -137,19 +137,19 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
   return (
     <div ref={ buttonRef }>
       <div
-        className={ classNames(styles.datePickerBox, {
-          [styles.datePickerBoxSm]: size === 'small',
-          [styles.datePickerBoxLg]: size === 'large',
-          [styles.datePickerBoxBase]: size === 'default',
-          [styles.datePickerBoxError]: rule.error,
-          [styles.datePickerBoxFocus]: active
+        className={ classNames(styles.datePickerButton, {
+          [styles.datePickerButtonSm]: size === 'small',
+          [styles.datePickerButtonLg]: size === 'large',
+          [styles.datePickerButtonBase]: size === 'default',
+          [styles.datePickerButtonError]: rule.error,
+          [styles.datePickerButtonFocus]: active
         }) }
         onClick={ handleClick }
       >
         { !!props.prepend && (
           <span
-            className={ classNames(styles.datePickerPrefix, {
-              [styles.datePickerPrefixActive]:
+            className={ classNames(styles.datePickerButtonInnerPrefix, {
+              [styles.datePickerButtonInnerPrefixActive]:
               (hover && activate === 'hover') || active
             }) }
           >
@@ -157,45 +157,46 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
           </span>
         ) }
         <div
-          className={ classNames(styles.datePicker, {
-            [styles.datePickerPlaceholder]: !selected,
-            [styles.datePickerFocus]: (hover && activate === 'hover') || active
+          className={ classNames(styles.datePickerButtonInner, {
+            [styles.datePickerButtonInnerPlaceholder]: !selected,
+            [styles.datePickerButtonInnerFocus]:
+            (hover && activate === 'hover') || active
           }) }
         >
           { selected || props.placeholder }
         </div>
       </div>
       { !props.hideMessage && (
-        <div className={ styles.datePickerWarning }>
+        <div className={ styles.datePickerButtonInnerWarning }>
           { (props.error && props.errorMessage) || (rule.error && rule.message) }
         </div>
       ) }
       <div
         onClick={ (e) => e.stopPropagation() }
         ref={ calendarRef }
-        className={ styles.calendarBox }
+        className={ styles.datePickerCalendar }
       >
-        <div className={ styles.calendar }>
-          <div className={ styles.toolBar }>
+        <div className={ styles.datePickerCalendarInner }>
+          <div className={ styles.datePickerToolBar }>
             <div
-              className={ styles.toolButton }
+              className={ styles.datePickerToolBarButton }
               onClick={ () => setYear(year - 1) }
             >
               <i className="fa-regular fa-angles-left"></i>
             </div>
             <div
-              className={ styles.toolButton }
+              className={ styles.datePickerToolBarButton }
               onClick={ () =>
                 handleMonthChange('sub', year, month, setYear, setMonth)
               }
             >
               <i className="fa-regular fa-angle-left"></i>
             </div>
-            <div className={ styles.toolBarDate }>
+            <div className={ styles.datePickerToolBarDate }>
               { getDate(props.locale, year, month) }
             </div>
             <div
-              className={ styles.toolButton }
+              className={ styles.datePickerToolBarButton }
               onClick={ () =>
                 handleMonthChange('add', year, month, setYear, setMonth)
               }
@@ -203,18 +204,18 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
               <i className="fa-regular fa-angle-right"></i>
             </div>
             <div
-              className={ styles.toolButton }
+              className={ styles.datePickerToolBarButton }
               onClick={ () => setYear(year + 1) }
             >
               <i className="fa-regular fa-angles-right"></i>
             </div>
           </div>
-          <div className={ styles.calendarHeader }>
+          <div className={ styles.datePickerCalendarHeader }>
             { weekNames(props.locale).map((weekName) => {
               return <span key={ weekName }>{ weekName }</span>
             }) }
           </div>
-          <div className={ styles.calendarCells }>
+          <div className={ styles.datePickerCalendarCells }>
             { calendar(year, month, makeCell) }
           </div>
           {/*<div onClick={ backToToday } className={ styles.toolButton }>*/ }
