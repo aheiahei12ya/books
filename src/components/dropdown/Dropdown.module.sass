@@ -1,6 +1,6 @@
 @use '@/styles/variable' as *
 
-.dropdown
+.dropdown-button
   width: 100%
   height: 100%
   display: flex
@@ -37,7 +37,7 @@
     height: $input-height-lg
     font-size: $font-size-lg
 
-.input-box
+.dropdown-button-inner
   position: relative
   width: 100%
   display: inline-block
@@ -55,39 +55,33 @@
   &-focus
     color: $grey-lighten-1
 
-.dropdown-prefix
-  color: $grey-lighten-1
-  min-width: 1.5rem
-  margin-right: 0.5rem
-  transition: color .35s ease
-  text-align: center
+  &-prefix
+    color: $grey-lighten-1
+    min-width: 1.5rem
+    margin-right: 0.5rem
+    transition: color .35s ease
+    text-align: center
 
-  &-active
-    color: $blue
+    &-active
+      color: $blue
 
-.dropdown-append
-  color: $grey-lighten-1
-  margin-left: 0.25rem
-  transition: transform ease 0.4s
+  &-append
+    color: $grey-lighten-1
+    margin-left: 0.25rem
+    transition: transform ease 0.4s
 
-  &-active
-    transform: rotate(180deg)
-    color: $blue
-
-.dropdown-warning
-  height: 1.35rem
-  line-height: 1.35rem
-  font-size: $font-size-sm
-  color: $red
-  overflow: hidden
-  white-space: nowrap
-  text-overflow: ellipsis
-
-  &-none
-    display: none
+    &-active
+      transform: rotate(180deg)
+      color: $blue
 
   &-warning
-    display: inline
+    height: 1.35rem
+    line-height: 1.35rem
+    font-size: $font-size-sm
+    color: $red
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
 
 .dropdown-menu
   position: absolute

@@ -11,7 +11,7 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
   const size = props.size || 'default'
   const activate = props.activate || 'click'
   const [buttonRef, hover] = useHover()
-  const sheetRef = useRef<HTMLDivElement>(null)
+  const menuRef = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState<boolean>(false)
   const [selected, setSelected] = useState(props.defaultSelected)
   const [rule, setRule] = useState({
@@ -27,7 +27,7 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
   )
   const handleDropdown = useCallback(
     (type: 'activate' | 'deactivate') => {
-      const nodeRef = sheetRef.current!
+      const nodeRef = menuRef.current!
       if (type === 'activate') {
         setActive(true)
         nodeRef.style.width = buttonRef.current.clientWidth + 'px'
@@ -67,19 +67,19 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
   return (
     <div ref={ buttonRef }>
       <div
-        className={ classNames(styles.dropdown, {
-          [styles.dropdownSm]: size === 'small',
-          [styles.dropdownLg]: size === 'large',
-          [styles.dropdownBase]: size === 'default',
-          [styles.dropdownError]: rule.error,
-          [styles.dropdownFocus]: active
+        className={ classNames(styles.dropdownButton, {
+          [styles.dropdownButtonSm]: size === 'small',
+          [styles.dropdownButtonLg]: size === 'large',
+          [styles.dropdownButtonBase]: size === 'default',
+          [styles.dropdownButtonError]: rule.error,
+          [styles.dropdownButtonFocus]: active
         }) }
         onClick={ handleClick }
       >
         { !!props.prepend && (
           <span
-            className={ classNames(styles.dropdownPrefix, {
-              [styles.dropdownPrefixActive]:
+            className={ classNames(styles.dropdownButtonInnerPrefix, {
+              [styles.dropdownButtonInnerPrefixActive]:
               (hover && activate === 'hover') || active
             }) }
           >
@@ -87,16 +87,17 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
           </span>
         ) }
         <div
-          className={ classNames(styles.inputBox, {
-            [styles.inputBoxPlaceholder]: !selected,
-            [styles.inputBoxFocus]: (hover && activate === 'hover') || active
+          className={ classNames(styles.dropdownButtonInner, {
+            [styles.dropdownButtonInnerPlaceholder]: !selected,
+            [styles.dropdownButtonInnerFocus]:
+            (hover && activate === 'hover') || active
           }) }
         >
           { selected || props.placeholder }
         </div>
         <span
-          className={ classNames(styles.dropdownAppend, {
-            [styles.dropdownAppendActive]:
+          className={ classNames(styles.dropdownButtonInnerAppend, {
+            [styles.dropdownButtonInnerAppendActive]:
             (hover && activate === 'hover') || active
           }) }
         >
@@ -104,12 +105,12 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
         </span>
       </div>
       { !props.hideMessage && (
-        <div className={ styles.dropdownWarning }>
+        <div className={ styles.dropdownButtonInnerWarning }>
           { (props.error && props.errorMessage) || (rule.error && rule.message) }
         </div>
       ) }
       <div
-        ref={ sheetRef }
+        ref={ menuRef }
         className={ styles.dropdownMenu }
         onClick={ (e) => e.stopPropagation() }
       >
