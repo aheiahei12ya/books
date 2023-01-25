@@ -1,4 +1,4 @@
-import { expenseConfigType } from '@/pages/components/expense-form/ExpenseForm.types'
+import { expenseConfigType } from './ExpenseForm.types'
 
 export const receiptDetailKeys = [
   'amount',
@@ -45,12 +45,7 @@ export const expenseConfig: expenseConfigType = {
     type: 'select',
     name: '付款方式',
     icon: <i className="fa-regular fa-credit-card"></i>,
-    items: [
-      { name: '正常支付', key: 'normal' },
-      { name: '分期付款', key: 'installment' },
-      { name: '公司报销', key: 'reimbursement' },
-      { name: '自动扣款', key: 'auto-debit' }
-    ]
+    items: []
   },
   platform: {
     type: 'select',
@@ -71,12 +66,12 @@ export const expenseConfig: expenseConfigType = {
     items: []
   },
   date: {
-    type: 'select',
+    type: 'date-picker',
     name: '消费日期',
     icon: <i className="fa-regular fa-calendar"></i>
   },
   time: {
-    type: 'select',
+    type: 'time-picker',
     name: '消费时间',
     icon: <i className="fa-regular fa-clock"></i>
   },
@@ -92,7 +87,7 @@ export const expenseConfig: expenseConfigType = {
     icon: <i className="fa-regular fa-comment"></i>
   },
   installmentDate: {
-    type: 'select',
+    type: 'date-picker',
     name: '扣款日期',
     icon: <i className="fa-regular fa-calendar-clock"></i>
   },
@@ -102,7 +97,7 @@ export const expenseConfig: expenseConfigType = {
     icon: <i className="fa-regular fa-hashtag"></i>
   },
   autoDebitDate: {
-    type: 'select',
+    type: 'date-picker',
     name: '扣款日期',
     icon: <i className="fa-regular fa-calendar-clock"></i>
   },
@@ -114,7 +109,7 @@ export const expenseConfig: expenseConfigType = {
   reimbursementAmount: {
     type: 'input',
     name: '报销金额',
-    icon: <i className="fa-regular fa-calendar-clock"></i>
+    icon: <i className="fa-regular fa-hashtag"></i>
   },
   reimbursementFullAmount: {
     type: 'checkbox',
@@ -124,7 +119,7 @@ export const expenseConfig: expenseConfigType = {
   reimbursementState: {
     type: 'select',
     name: '报销状态',
-    icon: <i className="fa-regular fa-hashtag"></i>,
+    icon: <i className="fa-regular fa-tags"></i>,
     items: [
       { name: '待报销', key: 'waiting' },
       { name: '报销中', key: 'ongoing' },

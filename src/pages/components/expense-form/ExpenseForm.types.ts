@@ -1,6 +1,7 @@
 import { ReactNode } from 'react'
 
 export interface ExpenseFormProps {
+  locale?: string
 }
 
 export type expenseType = {
@@ -20,18 +21,18 @@ export type expenseType = {
   autoDebitDate?: string | undefined
   autoDebitNumber?: number | undefined
   reimbursementAmount?: number | undefined
-  reimbursementState?: string | undefined
+  reimbursementState?: itemType | undefined
   reimbursementFullAmount?: boolean | undefined
 }
 
 export type itemType = {
   id?: number
-  key?: string
+  key: string
   name: string
 }
 
 type receiptType = {
-  type: 'input' | 'select' | 'checkbox'
+  type: 'input' | 'select' | 'checkbox' | 'date-picker' | 'time-picker'
   name: string
   icon: ReactNode
   items?: itemType[]

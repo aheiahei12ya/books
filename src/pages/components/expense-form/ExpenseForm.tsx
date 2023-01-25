@@ -1,9 +1,13 @@
 import classNames from 'classnames'
+import dayjs from 'dayjs'
 import React, { forwardRef, useCallback, useState } from 'react'
 
+import Button from '@/components/button'
 import Checkbox from '@/components/checkbox'
+import DatePicker from '@/components/datePicker'
 import Dropdown from '@/components/dropdown'
 import Input from '@/components/input'
+import TimePicker from '@/components/timePicker'
 import useRequest from '@/hooks/useRequest'
 import {
   autoDebitKeys,
@@ -26,8 +30,11 @@ import {
 
 const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
   ExpenseForm.displayName = 'ExpenseForm'
+  const current = dayjs()
   const [expense, setExpense] = useState<expenseType>({
-    realAmount: 0
+    time: current.format('HH:mm:ss'),
+    date: current.format('YYYY-MM-DD'),
+    reimbursementFullAmount: false
   })
 
   const handleReimbursement = useCallback(
@@ -44,7 +51,6 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
     },
     [expense.reimbursementFullAmount]
   )
-
   const handleChange = useCallback(
     (key: string, value: string | number | undefined | boolean) => {
       switch (key) {
@@ -93,12 +99,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
       }
       setExpense((prevState) => ({ ...prevState, [key]: value }))
     },
-    [
-      expense.amount,
-      expense.coupon,
-      expense.reimbursementAmount,
-      handleReimbursement
-    ]
+    [expense, handleReimbursement]
   )
   const makeInputUnit = (formKey: keyof expenseConfigType) => {
     switch (expenseConfig[formKey].type) {
@@ -118,7 +119,6 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
             ></Input>
           </div>
         )
-
       case 'select':
         return (
           <div key={ formKey } className={ styles.expenseFormButton }>
@@ -130,6 +130,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
               itemName={ 'name' }
               returnObject
               onSelect={ (val) => handleChange(formKey, val) }
+              // defaultSelected={ expense[formKey]?.name }
               rules={ [
                 {
                   required: true
@@ -138,13 +139,45 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
             ></Dropdown>
           </div>
         )
-
       case 'checkbox':
         return (
           <div key={ formKey } className={ styles.expenseFormButton }>
-            <Checkbox onChange={ handleCheck }>
+            <Checkbox
+              onChange={ handleCheck }
+              checked={ expense.reimbursementFullAmount }
+            >
               { expenseConfig[formKey].name }
             </Checkbox>
+          </div>
+        )
+      case 'date-picker':
+        return (
+          <div key={ formKey } className={ styles.expenseFormButton }>
+            <DatePicker
+              hideMessage
+              prepend={ expenseConfig[formKey].icon }
+              placeholder={ expenseConfig[formKey].name }
+              onSelect={ (year, month, date) =>
+                handleChange(formKey, `${ year }-${ month }-${ date }`)
+              }
+              defaultSelected={ current.format('YYYY-MM-DD') }
+              locale={ props.locale }
+            ></DatePicker>
+          </div>
+        )
+      case 'time-picker':
+        return (
+          <div key={ formKey } className={ styles.expenseFormButton }>
+            <TimePicker
+              hideMessage
+              prepend={ expenseConfig[formKey].icon }
+              placeholder={ expenseConfig[formKey].name }
+              onSelect={ (hour, minute, second) =>
+                handleChange(formKey, `${ hour }:${ minute }:${ second }`)
+              }
+              defaultValue={ current }
+              locale={ props.locale }
+            ></TimePicker>
           </div>
         )
 
@@ -223,53 +256,97 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
     )
   }
 
-  useRequest(
-    () =>
-      services.platform.list({
-        user: 1
-      }),
-    {
-      onSuccess: (data) => {
-        data.success && (expenseConfig.platform.items = data?.data.platformList)
+  useRequest(() => services.expense.initial({ user: 1 }), {
+    onSuccess: (data) => {
+      if (data.success) {
+        expenseConfig.platform.items = data?.data.platformList
+        expenseConfig.account.items = data?.data.accountList
+        expenseConfig.category.items = data?.data.categoryList
+        expenseConfig.subcategory.items = data?.data.subcategoryList
+        expenseConfig.paymentMethod.items = data?.data.paymentMethodList
+        Object.getOwnPropertyNames(data?.data.preset).forEach((key: string) => {
+          handleChange(key, data?.data.preset[key])
+        })
       }
     }
-  )
-  useRequest(
-    () =>
-      services.account.list({
-        user: 1
-      }),
-    {
-      onSuccess: (data) => {
-        data.success && (expenseConfig.account.items = data?.data.accountList)
-      }
-    }
-  )
-  useRequest(
-    () =>
-      services.category.list({
-        user: 1,
-        root: 0
-      }),
-    {
-      onSuccess: (data) => {
-        data.success && (expenseConfig.category.items = data?.data.categoryList)
-      }
-    }
-  )
-  useRequest(
-    () =>
-      services.category.list({
-        user: 1,
-        root: 1
-      }),
-    {
-      onSuccess: (data) => {
-        data.success &&
-        (expenseConfig.subcategory.items = data?.data.categoryList)
-      }
-    }
-  )
+  })
+
+  // useRequest(
+  //   () =>
+  //     services.platform.list({
+  //       user: 1
+  //     }),
+  //   {
+  //     onSuccess: (data) => {
+  //       data.success && (expenseConfig.platform.items = data?.data.platformList)
+  //     }
+  //   }
+  // )
+  // useRequest(
+  //   () =>
+  //     services.account.list({
+  //       user: 1
+  //     }),
+  //   {
+  //     onSuccess: (data) => {
+  //       data.success && (expenseConfig.account.items = data?.data.accountList)
+  //     }
+  //   }
+  // )
+  // useRequest(
+  //   () =>
+  //     services.category.list({
+  //       user: 1,
+  //       root: 0
+  //     }),
+  //   {
+  //     onSuccess: (data) => {
+  //       data.success && (expenseConfig.category.items = data?.data.categoryList)
+  //     }
+  //   }
+  // )
+  // useRequest(
+  //   () =>
+  //     services.category.list({
+  //       user: 1,
+  //       root: 1
+  //     }),
+  //   {
+  //     onSuccess: (data) => {
+  //       data.success &&
+  //       (expenseConfig.subcategory.items = data?.data.categoryList)
+  //     }
+  //   }
+  // )
+  // useRequest(
+  //   () =>
+  //     services.paymentMethod.list({
+  //       user: 1
+  //     }),
+  //   {
+  //     onSuccess: (data) => {
+  //       data.success &&
+  //       (expenseConfig.paymentMethod.items = data?.data.paymentMethodList)
+  //     }
+  //   }
+  // )
+  // useRequest(
+  //   () =>
+  //     services.setting.preset({
+  //       user: 1
+  //     }),
+  //   {
+  //     onSuccess: (data) => {
+  //       data.success &&
+  //       Object.getOwnPropertyNames(data?.data.presetData).forEach(
+  //         (key: string) => {
+  //           console.log(data?.data.presetData[key])
+  //           handleChange(key, data?.data.presetData[key])
+  //         }
+  //       )
+  //     }
+  //   }
+  // )
 
   return (
     <div className={ styles.expenseContainer }>
@@ -296,7 +373,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
         <div className={ styles.receiptHeader }>
           <span className={ styles.receiptHeaderNote }>{ expense.note }</span>
           <span className={ styles.receiptHeaderExpense }>
-            { `-${ expense?.realAmount?.toFixed(2) }` }
+            { getReceiptValue(expense.realAmount) }
           </span>
         </div>
         <div className={ styles.receiptDetail }>
@@ -304,6 +381,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
             return makeReceiptDetail(type)
           }) }
         </div>
+        <Button block>完成</Button>
       </div>
     </div>
   )
