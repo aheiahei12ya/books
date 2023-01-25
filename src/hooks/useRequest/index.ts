@@ -28,7 +28,7 @@ function useRequest<T = any>(
           setLoading(false)
         })
     },
-    [options, requestFn]
+    [] // eslint-disable-line
   )
 
   useEffect(() => {
