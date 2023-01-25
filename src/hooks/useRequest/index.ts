@@ -25,7 +25,7 @@ function useRequest<T = any>(
           options?.onError?.()
         })
         .finally(() => {
-          setTimeout(() => setLoading(false), 3000)
+          setLoading(false)
         })
     },
     [options, requestFn]
