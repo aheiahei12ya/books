@@ -38,7 +38,13 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
   const onClickOutsideHandler = useCallback(
     (e: Event) => {
       if (!buttonRef.current) return
-      buttonRef.current.contains(e.target) || handleCalendar('deactivate')
+      if (buttonRef.current.contains(e.target)) return
+      setActive(false)
+      calendarRef.current!.style.maxHeight = '0'
+      setTimeout(() => {
+        calendarRef.current!.style.maxWidth = '0'
+      }, 300)
+      document.removeEventListener('click', onClickOutsideHandler)
     },
     [buttonRef]
   )
@@ -81,7 +87,7 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
         handleCalendar('deactivate')
       }
     }
-  }, [hover])
+  }, [activate, handleCalendar, hover])
 
   const makeCell = useCallback(
     (selectedDay: number, type: 'past' | 'current' | 'future') => {

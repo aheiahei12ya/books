@@ -21,7 +21,13 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
   const onClickOutsideHandler = useCallback(
     (e: Event) => {
       if (!buttonRef.current) return
-      buttonRef.current.contains(e.target) || handleDropdown('deactivate')
+      if (buttonRef.current.contains(e.target)) return
+      setActive(false)
+      menuRef.current!.style.maxHeight = '0'
+      setTimeout(() => {
+        menuRef.current!.style.maxWidth = '0'
+      }, 300)
+      document.removeEventListener('click', onClickOutsideHandler)
     },
     [buttonRef]
   )
@@ -62,7 +68,7 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
         handleDropdown('deactivate')
       }
     }
-  }, [hover])
+  }, [activate, handleDropdown, hover])
 
   return (
     <div ref={ buttonRef }>

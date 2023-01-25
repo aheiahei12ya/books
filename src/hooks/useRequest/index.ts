@@ -35,7 +35,7 @@ function useRequest<T = any>(
     if (!options?.manual) {
       run(options?.defaultParams)
     }
-  }, [])
+  }, [options?.defaultParams, options?.manual, run])
 
   return {
     loading,

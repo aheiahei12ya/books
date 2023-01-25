@@ -36,7 +36,13 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
   const onClickOutsideHandler = useCallback(
     (e: Event) => {
       if (!buttonRef.current) return
-      buttonRef.current.contains(e.target) || handleDropdown('deactivate')
+      if (buttonRef.current.contains(e.target)) return
+      setActive(false)
+      timePickerRef.current!.style.maxHeight = '0'
+      setTimeout(() => {
+        timePickerRef.current!.style.maxWidth = '0'
+      }, 300)
+      document.removeEventListener('click', onClickOutsideHandler)
     },
     [buttonRef]
   )
@@ -79,7 +85,7 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
         handleDropdown('deactivate')
       }
     }
-  }, [hover])
+  }, [activate, handleDropdown, hover])
 
   const setNow = () => {
     const now = dayjs()
