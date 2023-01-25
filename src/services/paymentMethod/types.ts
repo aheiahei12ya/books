@@ -2,7 +2,7 @@ export interface paymentMethodListRequest {
   user: number
 }
 
-type paymentMethod = {
+export type paymentMethod = {
   id: number
   name: string
 }

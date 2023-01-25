@@ -6,26 +6,31 @@ const category = [
       {
         "id": 3,
         "name": "日常开销",
+        "key": "daily",
         "upper_id": 1
       },
       {
         "id": 4,
         "name": "生活开销",
+        "key": "life",
         "upper_id": 1
       },
       {
         "id": 5,
         "name": "人物培养",
+        "key": "character",
         "upper_id": 1
       },
       {
         "id": 6,
         "name": "败家消费",
+        "key": "splurge",
         "upper_id": 1
       },
       {
         "id": 7,
         "name": "虚拟商品",
+        "key": "virtual",
         "upper_id": 1
       },
       {

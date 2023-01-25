@@ -2,7 +2,7 @@ export interface accountListRequest {
   user: number
 }
 
-type account = {
+export type account = {
   id: number
   name: string
 }

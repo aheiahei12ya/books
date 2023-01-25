@@ -3,9 +3,11 @@ export interface categoryListRequest {
   root: number
 }
 
-type category = {
+export type category = {
   id: number
+  key: string
   name: string
+  root: number
 }
 
 export interface categoryListResponse {

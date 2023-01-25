@@ -5,15 +5,18 @@ const statistic = [
     platformList: [
       {
         id: 5,
-        name: '线下'
+        name: '线下',
+        key: 'offline'
       },
       {
         id: 3,
-        name: '京东'
+        name: '京东',
+        key: 'jingdong'
       },
       {
         id: 1,
-        name: '淘宝天猫'
+        name: '淘宝天猫',
+        key: 'taobao'
       },
       {
         id: 7,

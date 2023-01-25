@@ -2,7 +2,7 @@ export interface platformListRequest {
   user: number
 }
 
-type platform = {
+export type platform = {
   id: number
   name: string
 }

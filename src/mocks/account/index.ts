@@ -5,7 +5,8 @@ const account = [
     accountList: [
       {
         id: 2,
-        name: '余额'
+        name: '余额',
+        key: 'balance'
       },
       {
         id: 5,
