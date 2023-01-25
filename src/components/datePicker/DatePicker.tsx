@@ -123,7 +123,7 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
       )
     },
     [
-      buttonRef,
+      handleCalendar,
       month,
       props.onSelect,
       selected,

@@ -138,5 +138,4 @@ export const handleSelect = (
     setYear(selectedYear)
     setMonth(selectedMonth)
   }, 500)
-  return selectedDate
 }
