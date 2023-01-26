@@ -127,11 +127,11 @@ export const handleSelect = (
   setMonth: Function,
   setSelected: Function,
   deactivateDropdown: Function,
-  onSelect?: Function
+  onChange?: Function
 ) => {
   const realMonth = selectedMonth + 1
   const selectedDate = `${selectedYear}-${realMonth}-${selectedDay}`
-  onSelect?.(selectedYear, realMonth, selectedDay)
+  onChange?.(selectedYear, realMonth, selectedDay)
   setSelected(selectedDate)
   deactivateDropdown()
   setTimeout(() => {

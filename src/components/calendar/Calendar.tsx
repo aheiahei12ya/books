@@ -40,7 +40,7 @@ const Calendar = forwardRef<unknown, CalendarProps>((props, ref) => {
         <div
           className={classNames(styles.calendarCell, ratio, {
             [styles.calendarCellDisabled]: type !== 'current',
-            [styles.calendarCellSelected]: !!props.onSelect
+            [styles.calendarCellSelected]: !!props.onChange
           })}
           key={`${type}-${date}`}
         >
@@ -69,7 +69,7 @@ const Calendar = forwardRef<unknown, CalendarProps>((props, ref) => {
       month,
       props.expense,
       props.locale,
-      props.onSelect,
+      props.onChange,
       thisMonth,
       thisYear,
       today,
