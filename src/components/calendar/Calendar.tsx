@@ -46,7 +46,7 @@ const Calendar = forwardRef<unknown, CalendarProps>((props, ref) => {
         >
           <span
             className={classNames(
-              classNames({
+              classNames(styles.calendarCellDate, {
                 [styles.calendarCellToday]:
                   date === today && year === thisYear && month === thisMonth
               })
