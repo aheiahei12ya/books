@@ -1,0 +1,40 @@
+@use '@/styles/variable' as *
+
+
+
+.receipt-header
+  display: flex
+  flex-direction: column
+  align-items: center
+
+  &-note
+    font-size: 0.85rem
+    text-align: center
+    min-height: 1rem
+    max-height: 3rem
+    line-height: 1rem
+    width: 150px
+    overflow: hidden
+    text-overflow: ellipsis
+
+  &-expense
+    margin: 6px auto
+    font-size: 1.5rem
+    line-height: 1.5rem
+
+.receipt-detail
+  display: flex
+  flex-direction: column
+  font-size: 0.85rem
+
+  &-row
+    display: flex
+    justify-content: space-between
+
+  &-key
+    margin-bottom: 4px
+    color: $grey-darken-1
+
+  &-value
+    color: $red-accent-2
+

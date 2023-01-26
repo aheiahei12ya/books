@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import dayjs from 'dayjs'
 import React, { forwardRef, useCallback, useState } from 'react'
 
-import Button from '@/components/button'
+import ReceiptForm from '@/components/biz/receipt-form'
 import Checkbox from '@/components/checkbox'
 import DatePicker from '@/components/datePicker'
 import Dropdown from '@/components/dropdown'
@@ -17,7 +17,6 @@ import {
   expenseFormKeys,
   expenseFormKeysAppend,
   installmentKeys,
-  receiptDetailKeys,
   reimbursementKeys
 } from './config'
 import styles from './ExpenseForm.module.sass'
@@ -224,37 +223,6 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
         return
     }
   }
-  const getReceiptValue = (value: string | undefined | number) => {
-    if (value === undefined) {
-      return value
-    } else if (isNaN(Number(value))) {
-      return value
-    } else {
-      return `-${ Number(value).toFixed(2) }`
-    }
-  }
-  const makeReceiptDetail = (type: string) => {
-    const config = expenseConfig[type as keyof expenseConfigType]
-    let receiptValue: string
-    if (config.type === 'select') {
-      receiptValue = (expense[type as keyof expenseType] as itemType)?.name
-    } else {
-      receiptValue = expense[type as keyof expenseType] as string
-      if (type === 'coupon' && !receiptValue) return
-    }
-    return (
-      <div key={ type } className={ styles.receiptDetailRow }>
-        <span className={ styles.receiptDetailKey }>{ config.name }</span>
-        <span
-          className={ classNames({
-            [styles.receiptDetailValue]: type === 'coupon'
-          }) }
-        >
-          { getReceiptValue(receiptValue) }
-        </span>
-      </div>
-    )
-  }
 
   const { loading } = useRequest(() => services.expense.initial({ user: 1 }), {
     onSuccess: (data) => {
@@ -295,18 +263,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
       <div
         className={ classNames(styles.expenseReceipt, styles.hiddenSmAndDown) }
       >
-        <div className={ styles.receiptHeader }>
-          <span className={ styles.receiptHeaderNote }>{ expense.note }</span>
-          <span className={ styles.receiptHeaderExpense }>
-            { getReceiptValue(expense.realAmount) }
-          </span>
-        </div>
-        <div className={ styles.receiptDetail }>
-          { receiptDetailKeys.map((type) => {
-            return makeReceiptDetail(type)
-          }) }
-        </div>
-        <Button block>完成</Button>
+        <ReceiptForm expense={ expense }></ReceiptForm>
       </div>
     </div>
   )

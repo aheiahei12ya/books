@@ -13,64 +13,64 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
   const [type, setType] = useState<string>('expense')
   const i18n = useIntl()
   return (
-    <div className={styles.recordForm}>
-      <div className={styles.recordType}>
+    <div className={ styles.recordForm }>
+      <div className={ styles.recordType }>
         <div
-          className={classNames(
+          className={ classNames(
             styles.recordTypeButton,
             styles.recordTypeButtonExpense,
             { [styles.recordTypeButtonSelected]: type === 'expense' }
-          )}
-          onClick={() => setType('expense')}
+          ) }
+          onClick={ () => setType('expense') }
         >
           <span>
             <FormattedMessage
-              id={'pages.record.button.expense'}
+              id={ 'pages.record.button.expense' }
             ></FormattedMessage>
           </span>
         </div>
         <div
-          className={classNames(
+          className={ classNames(
             styles.recordTypeButton,
             styles.recordTypeButtonIncome,
             { [styles.recordTypeButtonSelected]: type === 'income' }
-          )}
-          onClick={() => setType('income')}
+          ) }
+          onClick={ () => setType('income') }
         >
           <span>
             <FormattedMessage
-              id={'pages.record.button.income'}
+              id={ 'pages.record.button.income' }
             ></FormattedMessage>
           </span>
         </div>
       </div>
-      <div className={styles.recordContainer}>
-        {type === 'expense' ? (
-          <ExpenseForm locale={i18n.locale} />
+      <div className={ styles.recordContainer }>
+        { type === 'expense' ? (
+          <ExpenseForm locale={ i18n.locale }/>
         ) : (
-          <IncomeForm />
-        )}
+          <IncomeForm/>
+        ) }
       </div>
-      {/*<div className={styles.recordTool}>*/}
-      {/*  <div className={styles.recordToolButton}>*/}
-      {/*    <span>收 入</span>*/}
-      {/*  </div>*/}
-      {/*  <div className={styles.recordToolButton}>*/}
-      {/*    <span>支 出</span>*/}
-      {/*  </div>*/}
-      {/*  <div className={styles.recordToolButton}>*/}
-      {/*    <span>分期付款</span>*/}
-      {/*  </div>*/}
-      {/*  <div className={styles.recordToolButton}>*/}
-      {/*    <span>自动扣款</span>*/}
-      {/*  </div>*/}
-      {/*  <div className={styles.recordToolButton}>*/}
-      {/*    <span>清 空</span>*/}
-      {/*  </div>*/}
-      {/*  <div className={styles.recordToolButton}>*/}
-      {/*    <span>保 存</span>*/}
-      {/*  </div>*/}
-      {/*</div>*/}
+      {/*<div className={styles.recordTool}>*/ }
+      {/*  <div className={styles.recordToolButton}>*/ }
+      {/*    <span>收 入</span>*/ }
+      {/*  </div>*/ }
+      {/*  <div className={styles.recordToolButton}>*/ }
+      {/*    <span>支 出</span>*/ }
+      {/*  </div>*/ }
+      {/*  <div className={styles.recordToolButton}>*/ }
+      {/*    <span>分期付款</span>*/ }
+      {/*  </div>*/ }
+      {/*  <div className={styles.recordToolButton}>*/ }
+      {/*    <span>自动扣款</span>*/ }
+      {/*  </div>*/ }
+      {/*  <div className={styles.recordToolButton}>*/ }
+      {/*    <span>清 空</span>*/ }
+      {/*  </div>*/ }
+      {/*  <div className={styles.recordToolButton}>*/ }
+      {/*    <span>保 存</span>*/ }
+      {/*  </div>*/ }
+      {/*</div>*/ }
     </div>
   )
 })
