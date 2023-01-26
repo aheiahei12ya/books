@@ -37,7 +37,8 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
     setActive,
     props.width,
     props.height || '200px',
-    onClickOutsideHandler as EventListener
+    onClickOutsideHandler as EventListener,
+    true
   )
 
   return (

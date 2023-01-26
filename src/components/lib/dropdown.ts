@@ -4,18 +4,19 @@ export const dropdownHandler = (
   menuRef: RefObject<HTMLDivElement>,
   buttonRef: RefObject<HTMLDivElement>,
   setActive: Function,
-  width: string | undefined,
-  height: string,
-  callback: EventListener
+  maxWidth: string | undefined,
+  maxHeight: string,
+  callback: EventListener,
+  autoHeight: boolean = false
 ) => {
   const activateDropdown = () => {
     if (!buttonRef.current) return
     const nodeRef = menuRef.current!
     setActive(true)
-    nodeRef.style.maxHeight = height
-    nodeRef.style.height = height
-    nodeRef.style.maxWidth = width || buttonRef.current.clientWidth + 'px'
-    nodeRef.style.width = width || buttonRef.current.clientWidth + 'px'
+    nodeRef.style.maxHeight = maxHeight
+    nodeRef.style.height = autoHeight ? 'auto' : maxHeight
+    nodeRef.style.maxWidth = maxWidth || buttonRef.current.clientWidth + 'px'
+    nodeRef.style.width = maxWidth || buttonRef.current.clientWidth + 'px'
     document.addEventListener('click', callback)
   }
 
