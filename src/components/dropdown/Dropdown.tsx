@@ -1,6 +1,7 @@
 import classNames from 'classnames'
 import { forwardRef, useCallback, useRef, useState } from 'react'
 
+import { dropdownHandler } from '@/components/lib/dropdown'
 import useControlled from '@/hooks/useControlled'
 import get from '@/lib/pythonic/get'
 
@@ -17,8 +18,6 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
     error: false,
     message: <></>
   })
-  const height = props.height || '200px'
-
   const onClickOutsideHandler = useCallback(
     ({ target }: MouseEvent) => {
       if (!buttonRef.current) return
@@ -32,36 +31,14 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
     },
     [buttonRef]
   )
-  const handleDropdown = useCallback(
-    (type: 'activate' | 'deactivate') => {
-      if (!buttonRef.current) return
-      const nodeRef = menuRef.current!
-      if (type === 'activate') {
-        const buttonWidth = buttonRef.current.clientWidth + 'px'
-        setActive(true)
-        nodeRef.style.width = props.width || buttonWidth
-        nodeRef.style.maxWidth = props.width || buttonWidth
-        nodeRef.style.maxHeight = height
-        document.addEventListener('click', onClickOutsideHandler)
-      } else {
-        setActive(false)
-        nodeRef.style.maxHeight = '0'
-        setTimeout(() => {
-          nodeRef.style.maxWidth = '0'
-        }, 300)
-        document.removeEventListener('click', onClickOutsideHandler)
-      }
-    },
-    [height, onClickOutsideHandler, props.width]
+  const [activateDropdown, deactivateDropdown] = dropdownHandler(
+    menuRef,
+    buttonRef,
+    setActive,
+    props.width,
+    props.height || '200px',
+    onClickOutsideHandler as EventListener
   )
-
-  const handleClick = () => {
-    if (!active) {
-      handleDropdown('activate')
-    } else {
-      handleDropdown('deactivate')
-    }
-  }
 
   return (
     <div ref={ buttonRef }>
@@ -73,7 +50,7 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
           [styles.dropdownButtonError]: rule.error,
           [styles.dropdownButtonFocus]: active
         }) }
-        onClick={ handleClick }
+        onClick={ active ? deactivateDropdown : activateDropdown }
       >
         { !!props.prepend && (
           <span
@@ -123,7 +100,7 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
                 }) }
                 onClick={ () => {
                   setSelected(props.returnObject ? items : value)
-                  handleDropdown('deactivate')
+                  deactivateDropdown()
                 } }
               >
                 { value }

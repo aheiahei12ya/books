@@ -3,6 +3,7 @@ import dayjs from 'dayjs'
 import { forwardRef, useCallback, useMemo, useRef, useState } from 'react'
 
 import Button from '@/components/button'
+import { dropdownHandler } from '@/components/lib/dropdown'
 import { padNumber } from '@/components/lib/util'
 import useControlled from '@/hooks/useControlled'
 import { range } from '@/lib/pythonic'
@@ -26,8 +27,6 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
   const [hour, setHour] = useState(Number(defaultHour))
   const [minute, setMinute] = useState(Number(defaultMinute))
   const [second, setSecond] = useState(Number(defaultSecond))
-  const width = props.width || '150px'
-  const height = props.height || '230px'
 
   const [rule, setRule] = useState({
     error: false,
@@ -48,39 +47,18 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
     [buttonRef]
   )
 
-  const handleDropdown = useCallback(
-    (type: 'activate' | 'deactivate') => {
-      const nodeRef = timePickerRef.current!
-      if (type === 'activate') {
-        setActive(true)
-        nodeRef.style.maxHeight = height
-        nodeRef.style.height = height
-        nodeRef.style.maxWidth = width
-        nodeRef.style.width = width
-        document.addEventListener('click', onClickOutsideHandler)
-      } else {
-        setActive(false)
-        nodeRef.style.maxHeight = '0'
-        setTimeout(() => {
-          nodeRef.style.maxWidth = '0'
-        }, 300)
-        document.removeEventListener('click', onClickOutsideHandler)
-      }
-    },
-    [height, onClickOutsideHandler, width]
+  const [activateDropdown, deactivateDropdown] = dropdownHandler(
+    timePickerRef,
+    buttonRef,
+    setActive,
+    props.width || '150px',
+    props.height || '230px',
+    onClickOutsideHandler as EventListener
   )
-
-  const handleClick = () => {
-    if (!active) {
-      handleDropdown('activate')
-    } else {
-      handleDropdown('deactivate')
-    }
-  }
 
   const setNow = () => {
     const now = dayjs()
-    handleClick()
+    active ? deactivateDropdown() : activateDropdown()
     setHour(now.hour())
     setMinute(now.minute())
     setSecond(now.second())
@@ -88,7 +66,7 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
   }
 
   const handleSetTime = () => {
-    handleClick()
+    active ? deactivateDropdown() : activateDropdown()
     const hourStr = padNumber(hour)
     const minuteStr = padNumber(minute)
     const secondStr = padNumber(second)
@@ -196,7 +174,7 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
           [styles.timePickerButtonError]: rule.error,
           [styles.timePickerButtonFocus]: active
         }) }
-        onClick={ handleClick }
+        onClick={ active ? deactivateDropdown : activateDropdown }
       >
         { !!props.prepend && (
           <span

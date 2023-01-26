@@ -9,6 +9,7 @@ import {
   handleMonthChange,
   handleSelect
 } from '@/components/lib/calendar'
+import { dropdownHandler } from '@/components/lib/dropdown'
 import useControlled from '@/hooks/useControlled'
 
 import styles from './DatePicker.module.sass'
@@ -30,8 +31,6 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
   const today = dayjs().date()
   const [year, setYear] = useState<number>(thisYear)
   const [month, setMonth] = useState<number>(thisMonth)
-  const width = props.width || '220px'
-  const height = props.height || '230px'
 
   const onClickOutsideHandler = useCallback(
     ({ target }: MouseEvent) => {
@@ -47,35 +46,14 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
     [buttonRef]
   )
 
-  const handleCalendar = useCallback(
-    (type: 'activate' | 'deactivate') => {
-      const nodeRef = calendarRef.current!
-      if (type === 'activate') {
-        setActive(true)
-        nodeRef.style.maxHeight = height
-        nodeRef.style.height = height
-        nodeRef.style.maxWidth = width
-        nodeRef.style.width = width
-        document.addEventListener('click', onClickOutsideHandler)
-      } else {
-        setActive(false)
-        nodeRef.style.maxHeight = '0'
-        setTimeout(() => {
-          nodeRef.style.maxWidth = '0'
-        }, 300)
-        document.removeEventListener('click', onClickOutsideHandler)
-      }
-    },
-    [height, onClickOutsideHandler, width]
+  const [activateDropdown, deactivateDropdown] = dropdownHandler(
+    calendarRef,
+    buttonRef,
+    setActive,
+    props.width || '220px',
+    props.height || '230px',
+    onClickOutsideHandler as EventListener
   )
-
-  const handleClick = () => {
-    if (!active) {
-      handleCalendar('activate')
-    } else {
-      handleCalendar('deactivate')
-    }
-  }
 
   const makeCell = useCallback(
     (selectedDay: number, type: 'past' | 'current' | 'future') => {
@@ -84,11 +62,11 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
       const [selectedYear, selectedMonth] = handleDaySelect(type, year, month)
       return (
         <div
-          className={ classNames(styles.datePickerCalendarCell, {
+          className={classNames(styles.datePickerCalendarCell, {
             [styles.datePickerCalendarCellDisabled]: type !== 'current'
-          }) }
-          key={ `${ type }-${ selectedDay }` }
-          onClick={ () =>
+          })}
+          key={`${type}-${selectedDay}`}
+          onClick={() =>
             handleSelect(
               selectedYear,
               selectedMonth,
@@ -96,27 +74,27 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
               setYear,
               setMonth,
               setSelected,
-              () => handleCalendar('deactivate')
+              deactivateDropdown
             )
           }
         >
           <span
-            className={ classNames(
+            className={classNames(
               classNames(styles.datePickerCalendarCellContainer, {
                 [styles.datePickerCalendarCellToday]: isToday,
                 [styles.datePickerCalendarCellSelected]:
-                selected ===
-                `${ selectedYear }-${ selectedMonth + 1 }-${ selectedDay }`
+                  selected ===
+                  `${selectedYear}-${selectedMonth + 1}-${selectedDay}`
               })
-            ) }
+            )}
           >
-            { selectedDay }
+            {selectedDay}
           </span>
         </div>
       )
     },
     [
-      handleCalendar,
+      deactivateDropdown,
       month,
       selected,
       setSelected,
@@ -128,90 +106,90 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
   )
 
   return (
-    <div ref={ buttonRef }>
+    <div ref={buttonRef}>
       <div
-        className={ classNames(styles.datePickerButton, {
+        className={classNames(styles.datePickerButton, {
           [styles.datePickerButtonSm]: size === 'small',
           [styles.datePickerButtonLg]: size === 'large',
           [styles.datePickerButtonBase]: size === 'default',
           [styles.datePickerButtonError]: rule.error,
           [styles.datePickerButtonFocus]: active
-        }) }
-        onClick={ handleClick }
+        })}
+        onClick={active ? deactivateDropdown : activateDropdown}
       >
-        { !!props.prepend && (
+        {!!props.prepend && (
           <span
-            className={ classNames(styles.datePickerButtonInnerPrefix, {
+            className={classNames(styles.datePickerButtonInnerPrefix, {
               [styles.datePickerButtonInnerPrefixActive]: active
-            }) }
+            })}
           >
-            { props.prepend }
+            {props.prepend}
           </span>
-        ) }
+        )}
         <div
-          className={ classNames(styles.datePickerButtonInner, {
+          className={classNames(styles.datePickerButtonInner, {
             [styles.datePickerButtonInnerPlaceholder]: !selected,
             [styles.datePickerButtonInnerFocus]: active
-          }) }
+          })}
         >
-          { selected || props.defaultValue || props.placeholder }
+          {selected || props.defaultValue || props.placeholder}
         </div>
       </div>
-      { !props.hideMessage && (
-        <div className={ styles.datePickerButtonInnerWarning }>
-          { (props.error && props.errorMessage) || (rule.error && rule.message) }
+      {!props.hideMessage && (
+        <div className={styles.datePickerButtonInnerWarning}>
+          {(props.error && props.errorMessage) || (rule.error && rule.message)}
         </div>
-      ) }
+      )}
       <div
-        onClick={ (e) => e.stopPropagation() }
-        ref={ calendarRef }
-        className={ styles.datePickerCalendar }
+        onClick={(e) => e.stopPropagation()}
+        ref={calendarRef}
+        className={styles.datePickerCalendar}
       >
-        <div className={ styles.datePickerCalendarInner }>
-          <div className={ styles.datePickerToolBar }>
+        <div className={styles.datePickerCalendarInner}>
+          <div className={styles.datePickerToolBar}>
             <div
-              className={ styles.datePickerToolBarButton }
-              onClick={ () => setYear(year - 1) }
+              className={styles.datePickerToolBarButton}
+              onClick={() => setYear(year - 1)}
             >
               <i className="fa-regular fa-angles-left"></i>
             </div>
             <div
-              className={ styles.datePickerToolBarButton }
-              onClick={ () =>
+              className={styles.datePickerToolBarButton}
+              onClick={() =>
                 handleMonthChange('sub', year, month, setYear, setMonth)
               }
             >
               <i className="fa-regular fa-angle-left"></i>
             </div>
-            <div className={ styles.datePickerToolBarDate }>
-              { getDate(props.locale, year, month) }
+            <div className={styles.datePickerToolBarDate}>
+              {getDate(props.locale, year, month)}
             </div>
             <div
-              className={ styles.datePickerToolBarButton }
-              onClick={ () =>
+              className={styles.datePickerToolBarButton}
+              onClick={() =>
                 handleMonthChange('add', year, month, setYear, setMonth)
               }
             >
               <i className="fa-regular fa-angle-right"></i>
             </div>
             <div
-              className={ styles.datePickerToolBarButton }
-              onClick={ () => setYear(year + 1) }
+              className={styles.datePickerToolBarButton}
+              onClick={() => setYear(year + 1)}
             >
               <i className="fa-regular fa-angles-right"></i>
             </div>
           </div>
-          <div className={ styles.datePickerCalendarHeader }>
-            { weekNames(props.locale).map((weekName) => {
-              return <span key={ weekName }>{ weekName }</span>
-            }) }
+          <div className={styles.datePickerCalendarHeader}>
+            {weekNames(props.locale).map((weekName) => {
+              return <span key={weekName}>{weekName}</span>
+            })}
           </div>
-          <div className={ styles.datePickerCalendarCells }>
-            { calendar(year, month, makeCell) }
+          <div className={styles.datePickerCalendarCells}>
+            {calendar(year, month, makeCell)}
           </div>
-          {/*<div onClick={ backToToday } className={ styles.toolButton }>*/ }
-          {/*  { props.locale === 'zh-CN' ? '今天' : 'Today' }*/ }
-          {/*</div>*/ }
+          {/*<div onClick={ backToToday } className={ styles.toolButton }>*/}
+          {/*  { props.locale === 'zh-CN' ? '今天' : 'Today' }*/}
+          {/*</div>*/}
         </div>
       </div>
     </div>
