@@ -13,6 +13,8 @@ import { TimePickerProps } from './TimePicker.types'
 
 const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
   const size = props.size || 'default'
+  const defaultTime = props.value || props.defaultValue || '0:0:0'
+
   const buttonRef = useRef<HTMLDivElement>(null)
   const timePickerRef = useRef<HTMLDivElement>(null)
   const hourRef = useRef<HTMLDivElement>(null)
@@ -21,9 +23,7 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
   const [active, setActive] = useState<boolean>(false)
 
   const [selected, setSelected] = useControlled(props.value, props.onChange)
-  const [defaultHour, defaultMinute, defaultSecond] = props.defaultValue?.split(
-    ':'
-  ) || [0, 0, 0]
+  const [defaultHour, defaultMinute, defaultSecond] = defaultTime.split(':')
   const [hour, setHour] = useState(Number(defaultHour))
   const [minute, setMinute] = useState(Number(defaultMinute))
   const [second, setSecond] = useState(Number(defaultSecond))
@@ -114,10 +114,10 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
     return (
       <>
         <div ref={ hourRef } className={ styles.timePickerCells }>
-          { range(24).map((val, i) => {
+          { range(24).map((val) => {
             return (
               <div
-                key={ `hour-${ i }` }
+                key={ `hour-${ val }` }
                 className={ classNames(styles.timePickerCell, {
                   [styles.timePickerCellSelected]: val === hour
                 }) }
@@ -129,10 +129,10 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
           }) }
         </div>
         <div ref={ minuteRef } className={ styles.timePickerCells }>
-          { range(60).map((val, i) => {
+          { range(60).map((val) => {
             return (
               <div
-                key={ `minute-${ i }` }
+                key={ `minute-${ val }` }
                 className={ classNames(styles.timePickerCell, {
                   [styles.timePickerCellSelected]: val === minute
                 }) }
@@ -145,10 +145,10 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
         </div>
         { props.showSecond && (
           <div ref={ secondRef } className={ styles.timePickerCells }>
-            { range(60).map((val, i) => {
+            { range(60).map((val) => {
               return (
                 <div
-                  key={ `seconds-${ i }` }
+                  key={ `seconds-${ val }` }
                   className={ classNames(styles.timePickerCell, {
                     [styles.timePickerCellSelected]: val === second
                   }) }
