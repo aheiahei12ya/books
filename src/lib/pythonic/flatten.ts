@@ -25,7 +25,7 @@ export default function flatten(
         flatten(value, depth - 1, strict, output)
         idx = output.length
       } else {
-        var j = 0,
+        let j = 0,
           len = value.length
         while (j < len) output[idx++] = value[j++]
       }

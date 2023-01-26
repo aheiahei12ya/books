@@ -3,7 +3,7 @@ const isFunction = (obj: object) => {
 }
 
 const isObject = (obj: object) => {
-  var type = typeof obj
+  const type = typeof obj
   return type === 'function' || (type === 'object' && !!obj)
 }
 
