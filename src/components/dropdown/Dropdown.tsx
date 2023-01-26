@@ -12,14 +12,13 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
   const buttonRef = useRef<HTMLDivElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState<boolean>(false)
-  const [selected, setSelected] = useControlled(
-    props.defaultSelected,
-    props.onChange
-  )
+  const [selected, setSelected] = useControlled(props.value, props.onChange)
   const [rule, setRule] = useState({
     error: false,
     message: <></>
   })
+  const height = props.height || '200px'
+
   const onClickOutsideHandler = useCallback(
     ({ target }: MouseEvent) => {
       if (!buttonRef.current) return
@@ -38,10 +37,11 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
       if (!buttonRef.current) return
       const nodeRef = menuRef.current!
       if (type === 'activate') {
+        const buttonWidth = buttonRef.current.clientWidth + 'px'
         setActive(true)
-        nodeRef.style.width = buttonRef.current.clientWidth + 'px'
-        nodeRef.style.maxWidth = buttonRef.current.clientWidth + 'px'
-        nodeRef.style.maxHeight = '200px'
+        nodeRef.style.width = props.width || buttonWidth
+        nodeRef.style.maxWidth = props.width || buttonWidth
+        nodeRef.style.maxHeight = height
         document.addEventListener('click', onClickOutsideHandler)
       } else {
         setActive(false)
@@ -52,7 +52,7 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
         document.removeEventListener('click', onClickOutsideHandler)
       }
     },
-    [buttonRef, onClickOutsideHandler]
+    [height, onClickOutsideHandler, props.width]
   )
 
   const handleClick = () => {
@@ -91,6 +91,7 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
           }) }
         >
           { get(selected, props.itemName as string, selected) ||
+            props.defaultValue ||
             props.placeholder }
         </div>
         <span

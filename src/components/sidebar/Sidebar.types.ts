@@ -21,13 +21,15 @@ interface toolProps {
 }
 
 export interface SidebarProps {
-  brand?: brandProps
+  shrinkBtnName?: string
+  defaultValue?: number
+
+  autoShrink?: boolean
+  defaultShrink?: boolean
+  hideShrinkButton?: boolean
+
   avatar?: React.ReactNode
+  brand?: brandProps
   items: Array<itemProps>
   tools?: Array<toolProps>
-  defaultShrink?: boolean
-  autoShrink?: boolean
-  shrinkBtnName?: string
-  defaultSelected?: number
-  hideShrinkButton?: boolean
 }

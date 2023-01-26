@@ -2,19 +2,23 @@ export interface DatePickerRef {}
 
 export interface DatePickerProps {
   id?: string
-  prepend?: React.ReactNode
+  width?: string
+  height?: string
+  size?: 'small' | 'large'
+
+  value?: string
+  onChange?: (date: string, year?: number, month?: number, day?: number) => void
+
+  defaultValue?: string
   placeholder?: string
-  type?: string
-  rules?: []
   disabled?: boolean
   readOnly?: boolean
-  onChange?: (date: string, year?: number, month?: number, day?: number) => void
-  size?: 'small' | 'large'
+
+  rules?: []
   error?: boolean
   errorMessage?: string | React.ReactNode
   hideMessage?: boolean
-  defaultSelected?: string | undefined
+
   locale?: string
-  width?: string
-  height?: string
+  prepend?: React.ReactNode
 }

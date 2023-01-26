@@ -20,10 +20,7 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
   const buttonRef = useRef<HTMLDivElement>(null)
   const calendarRef = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState<boolean>(false)
-  const [selected, setSelected] = useControlled(
-    props.defaultSelected,
-    props.onChange
-  )
+  const [selected, setSelected] = useControlled(props.value, props.onChange)
   const [rule, setRule] = useState({
     error: false,
     message: <></>
@@ -157,7 +154,7 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
             [styles.datePickerButtonInnerFocus]: active
           }) }
         >
-          { selected || props.placeholder }
+          { selected || props.defaultValue || props.placeholder }
         </div>
       </div>
       { !props.hideMessage && (

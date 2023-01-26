@@ -6,29 +6,33 @@ interface inputRule {
 
 export interface InputProps {
   id?: string
-  prepend?: React.ReactNode
-  append?: React.ReactNode
-  value?: string
-  placeholder?: string
+  size?: 'small' | 'large'
   type?: 'string' | 'digit' | 'password'
-  rules?: inputRule[]
+
+  value?: string
+  onClear?: () => void
+  onChange?: (val: string) => void
+  onEnterPress?: (e: React.KeyboardEvent<HTMLInputElement>) => void
+
+  placeholder?: string
   disabled?: boolean
   readOnly?: boolean
   clearable?: boolean
-  onClear?: () => void
-  onChange?: (val: string) => void
   showClearIfFill?: boolean
-  onEnterPress?: (e: React.KeyboardEvent<HTMLInputElement>) => void
-  size?: 'small' | 'large'
+
+  rules?: inputRule[]
   error?: boolean
   errorMessage?: string | React.ReactNode
   hideMessage?: boolean
+
+  prepend?: React.ReactNode
+  append?: React.ReactNode
 }
 
 export interface InputRef {
+  blur: () => void
   clear: () => void
   focus: () => void
-  blur: () => void
-  nativeElement: HTMLInputElement | null
   touch: () => boolean
+  nativeElement: HTMLInputElement | null
 }

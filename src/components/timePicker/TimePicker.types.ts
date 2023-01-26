@@ -1,26 +1,30 @@
 export interface TimePickerProps {
   id?: string
-  prepend?: React.ReactNode
-  placeholder?: string
-  type?: string
-  rules?: []
-  disabled?: boolean
-  readOnly?: boolean
+  width?: string
+  height?: string
+  size?: 'small' | 'large'
+
+  value?: string
   onChange?: (
     time: string,
     hour?: string,
     minute?: string,
     second?: string
   ) => void
-  size?: 'small' | 'large'
+
+  showSecond?: boolean
+  defaultValue?: string
+  placeholder?: string
+  disabled?: boolean
+  readOnly?: boolean
+
+  rules?: []
   error?: boolean
   errorMessage?: string | React.ReactNode
   hideMessage?: boolean
+
   locale?: string
-  width?: string
-  height?: string
-  showSecond?: boolean
-  defaultValue?: string
+  prepend?: React.ReactNode
 }
 
-export interface TImePickerRefs {}
+export interface TimePickerRefs {}

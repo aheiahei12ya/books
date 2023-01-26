@@ -1,5 +1,5 @@
 import { TimePicker } from './TimePicker'
 
-export type { TimePickerProps, TImePickerRefs } from './TimePicker.types'
+export type { TimePickerProps, TimePickerRefs } from './TimePicker.types'
 
 export default TimePicker

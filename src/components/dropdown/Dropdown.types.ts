@@ -6,20 +6,25 @@ interface DropdownRule {
 
 export interface DropdownProps {
   id?: string
-  prepend?: React.ReactNode
+  width?: string
+  height?: string
+  size?: 'small' | 'large'
+
+  onChange?: (val: string) => void
+  value?: string | object
+  returnObject?: boolean
+
+  items?: any[]
+  itemName?: string
+  defaultValue?: string
   placeholder?: string
-  type?: string
-  rules?: DropdownRule[]
   disabled?: boolean
   readOnly?: boolean
-  onChange?: (val: string) => void
-  size?: 'small' | 'large'
+
+  rules?: DropdownRule[]
   error?: boolean
   errorMessage?: string | React.ReactNode
   hideMessage?: boolean
-  items?: any[]
-  itemName?: string
-  returnObject?: boolean
-  defaultSelected?: any
-  value?: string
+
+  prepend?: React.ReactNode
 }

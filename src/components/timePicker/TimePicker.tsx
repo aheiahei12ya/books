@@ -19,10 +19,7 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
   const secondRef = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState<boolean>(false)
 
-  const [selected, setSelected] = useControlled(
-    props.defaultValue,
-    props.onChange
-  )
+  const [selected, setSelected] = useControlled(props.value, props.onChange)
   const [defaultHour, defaultMinute, defaultSecond] = props.defaultValue?.split(
     ':'
   ) || [0, 0, 0]
@@ -216,7 +213,7 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
             [styles.timePickerButtonInnerFocus]: active
           }) }
         >
-          { selected || props.placeholder }
+          { selected || props.defaultValue || props.placeholder }
         </div>
       </div>
       { !props.hideMessage && (

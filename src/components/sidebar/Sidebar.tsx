@@ -18,16 +18,16 @@ export const Sidebar = forwardRef<unknown, SidebarProps>((props, ref) => {
   useEffect(() => {
     const selectedKey =
       Number(sessionStorage.getItem('selectedKey')) ||
-      props.defaultSelected ||
+      props.defaultValue ||
       0
     setSelected(selectedKey)
-  }, [props.defaultSelected])
+  }, [props.defaultValue])
 
   useEffect(() => {
     if (props.autoShrink) {
       size.isMobile ? setShrink(true) : setShrink(false)
     }
-  }, [props.autoShrink, size])
+  }, [props.autoShrink, size.isMobile])
 
   const shrinkIcon = (
     <i
