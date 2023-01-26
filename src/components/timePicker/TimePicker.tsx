@@ -1,42 +1,46 @@
 import classNames from 'classnames'
 import dayjs from 'dayjs'
-import { forwardRef, useCallback, useEffect, useRef, useState } from 'react'
+import { forwardRef, useCallback, useMemo, useRef, useState } from 'react'
 
 import Button from '@/components/button'
 import { padNumber } from '@/components/lib/util'
-import useHover from '@/hooks/useHover'
+import useControlled from '@/hooks/useControlled'
 import { range } from '@/lib/pythonic'
 
 import styles from './TimePicker.module.sass'
 import { TimePickerProps } from './TimePicker.types'
 
 const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
-  TimePicker.displayName = 'TimePicker'
   const size = props.size || 'default'
-  const activate = props.activate || 'click'
-  const [buttonRef, hover] = useHover()
+  const buttonRef = useRef<HTMLDivElement>(null)
   const timePickerRef = useRef<HTMLDivElement>(null)
   const hourRef = useRef<HTMLDivElement>(null)
   const minuteRef = useRef<HTMLDivElement>(null)
   const secondRef = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState<boolean>(false)
-  const [hour, setHour] = useState(props.defaultValue?.hour() || 0)
-  const [minute, setMinute] = useState(props.defaultValue?.minute() || 0)
-  const [second, setSecond] = useState(props.defaultValue?.second() || 0)
-  const [selected, setSelected] = useState(
-    props.defaultValue?.format('HH:mm:ss') || undefined
+
+  const [selected, setSelected] = useControlled(
+    props.defaultValue,
+    props.onChange
   )
+  const [defaultHour, defaultMinute, defaultSecond] = props.defaultValue?.split(
+    ':'
+  ) || [0, 0, 0]
+  const [hour, setHour] = useState(Number(defaultHour))
+  const [minute, setMinute] = useState(Number(defaultMinute))
+  const [second, setSecond] = useState(Number(defaultSecond))
+  const width = props.width || '150px'
+  const height = props.height || '230px'
+
   const [rule, setRule] = useState({
     error: false,
     message: <></>
   })
-  const width = props.width || '150px'
-  const height = props.height || '230px'
 
   const onClickOutsideHandler = useCallback(
-    (e: Event) => {
+    ({ target }: MouseEvent) => {
       if (!buttonRef.current) return
-      if (buttonRef.current.contains(e.target)) return
+      if (buttonRef.current.contains(target as Node)) return
       setActive(false)
       timePickerRef.current!.style.maxHeight = '0'
       setTimeout(() => {
@@ -77,16 +81,6 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
     }
   }
 
-  useEffect(() => {
-    if (activate === 'hover') {
-      if (hover) {
-        handleDropdown('activate')
-      } else {
-        handleDropdown('deactivate')
-      }
-    }
-  }, [activate, handleDropdown, hover])
-
   const setNow = () => {
     const now = dayjs()
     handleClick()
@@ -102,7 +96,6 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
     const minuteStr = padNumber(minute)
     const secondStr = padNumber(second)
     setSelected(`${ hourStr }:${ minuteStr }:${ secondStr }`)
-    props.onSelect?.(hourStr, minuteStr, secondStr)
   }
 
   const handleSelect = (
@@ -142,7 +135,7 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
     }
   }
 
-  const makeTimePicker = () => {
+  const timePicker = useMemo(() => {
     return (
       <>
         <div ref={ hourRef } className={ styles.timePickerCells }>
@@ -194,7 +187,7 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
         ) }
       </>
     )
-  }
+  }, [hour, minute, props.showSecond, second])
 
   return (
     <div ref={ buttonRef }>
@@ -211,8 +204,7 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
         { !!props.prepend && (
           <span
             className={ classNames(styles.timePickerButtonInnerPrefix, {
-              [styles.timePickerButtonInnerPrefixActive]:
-              (hover && activate === 'hover') || active
+              [styles.timePickerButtonInnerPrefixActive]: active
             }) }
           >
             { props.prepend }
@@ -221,8 +213,7 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
         <div
           className={ classNames(styles.timePickerButtonInner, {
             [styles.timePickerButtonInnerPlaceholder]: !selected,
-            [styles.timePickerButtonInnerFocus]:
-            (hover && activate === 'hover') || active
+            [styles.timePickerButtonInnerFocus]: active
           }) }
         >
           { selected || props.placeholder }
@@ -239,7 +230,7 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
         className={ styles.timePickerBox }
       >
         <div className={ styles.timePickerContainer }>
-          <div className={ styles.timePicker }>{ makeTimePicker() }</div>
+          <div className={ styles.timePicker }>{ timePicker }</div>
           <div className={ styles.timePickerAction }>
             <div className={ styles.timePickerActionButton } onClick={ setNow }>
               <span>{ props.locale === 'zh-CN' ? '现在' : 'Now' }</span>
@@ -253,5 +244,7 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
     </div>
   )
 })
+
+TimePicker.displayName = 'TimePicker'
 
 export { TimePicker }

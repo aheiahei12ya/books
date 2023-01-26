@@ -1,27 +1,29 @@
 import classNames from 'classnames'
-import { forwardRef, useCallback, useEffect, useRef, useState } from 'react'
+import { forwardRef, useCallback, useRef, useState } from 'react'
 
-import useHover from '@/hooks/useHover'
+import useControlled from '@/hooks/useControlled'
+import get from '@/lib/pythonic/get'
 
 import styles from './Dropdown.module.sass'
 import { DropdownProps } from './Dropdown.types'
 
 const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
-  Dropdown.displayName = 'Dropdown'
   const size = props.size || 'default'
-  const activate = props.activate || 'click'
-  const [buttonRef, hover] = useHover()
+  const buttonRef = useRef<HTMLDivElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState<boolean>(false)
-  const [selected, setSelected] = useState(props.defaultSelected)
+  const [selected, setSelected] = useControlled(
+    props.defaultSelected,
+    props.onChange
+  )
   const [rule, setRule] = useState({
     error: false,
     message: <></>
   })
   const onClickOutsideHandler = useCallback(
-    (e: Event) => {
+    ({ target }: MouseEvent) => {
       if (!buttonRef.current) return
-      if (buttonRef.current.contains(e.target)) return
+      if (buttonRef.current.contains(target as Node)) return
       setActive(false)
       menuRef.current!.style.maxHeight = '0'
       setTimeout(() => {
@@ -33,6 +35,7 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
   )
   const handleDropdown = useCallback(
     (type: 'activate' | 'deactivate') => {
+      if (!buttonRef.current) return
       const nodeRef = menuRef.current!
       if (type === 'activate') {
         setActive(true)
@@ -60,16 +63,6 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
     }
   }
 
-  useEffect(() => {
-    if (activate === 'hover') {
-      if (hover) {
-        handleDropdown('activate')
-      } else {
-        handleDropdown('deactivate')
-      }
-    }
-  }, [activate, handleDropdown, hover])
-
   return (
     <div ref={ buttonRef }>
       <div
@@ -85,8 +78,7 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
         { !!props.prepend && (
           <span
             className={ classNames(styles.dropdownButtonInnerPrefix, {
-              [styles.dropdownButtonInnerPrefixActive]:
-              (hover && activate === 'hover') || active
+              [styles.dropdownButtonInnerPrefixActive]: active
             }) }
           >
             { props.prepend }
@@ -95,16 +87,15 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
         <div
           className={ classNames(styles.dropdownButtonInner, {
             [styles.dropdownButtonInnerPlaceholder]: !selected,
-            [styles.dropdownButtonInnerFocus]:
-            (hover && activate === 'hover') || active
+            [styles.dropdownButtonInnerFocus]: active
           }) }
         >
-          { selected || props.placeholder }
+          { get(selected, props.itemName as string, selected) ||
+            props.placeholder }
         </div>
         <span
           className={ classNames(styles.dropdownButtonInnerAppend, {
-            [styles.dropdownButtonInnerAppendActive]:
-            (hover && activate === 'hover') || active
+            [styles.dropdownButtonInnerAppendActive]: active
           }) }
         >
           <i className="fa-regular fa-chevron-down"></i>
@@ -130,9 +121,8 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
                   [styles.dropdownMenuItemSelected]: selected === value
                 }) }
                 onClick={ () => {
-                  setSelected(value)
+                  setSelected(props.returnObject ? items : value)
                   handleDropdown('deactivate')
-                  props.onSelect?.(props.returnObject ? items : value)
                 } }
               >
                 { value }
@@ -144,5 +134,7 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
     </div>
   )
 })
+
+Dropdown.displayName = 'Dropdown'
 
 export { Dropdown }

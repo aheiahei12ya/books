@@ -1,5 +1,3 @@
-import dayjs from 'dayjs'
-
 export interface TimePickerProps {
   id?: string
   prepend?: React.ReactNode
@@ -8,17 +6,21 @@ export interface TimePickerProps {
   rules?: []
   disabled?: boolean
   readOnly?: boolean
-  onSelect?: (hour: string, minute: string, second: string) => void
+  onChange?: (
+    time: string,
+    hour?: string,
+    minute?: string,
+    second?: string
+  ) => void
   size?: 'small' | 'large'
   error?: boolean
   errorMessage?: string | React.ReactNode
   hideMessage?: boolean
-  activate?: 'hover' | 'click'
   locale?: string
   width?: string
   height?: string
   showSecond?: boolean
-  defaultValue?: dayjs.Dayjs
+  defaultValue?: string
 }
 
 export interface TImePickerRefs {}

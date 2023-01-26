@@ -12,15 +12,14 @@ export interface DropdownProps {
   rules?: DropdownRule[]
   disabled?: boolean
   readOnly?: boolean
-  onSelect?: (val: string) => void
+  onChange?: (val: string) => void
   size?: 'small' | 'large'
   error?: boolean
   errorMessage?: string | React.ReactNode
   hideMessage?: boolean
-  activate?: 'hover' | 'click'
   items?: any[]
   itemName?: string
   returnObject?: boolean
-  defaultSelected?: string | undefined
+  defaultSelected?: any
   value?: string
 }

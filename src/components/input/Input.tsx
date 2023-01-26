@@ -8,6 +8,8 @@ import {
   useState
 } from 'react'
 
+import useControlled from '@/hooks/useControlled'
+
 import styles from './Input.module.sass'
 import { InputProps, InputRef } from './Input.types'
 
@@ -18,15 +20,9 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
   const hasAppend = !!props.append
   const size = props.size || 'default'
   const [hasFocus, setHasFocus] = useState<boolean>(false)
-  const [localValue, setLocalValue] = useState(props.value ? props.value : '')
   const inputRef = useRef<HTMLInputElement>(null)
   const inputId = useId()
-
-  const [value, setValue] = (() => {
-    if (props.value !== undefined && props.onChange)
-      return [props.value, (val: string) => props.onChange!(val)]
-    return [localValue, setLocalValue]
-  })()
+  const [value, setValue] = useControlled(props.value, props.onChange)
 
   const [rule, setRule] = useState({
     error: false,
@@ -55,7 +51,6 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     if (props.type === 'digit' && isNaN(Number(e.target.value))) return
     setValue(e.target.value)
-    props.onChange?.(e.target.value)
     rule.error ? checkRules(props.rules) : ''
   }
   useImperativeHandle(ref, () => ({

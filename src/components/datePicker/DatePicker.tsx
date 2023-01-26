@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import dayjs from 'dayjs'
-import { forwardRef, useCallback, useEffect, useRef, useState } from 'react'
+import { forwardRef, useCallback, useRef, useState } from 'react'
 
 import {
   calendar,
@@ -9,20 +9,21 @@ import {
   handleMonthChange,
   handleSelect
 } from '@/components/lib/calendar'
-import useHover from '@/hooks/useHover'
+import useControlled from '@/hooks/useControlled'
 
 import styles from './DatePicker.module.sass'
 import { DatePickerProps } from './DatePicker.types'
 import { weekNames } from './locale'
 
 const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
-  DatePicker.displayName = 'DatePicker'
   const size = props.size || 'default'
-  const activate = props.activate || 'click'
-  const [buttonRef, hover] = useHover()
+  const buttonRef = useRef<HTMLDivElement>(null)
   const calendarRef = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState<boolean>(false)
-  const [selected, setSelected] = useState(props.defaultSelected)
+  const [selected, setSelected] = useControlled(
+    props.defaultSelected,
+    props.onChange
+  )
   const [rule, setRule] = useState({
     error: false,
     message: <></>
@@ -36,9 +37,9 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
   const height = props.height || '230px'
 
   const onClickOutsideHandler = useCallback(
-    (e: Event) => {
+    ({ target }: MouseEvent) => {
       if (!buttonRef.current) return
-      if (buttonRef.current.contains(e.target)) return
+      if (buttonRef.current.contains(target as Node)) return
       setActive(false)
       calendarRef.current!.style.maxHeight = '0'
       setTimeout(() => {
@@ -79,16 +80,6 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
     }
   }
 
-  useEffect(() => {
-    if (activate === 'hover') {
-      if (hover) {
-        handleCalendar('activate')
-      } else {
-        handleCalendar('deactivate')
-      }
-    }
-  }, [activate, handleCalendar, hover])
-
   const makeCell = useCallback(
     (selectedDay: number, type: 'past' | 'current' | 'future') => {
       const isToday =
@@ -108,8 +99,7 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
               setYear,
               setMonth,
               setSelected,
-              () => handleCalendar('deactivate'),
-              props.onSelect
+              () => handleCalendar('deactivate')
             )
           }
         >
@@ -131,8 +121,8 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
     [
       handleCalendar,
       month,
-      props.onSelect,
       selected,
+      setSelected,
       thisMonth,
       thisYear,
       today,
@@ -155,8 +145,7 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
         { !!props.prepend && (
           <span
             className={ classNames(styles.datePickerButtonInnerPrefix, {
-              [styles.datePickerButtonInnerPrefixActive]:
-              (hover && activate === 'hover') || active
+              [styles.datePickerButtonInnerPrefixActive]: active
             }) }
           >
             { props.prepend }
@@ -165,8 +154,7 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
         <div
           className={ classNames(styles.datePickerButtonInner, {
             [styles.datePickerButtonInnerPlaceholder]: !selected,
-            [styles.datePickerButtonInnerFocus]:
-            (hover && activate === 'hover') || active
+            [styles.datePickerButtonInnerFocus]: active
           }) }
         >
           { selected || props.placeholder }
@@ -232,5 +220,7 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
     </div>
   )
 })
+
+DatePicker.displayName = 'DatePicker'
 
 export { DatePicker }

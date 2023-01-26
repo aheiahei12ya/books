@@ -8,12 +8,11 @@ export interface DatePickerProps {
   rules?: []
   disabled?: boolean
   readOnly?: boolean
-  onSelect?: (year: number, month: number, date: number) => void
+  onChange?: (date: string, year?: number, month?: number, day?: number) => void
   size?: 'small' | 'large'
   error?: boolean
   errorMessage?: string | React.ReactNode
   hideMessage?: boolean
-  activate?: 'hover' | 'click'
   defaultSelected?: string | undefined
   locale?: string
   width?: string
