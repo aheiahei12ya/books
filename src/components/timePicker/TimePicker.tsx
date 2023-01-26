@@ -123,7 +123,7 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
                 }) }
                 onClick={ (e) => handleSelect(e, 'hour', val) }
               >
-                { val }
+                { padNumber(val) }
               </div>
             )
           }) }
@@ -138,7 +138,7 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
                 }) }
                 onClick={ (e) => handleSelect(e, 'minute', val) }
               >
-                { val }
+                { padNumber(val) }
               </div>
             )
           }) }
@@ -154,7 +154,7 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
                   }) }
                   onClick={ (e) => handleSelect(e, 'second', val) }
                 >
-                  { val }
+                  { padNumber(val) }
                 </div>
               )
             }) }
