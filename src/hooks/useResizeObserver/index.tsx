@@ -7,7 +7,7 @@ const useResizeObserver = (
   useLayoutEffect(() => {
     let resizeObserver: ResizeObserver
     if (typeof window.ResizeObserver === 'undefined' || !ref.current) return
-    resizeObserver = new window.ResizeObserver(callback)
+    resizeObserver = new window.ResizeObserver((entries) => callback)
     resizeObserver.observe(ref.current)
     return () => {
       resizeObserver.disconnect?.()
