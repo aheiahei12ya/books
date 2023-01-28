@@ -4,7 +4,7 @@ import { adjustSize } from '@/components/chart/lib/canvas'
 import { drawCircle, drawHollowCircle } from '@/components/chart/lib/circle'
 import { setCoordinate } from '@/components/chart/lib/coordinate'
 import { drawCurve } from '@/components/chart/lib/line'
-import useResize from '@/hooks/useResize'
+import useResizeObserver from '@/hooks/useResizeObserver'
 import { getValue } from '@/lib/pythonic'
 
 import styles from './Curve.module.sass'
@@ -102,7 +102,7 @@ const Curve = forwardRef<unknown, CurveProps>((props, ref) => {
     props.ys
   ])
 
-  useResize(initialCanvas)
+  useResizeObserver(initialCanvas, canvasRef)
 
   return <canvas ref={canvasRef} className={styles.curveChart}></canvas>
 })

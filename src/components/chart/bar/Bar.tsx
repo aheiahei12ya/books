@@ -3,7 +3,7 @@ import { forwardRef, useCallback, useRef } from 'react'
 import { drawRect } from '@/components/chart/lib/barRect'
 import { adjustSize } from '@/components/chart/lib/canvas'
 import { setCoordinate } from '@/components/chart/lib/coordinate'
-import useResize from '@/hooks/useResize'
+import useResizeObserver from '@/hooks/useResizeObserver'
 import { getValue } from '@/lib/pythonic'
 
 import styles from './Bar.module.sass'
@@ -90,8 +90,9 @@ const Bar = forwardRef<unknown, BarProps>((props, ref) => {
     _paddingBottom
   ])
 
-  useResize(initialCanvas)
-  return <canvas ref={canvasRef} className={styles.bar}></canvas>
+  useResizeObserver(initialCanvas, canvasRef)
+
+  return <canvas ref={ canvasRef } className={ styles.bar }></canvas>
 })
 
 export { Bar }
