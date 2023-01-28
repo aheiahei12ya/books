@@ -1,3 +1,3 @@
-import ExpenseForm from './ExpenseForm'
+import { ExpenseForm } from './ExpenseForm'
 
 export default ExpenseForm

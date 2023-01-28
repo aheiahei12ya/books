@@ -2,6 +2,8 @@ import { ReactNode } from 'react'
 
 export interface ExpenseFormProps {
   locale?: string
+  defaultValue?: {}
+  value?: {}
 }
 
 export type expenseType = {

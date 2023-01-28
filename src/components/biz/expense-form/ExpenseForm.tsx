@@ -3,13 +3,14 @@ import dayjs from 'dayjs'
 import React, { forwardRef, useCallback, useState } from 'react'
 
 import ReceiptForm from '@/components/biz/receipt-form'
+import Button from '@/components/button'
 import Checkbox from '@/components/checkbox'
 import DatePicker from '@/components/datePicker'
 import Dropdown from '@/components/dropdown'
+import Form from '@/components/form'
 import Input from '@/components/input'
 import TimePicker from '@/components/timePicker'
-import useRequest from '@/hooks/useRequest'
-import services from '@/services'
+import useForm from '@/hooks/useForm'
 
 import {
   autoDebitKeys,
@@ -30,7 +31,9 @@ import {
 const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
   ExpenseForm.displayName = 'ExpenseForm'
   const current = dayjs()
+  const form = useForm()
   const [expense, setExpense] = useState<expenseType>({
+    ...props.defaultValue,
     time: current.format('HH:mm:ss'),
     date: current.format('YYYY-MM-DD'),
     reimbursementFullAmount: false
@@ -38,235 +41,225 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
 
   const handleReimbursement = useCallback(
     (amount: number, coupon: number, reimbursementAmount: number) => {
-      const realAmount = expense.reimbursementFullAmount
+      const realAmount = form.get('reimbursementFullAmount')
         ? 0
         : Math.max(amount - coupon - reimbursementAmount, 0)
-      expense.reimbursementFullAmount &&
-      setExpense((prevState) => ({
-        ...prevState,
-        reimbursementAmount: Number(Math.max(amount - coupon, 0).toFixed(2))
-      }))
+      form.get('reimbursementFullAmount') &&
+        form.set(
+          'reimbursementAmount',
+          Number(Math.max(amount - coupon, 0).toFixed(2))
+        )
       return realAmount
     },
-    [expense.reimbursementFullAmount]
+    [form]
   )
   const handleChange = useCallback(
     (key: string, value: string | number | undefined | boolean) => {
       switch (key) {
         case 'coupon': {
-          const amount = expense.amount || 0
+          const amount = form.get('amount', 0)
           const coupon = value ? (value as number) : 0
-          const reimbursementAmount = expense.reimbursementAmount || 0
+          const reimbursementAmount = form.get('reimbursementAmount', 0)
           const realAmount = handleReimbursement(
             amount,
             coupon,
             reimbursementAmount
           )
-          setExpense((prevState) => ({
-            ...prevState,
-            realAmount: realAmount
-          }))
+          form.set('realAmount', realAmount)
           break
         }
         case 'amount': {
           const amount = value ? (value as number) : 0
-          const coupon = expense.coupon || 0
-          const reimbursementAmount = expense.reimbursementAmount || 0
+          const coupon = form.get('coupon', 0)
+          const reimbursementAmount = form.get('reimbursementAmount', 0)
           const realAmount = handleReimbursement(
             amount,
             coupon,
             reimbursementAmount
           )
-          setExpense((prevState) => ({
-            ...prevState,
-            realAmount: realAmount
-          }))
+          form.set('realAmount', realAmount)
           break
         }
         case 'reimbursementAmount': {
-          const amount = expense.amount || 0
-          const coupon = expense.coupon || 0
+          const amount = form.get('amount', 0)
+          const coupon = form.get('coupon', 0)
           const reimbursementAmount = value ? (value as number) : 0
-          setExpense((prevState) => ({
-            ...prevState,
-            realAmount: Math.max(amount - coupon - reimbursementAmount, 0)
-          }))
+          form.set(
+            'realAmount',
+            Math.max(amount - coupon - reimbursementAmount, 0)
+          )
+          form.set(key, reimbursementAmount)
           break
         }
         default:
           break
       }
-      setExpense((prevState) => ({ ...prevState, [key]: value }))
+      setExpense(form.values())
     },
-    [expense, handleReimbursement]
+    [form, handleReimbursement]
   )
   const makeInputUnit = (formKey: keyof expenseConfigType) => {
     switch (expenseConfig[formKey].type) {
       case 'input':
         return (
-          <div key={ formKey } className={ styles.expenseFormButton }>
+          <Form.Item
+            name={formKey}
+            key={formKey}
+            className={styles.expenseFormButton}
+          >
             <Input
-              prepend={ expenseConfig[formKey].icon }
+              prepend={expenseConfig[formKey].icon}
               hideMessage
-              value={ expense[formKey] as string | undefined }
-              placeholder={ expenseConfig[formKey].name }
+              value={form.get(formKey, undefined)}
+              placeholder={expenseConfig[formKey].name}
               clearable
               showClearIfFill
-              type={ formKey === 'note' ? 'string' : 'digit' }
-              onChange={ (val) => handleChange(formKey, val) }
-              onClear={ () => handleChange(formKey, '') }
+              type={formKey === 'note' ? 'string' : 'digit'}
+              onChange={(val) => handleChange(formKey, val)}
+              onClear={() => handleChange(formKey, '')}
             ></Input>
-          </div>
+          </Form.Item>
         )
       case 'select':
         return (
-          <div key={ formKey } className={ styles.expenseFormButton }>
+          <Form.Item
+            name={formKey}
+            key={formKey}
+            className={styles.expenseFormButton}
+          >
             <Dropdown
-              prepend={ expenseConfig[formKey].icon }
+              prepend={expenseConfig[formKey].icon}
               hideMessage
-              placeholder={ expenseConfig[formKey].name }
-              items={ expenseConfig[formKey].items }
-              itemName={ 'name' }
+              placeholder={expenseConfig[formKey].name}
+              items={expenseConfig[formKey].items}
+              itemName={'name'}
               returnObject
-              onSelect={ (val) => handleChange(formKey, val) }
-              defaultSelected={ (expense[formKey] as itemType)?.name }
-              rules={ [
-                {
-                  required: true
-                }
-              ] }
+              onChange={(val) => handleChange(formKey, val)}
+              value={(form.get(formKey) as itemType)?.name}
             ></Dropdown>
-          </div>
+          </Form.Item>
         )
       case 'checkbox':
         return (
-          <div key={ formKey } className={ styles.expenseFormButton }>
+          <Form.Item
+            name={formKey}
+            key={formKey}
+            className={styles.expenseFormButton}
+          >
             <Checkbox
-              onChange={ handleCheck }
-              checked={ expense.reimbursementFullAmount }
+              onChange={handleCheck}
+              checked={form.get('reimbursementFullAmount')}
             >
-              { expenseConfig[formKey].name }
+              {expenseConfig[formKey].name}
             </Checkbox>
-          </div>
+          </Form.Item>
         )
       case 'date-picker':
         return (
-          <div key={ formKey } className={ styles.expenseFormButton }>
+          <Form.Item name={formKey} key={formKey}>
             <DatePicker
               hideMessage
-              prepend={ expenseConfig[formKey].icon }
-              placeholder={ expenseConfig[formKey].name }
-              onSelect={ (year, month, date) =>
-                handleChange(formKey, `${ year }-${ month }-${ date }`)
-              }
-              defaultSelected={ current.format('YYYY-MM-DD') }
-              locale={ props.locale }
+              prepend={expenseConfig[formKey].icon}
+              placeholder={expenseConfig[formKey].name}
+              onChange={(date) => handleChange(formKey, date)}
+              value={form.get(formKey)}
+              locale={props.locale}
             ></DatePicker>
-          </div>
+          </Form.Item>
         )
       case 'time-picker':
         return (
-          <div key={ formKey } className={ styles.expenseFormButton }>
+          <Form.Item
+            name={formKey}
+            key={formKey}
+            className={styles.expenseFormButton}
+          >
             <TimePicker
               hideMessage
-              prepend={ expenseConfig[formKey].icon }
-              placeholder={ expenseConfig[formKey].name }
-              onSelect={ (hour, minute, second) =>
-                handleChange(formKey, `${ hour }:${ minute }:${ second }`)
-              }
-              defaultValue={ current }
-              locale={ props.locale }
+              prepend={expenseConfig[formKey].icon}
+              placeholder={expenseConfig[formKey].name}
+              onChange={(time) => handleChange(formKey, time)}
+              value={form.get(formKey)}
+              locale={props.locale}
             ></TimePicker>
-          </div>
+          </Form.Item>
         )
-
       default:
         return
     }
   }
-  const handleCheck = (e: boolean) => {
-    if (e) {
+  const handleCheck = (checked: boolean) => {
+    if (checked) {
+      const realAmount = form.get('realAmount')
       handleChange('reimbursementFullAmount', true)
-      !!expense.realAmount &&
-      handleChange('reimbursementAmount', expense.realAmount)
+      realAmount && handleChange('reimbursementAmount', realAmount)
     } else {
       handleChange('reimbursementFullAmount', false)
+      handleChange('reimbursementAmount', 0)
     }
   }
   const makeExtraRow = () => {
     switch (expense.paymentMethod?.key) {
       case 'installment':
         return (
-          <div className={ styles.expenseFormRow }>
-            { installmentKeys.map((formKey) =>
+          <Form.Item name={'installment'} className={styles.expenseFormRow}>
+            {installmentKeys.map((formKey) =>
               makeInputUnit(formKey as keyof expenseConfigType)
-            ) }
-          </div>
+            )}
+          </Form.Item>
         )
       case 'auto-debit':
         return (
-          <div className={ styles.expenseFormRow }>
-            { autoDebitKeys.map((formKey) =>
+          <Form.Item name={'auto-debit'} className={styles.expenseFormRow}>
+            {autoDebitKeys.map((formKey) =>
               makeInputUnit(formKey as keyof expenseConfigType)
-            ) }
-          </div>
+            )}
+          </Form.Item>
         )
       case 'reimbursement':
         return (
-          <div className={ styles.expenseFormRow }>
-            { reimbursementKeys.map((formKey) =>
+          <Form.Item name={'reimbursement'} className={styles.expenseFormRow}>
+            {reimbursementKeys.map((formKey) =>
               makeInputUnit(formKey as keyof expenseConfigType)
-            ) }
-          </div>
+            )}
+          </Form.Item>
         )
       default:
         return
     }
   }
-
-  const { loading } = useRequest(() => services.expense.initial({ user: 1 }), {
-    onSuccess: (data) => {
-      if (data.success) {
-        expenseConfig.platform.items = data?.data.platformList
-        expenseConfig.account.items = data?.data.accountList
-        expenseConfig.category.items = data?.data.categoryList
-        expenseConfig.subcategory.items = data?.data.subcategoryList
-        expenseConfig.paymentMethod.items = data?.data.paymentMethodList
-        Object.getOwnPropertyNames(data?.data.preset).forEach((key: string) => {
-          handleChange(key, data?.data.preset[key])
-        })
-      }
-    }
-  })
-
-  return loading ? (
-    <></>
-  ) : (
-    <div className={ styles.expenseContainer }>
-      <div className={ styles.expenseForm }>
-        { expenseFormKeys.map((formRow, index) => (
-          <div key={ `row-${ index }` } className={ styles.expenseFormRow }>
-            { formRow.map((formKey) =>
+  return (
+    <div className={styles.expenseContainer}>
+      <Form form={form} initialValue={expense} className={styles.expenseForm}>
+        {expenseFormKeys.map((formRow, index) => (
+          <div key={`row-${index}`} className={styles.expenseFormRow}>
+            {formRow.map((formKey) =>
               makeInputUnit(formKey as keyof expenseConfigType)
-            ) }
+            )}
           </div>
-        )) }
-        { makeExtraRow() }
-        { expenseFormKeysAppend.map((formRow, index) => (
-          <div key={ `row-${ index }` } className={ styles.expenseFormRow }>
-            { formRow.map((formKey) =>
+        ))}
+        <div className={styles.expenseFormRow}>{makeExtraRow()}</div>
+        {expenseFormKeysAppend.map((formRow, index) => (
+          <div key={`row-${index}`} className={styles.expenseFormRow}>
+            {formRow.map((formKey) =>
               makeInputUnit(formKey as keyof expenseConfigType)
-            ) }
+            )}
           </div>
-        )) }
-      </div>
+        ))}
+      </Form>
+
       <div
-        className={ classNames(styles.expenseReceipt, styles.hiddenSmAndDown) }
+        className={classNames(styles.expenseReceipt, styles.hiddenSmAndDown)}
       >
-        <ReceiptForm expense={ expense }></ReceiptForm>
+        <ReceiptForm expense={expense} itemName={'name'}></ReceiptForm>
       </div>
+      <Button
+        onClick={() => {
+          console.log(expense)
+        }}
+      ></Button>
     </div>
   )
 })
 
-export default ExpenseForm
+export { ExpenseForm }
