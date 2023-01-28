@@ -12,8 +12,8 @@ class FormStore {
   public set = (key: string, value: any): void => {
     this.store = { ...this.store, [key]: value }
   }
-  public get = (key: string): object => {
-    return this.store[key]
+  public get = (key: string, defaultValue?: any): object => {
+    return this.store[key] === undefined ? defaultValue : this.store[key]
   }
 }
 
