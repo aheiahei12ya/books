@@ -1,5 +1,6 @@
 export interface FormStoreType {
-  initForm: (initData: object) => void
-  setValue: (key: string, value: any) => void
-  getValue: () => object
+  init: (initData: object) => void
+  values: () => object
+  set: (key: string, value: any) => void
+  get: (key?: string) => object
 }

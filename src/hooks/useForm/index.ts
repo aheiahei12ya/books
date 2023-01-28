@@ -2,14 +2,18 @@ import { useRef } from 'react'
 
 class FormStore {
   private store: Record<string, any> = {}
-  public initForm = (initData: object): void => {
+
+  public init = (initData: object): void => {
     this.store = { ...initData }
   }
-  public setValue = (key: string, value: any): void => {
+  public values = (): object => {
+    return this.store
+  }
+  public set = (key: string, value: any): void => {
     this.store = { ...this.store, [key]: value }
   }
-  public getValue = (): object => {
-    return this.store
+  public get = (key: string): object => {
+    return this.store[key]
   }
 }
 
