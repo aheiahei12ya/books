@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useMemo } from 'react'
 
 import {
   expenseConfig,
@@ -7,10 +7,10 @@ import {
 } from '@/components/biz/expense-form/config'
 import {
   expenseConfigType,
-  expenseType,
-  itemType
+  expenseType
 } from '@/components/biz/expense-form/ExpenseForm.types'
 import { ReceiptFormProps } from '@/components/biz/receipt-form/ReceiptForm.types'
+import get from '@/lib/pythonic/get'
 
 import styles from './ReceiptForm.module.sass'
 
@@ -26,29 +26,34 @@ const ReceiptForm = forwardRef<unknown, ReceiptFormProps>((props, ref) => {
       return `-${ Number(value).toFixed(2) }`
     }
   }
-  const makeReceiptDetail = (type: string) => {
-    const config = expenseConfig[type as keyof expenseConfigType]
+  const receiptDetail = useMemo(() => {
     let receiptValue: string
-    if (config.type === 'select') {
-      receiptValue = (props.expense[type as keyof expenseType] as itemType)
-        ?.name
-    } else {
-      receiptValue = props.expense[type as keyof expenseType] as string
-      if (type === 'coupon' && !receiptValue) return
-    }
-    return (
-      <div key={ type } className={ styles.receiptDetailRow }>
-        <span className={ styles.receiptDetailKey }>{ config.name }</span>
-        <span
-          className={ classNames({
-            [styles.receiptDetailValue]: type === 'coupon'
-          }) }
-        >
-          { getReceiptValue(receiptValue) }
-        </span>
-      </div>
-    )
-  }
+    return receiptDetailKeys.map((type) => {
+      const config = expenseConfig[type as keyof expenseConfigType]
+      if (config.type === 'select') {
+        receiptValue = get(
+          props.expense,
+          [type, props.itemName],
+          props.expense[type as keyof expenseType]
+        )
+      } else {
+        receiptValue = props.expense[type as keyof expenseType] as string
+        if (type === 'coupon' && !receiptValue) return
+      }
+      return (
+        <div key={ type } className={ styles.receiptDetailRow }>
+          <span className={ styles.receiptDetailKey }>{ config.name }</span>
+          <span
+            className={ classNames({
+              [styles.receiptDetailValue]: type === 'coupon'
+            }) }
+          >
+            { getReceiptValue(receiptValue) }
+          </span>
+        </div>
+      )
+    })
+  }, [props.expense, props.itemName])
 
   return (
     <>
@@ -58,14 +63,9 @@ const ReceiptForm = forwardRef<unknown, ReceiptFormProps>((props, ref) => {
           { getReceiptValue(props.expense.realAmount) }
         </span>
       </div>
-      <div className={ styles.receiptDetail }>
-        { receiptDetailKeys.map((type) => {
-          return makeReceiptDetail(type)
-        }) }
-      </div>
+      <div className={ styles.receiptDetail }>{ receiptDetail }</div>
     </>
   )
 })
-
 
 export { ReceiptForm }

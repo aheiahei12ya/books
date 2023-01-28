@@ -3,7 +3,10 @@ import { forwardRef, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import ExpenseForm from '@/components/biz/expense-form'
+import expenseConfig from '@/components/biz/expense-form/config'
 import IncomeForm from '@/components/biz/income-form'
+import useRequest from '@/hooks/useRequest'
+import services from '@/services'
 
 import styles from './RecordForm.module.sass'
 import { RecordFormProps } from './RecordForm.types'
@@ -11,7 +14,22 @@ import { RecordFormProps } from './RecordForm.types'
 const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
   RecordForm.displayName = 'RecordForm'
   const [type, setType] = useState<string>('expense')
+  const [expense, setExpense] = useState<any>({})
+  const [income, setIncome] = useState({})
   const i18n = useIntl()
+  const { loading } = useRequest(() => services.expense.initial({ user: 1 }), {
+    onSuccess: (data) => {
+      if (data.success) {
+        expenseConfig.platform.items = data.data.platformList
+        expenseConfig.account.items = data.data.accountList
+        expenseConfig.category.items = data.data.categoryList
+        expenseConfig.subcategory.items = data.data.subcategoryList
+        expenseConfig.paymentMethod.items = data.data.paymentMethodList
+        setExpense(data.data.preset)
+        setIncome(data.data.preset)
+      }
+    }
+  })
   return (
     <div className={ styles.recordForm }>
       <div className={ styles.recordType }>
@@ -46,10 +64,16 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
       </div>
       <div className={ styles.recordContainer }>
         { type === 'expense' ? (
-          <ExpenseForm locale={ i18n.locale }/>
+          !loading && (
+            <ExpenseForm locale={ i18n.locale } defaultValue={ expense }/>
+          )
         ) : (
-          <IncomeForm/>
+          <IncomeForm
+            value={ income }
+            onChange={ setIncome }
+          />
         ) }
+        {/*{!loading && <IncomeForm defaultValue={expensePreset} />}*/ }
       </div>
       {/*<div className={styles.recordTool}>*/ }
       {/*  <div className={styles.recordToolButton}>*/ }
