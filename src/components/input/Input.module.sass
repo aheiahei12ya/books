@@ -1,4 +1,5 @@
 @use '@/styles/variable' as *
+@use '@/styles/animation' as *
 
 .input-box
   width: 100%
@@ -11,10 +12,16 @@
   transition: all .35s ease
   box-sizing: border-box
   box-shadow: none
+  margin: 0 auto
 
   &-error
     border-color: $red !important
     box-shadow: 0 0 3px $red !important
+    animation-name: shake
+    animation-duration: .1s
+    animation-iteration-count: 3
+    animation-direction: normal
+    animation-timing-function: linear
 
   &:hover
     border-color: $blue
