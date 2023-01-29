@@ -8,6 +8,7 @@ import {
   useState
 } from 'react'
 
+import { checkRules, RuleType } from '@/components/lib/rule'
 import useControlled from '@/hooks/useControlled'
 
 import styles from './Input.module.sass'
@@ -29,30 +30,11 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
     message: <></>
   })
 
-  const checkRules = (rules: InputProps['rules'], newVal?: any) => {
-    let error = false
-    const checkValue = newVal === undefined ? value : newVal
-    rules?.forEach((rule) => {
-      if (rule.required && !checkValue?.length) {
-        setRule({
-          error: true,
-          message: rule.message
-        })
-        error = true
-      } else {
-        setRule({
-          error: false,
-          message: rule.message
-        })
-        return
-      }
-    })
-    return error
-  }
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     if (props.type === 'digit' && isNaN(Number(e.target.value))) return
     setValue(e.target.value)
-    rule.error && checkRules(props.rules, e.target.value)
+    rule.error &&
+    checkRules(props.rules as RuleType[], setRule, value, e.target.value)
   }
   useImperativeHandle(ref, () => ({
     clear: () => {
@@ -68,7 +50,7 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
       return inputRef.current
     },
     touch: () => {
-      return checkRules(props.rules)
+      return checkRules(props.rules as RuleType[], setRule, value)
     }
   }))
 
@@ -119,7 +101,7 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
           } }
           onBlur={ () => {
             setHasFocus(false)
-            checkRules(props.rules)
+            checkRules(props.rules as RuleType[], setRule, value)
           } }
           disabled={ props.disabled }
           readOnly={ props.readOnly }

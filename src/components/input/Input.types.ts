@@ -1,8 +1,4 @@
-interface inputRule {
-  required: boolean
-  message: JSX.Element
-  rule?: string
-}
+import { RuleType } from '@/components/lib/rule'
 
 export interface InputProps {
   id?: string
@@ -20,7 +16,7 @@ export interface InputProps {
   clearable?: boolean
   showClearIfFill?: boolean
 
-  rules?: inputRule[]
+  rules?: RuleType[]
   error?: boolean
   errorMessage?: string | React.ReactNode
   hideMessage?: boolean
