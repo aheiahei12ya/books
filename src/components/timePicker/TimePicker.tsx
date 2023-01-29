@@ -4,6 +4,7 @@ import { forwardRef, useCallback, useMemo, useRef, useState } from 'react'
 
 import Button from '@/components/button'
 import { dropdownHandler } from '@/components/lib/dropdown'
+import { checkRules, RuleType } from "@/components/lib/rule";
 import { padNumber } from '@/components/lib/util'
 import useControlled from '@/hooks/useControlled'
 import { range } from '@/lib/pythonic'
@@ -38,13 +39,14 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
       if (!buttonRef.current) return
       if (buttonRef.current.contains(target as Node)) return
       setActive(false)
+      checkRules(props.rules as RuleType[], setRule, selected)
       timePickerRef.current!.style.maxHeight = '0'
       setTimeout(() => {
         timePickerRef.current!.style.maxWidth = '0'
       }, 300)
       document.removeEventListener('click', onClickOutsideHandler)
     },
-    [buttonRef]
+    [props.rules, selected]
   )
 
   const [activateDropdown, deactivateDropdown] = dropdownHandler(
@@ -62,7 +64,7 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
     setHour(now.hour())
     setMinute(now.minute())
     setSecond(now.second())
-    setSelected(now.format('HH:mm:ss'))
+    handleSetSelect(now.format('HH:mm:ss'))
   }
 
   const handleSetTime = () => {
@@ -70,7 +72,12 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
     const hourStr = padNumber(hour)
     const minuteStr = padNumber(minute)
     const secondStr = padNumber(second)
-    setSelected(`${ hourStr }:${ minuteStr }:${ secondStr }`)
+    handleSetSelect(`${ hourStr }:${ minuteStr }:${ secondStr }`)
+  }
+
+  const handleSetSelect = (value: string) => {
+    setSelected(value)
+    checkRules(props.rules as RuleType[], setRule, value)
   }
 
   const handleSelect = (

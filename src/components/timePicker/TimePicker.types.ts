@@ -1,3 +1,5 @@
+import { RuleType } from '@/components/lib/rule'
+
 export interface TimePickerProps {
   id?: string
   width?: string
@@ -18,7 +20,7 @@ export interface TimePickerProps {
   disabled?: boolean
   readOnly?: boolean
 
-  rules?: []
+  rules?: RuleType[]
   error?: boolean
   errorMessage?: string | React.ReactNode
   hideMessage?: boolean
@@ -27,4 +29,6 @@ export interface TimePickerProps {
   prepend?: React.ReactNode
 }
 
-export interface TimePickerRefs {}
+export interface TimePickerRefs {
+  touch: () => boolean
+}
