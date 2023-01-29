@@ -92,7 +92,7 @@ export const expenseConfig: expenseConfigType = {
     icon: <i className="fa-regular fa-calendar-clock"></i>
   },
   installmentNumber: {
-    type: 'select',
+    type: 'input',
     name: '分期期数',
     icon: <i className="fa-regular fa-hashtag"></i>
   },
@@ -102,7 +102,7 @@ export const expenseConfig: expenseConfigType = {
     icon: <i className="fa-regular fa-calendar-clock"></i>
   },
   autoDebitNumber: {
-    type: 'select',
+    type: 'input',
     name: '扣款次数',
     icon: <i className="fa-regular fa-hashtag"></i>
   },
