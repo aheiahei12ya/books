@@ -5,6 +5,8 @@ import { FormContextType } from '@/components/form/FormContext.types'
 const FormContext = createContext<FormContextType>({
   form: undefined,
   rules: undefined,
+  validate: false,
+  formItemMap: undefined,
   initialValue: {}
 })
 

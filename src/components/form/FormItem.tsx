@@ -5,11 +5,14 @@ import {
   forwardRef,
   isValidElement,
   useEffect,
+  useImperativeHandle,
+  useRef,
   useState
 } from 'react'
 
 import Checkbox from '@/components/checkbox'
 import useFormContext from '@/components/form/FormContext'
+import { FormContextType } from '@/components/form/FormContext.types'
 import get from '@/lib/pythonic/get'
 
 import styles from './Form.module.sass'
@@ -18,6 +21,8 @@ import { FormItemProps } from './FormItem.types'
 const FormItem = forwardRef<unknown, FormItemProps>((props, ref) => {
   const formContext = useFormContext()
   const form = formContext.form!
+  const formItemRef = useRef({})
+  const formItemInnerRef = useRef({})
   const [formValue, setFormValue] = useState(
     props.initialValue || get(formContext.initialValue!, props.name, undefined)
   )
@@ -27,28 +32,54 @@ const FormItem = forwardRef<unknown, FormItemProps>((props, ref) => {
     form.set(props.name, newVal)
   }
 
+  const handleValidate = () => {
+    console.log(formContext.rules)
+  }
+
+  const instance = {
+    name: props.name,
+    value: formValue,
+    setValue: (newVal: any) => updateFormValue(newVal),
+    validate: formItemInnerRef
+  }
+
+  useEffect(() => {
+    if (typeof props.name === 'undefined') return
+    const formItemMapRef = formContext.formItemMap?.current
+    if (!formItemMapRef) return
+    formItemMapRef.set(props.name, formItemRef)
+
+    return () => {
+      formItemMapRef.delete(props.name)
+    }
+  }, [props.name, formItemRef, formContext.formItemMap])
+
   useEffect(() => {
     setFormValue(form.get(props.name))
   }, [form, props.name])
 
+  useImperativeHandle(formItemRef, () => instance)
+
   return (
-    <div className={classNames(styles.formItem, props.className)}>
-      {Children.map(props.children, (child, index) => {
+    <div className={ classNames(styles.formItem, props.className) }>
+      { Children.map(props.children, (child, index) => {
         if (!child) return null
         let controlKey = 'value'
         if (isValidElement(child)) {
           if (child.type === Checkbox) controlKey = 'checked'
           return cloneElement(child, {
             ...child.props,
+            ref: formItemInnerRef,
             [controlKey]: formValue || '',
             onChange: (value: any, ...args: any[]) => {
               updateFormValue(value)
               child.props.onChange?.call?.(null, value, ...args)
-            }
+            },
+            rules: formContext.rules?.[props.name as keyof FormContextType]
           })
         }
         return child
-      })}
+      }) }
     </div>
   )
 })
