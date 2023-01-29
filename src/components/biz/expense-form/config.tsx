@@ -128,4 +128,20 @@ export const expenseConfig: expenseConfigType = {
   }
 }
 
-export default expenseConfig
+export const rules = {
+  amount: [{ required: true, message: '请输入订单金额' }],
+  paymentMethod: [{ required: true, message: '请选择付款方式' }],
+  platform: [{ required: true, message: '请选择消费平台' }],
+  category: [{ required: true, message: '请选择一级分类' }],
+  subcategory: [{ required: true, message: '请选择二级分类' }],
+  date: [{ required: true, message: '请选择消费日期' }],
+  time: [{ required: true, message: '请选择消费时间' }],
+  account: [{ required: true, message: '请选择支出账户' }],
+  note: [{ required: true, message: '请输入备注' }],
+  installmentDate: [{ required: true, message: '请选择扣款日期' }],
+  installmentNumber: [{ required: true, message: '请输入分期期数' }],
+  autoDebitDate: [{ required: true, message: '请选择扣款日期' }],
+  autoDebitNumber: [{ required: true, message: '请输入扣款次数' }],
+  // reimbursementAmount: [{ required: true, message: '请输入报销金额' }],
+  reimbursementState: [{ required: true, message: '请选择报销状态' }]
+}
