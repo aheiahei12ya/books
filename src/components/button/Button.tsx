@@ -24,6 +24,7 @@ export const Button = forwardRef<ButtonRef, ButtonProps>((props, ref) => {
   return (
     <button
       onClick={props.onClick}
+      type={type === 'submit' ? 'submit' : 'button'}
       className={classNames(
         styles.button,
         {
