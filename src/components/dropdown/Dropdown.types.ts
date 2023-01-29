@@ -1,8 +1,4 @@
-export interface DropdownRule {
-  required: boolean
-  message?: JSX.Element
-  rule?: string
-}
+import { RuleType } from '@/components/lib/rule'
 
 export interface DropdownProps {
   id?: string
@@ -21,7 +17,7 @@ export interface DropdownProps {
   disabled?: boolean
   readOnly?: boolean
 
-  rules?: DropdownRule[]
+  rules?: RuleType[]
   error?: boolean
   errorMessage?: string | React.ReactNode
   hideMessage?: boolean

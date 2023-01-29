@@ -1,4 +1,8 @@
-export interface DatePickerRef {}
+import { RuleType } from "@/components/lib/rule";
+
+export interface DatePickerRef {
+  touch: () => boolean
+}
 
 export interface DatePickerProps {
   id?: string
@@ -14,7 +18,7 @@ export interface DatePickerProps {
   disabled?: boolean
   readOnly?: boolean
 
-  rules?: []
+  rules?: RuleType[]
   error?: boolean
   errorMessage?: string | React.ReactNode
   hideMessage?: boolean

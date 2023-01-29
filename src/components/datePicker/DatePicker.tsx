@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import dayjs from 'dayjs'
-import { forwardRef, useCallback, useRef, useState } from 'react'
+import { forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react'
 
 import {
   calendar,
@@ -10,6 +10,7 @@ import {
   handleSelect
 } from '@/components/lib/calendar'
 import { dropdownHandler } from '@/components/lib/dropdown'
+import { checkRules, RuleType } from '@/components/lib/rule'
 import useControlled from '@/hooks/useControlled'
 
 import styles from './DatePicker.module.sass'
@@ -37,13 +38,14 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
       if (!buttonRef.current) return
       if (buttonRef.current.contains(target as Node)) return
       setActive(false)
+      checkRules(props.rules as RuleType[], setRule, selected)
       calendarRef.current!.style.maxHeight = '0'
       setTimeout(() => {
         calendarRef.current!.style.maxWidth = '0'
       }, 300)
       document.removeEventListener('click', onClickOutsideHandler)
     },
-    [buttonRef]
+    [props.rules, selected]
   )
 
   const [activateDropdown, deactivateDropdown] = dropdownHandler(
@@ -54,6 +56,17 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
     props.height || '230px',
     onClickOutsideHandler as EventListener
   )
+
+  const handleSelectDate = (value: string) => {
+    setSelected(value)
+    checkRules(props.rules as RuleType[], setRule, value)
+  }
+
+  useImperativeHandle(ref, () => ({
+    touch: () => {
+      return checkRules(props.rules as RuleType[], setRule, selected)
+    }
+  }))
 
   const makeCell = useCallback(
     (selectedDay: number, type: 'past' | 'current' | 'future') => {
@@ -73,7 +86,7 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
               selectedDay,
               setYear,
               setMonth,
-              setSelected,
+              handleSelectDate,
               deactivateDropdown
             )
           }
