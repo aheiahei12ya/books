@@ -4,7 +4,7 @@ export interface ButtonRef {
 
 export interface ButtonProps {
   color?: 'default' | 'primary' | 'success' | 'warning' | 'danger'
-  type?: 'default' | 'text'
+  type?: 'default' | 'text' | 'submit'
   shape?: 'default' | 'rounded' | 'rectangular'
   fill?: 'solid' | 'outline' | 'none'
   size?: 'default' | 'mini' | 'small' | 'middle' | 'large'
