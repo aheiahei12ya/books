@@ -29,10 +29,11 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
     message: <></>
   })
 
-  const checkRules = (rules: InputProps['rules']) => {
+  const checkRules = (rules: InputProps['rules'], newVal?: any) => {
     let error = false
+    const checkValue = newVal === undefined ? value : newVal
     rules?.forEach((rule) => {
-      if (rule.required && value?.length === 0) {
+      if (rule.required && !checkValue?.length) {
         setRule({
           error: true,
           message: rule.message
@@ -51,7 +52,7 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     if (props.type === 'digit' && isNaN(Number(e.target.value))) return
     setValue(e.target.value)
-    rule.error ? checkRules(props.rules) : ''
+    rule.error && checkRules(props.rules, e.target.value)
   }
   useImperativeHandle(ref, () => ({
     clear: () => {
