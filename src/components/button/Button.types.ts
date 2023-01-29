@@ -4,7 +4,8 @@ export interface ButtonRef {
 
 export interface ButtonProps {
   color?: 'default' | 'primary' | 'success' | 'warning' | 'danger'
-  type?: 'default' | 'text' | 'submit'
+  type?: 'default' | 'text'
+  htmlType?: 'submit' | 'reset' | 'button'
   shape?: 'default' | 'rounded' | 'rectangular'
   fill?: 'solid' | 'outline' | 'none'
   size?: 'default' | 'mini' | 'small' | 'middle' | 'large'
@@ -13,7 +14,7 @@ export interface ButtonProps {
   disabled?: boolean
   className?: string
   onClick?: (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => void | Promise<void> | unknown
   children?: React.ReactNode
 }
