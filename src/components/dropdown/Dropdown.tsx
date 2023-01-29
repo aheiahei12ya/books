@@ -1,14 +1,22 @@
 import classNames from 'classnames'
-import { forwardRef, useCallback, useRef, useState } from 'react'
+import {
+  forwardRef,
+  useCallback,
+  useImperativeHandle,
+  useRef,
+  useState
+} from 'react'
 
+import { itemType } from '@/components/biz/expense-form/ExpenseForm.types'
 import { dropdownHandler } from '@/components/lib/dropdown'
+import { checkRules, RuleType } from '@/components/lib/rule'
 import useControlled from '@/hooks/useControlled'
 import get from '@/lib/pythonic/get'
 
 import styles from './Dropdown.module.sass'
-import { DropdownProps } from './Dropdown.types'
+import { DropdownProps, DropdownRef } from './Dropdown.types'
 
-const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
+const Dropdown = forwardRef<DropdownRef, DropdownProps>((props, ref) => {
   const size = props.size || 'default'
   const buttonRef = useRef<HTMLDivElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
@@ -23,13 +31,14 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
       if (!buttonRef.current) return
       if (buttonRef.current.contains(target as Node)) return
       setActive(false)
+      checkRules(props.rules as RuleType[], setRule, selected)
       menuRef.current!.style.maxHeight = '0'
       setTimeout(() => {
         menuRef.current!.style.maxWidth = '0'
       }, 300)
       document.removeEventListener('click', onClickOutsideHandler)
     },
-    [buttonRef]
+    [props.rules, selected]
   )
   const [activateDropdown, deactivateDropdown] = dropdownHandler(
     menuRef,
@@ -40,6 +49,19 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
     onClickOutsideHandler as EventListener,
     true
   )
+
+  const handleSelect = (items: itemType, value: string) => {
+    const selectedValue = props.returnObject ? items : value
+    setSelected(selectedValue)
+    deactivateDropdown()
+    checkRules(props.rules as RuleType[], setRule, selectedValue)
+  }
+
+  useImperativeHandle(ref, () => ({
+    touch: () => {
+      return checkRules(props.rules as RuleType[], setRule, selected)
+    }
+  }))
 
   return (
     <div ref={ buttonRef }>
@@ -99,10 +121,7 @@ const Dropdown = forwardRef<unknown, DropdownProps>((props, ref) => {
                 className={ classNames(styles.dropdownMenuItem, {
                   [styles.dropdownMenuItemSelected]: selected === value
                 }) }
-                onClick={ () => {
-                  setSelected(props.returnObject ? items : value)
-                  deactivateDropdown()
-                } }
+                onClick={ () => handleSelect(items, value) }
               >
                 { value }
               </li>

@@ -1,4 +1,4 @@
-interface DropdownRule {
+export interface DropdownRule {
   required: boolean
   message?: JSX.Element
   rule?: string
@@ -27,4 +27,8 @@ export interface DropdownProps {
   hideMessage?: boolean
 
   prepend?: React.ReactNode
+}
+
+export interface DropdownRef {
+  touch: () => boolean
 }
