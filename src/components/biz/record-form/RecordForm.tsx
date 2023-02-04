@@ -1,10 +1,11 @@
 import classNames from 'classnames'
 import { forwardRef, useMemo, useState } from 'react'
-import { FormattedMessage, useIntl } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 
 import ExpenseForm from '@/components/biz/record-form/components/expense-form'
-import { expenseConfig } from '@/components/biz/record-form/components/expense-form/config'
+import { ExpenseDropdownType } from '@/components/biz/record-form/components/expense-form/ExpenseForm.types'
 import IncomeForm from '@/components/biz/record-form/components/income-form'
+import { IncomeDropdownType } from '@/components/biz/record-form/components/income-form/IncomeForm.types'
 import useRequest from '@/hooks/useRequest'
 import services from '@/services'
 
@@ -14,22 +15,49 @@ import { RecordFormProps } from './RecordForm.types'
 const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
   RecordForm.displayName = 'RecordForm'
   const [type, setType] = useState<string>('expense')
-  const [expense, setExpense] = useState<any>({})
-  const [income, setIncome] = useState({})
-  const i18n = useIntl()
-  const { loading } = useRequest(() => services.expense.initial({ user: 1 }), {
+  const [expensePreset, setExpensePreset] = useState({})
+  const [incomePreset, setIncomePreset] = useState({})
+  const [expenseDropdown, setExpenseDropdown] = useState<ExpenseDropdownType>({
+    platformList: [],
+    accountList: [],
+    categoryList: [],
+    subcategoryList: [],
+    paymentMethodList: []
+  })
+  const [incomeDropdown, setIncomeDropdown] = useState<IncomeDropdownType>({
+    accountList: [],
+    categoryList: [],
+    subcategoryList: []
+  })
+  useRequest(() => services.expense.initial({ user: 1 }), {
     onSuccess: (data) => {
       if (data.success) {
-        expenseConfig.platform.items = data.data.platformList
-        expenseConfig.account.items = data.data.accountList
-        expenseConfig.category.items = data.data.categoryList
-        expenseConfig.subcategory.items = data.data.subcategoryList
-        expenseConfig.paymentMethod.items = data.data.paymentMethodList
-        setExpense(data.data.preset)
-        setIncome(data.data.preset)
+        setExpenseDropdown({
+          platformList: data.data.platformList,
+          accountList: data.data.accountList,
+          categoryList: data.data.categoryList,
+          subcategoryList: data.data.subcategoryList,
+          paymentMethodList: data.data.paymentMethodList
+        })
+        setExpensePreset(data.data.preset)
       }
     }
   })
+  const { loading: incomeLoading } = useRequest(
+    () => services.income.initial({ user: 1 }),
+    {
+      onSuccess: (data) => {
+        if (data.success) {
+          setIncomeDropdown({
+            accountList: data.data.accountList,
+            categoryList: data.data.categoryList,
+            subcategoryList: data.data.subcategoryList
+          })
+          setIncomePreset(data.data.preset)
+        }
+      }
+    }
+  )
   const recordButtons = useMemo(
     () =>
       ['expense', 'income', 'transfer'].map((recordType) => (
@@ -55,10 +83,32 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
     <div className={ styles.recordForm }>
       <div className={ styles.recordType }>{ recordButtons }</div>
       <div className={ styles.recordContainer }>
-        { type === 'expense' && !loading && (
-          <ExpenseForm locale={ i18n.locale } defaultValue={ expense }/>
+        { type === 'expense' && (
+          <ExpenseForm
+            defaultValue={ expensePreset }
+            accountList={ expenseDropdown.accountList }
+            platformList={ expenseDropdown.platformList }
+            paymentMethodList={ expenseDropdown.paymentMethodList }
+            categoryList={ expenseDropdown.categoryList }
+            subcategoryList={ expenseDropdown.subcategoryList }
+          />
         ) }
-        { type === 'income' && <IncomeForm value={ income }/> }
+        { type === 'income' && (
+          <IncomeForm
+            defaultValue={ incomePreset }
+            accountList={ incomeDropdown.accountList }
+            categoryList={ incomeDropdown.categoryList }
+            subcategoryList={ incomeDropdown.subcategoryList }
+          />
+        ) }
+        { type === 'transfer' && (
+          <IncomeForm
+            defaultValue={ incomePreset }
+            accountList={ incomeDropdown.accountList }
+            categoryList={ incomeDropdown.categoryList }
+            subcategoryList={ incomeDropdown.subcategoryList }
+          />
+        ) }
         {/*{!loading && <IncomeForm defaultValue={expensePreset} />}*/ }
       </div>
 
