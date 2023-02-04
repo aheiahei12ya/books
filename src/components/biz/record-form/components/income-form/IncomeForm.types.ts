@@ -7,6 +7,15 @@ export interface IncomeFormProps {
   locale?: string
   defaultValue?: {}
   value?: {}
+  accountList: ItemType[]
+  categoryList: ItemType[]
+  subcategoryList: ItemType[]
+}
+
+export interface IncomeDropdownType {
+  accountList: ItemType[]
+  categoryList: ItemType[]
+  subcategoryList: ItemType[]
 }
 
 export type IncomeType = {

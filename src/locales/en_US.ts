@@ -25,5 +25,46 @@ export const en_US = {
   'pages.home.trend.balance': 'Balance Trend',
 
   'pages.record.button.expense': 'Expense',
-  'pages.record.button.income': 'Income'
+  'pages.record.button.income': 'Income',
+  'pages.record.button.transfer': 'Transfer',
+
+  'pages.record.error.amount': 'Please enter transaction amount',
+  'pages.record.error.platform': 'Please select transaction platform',
+  'pages.record.error.category': 'Please select transaction category',
+  'pages.record.error.subcategory': 'Please select transaction subcategory',
+  'pages.record.error.date': 'Please select transaction date',
+  'pages.record.error.time': 'Please select transaction time',
+  'pages.record.error.account': 'Please enter expense account',
+  'pages.record.error.note': 'Please enter note',
+  'pages.record.error.paymentMethod': 'Please select payment method',
+  'pages.record.error.installmentDate': 'Please select installment date',
+  'pages.record.error.installmentNumber': 'Please select installment number',
+  'pages.record.error.autoDebitDate': 'Please select auto-debit date',
+  'pages.record.error.autoDebitNumber': 'Please enter auto-debit times',
+  'pages.record.error.reimbursementState': 'Please select reimbursement state',
+
+  'pages.record.form.category': 'category',
+  'pages.record.form.subcategory': 'subcategory',
+  'pages.record.form.note': 'note',
+  'pages.record.form.submit': 'submit',
+
+  'pages.record.expense.amount': 'amount',
+  'pages.record.expense.coupon': 'coupon',
+  'pages.record.expense.paymentMethod': 'payment method',
+  'pages.record.expense.platform': 'platform',
+  'pages.record.expense.date': 'date',
+  'pages.record.expense.time': 'time',
+  'pages.record.expense.account': 'account',
+  'pages.record.expense.installmentNumber': 'installment number',
+  'pages.record.expense.autoDate': 'auto-debit date',
+  'pages.record.expense.autoNumber': 'auto-debit number',
+  'pages.record.expense.reimbursementAmount': 'reimbursement amount',
+  'pages.record.expense.reimbursementFull': 'reimbursement full amount',
+  'pages.record.expense.reimbursementState': 'reimbursement state',
+
+  'pages.record.income.amount': 'amount',
+  'pages.record.income.tax': 'tax',
+  'pages.record.income.date': 'date',
+  'pages.record.income.time': 'time',
+  'pages.record.income.account': 'account'
 }

@@ -1,18 +1,12 @@
 import classNames from 'classnames'
 import React, { forwardRef, useCallback, useMemo } from 'react'
 
-import {
-  expenseConfig,
-  expenseReceiptKeys
-} from '@/components/biz/record-form/components/expense-form/config'
+import { expenseReceiptKeys } from '@/components/biz/record-form/components/expense-form/config'
 import {
   ExpenseConfigType,
   ExpenseType
 } from '@/components/biz/record-form/components/expense-form/ExpenseForm.types'
-import {
-  incomeConfig,
-  incomeReceiptKeys
-} from '@/components/biz/record-form/components/income-form/config'
+import { incomeReceiptKeys } from '@/components/biz/record-form/components/income-form/config'
 import {
   IncomeConfigType,
   IncomeType
@@ -31,7 +25,6 @@ const ReceiptForm = forwardRef<unknown, ReceiptFormProps>((props, ref) => {
 
   const isExpense = props.type === 'expense'
 
-  const receiptConfig = isExpense ? expenseConfig : incomeConfig
   const receiptKeys = isExpense ? expenseReceiptKeys : incomeReceiptKeys
   type receiptConfigType = ExpenseConfigType | IncomeConfigType
   type ReceiptType = ExpenseType | IncomeType
@@ -60,7 +53,7 @@ const ReceiptForm = forwardRef<unknown, ReceiptFormProps>((props, ref) => {
   const receiptDetail = useMemo(() => {
     let receiptValue: string
     return receiptKeys.map((type) => {
-      const config = receiptConfig[type as keyof receiptConfigType]
+      const config = props.config[type as keyof receiptConfigType]
       if (config.type === 'select') {
         receiptValue = get(
           props.item,
@@ -86,7 +79,7 @@ const ReceiptForm = forwardRef<unknown, ReceiptFormProps>((props, ref) => {
         </div>
       )
     })
-  }, [getReceiptValue, props.item, props.itemName, receiptConfig, receiptKeys])
+  }, [getReceiptValue, props.item, props.itemName, props.config, receiptKeys])
 
   return (
     <>

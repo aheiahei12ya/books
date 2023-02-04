@@ -7,6 +7,19 @@ export interface ExpenseFormProps {
   locale?: string
   defaultValue?: {}
   value?: {}
+  accountList: ItemType[]
+  platformList: ItemType[]
+  paymentMethodList: ItemType[]
+  categoryList: ItemType[]
+  subcategoryList: ItemType[]
+}
+
+export interface ExpenseDropdownType {
+  platformList: ItemType[]
+  accountList: ItemType[]
+  categoryList: ItemType[]
+  subcategoryList: ItemType[]
+  paymentMethodList: ItemType[]
 }
 
 export type ExpenseType = {

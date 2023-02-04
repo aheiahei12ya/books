@@ -25,5 +25,46 @@ export const zh_CN = {
   'pages.home.trend.balance': '余额趋势',
 
   'pages.record.button.expense': '支出',
-  'pages.record.button.income': '收入'
+  'pages.record.button.income': '收入',
+  'pages.record.button.transfer': '转账',
+
+  'pages.record.error.amount': '请输入订单金额',
+  'pages.record.error.platform': '请选择消费平台',
+  'pages.record.error.category': '请选择一级分类',
+  'pages.record.error.subcategory': '请选择二级分类',
+  'pages.record.error.date': '请选择消费日期',
+  'pages.record.error.time': '请选择消费时间',
+  'pages.record.error.account': '请选择支出账户',
+  'pages.record.error.note': '请输入备注',
+  'pages.record.error.paymentMethod': '请选择付款方式',
+  'pages.record.error.installmentDate': '请选择扣款日期',
+  'pages.record.error.installmentNumber': '请输入分期期数',
+  'pages.record.error.autoDebitDate': '请选择扣款日期',
+  'pages.record.error.autoDebitNumber': '请输入扣款次数',
+  'pages.record.error.reimbursementState': '请选择报销状态',
+
+  'pages.record.form.category': '一级分类',
+  'pages.record.form.subcategory': '二级分类',
+  'pages.record.form.note': '备注',
+  'pages.record.form.submit': '完成',
+
+  'pages.record.expense.amount': '订单金额',
+  'pages.record.expense.coupon': '现金优惠',
+  'pages.record.expense.paymentMethod': '付款方式',
+  'pages.record.expense.platform': '消费平台',
+  'pages.record.expense.date': '消费日期',
+  'pages.record.expense.time': '消费时间',
+  'pages.record.expense.account': '支出账户',
+  'pages.record.expense.installmentNumber': '分期期数',
+  'pages.record.expense.autoDate': '扣款日期',
+  'pages.record.expense.autoNumber': '扣款次数',
+  'pages.record.expense.reimbursementAmount': '报销金额',
+  'pages.record.expense.reimbursementFull': '全额报销',
+  'pages.record.expense.reimbursementState': '报销状态',
+
+  'pages.record.income.amount': '收入金额',
+  'pages.record.income.tax': '缴纳税款',
+  'pages.record.income.date': '入账日期',
+  'pages.record.income.time': '入账时间',
+  'pages.record.income.account': '收入账户'
 }
