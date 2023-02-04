@@ -1,3 +1,5 @@
+import { devPrefix } from '@/constants/api'
+
 const getOptions = (data?: any) => ({
   method: 'GET'
 })
@@ -13,7 +15,7 @@ const postOptions = (data?: any) => ({
 
 const getUrl = (path: string) => {
   if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
-    return `http://aheiahei.imdo.co:9200/data/book/${path}`
+    return `${devPrefix}${path}`
   } else {
     return path
   }
