@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import dayjs from 'dayjs'
-import React, { forwardRef, useCallback, useState } from 'react'
+import React, { forwardRef, useCallback, useId, useState } from 'react'
 
 import ReceiptForm from '@/components/biz/receipt-form'
 import Button from '@/components/button'
@@ -31,6 +31,7 @@ import {
 
 const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
   ExpenseForm.displayName = 'ExpenseForm'
+  const formId = useId()
   const current = dayjs()
   const form = useForm()
   const [expense, setExpense] = useState<expenseType>({
@@ -229,39 +230,61 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
         return
     }
   }
+  const handleSubmit = () => {
+    console.log(expense)
+  }
   return (
     <div className={ styles.expenseContainer }>
-      <Form
-        form={ form }
-        initialValue={ expense }
-        rules={ rules }
-        className={ styles.expenseForm }
-        onSubmit={ () => {
-          console.log(expense)
-        } }
-      >
-        { expenseFormKeys.map((formRow, index) => (
-          <div key={ `row-${ index }` } className={ styles.expenseFormRow }>
-            { formRow.map((formKey) =>
-              makeInputUnit(formKey as keyof expenseConfigType)
-            ) }
-          </div>
-        )) }
-        { makeExtraRow() }
-        { expenseFormKeysAppend.map((formRow, index) => (
-          <div key={ `row-${ index }` } className={ styles.expenseFormRow }>
-            { formRow.map((formKey) =>
-              makeInputUnit(formKey as keyof expenseConfigType)
-            ) }
-          </div>
-        )) }
-        <Button type={ 'submit' }>Submit</Button>
-      </Form>
+      <div className={ styles.expenseForm }>
+        <Form
+          id={ formId }
+          form={ form }
+          initialValue={ expense }
+          rules={ rules }
+          onSubmit={ handleSubmit }
+        >
+          { expenseFormKeys.map((formRow, index) => (
+            <div key={ `row-${ index }` } className={ styles.expenseFormRow }>
+              { formRow.map((formKey) =>
+                makeInputUnit(formKey as keyof expenseConfigType)
+              ) }
+            </div>
+          )) }
+          { makeExtraRow() }
+          { expenseFormKeysAppend.map((formRow, index) => (
+            <div key={ `row-${ index }` } className={ styles.expenseFormRow }>
+              { formRow.map((formKey) =>
+                makeInputUnit(formKey as keyof expenseConfigType)
+              ) }
+              <Button
+                form={ formId }
+                htmlType={ 'submit' }
+                className={ classNames(
+                  styles.expenseSubmitButton,
+                  styles.hiddenMdAndUp
+                ) }
+              >
+                完成
+              </Button>
+            </div>
+          )) }
+        </Form>
+        <div>快捷方式</div>
+      </div>
 
       <div
         className={ classNames(styles.expenseReceipt, styles.hiddenSmAndDown) }
       >
-        <ReceiptForm expense={ expense } itemName={ 'name' }></ReceiptForm>
+        <ReceiptForm
+          type={ 'expense' }
+          item={ expense }
+          itemName={ 'name' }
+        ></ReceiptForm>
+        <div className={ styles.expenseFormRow }>
+          <Button block form={ formId } htmlType={ 'submit' }>
+            完成
+          </Button>
+        </div>
       </div>
     </div>
   )

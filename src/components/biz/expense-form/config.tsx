@@ -1,6 +1,6 @@
 import { expenseConfigType } from './ExpenseForm.types'
 
-export const receiptDetailKeys = [
+export const expenseReceiptKeys = [
   'amount',
   'coupon',
   'account',
