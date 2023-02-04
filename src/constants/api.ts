@@ -13,7 +13,7 @@ export const expenseApi = {
 }
 
 export const incomeApi = {
-  initial: 'api/expense/initial'
+  initial: 'api/income/initial'
 }
 
 export const loginApi = {
