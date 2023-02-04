@@ -36,6 +36,7 @@ const Form = forwardRef<unknown, FormProps>((props, ref) => {
   return (
     <FormContext.Provider value={ contextValue }>
       <form
+        id={ props.id }
         className={ classNames(
           {
             [styles.formVertical]: orientation === 'vertical',

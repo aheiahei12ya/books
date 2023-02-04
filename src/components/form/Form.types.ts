@@ -3,6 +3,7 @@ import { FormStoreType } from '@/hooks/useForm/types'
 import { RuleType } from './FormContext.types'
 
 export interface FormProps {
+  id?: string
   form?: FormStoreType
   rules?: Record<string, RuleType[]>
   initialValue?: any
