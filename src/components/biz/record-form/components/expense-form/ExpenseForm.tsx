@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import dayjs from 'dayjs'
 import React, { forwardRef, useCallback, useId, useState } from 'react'
 
-import ReceiptForm from '@/components/biz/receipt-form'
+import ReceiptForm from '@/components/biz/record-form/components/receipt-form'
 import Button from '@/components/button'
 import Checkbox from '@/components/checkbox'
 import DatePicker from '@/components/datePicker'
@@ -23,10 +23,10 @@ import {
 } from './config'
 import styles from './ExpenseForm.module.sass'
 import {
-  expenseConfigType,
+  ExpenseConfigType,
   ExpenseFormProps,
-  expenseType,
-  itemType
+  ExpenseType,
+  ItemType
 } from './ExpenseForm.types'
 
 const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
@@ -34,7 +34,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
   const formId = useId()
   const current = dayjs()
   const form = useForm()
-  const [expense, setExpense] = useState<expenseType>({
+  const [expense, setExpense] = useState<ExpenseType>({
     ...props.defaultValue,
     time: current.format('HH:mm:ss'),
     date: current.format('YYYY-MM-DD'),
@@ -100,7 +100,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
     },
     [form, handleReimbursement]
   )
-  const makeInputUnit = (formKey: keyof expenseConfigType) => {
+  const makeInputUnit = (formKey: keyof ExpenseConfigType) => {
     switch (expenseConfig[formKey].type) {
       case 'input':
         return (
@@ -137,7 +137,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
               itemName={ 'name' }
               returnObject
               onChange={ (val) => handleChange(formKey, val) }
-              value={ (form.get(formKey) as itemType)?.name }
+              value={ (form.get(formKey) as ItemType)?.name }
             ></Dropdown>
           </Form.Item>
         )
@@ -206,7 +206,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
         return (
           <div className={ styles.expenseFormRow }>
             { installmentKeys.map((formKey) =>
-              makeInputUnit(formKey as keyof expenseConfigType)
+              makeInputUnit(formKey as keyof ExpenseConfigType)
             ) }
           </div>
         )
@@ -214,7 +214,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
         return (
           <div className={ styles.expenseFormRow }>
             { autoDebitKeys.map((formKey) =>
-              makeInputUnit(formKey as keyof expenseConfigType)
+              makeInputUnit(formKey as keyof ExpenseConfigType)
             ) }
           </div>
         )
@@ -222,7 +222,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
         return (
           <div className={ styles.expenseFormRow }>
             { reimbursementKeys.map((formKey) =>
-              makeInputUnit(formKey as keyof expenseConfigType)
+              makeInputUnit(formKey as keyof ExpenseConfigType)
             ) }
           </div>
         )
@@ -246,7 +246,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
           { expenseFormKeys.map((formRow, index) => (
             <div key={ `row-${ index }` } className={ styles.expenseFormRow }>
               { formRow.map((formKey) =>
-                makeInputUnit(formKey as keyof expenseConfigType)
+                makeInputUnit(formKey as keyof ExpenseConfigType)
               ) }
             </div>
           )) }
@@ -254,7 +254,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
           { expenseFormKeysAppend.map((formRow, index) => (
             <div key={ `row-${ index }` } className={ styles.expenseFormRow }>
               { formRow.map((formKey) =>
-                makeInputUnit(formKey as keyof expenseConfigType)
+                makeInputUnit(formKey as keyof ExpenseConfigType)
               ) }
               <Button
                 form={ formId }

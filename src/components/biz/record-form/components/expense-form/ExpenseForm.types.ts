@@ -1,12 +1,15 @@
-import { ReactNode } from 'react'
+import {
+  ItemType,
+  ReceiptType
+} from '@/components/biz/record-form/components/types'
 
-export interface IncomeFormProps {
+export interface ExpenseFormProps {
   locale?: string
   defaultValue?: {}
   value?: {}
 }
 
-export type IncomeType = {
+export type ExpenseType = {
   realAmount?: number | undefined
   amount?: number | undefined
   coupon?: number | undefined
@@ -27,27 +30,22 @@ export type IncomeType = {
   reimbursementFullAmount?: boolean | undefined
 }
 
-export type ItemType = {
-  id?: number
-  key: string
-  name: string
-}
-
-type ReceiptType = {
-  type: 'input' | 'select' | 'checkbox' | 'date-picker' | 'time-picker'
-  name: string
-  icon: ReactNode
-  items?: ItemType[]
-}
-
-export type IncomeConfigType = {
+export type ExpenseConfigType = {
   amount: ReceiptType
-  tax: ReceiptType
-  // paymentMethod: ReceiptType
+  coupon: ReceiptType
+  paymentMethod: ReceiptType
+  platform: ReceiptType
   category: ReceiptType
   subcategory: ReceiptType
   date: ReceiptType
   time: ReceiptType
   account: ReceiptType
   note: ReceiptType
+  installmentDate: ReceiptType
+  installmentNumber: ReceiptType
+  autoDebitDate: ReceiptType
+  autoDebitNumber: ReceiptType
+  reimbursementAmount: ReceiptType
+  reimbursementState: ReceiptType
+  reimbursementFullAmount: ReceiptType
 }

@@ -1,10 +1,10 @@
 import classNames from 'classnames'
-import { forwardRef, useState } from 'react'
+import { forwardRef, useMemo, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import ExpenseForm from '@/components/biz/expense-form'
-import { expenseConfig } from '@/components/biz/expense-form/config'
-import IncomeForm from '@/components/biz/income-form'
+import ExpenseForm from '@/components/biz/record-form/components/expense-form'
+import { expenseConfig } from '@/components/biz/record-form/components/expense-form/config'
+import IncomeForm from '@/components/biz/record-form/components/income-form'
 import useRequest from '@/hooks/useRequest'
 import services from '@/services'
 
@@ -30,48 +30,38 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
       }
     }
   })
+  const recordButtons = useMemo(
+    () =>
+      ['expense', 'income', 'transfer'].map((recordType) => (
+        <div
+          key={ recordType }
+          className={ classNames(styles.recordTypeButton, {
+            [styles.recordTypeButtonExpense]: recordType === 'expense',
+            [styles.recordTypeButtonIncome]: recordType === 'income',
+            [styles.recordTypeButtonSelected]: type === recordType
+          }) }
+          onClick={ () => setType(recordType) }
+        >
+          <span>
+            <FormattedMessage
+              id={ `pages.record.button.${ recordType }` }
+            ></FormattedMessage>
+          </span>
+        </div>
+      )),
+    [type]
+  )
   return (
     <div className={ styles.recordForm }>
-      <div className={ styles.recordType }>
-        <div
-          className={ classNames(
-            styles.recordTypeButton,
-            styles.recordTypeButtonExpense,
-            { [styles.recordTypeButtonSelected]: type === 'expense' }
-          ) }
-          onClick={ () => setType('expense') }
-        >
-          <span>
-            <FormattedMessage
-              id={ 'pages.record.button.expense' }
-            ></FormattedMessage>
-          </span>
-        </div>
-        <div
-          className={ classNames(
-            styles.recordTypeButton,
-            styles.recordTypeButtonIncome,
-            { [styles.recordTypeButtonSelected]: type === 'income' }
-          ) }
-          onClick={ () => setType('income') }
-        >
-          <span>
-            <FormattedMessage
-              id={ 'pages.record.button.income' }
-            ></FormattedMessage>
-          </span>
-        </div>
-      </div>
+      <div className={ styles.recordType }>{ recordButtons }</div>
       <div className={ styles.recordContainer }>
-        { type === 'expense' ? (
-          !loading && (
-            <ExpenseForm locale={ i18n.locale } defaultValue={ expense }/>
-          )
-        ) : (
-          <IncomeForm value={ income }/>
+        { type === 'expense' && !loading && (
+          <ExpenseForm locale={ i18n.locale } defaultValue={ expense }/>
         ) }
+        { type === 'income' && <IncomeForm value={ income }/> }
         {/*{!loading && <IncomeForm defaultValue={expensePreset} />}*/ }
       </div>
+
       {/*<div className={styles.recordTool}>*/ }
       {/*  <div className={styles.recordToolButton}>*/ }
       {/*    <span>收 入</span>*/ }

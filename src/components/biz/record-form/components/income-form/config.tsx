@@ -72,5 +72,5 @@ export const rules = {
   date: [{ required: true, message: '请选择消费日期' }],
   time: [{ required: true, message: '请选择消费时间' }],
   account: [{ required: true, message: '请选择支出账户' }],
-  note: [{ required: true, message: '请输入备注' }],
+  note: [{ required: true, message: '请输入备注' }]
 }

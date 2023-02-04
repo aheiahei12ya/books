@@ -4,20 +4,20 @@ import React, { forwardRef, useCallback, useMemo } from 'react'
 import {
   expenseConfig,
   expenseReceiptKeys
-} from '@/components/biz/expense-form/config'
+} from '@/components/biz/record-form/components/expense-form/config'
 import {
-  expenseConfigType,
-  expenseType
-} from '@/components/biz/expense-form/ExpenseForm.types'
+  ExpenseConfigType,
+  ExpenseType
+} from '@/components/biz/record-form/components/expense-form/ExpenseForm.types'
 import {
   incomeConfig,
   incomeReceiptKeys
-} from '@/components/biz/income-form/config'
+} from '@/components/biz/record-form/components/income-form/config'
 import {
   IncomeConfigType,
   IncomeType
-} from '@/components/biz/income-form/IncomeForm.types'
-import { ReceiptFormProps } from '@/components/biz/receipt-form/ReceiptForm.types'
+} from '@/components/biz/record-form/components/income-form/IncomeForm.types'
+import { ReceiptFormProps } from '@/components/biz/record-form/components/receipt-form/ReceiptForm.types'
 import get from '@/lib/pythonic/get'
 
 import styles from './ReceiptForm.module.sass'
@@ -33,8 +33,8 @@ const ReceiptForm = forwardRef<unknown, ReceiptFormProps>((props, ref) => {
 
   const receiptConfig = isExpense ? expenseConfig : incomeConfig
   const receiptKeys = isExpense ? expenseReceiptKeys : incomeReceiptKeys
-  type receiptConfigType = expenseConfigType | IncomeConfigType
-  type receiptType = expenseType | IncomeType
+  type receiptConfigType = ExpenseConfigType | IncomeConfigType
+  type ReceiptType = ExpenseType | IncomeType
   const sign = isExpense ? expenseSign : incomeSign
 
   const getReceiptValue = useCallback(
@@ -65,10 +65,10 @@ const ReceiptForm = forwardRef<unknown, ReceiptFormProps>((props, ref) => {
         receiptValue = get(
           props.item,
           [type, props.itemName],
-          props.item[type as keyof receiptType]
+          props.item[type as keyof ReceiptType]
         )
       } else {
-        receiptValue = props.item[type as keyof receiptType] as string
+        receiptValue = props.item[type as keyof ReceiptType] as string
         if (type === 'coupon' && !receiptValue) return
         if (type === 'tax' && !receiptValue) return
       }

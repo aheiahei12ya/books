@@ -1,4 +1,4 @@
-import { expenseConfigType } from './ExpenseForm.types'
+import { ExpenseConfigType } from './ExpenseForm.types'
 
 export const expenseReceiptKeys = [
   'amount',
@@ -30,7 +30,7 @@ export const reimbursementKeys = [
   'reimbursementFullAmount'
 ]
 
-export const expenseConfig: expenseConfigType = {
+export const expenseConfig: ExpenseConfigType = {
   amount: {
     type: 'input',
     name: '订单金额',
