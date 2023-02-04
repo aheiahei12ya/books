@@ -1,109 +1,176 @@
-import { forwardRef, useRef, useState } from 'react'
+import classNames from 'classnames'
+import dayjs from 'dayjs'
+import React, { forwardRef, useCallback, useState } from 'react'
 
+import styles from '@/components/biz/expense-form/ExpenseForm.module.sass'
+import ReceiptForm from '@/components/biz/receipt-form'
 import Button from '@/components/button'
+import DatePicker from '@/components/datePicker'
 import Dropdown from '@/components/dropdown'
 import Form from '@/components/form'
+import Input from '@/components/input'
+import TimePicker from '@/components/timePicker'
 import useForm from '@/hooks/useForm'
 
-import { IncomeFormProps } from './IncomeForm.types'
+import {
+  incomeConfig,
+  incomeFormKeys,
+  incomeFormKeysAppend,
+  rules
+} from './config'
+import {
+  IncomeConfigType,
+  IncomeFormProps,
+  IncomeType,
+  ItemType
+} from './IncomeForm.types'
 
 const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
-  const input = useRef(null)
-  const [value, setValue] = useState(props.value || {})
+  const current = dayjs()
   const form = useForm()
+  const [income, setIncome] = useState<IncomeType>({
+    ...props.defaultValue,
+    time: current.format('HH:mm:ss'),
+    date: current.format('YYYY-MM-DD')
+  })
+
+  const handleChange = useCallback(
+    (key: string, value: string | number | undefined | boolean) => {
+      switch (key) {
+        case 'tax': {
+          const amount = form.get('amount', 0)
+          const tax = value ? (value as number) : 0
+          form.set('realAmount', amount - tax)
+          break
+        }
+        case 'amount': {
+          const amount = value ? (value as number) : 0
+          const tax = form.get('tax', 0)
+
+          form.set('realAmount', amount - tax)
+          break
+        }
+        default:
+          break
+      }
+      setIncome(form.values())
+    },
+    [form]
+  )
+  const makeInputUnit = (formKey: keyof IncomeConfigType) => {
+    switch (incomeConfig[formKey].type) {
+      case 'input':
+        return (
+          <Form.Item
+            name={ formKey }
+            key={ formKey }
+            className={ styles.expenseFormButton }
+          >
+            <Input
+              prepend={ incomeConfig[formKey].icon }
+              hideMessage
+              value={ form.get(formKey, undefined) }
+              placeholder={ incomeConfig[formKey].name }
+              clearable
+              showClearIfFill
+              type={ formKey === 'note' ? 'string' : 'digit' }
+              onChange={ (val) => handleChange(formKey, val) }
+              onClear={ () => handleChange(formKey, '') }
+            ></Input>
+          </Form.Item>
+        )
+      case 'select':
+        return (
+          <Form.Item
+            name={ formKey }
+            key={ formKey }
+            className={ styles.expenseFormButton }
+          >
+            <Dropdown
+              prepend={ incomeConfig[formKey].icon }
+              hideMessage
+              placeholder={ incomeConfig[formKey].name }
+              items={ incomeConfig[formKey].items }
+              itemName={ 'name' }
+              returnObject
+              onChange={ (val) => handleChange(formKey, val) }
+              value={ (form.get(formKey) as ItemType)?.name }
+            ></Dropdown>
+          </Form.Item>
+        )
+      case 'date-picker':
+        return (
+          <Form.Item name={ formKey } key={ formKey }>
+            <DatePicker
+              hideMessage
+              prepend={ incomeConfig[formKey].icon }
+              placeholder={ incomeConfig[formKey].name }
+              onChange={ (date) => handleChange(formKey, date) }
+              value={ form.get(formKey) }
+              locale={ props.locale }
+            ></DatePicker>
+          </Form.Item>
+        )
+      case 'time-picker':
+        return (
+          <Form.Item
+            name={ formKey }
+            key={ formKey }
+            className={ styles.expenseFormButton }
+          >
+            <TimePicker
+              hideMessage
+              prepend={ incomeConfig[formKey].icon }
+              placeholder={ incomeConfig[formKey].name }
+              onChange={ (time) => handleChange(formKey, time) }
+              value={ form.get(formKey) }
+              locale={ props.locale }
+            ></TimePicker>
+          </Form.Item>
+        )
+      default:
+        return
+    }
+  }
+
   return (
-    <>
-      <Form form={ form } initialValue={ value } orientation={ 'horizontal' }>
-        <Form.Item name={ 'platform' }>
-          <Dropdown
-            ref={ input }
-            items={ [
-              {
-                id: 5,
-                name: '线下',
-                key: 'offline'
-              },
-              {
-                id: 3,
-                name: '京东',
-                key: 'jingdong'
-              },
-              {
-                id: 1,
-                name: '淘宝天猫',
-                key: 'taobao'
-              },
-              {
-                id: 7,
-                name: '小米有品'
-              },
-              {
-                id: 4,
-                name: '网易考拉'
-              },
-              {
-                id: 6,
-                name: '应用商店'
-              },
-              {
-                id: 8,
-                name: '苹果商店'
-              },
-              {
-                id: 9,
-                name: '京东金融'
-              }
-            ] }
-            returnObject
-            itemName={ 'name' }
-          ></Dropdown>
-        </Form.Item>
-        <Form.Item name={ 'account' }>
-          <Dropdown
-            ref={ input }
-            items={ [
-              {
-                id: 2,
-                name: '余额',
-                key: 'balance'
-              },
-              {
-                id: 5,
-                name: '花呗'
-              },
-              {
-                id: 3,
-                name: '借呗'
-              },
-              {
-                id: 6,
-                name: '金条'
-              },
-              {
-                id: 7,
-                name: '美团月付'
-              },
-              {
-                id: 1,
-                name: '京东白条'
-              },
-              {
-                id: 4,
-                name: '招行信用卡'
-              }
-            ] }
-            returnObject
-            itemName={ 'name' }
-          ></Dropdown>
-        </Form.Item>
+    <div className={ styles.expenseContainer }>
+      <Form
+        form={ form }
+        initialValue={ income }
+        rules={ rules }
+        className={ styles.expenseForm }
+        onSubmit={ () => {
+          console.log(income)
+        } }
+      >
+        { incomeFormKeys.map((formRow, index) => (
+          <div key={ `row-${ index }` } className={ styles.expenseFormRow }>
+            { formRow.map((formKey) =>
+              makeInputUnit(formKey as keyof IncomeConfigType)
+            ) }
+          </div>
+        )) }
+        { incomeFormKeysAppend.map((formRow, index) => (
+          <div key={ `row-${ index }` } className={ styles.expenseFormRow }>
+            { formRow.map((formKey) =>
+              makeInputUnit(formKey as keyof IncomeConfigType)
+            ) }
+          </div>
+        )) }
+        <div className={ styles.expenseFormRow }>
+          <Button htmlType={ 'submit' } block>
+            Submit
+          </Button>
+        </div>
       </Form>
-      <ul>
-        { Object.getOwnPropertyNames(value).map((key, i) => {
-          return <li key={ i }>{ value[key].name }</li>
-        }) }
-      </ul>
-      <Button onClick={ () => setValue(form.values()) }></Button>
-    </>
+
+      <div
+        className={ classNames(styles.expenseReceipt, styles.hiddenSmAndDown) }
+      >
+        <ReceiptForm type={'income'} item={ income } itemName={ 'name' }></ReceiptForm>
+      </div>
+    </div>
   )
 })
 
