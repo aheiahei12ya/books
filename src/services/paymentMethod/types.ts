@@ -1,4 +1,4 @@
-export type paymentMethod = {
+export type PaymentMethod = {
   id: number
   name: string
 }

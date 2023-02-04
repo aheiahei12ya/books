@@ -1,15 +1,15 @@
-export interface categoryListRequest {
+export interface CategoryListRequest {
   user: number
   root: number
 }
 
-export type category = {
+export type Category = {
   id: number
   key: string
   name: string
   root: number
 }
 
-export interface categoryListResponse {
-  categoryList: category[]
+export interface CategoryListResponse {
+  categoryList: Category[]
 }

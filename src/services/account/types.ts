@@ -1,12 +1,12 @@
-export interface accountListRequest {
+export interface AccountListRequest {
   user: number
 }
 
-export type account = {
+export type Account = {
   id: number
   name: string
 }
 
-export interface accountListResponse {
-  accountList: account[]
+export interface AccountListResponse {
+  accountList: Account[]
 }

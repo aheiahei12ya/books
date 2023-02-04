@@ -1,4 +1,4 @@
-export type platform = {
+export type Platform = {
   id: number
   name: string
 }

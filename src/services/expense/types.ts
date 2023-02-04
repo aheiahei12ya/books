@@ -1,18 +1,18 @@
-import { account } from '@/services/account/types'
-import { category } from '@/services/category/types'
-import { paymentMethod } from '@/services/paymentMethod/types'
-import { platform } from '@/services/platform/types'
-import { presetType } from '@/services/setting/types'
+import { Account } from '@/services/account/types'
+import { Category } from '@/services/category/types'
+import { PaymentMethod } from '@/services/paymentMethod/types'
+import { Platform } from '@/services/platform/types'
+import { ExpensePresetType } from '@/services/setting/types'
 
 export interface expenseInitialRequest {
   user: number
 }
 
 export interface expenseInitialResponse {
-  accountList: account[]
-  categoryList: category[]
-  subcategoryList: category[]
-  paymentMethodList: paymentMethod[]
-  platformList: platform[]
-  preset: presetType
+  accountList: Account[]
+  categoryList: Category[]
+  subcategoryList: Category[]
+  paymentMethodList: PaymentMethod[]
+  platformList: Platform[]
+  preset: ExpensePresetType
 }

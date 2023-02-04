@@ -1,13 +1,19 @@
-import { expenseType } from '@/components/biz/expense-form/ExpenseForm.types'
+import { ExpenseType } from '@/components/biz/record-form/components/expense-form/ExpenseForm.types'
+import { IncomeType } from '@/components/biz/record-form/components/income-form/IncomeForm.types'
 
-type itemType = {
+type ItemType = {
   id: number
   key: string
   name: string
   root: number
 }
 
-export interface presetType extends expenseType {
-  category: itemType
-  subcategory: itemType
+export interface ExpensePresetType extends ExpenseType {
+  category: ItemType
+  subcategory: ItemType
+}
+
+export interface IncomePresetType extends IncomeType {
+  category: ItemType
+  subcategory: ItemType
 }

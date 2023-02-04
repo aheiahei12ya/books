@@ -1,35 +1,35 @@
-export interface expenseTrendRequest {
+export interface ExpenseTrendRequest {
   year: number
   month: number
 }
 
-export interface expenseTrendResponse {
+export interface ExpenseTrendResponse {
   trend: number[]
 }
 
-export interface balanceTrendRequest {
+export interface BalanceTrendRequest {
   year: number
   month: number
 }
 
-export interface balanceTrendResponse {
+export interface BalanceTrendResponse {
   trend: number[]
 }
 
-export interface expenseRequest {
+export interface ExpenseRequest {
   year: number
   month: number
 }
 
-export interface expenseResponse {
+export interface ExpenseResponse {
   expense: number[]
 }
 
-export interface expenseTimesRequest {
+export interface ExpenseTimesRequest {
   year: number
   month: number
 }
 
-export interface expenseTimesResponse {
+export interface ExpenseTimesResponse {
   expense: number[]
 }

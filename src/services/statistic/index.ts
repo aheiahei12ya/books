@@ -2,32 +2,32 @@ import { statisticsApi } from '@/constants/api'
 import { createRequest } from '@/lib/request'
 import { BaseResponse } from '@/lib/response/types'
 import {
-  balanceTrendRequest,
-  balanceTrendResponse,
-  expenseRequest,
-  expenseResponse,
-  expenseTimesRequest,
-  expenseTimesResponse,
-  expenseTrendRequest,
-  expenseTrendResponse
+  BalanceTrendRequest,
+  BalanceTrendResponse,
+  ExpenseRequest,
+  ExpenseResponse,
+  ExpenseTimesRequest,
+  ExpenseTimesResponse,
+  ExpenseTrendRequest,
+  ExpenseTrendResponse
 } from '@/services/statistic/types'
 
 const statistic = {
   expenseTrend: createRequest<
-    expenseTrendRequest,
-    BaseResponse<expenseTrendResponse>
+    ExpenseTrendRequest,
+    BaseResponse<ExpenseTrendResponse>
   >(statisticsApi.expenseTrend, 'POST'),
   balanceTrend: createRequest<
-    balanceTrendRequest,
-    BaseResponse<balanceTrendResponse>
+    BalanceTrendRequest,
+    BaseResponse<BalanceTrendResponse>
   >(statisticsApi.balanceTrend, 'POST'),
-  expense: createRequest<expenseRequest, BaseResponse<expenseResponse>>(
+  expense: createRequest<ExpenseRequest, BaseResponse<ExpenseResponse>>(
     statisticsApi.expense,
     'POST'
   ),
   expenseTimes: createRequest<
-    expenseTimesRequest,
-    BaseResponse<expenseTimesResponse>
+    ExpenseTimesRequest,
+    BaseResponse<ExpenseTimesResponse>
   >(statisticsApi.expenseTimes, 'POST')
 }
 
