@@ -13,6 +13,7 @@ export interface ButtonProps {
   loading?: boolean | 'auto'
   disabled?: boolean
   className?: string
+  form?: string
   onClick?: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => void | Promise<void> | unknown

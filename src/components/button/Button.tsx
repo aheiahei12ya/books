@@ -42,6 +42,7 @@ export const Button = forwardRef<ButtonRef, ButtonProps>((props, ref) => {
         className
       )}
       disabled={disabled}
+      form={props.form}
     >
       {loading ? (
         <i className="fa-regular fa-spinner-third"></i>
