@@ -4,7 +4,6 @@ import {
 } from '@/components/biz/record-form/components/types'
 
 export interface ExpenseFormProps {
-  locale?: string
   defaultValue?: {}
   value?: {}
   accountList: ItemType[]

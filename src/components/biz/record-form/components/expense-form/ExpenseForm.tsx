@@ -392,7 +392,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
               placeholder={expenseConfig[formKey].name}
               onChange={(date) => handleChange(formKey, date)}
               value={form.get(formKey)}
-              locale={props.locale}
+              locale={i18n.locale}
             ></DatePicker>
           </Form.Item>
         )
@@ -409,7 +409,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
               placeholder={expenseConfig[formKey].name}
               onChange={(time) => handleChange(formKey, time)}
               value={form.get(formKey)}
-              locale={props.locale}
+              locale={i18n.locale}
             ></TimePicker>
           </Form.Item>
         )

@@ -221,7 +221,7 @@ const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
               placeholder={incomeConfig[formKey].name}
               onChange={(date) => handleChange(formKey, date)}
               value={form.get(formKey)}
-              locale={props.locale}
+              locale={i18n.locale}
             ></DatePicker>
           </Form.Item>
         )
@@ -238,7 +238,7 @@ const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
               placeholder={incomeConfig[formKey].name}
               onChange={(time) => handleChange(formKey, time)}
               value={form.get(formKey)}
-              locale={props.locale}
+              locale={i18n.locale}
             ></TimePicker>
           </Form.Item>
         )
