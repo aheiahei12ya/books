@@ -11,11 +11,19 @@ const postOptions = (data?: any) => ({
   body: JSON.stringify(data)
 })
 
+const getUrl = (path: string) => {
+  if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
+    return `http://aheiahei.imdo.co:9200/data/book/${path}`
+  } else {
+    return path
+  }
+}
+
 const createRequest =
   <T, V>(path: string, method = 'GET') =>
   (data?: T) => {
     const options = method === 'GET' ? getOptions : postOptions
-    return fetch(path, options(data)).then((res) => res as V)
+    return fetch(getUrl(path), options(data)).then((res) => res as V)
   }
 
 export { createRequest }
