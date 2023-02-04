@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import {
+import React, {
   ChangeEvent,
   forwardRef,
   useId,
@@ -32,10 +32,29 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     if (props.type === 'digit' && isNaN(Number(e.target.value))) return
+    if (
+      props.type === 'calculator' &&
+      isNaN(Number(e.target.value)) &&
+      !/^[\d+*/-]+$/.test(e.target.value)
+    )
+      return
+
     setValue(e.target.value)
     rule.error &&
     checkRules(props.rules as RuleType[], setRule, value, e.target.value)
   }
+
+  const handleBlur = () => {
+    inputRef.current?.blur()
+    setHasFocus(false)
+    if (props.type === 'calculator') {
+      if (/^\d+( *[+=*/-] *\d+)*$/.test(value)) {
+        setValue(eval(value).toString())
+      }
+    }
+    checkRules(props.rules as RuleType[], setRule, value)
+  }
+
   useImperativeHandle(ref, () => ({
     clear: () => {
       setValue('')
@@ -59,6 +78,11 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
     return props.showClearIfFill || hasFocus
   })()
 
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.code === 'Enter') {
+      handleBlur()
+    }
+  }
   return (
     <>
       <div
@@ -99,10 +123,8 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
           onFocus={ () => {
             setHasFocus(true)
           } }
-          onBlur={ () => {
-            setHasFocus(false)
-            checkRules(props.rules as RuleType[], setRule, value)
-          } }
+          onBlur={ handleBlur }
+          onKeyUp={ (e) => handleKeyUp(e) }
           disabled={ props.disabled }
           readOnly={ props.readOnly }
         />

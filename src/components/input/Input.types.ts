@@ -3,7 +3,7 @@ import { RuleType } from '@/components/lib/rule'
 export interface InputProps {
   id?: string
   size?: 'small' | 'large'
-  type?: 'string' | 'digit' | 'password'
+  type?: 'string' | 'digit' | 'password' | 'calculator'
 
   value?: string
   onClear?: () => void
