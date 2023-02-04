@@ -1,3 +1,4 @@
+import { statisticsApi } from '@/constants/api'
 import { createRequest } from '@/lib/request'
 import { BaseResponse } from '@/lib/response/types'
 import {
@@ -15,19 +16,19 @@ const statistic = {
   expenseTrend: createRequest<
     expenseTrendRequest,
     BaseResponse<expenseTrendResponse>
-  >('api/statistics/expense-trend', 'POST'),
+  >(statisticsApi.expenseTrend, 'POST'),
   balanceTrend: createRequest<
     balanceTrendRequest,
     BaseResponse<balanceTrendResponse>
-  >('api/statistics/balance-trend', 'POST'),
-  expense: createRequest<
-    expenseRequest,
-    BaseResponse<expenseResponse>
-  >('api/statistics/expense', 'POST'),
+  >(statisticsApi.balanceTrend, 'POST'),
+  expense: createRequest<expenseRequest, BaseResponse<expenseResponse>>(
+    statisticsApi.expense,
+    'POST'
+  ),
   expenseTimes: createRequest<
     expenseTimesRequest,
     BaseResponse<expenseTimesResponse>
-  >('api/statistics/expense/times', 'POST')
+  >(statisticsApi.expenseTimes, 'POST')
 }
 
-export default statistic;
+export default statistic

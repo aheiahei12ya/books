@@ -1,12 +1,13 @@
+import { categoryApi } from '@/constants/api'
 import { createRequest } from '@/lib/request'
 import { BaseResponse } from '@/lib/response/types'
 
 import { categoryListRequest, categoryListResponse } from './types'
 
-const account = {
+const category = {
   list: createRequest<categoryListRequest, BaseResponse<categoryListResponse>>(
-    'api/category/list',
+    categoryApi.list,
     'POST'
   )
 }
-export default account
+export default category

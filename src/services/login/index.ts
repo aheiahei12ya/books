@@ -1,3 +1,4 @@
+import { loginApi } from '@/constants/api'
 import { createRequest } from '@/lib/request'
 import { BaseResponse } from '@/lib/response/types'
 
@@ -5,11 +6,11 @@ import { LoginRequest, LoginResponse } from './types'
 
 const login = {
   login: createRequest<LoginRequest, BaseResponse<LoginResponse>>(
-    'api/user-login',
+    loginApi.userLogin,
     'POST'
   ),
   userInfo: createRequest<LoginRequest, BaseResponse<LoginResponse>>(
-    'api/user-info',
+    loginApi.userInfo,
     'POST'
   )
 }
