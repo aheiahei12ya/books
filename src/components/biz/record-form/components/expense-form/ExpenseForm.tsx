@@ -3,6 +3,7 @@ import dayjs from 'dayjs'
 import React, { forwardRef, useCallback, useId, useState } from 'react'
 
 import ReceiptForm from '@/components/biz/record-form/components/receipt-form'
+import { ItemType } from '@/components/biz/record-form/components/types'
 import Button from '@/components/button'
 import Checkbox from '@/components/checkbox'
 import DatePicker from '@/components/datePicker'
@@ -25,8 +26,7 @@ import styles from './ExpenseForm.module.sass'
 import {
   ExpenseConfigType,
   ExpenseFormProps,
-  ExpenseType,
-  ItemType
+  ExpenseType
 } from './ExpenseForm.types'
 
 const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {

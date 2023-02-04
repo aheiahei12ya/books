@@ -4,6 +4,7 @@ import React, { forwardRef, useCallback, useState } from 'react'
 
 import styles from '@/components/biz/record-form/components/expense-form/ExpenseForm.module.sass'
 import ReceiptForm from '@/components/biz/record-form/components/receipt-form'
+import { ItemType } from '@/components/biz/record-form/components/types'
 import Button from '@/components/button'
 import DatePicker from '@/components/datePicker'
 import Dropdown from '@/components/dropdown'
@@ -21,8 +22,7 @@ import {
 import {
   IncomeConfigType,
   IncomeFormProps,
-  IncomeType,
-  ItemType
+  IncomeType
 } from './IncomeForm.types'
 
 const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
@@ -168,7 +168,11 @@ const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
       <div
         className={ classNames(styles.expenseReceipt, styles.hiddenSmAndDown) }
       >
-        <ReceiptForm type={'income'} item={ income } itemName={ 'name' }></ReceiptForm>
+        <ReceiptForm
+          type={ 'income' }
+          item={ income }
+          itemName={ 'name' }
+        ></ReceiptForm>
       </div>
     </div>
   )
