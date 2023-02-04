@@ -1,7 +1,7 @@
 import { mockPost } from '@/mocks/utils'
 
 const account = [
-  mockPost('/api/account/list', {
+  mockPost('api/account/list', {
     accountList: [
       {
         id: 2,

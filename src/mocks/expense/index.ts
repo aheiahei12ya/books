@@ -197,6 +197,6 @@ const expenseInitialData: expenseInitialResponse = {
   preset: presetData
 }
 
-const expense = [mockPost('/api/expense/initial', expenseInitialData)]
+const expense = [mockPost('api/expense/initial', expenseInitialData)]
 
 export default expense

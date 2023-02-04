@@ -15,19 +15,19 @@ const statistic = {
   expenseTrend: createRequest<
     expenseTrendRequest,
     BaseResponse<expenseTrendResponse>
-  >('/api/statistics/expense-trend', 'POST'),
+  >('api/statistics/expense-trend', 'POST'),
   balanceTrend: createRequest<
     balanceTrendRequest,
     BaseResponse<balanceTrendResponse>
-  >('/api/statistics/balance-trend', 'POST'),
+  >('api/statistics/balance-trend', 'POST'),
   expense: createRequest<
     expenseRequest,
     BaseResponse<expenseResponse>
-  >('/api/statistics/expense', 'POST'),
+  >('api/statistics/expense', 'POST'),
   expenseTimes: createRequest<
     expenseTimesRequest,
     BaseResponse<expenseTimesResponse>
-  >('/api/statistics/expense/times', 'POST')
+  >('api/statistics/expense/times', 'POST')
 }
 
 export default statistic;

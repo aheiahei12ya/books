@@ -5,11 +5,11 @@ import { LoginRequest, LoginResponse } from './types'
 
 const login = {
   login: createRequest<LoginRequest, BaseResponse<LoginResponse>>(
-    '/api/user-login',
+    'api/user-login',
     'POST'
   ),
   userInfo: createRequest<LoginRequest, BaseResponse<LoginResponse>>(
-    '/api/user-info',
+    'api/user-info',
     'POST'
   )
 }

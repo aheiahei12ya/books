@@ -7,6 +7,6 @@ const expense = {
   initial: createRequest<
     expenseInitialRequest,
     BaseResponse<expenseInitialResponse>
-  >('/api/expense/initial', 'POST')
+  >('api/expense/initial', 'POST')
 }
 export default expense

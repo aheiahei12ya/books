@@ -7,6 +7,6 @@ const paymentMethod = {
   list: createRequest<
     paymentMethodListRequest,
     BaseResponse<paymentMethodListResponse>
-  >('/api/payment-method/list', 'POST')
+  >('api/payment-method/list', 'POST')
 }
 export default paymentMethod

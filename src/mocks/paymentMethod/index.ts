@@ -1,7 +1,7 @@
 import { mockPost } from '@/mocks/utils'
 
 const paymentMethod = [
-  mockPost('/api/payment-method/list', {
+  mockPost('api/payment-method/list', {
     paymentMethodList: [
       {
         id: 5,

@@ -5,7 +5,7 @@ import { accountListRequest, accountListResponse } from './types'
 
 const account = {
   list: createRequest<accountListRequest, BaseResponse<accountListResponse>>(
-    '/api/account/list',
+    'api/account/list',
     'POST'
   )
 }

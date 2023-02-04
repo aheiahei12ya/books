@@ -43,6 +43,6 @@ const presetData: { presetData: presetType } = {
   }
 }
 
-const setting = [mockPost('/api/setting/preset', presetData)]
+const setting = [mockPost('api/setting/preset', presetData)]
 
 export default setting

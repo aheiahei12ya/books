@@ -7,6 +7,6 @@ const setting = {
   preset: createRequest<
     presetExpenseFormRequest,
     BaseResponse<presetExpenseFormResponse>
-  >('/api/setting/preset', 'POST')
+  >('api/setting/preset', 'POST')
 }
 export default setting

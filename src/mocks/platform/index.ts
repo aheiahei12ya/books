@@ -1,7 +1,7 @@
 import { mockPost } from '@/mocks/utils'
 
 const statistic = [
-  mockPost('/api/platform/list', {
+  mockPost('api/platform/list', {
     platformList: [
       {
         id: 5,

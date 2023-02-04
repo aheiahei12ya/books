@@ -5,7 +5,7 @@ import { platformListRequest, platformListResponse } from './types'
 
 const platform = {
   list: createRequest<platformListRequest, BaseResponse<platformListResponse>>(
-    '/api/platform/list',
+    'api/platform/list',
     'POST'
   )
 }
