@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 
 export interface IncomeFormProps {
-  locale: string
+  locale?: string
   defaultValue?: {}
   value?: {}
 }

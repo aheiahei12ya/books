@@ -3,7 +3,7 @@ import { forwardRef, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import ExpenseForm from '@/components/biz/expense-form'
-import expenseConfig from '@/components/biz/expense-form/config'
+import { expenseConfig } from '@/components/biz/expense-form/config'
 import IncomeForm from '@/components/biz/income-form'
 import useRequest from '@/hooks/useRequest'
 import services from '@/services'
@@ -68,10 +68,7 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
             <ExpenseForm locale={ i18n.locale } defaultValue={ expense }/>
           )
         ) : (
-          <IncomeForm
-            value={ income }
-            onChange={ setIncome }
-          />
+          <IncomeForm value={ income }/>
         ) }
         {/*{!loading && <IncomeForm defaultValue={expensePreset} />}*/ }
       </div>
