@@ -10,10 +10,6 @@ import { AuthContextProvider } from '@/lib/auth'
 import { disableReactDevTools } from '@/lib/env'
 import { loadLocale } from '@/locales'
 
-if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
-  require('../mocks')
-}
-
 if (process.env.NODE_ENV == 'production') {
   disableReactDevTools()
 }
