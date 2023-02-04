@@ -7,7 +7,6 @@ import {
   useState
 } from 'react'
 
-import { itemType } from '@/components/biz/expense-form/ExpenseForm.types'
 import { dropdownHandler } from '@/components/lib/dropdown'
 import { checkRules, RuleType } from '@/components/lib/rule'
 import useControlled from '@/hooks/useControlled'
@@ -50,7 +49,7 @@ const Dropdown = forwardRef<DropdownRef, DropdownProps>((props, ref) => {
     true
   )
 
-  const handleSelect = (items: itemType, value: string) => {
+  const handleSelect = (items: string | object, value: string) => {
     const selectedValue = props.returnObject ? items : value
     setSelected(selectedValue)
     deactivateDropdown()
