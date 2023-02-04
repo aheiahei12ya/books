@@ -36,6 +36,11 @@ const Calendar = forwardRef<unknown, CalendarProps>((props, ref) => {
         if (value <= 5) return styles.calendarCellMiddle
         return styles.calendarCellExtreme
       })()
+      const isToday =
+        date === today &&
+        year === thisYear &&
+        month === thisMonth &&
+        type === 'current'
       return (
         <div
           className={classNames(styles.calendarCell, ratio, {
@@ -47,8 +52,7 @@ const Calendar = forwardRef<unknown, CalendarProps>((props, ref) => {
           <span
             className={classNames(
               classNames(styles.calendarCellDate, {
-                [styles.calendarCellToday]:
-                  date === today && year === thisYear && month === thisMonth
+                [styles.calendarCellToday]: isToday
               })
             )}
           >

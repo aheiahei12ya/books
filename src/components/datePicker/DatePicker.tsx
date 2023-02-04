@@ -1,6 +1,12 @@
 import classNames from 'classnames'
 import dayjs from 'dayjs'
-import { forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react'
+import {
+  forwardRef,
+  useCallback,
+  useImperativeHandle,
+  useRef,
+  useState
+} from 'react'
 
 import {
   calendar,
@@ -71,7 +77,10 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
   const makeCell = useCallback(
     (selectedDay: number, type: 'past' | 'current' | 'future') => {
       const isToday =
-        selectedDay === today && year === thisYear && month === thisMonth
+        selectedDay === today &&
+        year === thisYear &&
+        month === thisMonth &&
+        type === 'current'
       const [selectedYear, selectedMonth] = handleDaySelect(type, year, month)
       return (
         <div
@@ -108,9 +117,9 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
     },
     [
       deactivateDropdown,
+      handleSelectDate,
       month,
       selected,
-      setSelected,
       thisMonth,
       thisYear,
       today,
