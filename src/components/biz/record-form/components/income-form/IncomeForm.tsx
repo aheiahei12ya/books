@@ -60,7 +60,7 @@ const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
       return {
         type: type,
         name: i18n.formatMessage({ id: i18nKey }),
-        icon: <i className={ `fa-regular fa-${ icon }` }></i>
+        icon: <i className={`fa-regular fa-${icon}`}></i>
       }
     }
     return {
@@ -107,58 +107,58 @@ const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
     switch (incomeConfig[formKey].type) {
       case 'input':
         return (
-          <Form.Item name={ formKey } key={ formKey } className={ styles.expenseFormButton }>
+          <Form.Item name={formKey} key={formKey} className={styles.expenseFormButton}>
             <Input
-              prepend={ incomeConfig[formKey].icon }
+              prepend={incomeConfig[formKey].icon}
               hideMessage
-              value={ form.get(formKey, undefined) }
-              placeholder={ incomeConfig[formKey].name }
+              value={form.get(formKey, undefined)}
+              placeholder={incomeConfig[formKey].name}
               clearable
               showClearIfFill
-              type={ formKey === 'note' ? 'string' : 'calculator' }
-              onChange={ (val) => handleChange(formKey, val) }
-              onClear={ () => handleChange(formKey, '') }
+              type={formKey === 'note' ? 'string' : 'calculator'}
+              onChange={(val) => handleChange(formKey, val)}
+              onClear={() => handleChange(formKey, '')}
             ></Input>
           </Form.Item>
         )
       case 'select':
         return (
-          <Form.Item name={ formKey } key={ formKey } className={ styles.expenseFormButton }>
+          <Form.Item name={formKey} key={formKey} className={styles.expenseFormButton}>
             <Dropdown
-              prepend={ incomeConfig[formKey].icon }
+              prepend={incomeConfig[formKey].icon}
               hideMessage
-              placeholder={ incomeConfig[formKey].name }
-              items={ props[`${ formKey }List` as keyof IncomeFormProps] as ItemType[] }
-              itemName={ 'name' }
+              placeholder={incomeConfig[formKey].name}
+              items={props[`${formKey}List` as keyof IncomeFormProps] as ItemType[]}
+              itemName={'name'}
               returnObject
-              onChange={ (val) => handleChange(formKey, val) }
-              value={ (form.get(formKey) as ItemType)?.name }
+              onChange={(val) => handleChange(formKey, val)}
+              value={(form.get(formKey) as ItemType)?.name}
             ></Dropdown>
           </Form.Item>
         )
       case 'date-picker':
         return (
-          <Form.Item name={ formKey } key={ formKey }>
+          <Form.Item name={formKey} key={formKey}>
             <DatePicker
               hideMessage
-              prepend={ incomeConfig[formKey].icon }
-              placeholder={ incomeConfig[formKey].name }
-              onChange={ (date) => handleChange(formKey, date) }
-              value={ form.get(formKey) }
-              locale={ i18n.locale }
+              prepend={incomeConfig[formKey].icon}
+              placeholder={incomeConfig[formKey].name}
+              onChange={(date) => handleChange(formKey, date)}
+              value={form.get(formKey)}
+              locale={i18n.locale}
             ></DatePicker>
           </Form.Item>
         )
       case 'time-picker':
         return (
-          <Form.Item name={ formKey } key={ formKey } className={ styles.expenseFormButton }>
+          <Form.Item name={formKey} key={formKey} className={styles.expenseFormButton}>
             <TimePicker
               hideMessage
-              prepend={ incomeConfig[formKey].icon }
-              placeholder={ incomeConfig[formKey].name }
-              onChange={ (time) => handleChange(formKey, time) }
-              value={ form.get(formKey) }
-              locale={ i18n.locale }
+              prepend={incomeConfig[formKey].icon}
+              placeholder={incomeConfig[formKey].name}
+              onChange={(time) => handleChange(formKey, time)}
+              value={form.get(formKey)}
+              locale={i18n.locale}
             ></TimePicker>
           </Form.Item>
         )
@@ -168,35 +168,35 @@ const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
   }
 
   return (
-    <div className={ styles.expenseContainer }>
+    <div className={styles.expenseContainer}>
       <Form
-        form={ form }
-        initialValue={ income }
-        rules={ rules }
-        className={ styles.expenseForm }
-        onSubmit={ () => {
+        form={form}
+        initialValue={income}
+        rules={rules}
+        className={styles.expenseForm}
+        onSubmit={() => {
           console.log(income)
-        } }
+        }}
       >
-        { incomeFormKeys.map((formRow, index) => (
-          <div key={ `row-${ index }` } className={ styles.expenseFormRow }>
-            { formRow.map((formKey) => makeInputUnit(formKey as keyof IncomeConfigType)) }
+        {incomeFormKeys.map((formRow, index) => (
+          <div key={`row-${index}`} className={styles.expenseFormRow}>
+            {formRow.map((formKey) => makeInputUnit(formKey as keyof IncomeConfigType))}
           </div>
-        )) }
-        { incomeFormKeysAppend.map((formRow, index) => (
-          <div key={ `row-${ index }` } className={ styles.expenseFormRow }>
-            { formRow.map((formKey) => makeInputUnit(formKey as keyof IncomeConfigType)) }
+        ))}
+        {incomeFormKeysAppend.map((formRow, index) => (
+          <div key={`row-${index}`} className={styles.expenseFormRow}>
+            {formRow.map((formKey) => makeInputUnit(formKey as keyof IncomeConfigType))}
           </div>
-        )) }
-        <div className={ styles.expenseFormRow }>
-          <Button htmlType={ 'submit' } block>
-            <FormattedMessage id={ 'pages.record.form.submit' }></FormattedMessage>
+        ))}
+        <div className={styles.expenseFormRow}>
+          <Button htmlType={'submit'} block>
+            <FormattedMessage id={'pages.record.form.submit'}></FormattedMessage>
           </Button>
         </div>
       </Form>
 
-      <div className={ classNames(styles.expenseReceipt, styles.hiddenSmAndDown) }>
-        <ReceiptForm type={ 'income' } item={ income } itemName={ 'name' } config={ incomeConfig }></ReceiptForm>
+      <div className={classNames(styles.expenseReceipt, styles.hiddenSmAndDown)}>
+        <ReceiptForm type={'income'} item={income} itemName={'name'} config={incomeConfig}></ReceiptForm>
       </div>
     </div>
   )

@@ -1,7 +1,4 @@
-import {
-  ItemType,
-  ReceiptType
-} from '@/components/biz/record-form/components/types'
+import { ItemType, ReceiptType } from '@/components/biz/record-form/components/types'
 
 export interface IncomeFormProps {
   defaultValue?: {}

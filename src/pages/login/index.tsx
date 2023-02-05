@@ -76,117 +76,96 @@ const Login: React.FC = () => {
   }, [data, router])
 
   return (
-    <div className={ styles.login }>
-      <div className={ styles.loginPanel }>
-        <div className={ styles.loginPanelLogo }>
+    <div className={styles.login}>
+      <div className={styles.loginPanel}>
+        <div className={styles.loginPanelLogo}>
           <span>
-            <FormattedMessage
-              id={ 'pages.login.title.welcome' }
-            ></FormattedMessage>
+            <FormattedMessage id={'pages.login.title.welcome'}></FormattedMessage>
           </span>
-          { resize.isMobile && (
+          {resize.isMobile && (
             <Image
-              src={ illustrateUrl }
-              alt={ '' }
+              src={illustrateUrl}
+              alt={''}
               fill
               priority
               placeholder="blur"
-              blurDataURL={ rgbDataURL(250, 250, 250) }
+              blurDataURL={rgbDataURL(250, 250, 250)}
             />
-          ) }
+          )}
         </div>
-        <div className={ classNames(styles.loginPanelForm) }>
+        <div className={classNames(styles.loginPanelForm)}>
           <Input
-            ref={ usernameRef }
-            value={ username }
-            onChange={ (val: string) => {
+            ref={usernameRef}
+            value={username}
+            onChange={(val: string) => {
               setUsername(val)
               setUsernameIncorrect(false)
-            } }
-            clearable={ true }
-            prepend={ <i className="fa-light fa-user"></i> }
-            placeholder={ i18n.formatMessage({
+            }}
+            clearable={true}
+            prepend={<i className="fa-light fa-user"></i>}
+            placeholder={i18n.formatMessage({
               id: 'pages.login.username.placeholder'
-            }) }
-            rules={ [
+            })}
+            rules={[
               {
                 required: true,
-                message: <FormattedMessage id="pages.login.username.required"/>
+                message: <FormattedMessage id="pages.login.username.required" />
               }
-            ] }
-            error={ usernameIncorrect }
-            errorMessage={
-              <FormattedMessage id={ 'pages.login.username.incorrect' }/>
-            }
+            ]}
+            error={usernameIncorrect}
+            errorMessage={<FormattedMessage id={'pages.login.username.incorrect'} />}
           ></Input>
           <Input
-            ref={ passwordRef }
-            value={ password }
-            type={ 'password' }
-            onChange={ (val: string) => {
+            ref={passwordRef}
+            value={password}
+            type={'password'}
+            onChange={(val: string) => {
               setPassword(val)
               setPasswordIncorrect(false)
-            } }
-            clearable={ true }
-            prepend={ <i className="fa-light fa-lock"></i> }
-            placeholder={ i18n.formatMessage({
+            }}
+            clearable={true}
+            prepend={<i className="fa-light fa-lock"></i>}
+            placeholder={i18n.formatMessage({
               id: 'pages.login.password.placeholder'
-            }) }
-            rules={ [
+            })}
+            rules={[
               {
                 required: true,
-                message: (
-                  <FormattedMessage id={ 'pages.login.password.required' }/>
-                )
+                message: <FormattedMessage id={'pages.login.password.required'} />
               }
-            ] }
-            error={ passwordIncorrect }
-            errorMessage={
-              <FormattedMessage id={ 'pages.login.password.incorrect' }/>
-            }
+            ]}
+            error={passwordIncorrect}
+            errorMessage={<FormattedMessage id={'pages.login.password.incorrect'} />}
           ></Input>
-          <div className={ styles.loginPanelExtra }>
+          <div className={styles.loginPanelExtra}>
             <Checkbox
-              onChange={ (e) => {
+              onChange={(e) => {
                 setRemember(e)
-              } }
-              checked={ remember }
+              }}
+              checked={remember}
             >
-              <FormattedMessage
-                id={ 'pages.login.checkbox.remember' }
-              ></FormattedMessage>
+              <FormattedMessage id={'pages.login.checkbox.remember'}></FormattedMessage>
             </Checkbox>
-            <Button type={ 'text' } size={ 'small' } color={ 'warning' }>
-              <FormattedMessage
-                id={ 'pages.login.button.forget' }
-              ></FormattedMessage>
+            <Button type={'text'} size={'small'} color={'warning'}>
+              <FormattedMessage id={'pages.login.button.forget'}></FormattedMessage>
             </Button>
           </div>
-          <Button
-            block
-            color={ 'primary' }
-            onClick={ handleSubmit }
-            loading={ loading }
-          >
-            <FormattedMessage
-              id={ 'pages.login.button.login' }
-            ></FormattedMessage>
+          <Button block color={'primary'} onClick={handleSubmit} loading={loading}>
+            <FormattedMessage id={'pages.login.button.login'}></FormattedMessage>
           </Button>
         </div>
       </div>
-      <div
-        className={ classNames(styles.loginIllustrate, styles.hiddenSmAndDown) }
-      >
-        { resize.isPC && (
+      <div className={classNames(styles.loginIllustrate, styles.hiddenSmAndDown)}>
+        {resize.isPC && (
           <Image
-            src={ illustrateUrl }
-            alt={ '' }
+            src={illustrateUrl}
+            alt={''}
             fill
             priority
             placeholder="blur"
-            blurDataURL={ rgbDataURL(250, 250, 250) }
+            blurDataURL={rgbDataURL(250, 250, 250)}
           />
-        ) }
+        )}
       </div>
     </div>
   )

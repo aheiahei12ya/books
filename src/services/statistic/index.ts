@@ -13,22 +13,19 @@ import {
 } from '@/services/statistic/types'
 
 const statistic = {
-  expenseTrend: createRequest<
-    ExpenseTrendRequest,
-    BaseResponse<ExpenseTrendResponse>
-  >(statisticsApi.expenseTrend, 'POST'),
-  balanceTrend: createRequest<
-    BalanceTrendRequest,
-    BaseResponse<BalanceTrendResponse>
-  >(statisticsApi.balanceTrend, 'POST'),
-  expense: createRequest<ExpenseRequest, BaseResponse<ExpenseResponse>>(
-    statisticsApi.expense,
+  expenseTrend: createRequest<ExpenseTrendRequest, BaseResponse<ExpenseTrendResponse>>(
+    statisticsApi.expenseTrend,
     'POST'
   ),
-  expenseTimes: createRequest<
-    ExpenseTimesRequest,
-    BaseResponse<ExpenseTimesResponse>
-  >(statisticsApi.expenseTimes, 'POST')
+  balanceTrend: createRequest<BalanceTrendRequest, BaseResponse<BalanceTrendResponse>>(
+    statisticsApi.balanceTrend,
+    'POST'
+  ),
+  expense: createRequest<ExpenseRequest, BaseResponse<ExpenseResponse>>(statisticsApi.expense, 'POST'),
+  expenseTimes: createRequest<ExpenseTimesRequest, BaseResponse<ExpenseTimesResponse>>(
+    statisticsApi.expenseTimes,
+    'POST'
+  )
 }
 
 export default statistic

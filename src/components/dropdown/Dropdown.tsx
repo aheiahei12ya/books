@@ -1,11 +1,5 @@
 import classNames from 'classnames'
-import {
-  forwardRef,
-  useCallback,
-  useImperativeHandle,
-  useRef,
-  useState
-} from 'react'
+import { forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react'
 
 import { dropdownHandler } from '@/components/lib/dropdown'
 import { checkRules, RuleType } from '@/components/lib/rule'
@@ -63,69 +57,63 @@ const Dropdown = forwardRef<DropdownRef, DropdownProps>((props, ref) => {
   }))
 
   return (
-    <div ref={ buttonRef }>
+    <div ref={buttonRef}>
       <div
-        className={ classNames(styles.dropdownButton, {
+        className={classNames(styles.dropdownButton, {
           [styles.dropdownButtonSm]: size === 'small',
           [styles.dropdownButtonLg]: size === 'large',
           [styles.dropdownButtonBase]: size === 'default',
           [styles.dropdownButtonError]: rule.error,
           [styles.dropdownButtonFocus]: active
-        }) }
-        onClick={ active ? deactivateDropdown : activateDropdown }
+        })}
+        onClick={active ? deactivateDropdown : activateDropdown}
       >
-        { !!props.prepend && (
+        {!!props.prepend && (
           <span
-            className={ classNames(styles.dropdownButtonInnerPrefix, {
+            className={classNames(styles.dropdownButtonInnerPrefix, {
               [styles.dropdownButtonInnerPrefixActive]: active
-            }) }
+            })}
           >
-            { props.prepend }
+            {props.prepend}
           </span>
-        ) }
+        )}
         <div
-          className={ classNames(styles.dropdownButtonInner, {
+          className={classNames(styles.dropdownButtonInner, {
             [styles.dropdownButtonInnerPlaceholder]: !selected,
             [styles.dropdownButtonInnerFocus]: active
-          }) }
+          })}
         >
-          { get(selected, props.itemName as string, selected) ||
-            props.defaultValue ||
-            props.placeholder }
+          {get(selected, props.itemName as string, selected) || props.defaultValue || props.placeholder}
         </div>
         <span
-          className={ classNames(styles.dropdownButtonInnerAppend, {
+          className={classNames(styles.dropdownButtonInnerAppend, {
             [styles.dropdownButtonInnerAppendActive]: active
-          }) }
+          })}
         >
           <i className="fa-regular fa-chevron-down"></i>
         </span>
       </div>
-      { !props.hideMessage && (
-        <div className={ styles.dropdownButtonInnerWarning }>
-          { (props.error && props.errorMessage) || (rule.error && rule.message) }
+      {!props.hideMessage && (
+        <div className={styles.dropdownButtonInnerWarning}>
+          {(props.error && props.errorMessage) || (rule.error && rule.message)}
         </div>
-      ) }
-      <div
-        ref={ menuRef }
-        className={ styles.dropdownMenu }
-        onClick={ (e) => e.stopPropagation() }
-      >
+      )}
+      <div ref={menuRef} className={styles.dropdownMenu} onClick={(e) => e.stopPropagation()}>
         <ul>
-          { props.items?.map((items, index) => {
+          {props.items?.map((items, index) => {
             const value = props.itemName ? items[props.itemName] : items
             return (
               <li
-                key={ index }
-                className={ classNames(styles.dropdownMenuItem, {
+                key={index}
+                className={classNames(styles.dropdownMenuItem, {
                   [styles.dropdownMenuItemSelected]: selected === value
-                }) }
-                onClick={ () => handleSelect(items, value) }
+                })}
+                onClick={() => handleSelect(items, value)}
               >
-                { value }
+                {value}
               </li>
             )
-          }) }
+          })}
         </ul>
       </div>
     </div>

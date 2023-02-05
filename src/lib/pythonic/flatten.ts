@@ -4,12 +4,7 @@ import isArray from './isArray'
 import isArrayLike from './isArrayLike'
 
 // Internal implementation of a recursive `flatten` function.
-export default function flatten(
-  input: any[],
-  depth?: number,
-  strict?: boolean,
-  output?: any[]
-): any[] {
+export default function flatten(input: any[], depth?: number, strict?: boolean, output?: any[]): any[] {
   output = output || []
   if (!depth && depth !== 0) {
     depth = Infinity

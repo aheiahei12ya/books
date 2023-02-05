@@ -1,12 +1,5 @@
 import classNames from 'classnames'
-import React, {
-  ChangeEvent,
-  forwardRef,
-  useId,
-  useImperativeHandle,
-  useRef,
-  useState
-} from 'react'
+import React, { ChangeEvent, forwardRef, useId, useImperativeHandle, useRef, useState } from 'react'
 
 import { checkRules, RuleType } from '@/components/lib/rule'
 import useControlled from '@/hooks/useControlled'
@@ -32,16 +25,10 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     if (props.type === 'digit' && isNaN(Number(e.target.value))) return
-    if (
-      props.type === 'calculator' &&
-      isNaN(Number(e.target.value)) &&
-      !/^[\d+*/-]+$/.test(e.target.value)
-    )
-      return
+    if (props.type === 'calculator' && isNaN(Number(e.target.value)) && !/^[\d+*/-]+$/.test(e.target.value)) return
 
     setValue(e.target.value)
-    rule.error &&
-    checkRules(props.rules as RuleType[], setRule, value, e.target.value)
+    rule.error && checkRules(props.rules as RuleType[], setRule, value, e.target.value)
   }
 
   const handleBlur = () => {
@@ -86,80 +73,78 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
   return (
     <>
       <div
-        className={ classNames(styles.inputBox, {
+        className={classNames(styles.inputBox, {
           [styles.inputBoxSm]: size === 'small',
           [styles.inputBoxLg]: size === 'large',
           [styles.inputBoxBase]: size === 'default',
           [styles.inputBoxFocus]: hasFocus,
           [styles.inputBoxError]: rule.error
-        }) }
-        onClick={ () => inputRef.current?.focus() }
+        })}
+        onClick={() => inputRef.current?.focus()}
         // onMouseDown={ (e) => {
         //   e.preventDefault()
         // } }
       >
-        { hasPrepend && (
+        {hasPrepend && (
           <span
-            className={ classNames(styles.prefix, {
+            className={classNames(styles.prefix, {
               [styles.prefixActive]: hasFocus
-            }) }
-            onMouseDown={ (e) => {
+            })}
+            onMouseDown={(e) => {
               e.preventDefault()
-            } }
+            }}
           >
-            { props.prepend }
+            {props.prepend}
           </span>
-        ) }
+        )}
         <input
-          ref={ inputRef }
-          id={ inputId }
-          className={ styles.input }
-          placeholder={ props.placeholder }
-          value={ value }
-          type={ props.type }
-          onChange={ (e) => {
+          ref={inputRef}
+          id={inputId}
+          className={styles.input}
+          placeholder={props.placeholder}
+          value={value}
+          type={props.type}
+          onChange={(e) => {
             handleInput(e)
-          } }
-          onFocus={ () => {
+          }}
+          onFocus={() => {
             setHasFocus(true)
-          } }
-          onBlur={ handleBlur }
-          onKeyUp={ (e) => handleKeyUp(e) }
-          disabled={ props.disabled }
-          readOnly={ props.readOnly }
+          }}
+          onBlur={handleBlur}
+          onKeyUp={(e) => handleKeyUp(e)}
+          disabled={props.disabled}
+          readOnly={props.readOnly}
         />
-        { shouldShowClear && (
+        {shouldShowClear && (
           <span
-            className={ classNames(styles.clearable, {
+            className={classNames(styles.clearable, {
               [styles.clearableAppend]: hasAppend
-            }) }
-            onClick={ () => {
+            })}
+            onClick={() => {
               setValue('')
               props.onClear?.()
-            } }
-            onMouseDown={ (e) => {
+            }}
+            onMouseDown={(e) => {
               e.preventDefault()
-            } }
+            }}
           >
             <i className="fa-solid fa-close"></i>
           </span>
-        ) }
-        { hasAppend && (
+        )}
+        {hasAppend && (
           <span
-            className={ styles.append }
-            onMouseDown={ (e) => {
+            className={styles.append}
+            onMouseDown={(e) => {
               e.preventDefault()
-            } }
+            }}
           >
-            { props.append }
+            {props.append}
           </span>
-        ) }
+        )}
       </div>
-      { !props.hideMessage && (
-        <div className={ styles.inputWarning }>
-          { (props.error && props.errorMessage) || (rule.error && rule.message) }
-        </div>
-      ) }
+      {!props.hideMessage && (
+        <div className={styles.inputWarning}>{(props.error && props.errorMessage) || (rule.error && rule.message)}</div>
+      )}
     </>
   )
 })

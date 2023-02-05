@@ -123,25 +123,15 @@ function Home() {
             <RecordForm locale={i18n.locale}></RecordForm>
           </Card>
           <Card
-            title={'xx'}
+            title={'本周支出/支出分析'}
             className={classNames(styles.booking, styles.hiddenXs)}
             elevation={1}
             fill
           ></Card>
         </div>
-        <div
-          className={classNames(
-            styles.viceContent,
-            styles.hiddenSmAndDown,
-            styles.hiddenOnPortrait
-          )}
-        >
+        <div className={classNames(styles.viceContent, styles.hiddenSmAndDown, styles.hiddenOnPortrait)}>
           <div className={styles.spendCompare}>
-            <Card
-              subtitle={lastYearMonth}
-              className={styles.spendCompareInner}
-              elevation={1}
-            >
+            <Card subtitle={lastYearMonth} className={styles.spendCompareInner} elevation={1}>
               {lastYearExpenseData?.success && (
                 <Bar
                   xs={range(1, lastYearExpenseData.data.expense.length + 1)}
@@ -154,11 +144,7 @@ function Home() {
                 ></Bar>
               )}
             </Card>
-            <Card
-              subtitle={currentYearMonth}
-              className={styles.spendCompareInner}
-              elevation={1}
-            >
+            <Card subtitle={currentYearMonth} className={styles.spendCompareInner} elevation={1}>
               {expenseData?.success && (
                 <Bar
                   xs={range(1, expenseData.data.expense.length + 1)}
@@ -185,7 +171,7 @@ function Home() {
             {/*{currentDate}消费 <br />*/}
             {/*{lastYear}*/}
           </Card>
-          <Card title={'收支统计'} className={styles.spendDays} elevation={1}>
+          <Card title={'收支统计/账户余额'} className={styles.spendDays} elevation={1}>
             {/*{currentDate}消费 <br />*/}
             {/*{lastYear}*/}
           </Card>

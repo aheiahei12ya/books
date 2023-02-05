@@ -4,12 +4,7 @@ import { forwardRef, useCallback, useState } from 'react'
 
 import { CalendarProps } from '@/components/calendar/Calendar.types'
 import { weekNames } from '@/components/calendar/locale'
-import {
-  backToToday,
-  calendar,
-  getDate,
-  handleMonthChange
-} from '@/components/lib/calendar'
+import { backToToday, calendar, getDate, handleMonthChange } from '@/components/lib/calendar'
 import { getValue } from '@/lib/pythonic'
 
 import styles from './Calendar.module.sass'
@@ -36,16 +31,11 @@ const Calendar = forwardRef<unknown, CalendarProps>((props, ref) => {
         if (value <= 5) return styles.calendarCellMiddle
         return styles.calendarCellExtreme
       })()
-      const isToday =
-        date === today &&
-        year === thisYear &&
-        month === thisMonth &&
-        type === 'current'
+      const isToday = date === today && year === thisYear && month === thisMonth && type === 'current'
       return (
         <div
           className={classNames(styles.calendarCell, ratio, {
-            [styles.calendarCellDisabled]: type !== 'current',
-            [styles.calendarCellSelected]: !!props.onChange
+            [styles.calendarCellDisabled]: type !== 'current'
           })}
           key={`${type}-${date}`}
         >
@@ -69,58 +59,34 @@ const Calendar = forwardRef<unknown, CalendarProps>((props, ref) => {
         </div>
       )
     },
-    [
-      month,
-      props.expense,
-      props.locale,
-      props.onChange,
-      thisMonth,
-      thisYear,
-      today,
-      year
-    ]
+    [month, props.expense, props.locale, thisMonth, thisYear, today, year]
   )
   return (
     <div className={styles.calendar}>
       {!!props.showToolbar && (
         <div className={styles.toolBar}>
-          <div className={styles.toolBarDate}>
-            {getDate(props.locale, year, month)}
-          </div>
+          <div className={styles.toolBarDate}>{getDate(props.locale, year, month)}</div>
           {!props.hideToolButton && (
             <div className={styles.toolBarTools}>
-              <div
-                className={styles.toolButton}
-                onClick={() => setYear(year - 1)}
-              >
+              <div className={styles.toolButton} onClick={() => setYear(year - 1)}>
                 <i className="fa-regular fa-angles-left"></i>
               </div>
               <div
                 className={styles.toolButton}
-                onClick={() =>
-                  handleMonthChange('sub', year, month, setYear, setMonth)
-                }
+                onClick={() => handleMonthChange('sub', year, month, setYear, setMonth)}
               >
                 <i className="fa-regular fa-angle-left"></i>
               </div>
-              <div
-                onClick={() => backToToday(year, month, setYear, setMonth)}
-                className={styles.toolButton}
-              >
+              <div onClick={() => backToToday(year, month, setYear, setMonth)} className={styles.toolButton}>
                 {props.locale === 'zh-CN' ? '今天' : 'Today'}
               </div>
               <div
                 className={styles.toolButton}
-                onClick={() =>
-                  handleMonthChange('add', year, month, setYear, setMonth)
-                }
+                onClick={() => handleMonthChange('add', year, month, setYear, setMonth)}
               >
                 <i className="fa-regular fa-angle-right"></i>
               </div>
-              <div
-                className={styles.toolButton}
-                onClick={() => setYear(year + 1)}
-              >
+              <div className={styles.toolButton} onClick={() => setYear(year + 1)}>
                 <i className="fa-regular fa-angles-right"></i>
               </div>
             </div>
@@ -132,9 +98,7 @@ const Calendar = forwardRef<unknown, CalendarProps>((props, ref) => {
           return <span key={weekName}>{weekName}</span>
         })}
       </div>
-      <div className={styles.calendarCells}>
-        {calendar(year, month, makeCell)}
-      </div>
+      <div className={styles.calendarCells}>{calendar(year, month, makeCell)}</div>
     </div>
   )
 })

@@ -34,19 +34,19 @@ const Form = forwardRef<unknown, FormProps>((props, ref) => {
     hasError || props.onSubmit?.(e.target)
   }
   return (
-    <FormContext.Provider value={ contextValue }>
+    <FormContext.Provider value={contextValue}>
       <form
-        id={ props.id }
-        className={ classNames(
+        id={props.id}
+        className={classNames(
           {
             [styles.formVertical]: orientation === 'vertical',
             [styles.formHorizontal]: orientation === 'horizontal'
           },
           props?.className
-        ) }
-        onSubmit={ handleSubmit }
+        )}
+        onSubmit={handleSubmit}
       >
-        { props.children }
+        {props.children}
       </form>
     </FormContext.Provider>
   )

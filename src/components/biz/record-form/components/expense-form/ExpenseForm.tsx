@@ -140,8 +140,8 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
           }
           form.set('realAmount', Math.max(amount - coupon - reimbursementAmount, 0))
           form.set(key, reimbursementAmount)
-        }
           break
+        }
         default:
           break
       }

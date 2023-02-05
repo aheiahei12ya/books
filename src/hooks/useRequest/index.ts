@@ -3,10 +3,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useRequestOptions, useRequestReturn } from '@/hooks/useRequest/types'
 import { BaseResponse } from '@/lib/response/types'
 
-function useRequest<T = any>(
-  requestFn: (data?: T) => Promise<any>,
-  options?: useRequestOptions
-): useRequestReturn {
+function useRequest<T = any>(requestFn: (data?: T) => Promise<any>, options?: useRequestOptions): useRequestReturn {
   const [loading, setLoading] = useState<boolean>(false)
   const [data, setData] = useState<object>()
   const [error, setError] = useState<Error>()

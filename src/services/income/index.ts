@@ -5,9 +5,6 @@ import { BaseResponse } from '@/lib/response/types'
 import { incomeInitialRequest, incomeInitialResponse } from './types'
 
 const income = {
-  initial: createRequest<
-    incomeInitialRequest,
-    BaseResponse<incomeInitialResponse>
-  >(incomeApi.initial, 'POST')
+  initial: createRequest<incomeInitialRequest, BaseResponse<incomeInitialResponse>>(incomeApi.initial, 'POST')
 }
 export default income

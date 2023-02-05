@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import Sidebar from '@/components/sidebar'
@@ -14,17 +14,12 @@ interface layoutProps {
 }
 
 const Layout = ({ children }: layoutProps) => {
+  const [loading, setLoading] = useState(true)
   const auth = useAuth()
   const router = useRouter()
   const resize = useResize()
   const avatar = auth?.userInfo?.avatar ? (
-    <Image
-      src={auth?.userInfo?.avatar}
-      width="60"
-      height="60"
-      alt={'avatar'}
-      priority
-    />
+    <Image src={auth?.userInfo?.avatar} width="60" height="60" alt={'avatar'} priority />
   ) : (
     <span></span>
   )
@@ -58,17 +53,15 @@ const Layout = ({ children }: layoutProps) => {
       }
     }
   ]
-
-  return (
+  useEffect(() => {
+    setLoading(false)
+  }, [])
+  return loading ? (
+    <div></div>
+  ) : (
     <div className={styles.layout}>
       {resize.isLandscape && (
-        <Sidebar
-          avatar={avatar}
-          items={items}
-          tools={tools}
-          defaultShrink={resize.isMobile}
-          autoShrink
-        />
+        <Sidebar avatar={avatar} items={items} tools={tools} defaultShrink={resize.isMobile} autoShrink />
       )}
       <div className={styles.container}>{children}</div>
     </div>

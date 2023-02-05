@@ -16,10 +16,7 @@ const Curve = forwardRef<unknown, CurveProps>((props, ref) => {
   const _paddingLeft = getValue(props.paddingLeft, !!props.showYTicks ? 32 : 8)
   const _paddingRight = getValue(props.paddingRight, 14)
   const _paddingTop = getValue(props.paddingTop, 14)
-  const _paddingBottom = getValue(
-    props.paddingBottom,
-    props.showXTicks ? 24 : 14
-  )
+  const _paddingBottom = getValue(props.paddingBottom, props.showXTicks ? 24 : 14)
 
   const draw = useCallback(
     (
@@ -49,14 +46,7 @@ const Curve = forwardRef<unknown, CurveProps>((props, ref) => {
       )
 
       drawCurve(context, xTicks, yTicks, props.lineWidth, props.lineColor)
-      props.hidePoints ||
-        drawCircle(
-          context,
-          xTicks,
-          yTicks,
-          props.circleColor,
-          props.shadowColor
-        )
+      props.hidePoints || drawCircle(context, xTicks, yTicks, props.circleColor, props.shadowColor)
       props.accentLast &&
         drawHollowCircle(
           context,
@@ -83,24 +73,8 @@ const Curve = forwardRef<unknown, CurveProps>((props, ref) => {
   const initialCanvas = useCallback(() => {
     const canvasDom = canvasRef?.current!
     adjustSize(canvasDom)
-    draw(
-      canvasDom,
-      props.xs,
-      props.ys,
-      _paddingLeft,
-      _paddingRight,
-      _paddingTop,
-      _paddingBottom
-    )
-  }, [
-    _paddingBottom,
-    _paddingLeft,
-    _paddingRight,
-    _paddingTop,
-    draw,
-    props.xs,
-    props.ys
-  ])
+    draw(canvasDom, props.xs, props.ys, _paddingLeft, _paddingRight, _paddingTop, _paddingBottom)
+  }, [_paddingBottom, _paddingLeft, _paddingRight, _paddingTop, draw, props.xs, props.ys])
 
   useResizeObserver(initialCanvas, canvasRef)
 

@@ -1,20 +1,8 @@
 import classNames from 'classnames'
 import dayjs from 'dayjs'
-import {
-  forwardRef,
-  useCallback,
-  useImperativeHandle,
-  useRef,
-  useState
-} from 'react'
+import { forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react'
 
-import {
-  calendar,
-  getDate,
-  handleDaySelect,
-  handleMonthChange,
-  handleSelect
-} from '@/components/lib/calendar'
+import { calendar, getDate, handleDaySelect, handleMonthChange, handleSelect } from '@/components/lib/calendar'
 import { dropdownHandler } from '@/components/lib/dropdown'
 import { checkRules, RuleType } from '@/components/lib/rule'
 import useControlled from '@/hooks/useControlled'
@@ -76,11 +64,7 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
 
   const makeCell = useCallback(
     (selectedDay: number, type: 'past' | 'current' | 'future') => {
-      const isToday =
-        selectedDay === today &&
-        year === thisYear &&
-        month === thisMonth &&
-        type === 'current'
+      const isToday = selectedDay === today && year === thisYear && month === thisMonth && type === 'current'
       const [selectedYear, selectedMonth] = handleDaySelect(type, year, month)
       return (
         <div
@@ -105,8 +89,7 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
               classNames(styles.datePickerCalendarCellContainer, {
                 [styles.datePickerCalendarCellToday]: isToday,
                 [styles.datePickerCalendarCellSelected]:
-                  selected ===
-                  `${selectedYear}-${selectedMonth + 1}-${selectedDay}`
+                  selected === `${selectedYear}-${selectedMonth + 1}-${selectedDay}`
               })
             )}
           >
@@ -115,16 +98,7 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
         </div>
       )
     },
-    [
-      deactivateDropdown,
-      handleSelectDate,
-      month,
-      selected,
-      thisMonth,
-      thisYear,
-      today,
-      year
-    ]
+    [deactivateDropdown, handleSelectDate, month, selected, thisMonth, thisYear, today, year]
   )
 
   return (
@@ -162,42 +136,26 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
           {(props.error && props.errorMessage) || (rule.error && rule.message)}
         </div>
       )}
-      <div
-        onClick={(e) => e.stopPropagation()}
-        ref={calendarRef}
-        className={styles.datePickerCalendar}
-      >
+      <div onClick={(e) => e.stopPropagation()} ref={calendarRef} className={styles.datePickerCalendar}>
         <div className={styles.datePickerCalendarInner}>
           <div className={styles.datePickerToolBar}>
-            <div
-              className={styles.datePickerToolBarButton}
-              onClick={() => setYear(year - 1)}
-            >
+            <div className={styles.datePickerToolBarButton} onClick={() => setYear(year - 1)}>
               <i className="fa-regular fa-angles-left"></i>
             </div>
             <div
               className={styles.datePickerToolBarButton}
-              onClick={() =>
-                handleMonthChange('sub', year, month, setYear, setMonth)
-              }
+              onClick={() => handleMonthChange('sub', year, month, setYear, setMonth)}
             >
               <i className="fa-regular fa-angle-left"></i>
             </div>
-            <div className={styles.datePickerToolBarDate}>
-              {getDate(props.locale, year, month)}
-            </div>
+            <div className={styles.datePickerToolBarDate}>{getDate(props.locale, year, month)}</div>
             <div
               className={styles.datePickerToolBarButton}
-              onClick={() =>
-                handleMonthChange('add', year, month, setYear, setMonth)
-              }
+              onClick={() => handleMonthChange('add', year, month, setYear, setMonth)}
             >
               <i className="fa-regular fa-angle-right"></i>
             </div>
-            <div
-              className={styles.datePickerToolBarButton}
-              onClick={() => setYear(year + 1)}
-            >
+            <div className={styles.datePickerToolBarButton} onClick={() => setYear(year + 1)}>
               <i className="fa-regular fa-angles-right"></i>
             </div>
           </div>
@@ -206,9 +164,7 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
               return <span key={weekName}>{weekName}</span>
             })}
           </div>
-          <div className={styles.datePickerCalendarCells}>
-            {calendar(year, month, makeCell)}
-          </div>
+          <div className={styles.datePickerCalendarCells}>{calendar(year, month, makeCell)}</div>
           {/*<div onClick={ backToToday } className={ styles.toolButton }>*/}
           {/*  { props.locale === 'zh-CN' ? '今天' : 'Today' }*/}
           {/*</div>*/}

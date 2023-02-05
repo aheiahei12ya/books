@@ -46,14 +46,7 @@ const Line = forwardRef<unknown, LineProps>((props, ref) => {
       )
 
       drawLine(context, xTicks, yTicks, props.lineWidth, props.lineColor)
-      props.hidePoints ||
-        drawCircle(
-          context,
-          xTicks,
-          yTicks,
-          props.circleColor,
-          props.shadowColor
-        )
+      props.hidePoints || drawCircle(context, xTicks, yTicks, props.circleColor, props.shadowColor)
       props.accentLast &&
         drawHollowCircle(
           context,
@@ -81,24 +74,8 @@ const Line = forwardRef<unknown, LineProps>((props, ref) => {
   const initialCanvas = useCallback(() => {
     const canvasDom = canvasRef?.current!
     adjustSize(canvasDom)
-    draw(
-      canvasDom,
-      props.xs,
-      props.ys,
-      _paddingLeft,
-      _paddingRight,
-      _paddingTop,
-      _paddingBottom
-    )
-  }, [
-    _paddingBottom,
-    _paddingLeft,
-    _paddingRight,
-    _paddingTop,
-    draw,
-    props.xs,
-    props.ys
-  ])
+    draw(canvasDom, props.xs, props.ys, _paddingLeft, _paddingRight, _paddingTop, _paddingBottom)
+  }, [_paddingBottom, _paddingLeft, _paddingRight, _paddingTop, draw, props.xs, props.ys])
 
   useResizeObserver(initialCanvas, canvasRef)
 

@@ -61,8 +61,8 @@ const FormItem = forwardRef<unknown, FormItemProps>((props, ref) => {
   useImperativeHandle(formItemRef, () => instance)
 
   return (
-    <div className={ classNames(styles.formItem, props.className) }>
-      { Children.map(props.children, (child, index) => {
+    <div className={classNames(styles.formItem, props.className)}>
+      {Children.map(props.children, (child, index) => {
         if (!child) return null
         let controlKey = 'value'
         if (isValidElement(child)) {
@@ -79,7 +79,7 @@ const FormItem = forwardRef<unknown, FormItemProps>((props, ref) => {
           })
         }
         return child
-      }) }
+      })}
     </div>
   )
 })

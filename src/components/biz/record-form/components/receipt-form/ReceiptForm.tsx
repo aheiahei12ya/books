@@ -2,15 +2,9 @@ import classNames from 'classnames'
 import React, { forwardRef, useCallback, useMemo } from 'react'
 
 import { expenseReceiptKeys } from '@/components/biz/record-form/components/expense-form/config'
-import {
-  ExpenseConfigType,
-  ExpenseType
-} from '@/components/biz/record-form/components/expense-form/ExpenseForm.types'
+import { ExpenseConfigType, ExpenseType } from '@/components/biz/record-form/components/expense-form/ExpenseForm.types'
 import { incomeReceiptKeys } from '@/components/biz/record-form/components/income-form/config'
-import {
-  IncomeConfigType,
-  IncomeType
-} from '@/components/biz/record-form/components/income-form/IncomeForm.types'
+import { IncomeConfigType, IncomeType } from '@/components/biz/record-form/components/income-form/IncomeForm.types'
 import { ReceiptFormProps } from '@/components/biz/record-form/components/receipt-form/ReceiptForm.types'
 import get from '@/lib/pythonic/get'
 
@@ -55,11 +49,7 @@ const ReceiptForm = forwardRef<unknown, ReceiptFormProps>((props, ref) => {
     return receiptKeys.map((type) => {
       const config = props.config[type as keyof receiptConfigType]
       if (config.type === 'select') {
-        receiptValue = get(
-          props.item,
-          [type, props.itemName],
-          props.item[type as keyof ReceiptType]
-        )
+        receiptValue = get(props.item, [type, props.itemName], props.item[type as keyof ReceiptType])
       } else {
         receiptValue = props.item[type as keyof ReceiptType] as string
         if (type === 'coupon' && !receiptValue) return
@@ -85,9 +75,7 @@ const ReceiptForm = forwardRef<unknown, ReceiptFormProps>((props, ref) => {
     <>
       <div className={styles.receiptHeader}>
         <span className={styles.receiptHeaderNote}>{props.item.note}</span>
-        <span className={styles.receiptHeaderExpense}>
-          {getReceiptValue(props.item.realAmount)}
-        </span>
+        <span className={styles.receiptHeaderExpense}>{getReceiptValue(props.item.realAmount)}</span>
       </div>
       <div className={styles.receiptDetail}>{receiptDetail}</div>
     </>

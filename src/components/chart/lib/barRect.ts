@@ -15,13 +15,7 @@ export const drawRect = (
 
   zip(xs, ys).forEach(([x, y]) => {
     ctx.roundRect
-      ? ctx.roundRect(
-          x - barWidth / 2,
-          y,
-          barWidth,
-          domHeight - y - _paddingBottom,
-          [radius, radius, 0, 0]
-        )
+      ? ctx.roundRect(x - barWidth / 2, y, barWidth, domHeight - y - _paddingBottom, [radius, radius, 0, 0])
       : ctx.rect(x - barWidth / 2, y, barWidth, domHeight - y - _paddingBottom)
     const lineGradient = ctx.createLinearGradient(0, 0, 0, domHeight)
     lineGradient.addColorStop(0.3, '#003399')

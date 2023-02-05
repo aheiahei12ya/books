@@ -65,75 +65,75 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
     () =>
       ['expense', 'income', 'transfer'].map((recordType) => (
         <div
-          key={ recordType }
-          className={ classNames(styles.recordTypeButton, {
+          key={recordType}
+          className={classNames(styles.recordTypeButton, {
             [styles.recordTypeButtonExpense]: recordType === 'expense',
             [styles.recordTypeButtonIncome]: recordType === 'income',
             [styles.recordTypeButtonSelected]: type === recordType
-          }) }
-          onClick={ () => setType(recordType) }
+          })}
+          onClick={() => setType(recordType)}
         >
           <span>
-            <FormattedMessage id={ `pages.record.button.${ recordType }` }></FormattedMessage>
+            <FormattedMessage id={`pages.record.button.${recordType}`}></FormattedMessage>
           </span>
         </div>
       )),
     [type]
   )
   return (
-    <div className={ styles.recordForm }>
-      <div className={ styles.recordType }>{ recordButtons }</div>
-      <div className={ styles.recordContainer }>
-        { type === 'expense' && (
+    <div className={styles.recordForm}>
+      <div className={styles.recordType}>{recordButtons}</div>
+      <div className={styles.recordContainer}>
+        {type === 'expense' && (
           <ExpenseForm
-            defaultValue={ expensePreset }
-            accountList={ expenseDropdown.accountList }
-            platformList={ expenseDropdown.platformList }
-            paymentMethodList={ expenseDropdown.paymentMethodList }
-            categoryList={ expenseDropdown.categoryList }
-            subcategoryList={ expenseDropdown.subcategoryList }
-            reimbursementStateList={ expenseDropdown.reimbursementStateList }
+            defaultValue={expensePreset}
+            accountList={expenseDropdown.accountList}
+            platformList={expenseDropdown.platformList}
+            paymentMethodList={expenseDropdown.paymentMethodList}
+            categoryList={expenseDropdown.categoryList}
+            subcategoryList={expenseDropdown.subcategoryList}
+            reimbursementStateList={expenseDropdown.reimbursementStateList}
           />
-        ) }
-        { type === 'income' && (
+        )}
+        {type === 'income' && (
           <IncomeForm
-            defaultValue={ incomePreset }
-            accountList={ incomeDropdown.accountList }
-            categoryList={ incomeDropdown.categoryList }
-            subcategoryList={ incomeDropdown.subcategoryList }
+            defaultValue={incomePreset}
+            accountList={incomeDropdown.accountList}
+            categoryList={incomeDropdown.categoryList}
+            subcategoryList={incomeDropdown.subcategoryList}
           />
-        ) }
-        { type === 'transfer' && (
+        )}
+        {type === 'transfer' && (
           <IncomeForm
-            defaultValue={ incomePreset }
-            accountList={ incomeDropdown.accountList }
-            categoryList={ incomeDropdown.categoryList }
-            subcategoryList={ incomeDropdown.subcategoryList }
+            defaultValue={incomePreset}
+            accountList={incomeDropdown.accountList}
+            categoryList={incomeDropdown.categoryList}
+            subcategoryList={incomeDropdown.subcategoryList}
           />
-        ) }
-        {/*{!loading && <IncomeForm defaultValue={expensePreset} />}*/ }
+        )}
+        {/*{!loading && <IncomeForm defaultValue={expensePreset} />}*/}
       </div>
 
-      {/*<div className={styles.recordTool}>*/ }
-      {/*  <div className={styles.recordToolButton}>*/ }
-      {/*    <span>收 入</span>*/ }
-      {/*  </div>*/ }
-      {/*  <div className={styles.recordToolButton}>*/ }
-      {/*    <span>支 出</span>*/ }
-      {/*  </div>*/ }
-      {/*  <div className={styles.recordToolButton}>*/ }
-      {/*    <span>分期付款</span>*/ }
-      {/*  </div>*/ }
-      {/*  <div className={styles.recordToolButton}>*/ }
-      {/*    <span>自动扣款</span>*/ }
-      {/*  </div>*/ }
-      {/*  <div className={styles.recordToolButton}>*/ }
-      {/*    <span>清 空</span>*/ }
-      {/*  </div>*/ }
-      {/*  <div className={styles.recordToolButton}>*/ }
-      {/*    <span>保 存</span>*/ }
-      {/*  </div>*/ }
-      {/*</div>*/ }
+      {/*<div className={styles.recordTool}>*/}
+      {/*  <div className={styles.recordToolButton}>*/}
+      {/*    <span>收 入</span>*/}
+      {/*  </div>*/}
+      {/*  <div className={styles.recordToolButton}>*/}
+      {/*    <span>支 出</span>*/}
+      {/*  </div>*/}
+      {/*  <div className={styles.recordToolButton}>*/}
+      {/*    <span>分期付款</span>*/}
+      {/*  </div>*/}
+      {/*  <div className={styles.recordToolButton}>*/}
+      {/*    <span>自动扣款</span>*/}
+      {/*  </div>*/}
+      {/*  <div className={styles.recordToolButton}>*/}
+      {/*    <span>清 空</span>*/}
+      {/*  </div>*/}
+      {/*  <div className={styles.recordToolButton}>*/}
+      {/*    <span>保 存</span>*/}
+      {/*  </div>*/}
+      {/*</div>*/}
     </div>
   )
 })

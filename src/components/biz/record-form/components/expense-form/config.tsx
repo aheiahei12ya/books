@@ -24,8 +24,4 @@ export const installmentKeys = ['installmentDate', 'installmentNumber']
 
 export const autoDebitKeys = ['autoDebitDate', 'autoDebitNumber']
 
-export const reimbursementKeys = [
-  'reimbursementAmount',
-  'reimbursementState',
-  'reimbursementFullAmount'
-]
+export const reimbursementKeys = ['reimbursementAmount', 'reimbursementState', 'reimbursementFullAmount']

@@ -7,12 +7,7 @@ export interface TimePickerProps {
   size?: 'small' | 'large'
 
   value?: string
-  onChange?: (
-    time: string,
-    hour?: string,
-    minute?: string,
-    second?: string
-  ) => void
+  onChange?: (time: string, hour?: string, minute?: string, second?: string) => void
 
   showSecond?: boolean
   defaultValue?: string

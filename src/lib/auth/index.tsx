@@ -39,8 +39,6 @@ export const AuthContextProvider = ({ children }: any) => {
     }
   }, [])
 
-  return (
-    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
-  )
+  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
 }
 export const useAuth = () => useContext(AuthContext)

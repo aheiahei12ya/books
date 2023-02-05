@@ -16,10 +16,7 @@ export const Sidebar = forwardRef<unknown, SidebarProps>((props, ref) => {
   const router = useRouter()
 
   useEffect(() => {
-    const selectedKey =
-      Number(sessionStorage.getItem('selectedKey')) ||
-      props.defaultValue ||
-      0
+    const selectedKey = Number(sessionStorage.getItem('selectedKey')) || props.defaultValue || 0
     setSelected(selectedKey)
   }, [props.defaultValue])
 
@@ -31,19 +28,15 @@ export const Sidebar = forwardRef<unknown, SidebarProps>((props, ref) => {
 
   const shrinkIcon = (
     <i
-      className={ classNames(
+      className={classNames(
         'fa-solid',
         'fa-chevrons-left',
         shrink ? styles.sidebarShrinkBtn : styles.sidebarStretchBtn
-      ) }
+      )}
     ></i>
   )
 
-  const handleSelect = (
-    index: number,
-    path: string | undefined,
-    click?: Function
-  ) => {
+  const handleSelect = (index: number, path: string | undefined, click?: Function) => {
     setSelected(index)
     sessionStorage.setItem('selectedKey', index.toString())
     click?.()
@@ -51,57 +44,43 @@ export const Sidebar = forwardRef<unknown, SidebarProps>((props, ref) => {
   }
 
   return (
-    <div
-      className={ classNames(
-        styles.sidebar,
-        shrink ? styles.sidebarShrink : styles.sidebarStretch
-      ) }
-    >
+    <div className={classNames(styles.sidebar, shrink ? styles.sidebarShrink : styles.sidebarStretch)}>
       <div>
-        { props.avatar && <SidebarButton type={ 'avatar' } icon={ props.avatar }/> }
-        { props.brand && (
-          <SidebarButton
-            type={ 'brand' }
-            icon={ props.brand?.icon }
-            hideText={ shrink }
-          >
-            { props.brand?.name }
+        {props.avatar && <SidebarButton type={'avatar'} icon={props.avatar} />}
+        {props.brand && (
+          <SidebarButton type={'brand'} icon={props.brand?.icon} hideText={shrink}>
+            {props.brand?.name}
           </SidebarButton>
-        ) }
-        { props.items.map((item, index) => (
+        )}
+        {props.items.map((item, index) => (
           <SidebarButton
-            key={ item?.key || index }
-            icon={ item.icon }
-            hideText={ shrink }
-            selected={ index === selected }
-            onClick={ () => handleSelect(index, item?.path) }
+            key={item?.key || index}
+            icon={item.icon}
+            hideText={shrink}
+            selected={index === selected}
+            onClick={() => handleSelect(index, item?.path)}
           >
-            { item.name }
+            {item.name}
           </SidebarButton>
-        )) }
+        ))}
       </div>
       <div>
-        { props.tools?.map((item, index) => (
+        {props.tools?.map((item, index) => (
           <SidebarButton
-            key={ item?.key || index }
-            type={ 'tool' }
-            icon={ item.icon }
-            hideText={ shrink }
-            onClick={ () => handleSelect(-1, item?.path, item.onClick) }
+            key={item?.key || index}
+            type={'tool'}
+            icon={item.icon}
+            hideText={shrink}
+            onClick={() => handleSelect(-1, item?.path, item.onClick)}
           >
-            { item.name }
+            {item.name}
           </SidebarButton>
-        )) }
-        { props.hideShrinkButton || (
-          <SidebarButton
-            type={ 'tool' }
-            onClick={ () => setShrink(!shrink) }
-            icon={ shrinkIcon }
-            hideText={ shrink }
-          >
-            { props.shrinkBtnName }
+        ))}
+        {props.hideShrinkButton || (
+          <SidebarButton type={'tool'} onClick={() => setShrink(!shrink)} icon={shrinkIcon} hideText={shrink}>
+            {props.shrinkBtnName}
           </SidebarButton>
-        ) }
+        )}
       </div>
     </div>
   )

@@ -21,7 +21,7 @@ export { dataDecodeError, requestDataError, requestDataIsEmpty }
 const requestTimeout = '4001'
 const systemError = '4002'
 
-export { requestTimeout,systemError }
+export { requestTimeout, systemError }
 
 const unknownError = '5000'
 

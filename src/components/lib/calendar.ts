@@ -41,11 +41,7 @@ export const calendar = (year: number, month: number, makeCell: Function) => {
   return calendar
 }
 
-export const getDate = (
-  locale: string | undefined,
-  year: number,
-  month: number
-) => {
+export const getDate = (locale: string | undefined, year: number, month: number) => {
   if (locale === 'zh-CN') {
     return `${year}年${month + 1}月`
   } else {
@@ -53,12 +49,7 @@ export const getDate = (
   }
 }
 
-export const backToToday = (
-  year: number,
-  month: number,
-  setYear: Function,
-  setMonth: Function
-) => {
+export const backToToday = (year: number, month: number, setYear: Function, setMonth: Function) => {
   setYear(year)
   setMonth(month)
 }
@@ -91,11 +82,7 @@ export const handleMonthChange = (
   }
 }
 
-export const handleDaySelect = (
-  type: 'past' | 'current' | 'future',
-  year: number,
-  month: number
-) => {
+export const handleDaySelect = (type: 'past' | 'current' | 'future', year: number, month: number) => {
   let selectedYear = year
   let selectedMonth = month
   switch (type) {

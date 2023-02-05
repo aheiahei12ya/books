@@ -4,7 +4,7 @@ import { forwardRef, useCallback, useMemo, useRef, useState } from 'react'
 
 import Button from '@/components/button'
 import { dropdownHandler } from '@/components/lib/dropdown'
-import { checkRules, RuleType } from "@/components/lib/rule";
+import { checkRules, RuleType } from '@/components/lib/rule'
 import { padNumber } from '@/components/lib/util'
 import useControlled from '@/hooks/useControlled'
 import { range } from '@/lib/pythonic'
@@ -72,7 +72,7 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
     const hourStr = padNumber(hour)
     const minuteStr = padNumber(minute)
     const secondStr = padNumber(second)
-    handleSetSelect(`${ hourStr }:${ minuteStr }:${ secondStr }`)
+    handleSetSelect(`${hourStr}:${minuteStr}:${secondStr}`)
   }
 
   const handleSetSelect = (value: string) => {
@@ -80,11 +80,7 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
     checkRules(props.rules as RuleType[], setRule, value)
   }
 
-  const handleSelect = (
-    { target }: any,
-    type: 'hour' | 'minute' | 'second',
-    val: number
-  ) => {
+  const handleSelect = ({ target }: any, type: 'hour' | 'minute' | 'second', val: number) => {
     const shouldBe = val * 24 - target.parentNode.offsetHeight / 2 + 18
     switch (type) {
       case 'hour': {
@@ -120,105 +116,101 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
   const timePicker = useMemo(() => {
     return (
       <>
-        <div ref={ hourRef } className={ styles.timePickerCells }>
-          { range(24).map((val) => {
+        <div ref={hourRef} className={styles.timePickerCells}>
+          {range(24).map((val) => {
             return (
               <div
-                key={ `hour-${ val }` }
-                className={ classNames(styles.timePickerCell, {
+                key={`hour-${val}`}
+                className={classNames(styles.timePickerCell, {
                   [styles.timePickerCellSelected]: val === hour
-                }) }
-                onClick={ (e) => handleSelect(e, 'hour', val) }
+                })}
+                onClick={(e) => handleSelect(e, 'hour', val)}
               >
-                { padNumber(val) }
+                {padNumber(val)}
               </div>
             )
-          }) }
+          })}
         </div>
-        <div ref={ minuteRef } className={ styles.timePickerCells }>
-          { range(60).map((val) => {
+        <div ref={minuteRef} className={styles.timePickerCells}>
+          {range(60).map((val) => {
             return (
               <div
-                key={ `minute-${ val }` }
-                className={ classNames(styles.timePickerCell, {
+                key={`minute-${val}`}
+                className={classNames(styles.timePickerCell, {
                   [styles.timePickerCellSelected]: val === minute
-                }) }
-                onClick={ (e) => handleSelect(e, 'minute', val) }
+                })}
+                onClick={(e) => handleSelect(e, 'minute', val)}
               >
-                { padNumber(val) }
+                {padNumber(val)}
               </div>
             )
-          }) }
+          })}
         </div>
-        { props.showSecond && (
-          <div ref={ secondRef } className={ styles.timePickerCells }>
-            { range(60).map((val) => {
+        {props.showSecond && (
+          <div ref={secondRef} className={styles.timePickerCells}>
+            {range(60).map((val) => {
               return (
                 <div
-                  key={ `seconds-${ val }` }
-                  className={ classNames(styles.timePickerCell, {
+                  key={`seconds-${val}`}
+                  className={classNames(styles.timePickerCell, {
                     [styles.timePickerCellSelected]: val === second
-                  }) }
-                  onClick={ (e) => handleSelect(e, 'second', val) }
+                  })}
+                  onClick={(e) => handleSelect(e, 'second', val)}
                 >
-                  { padNumber(val) }
+                  {padNumber(val)}
                 </div>
               )
-            }) }
+            })}
           </div>
-        ) }
+        )}
       </>
     )
   }, [hour, minute, props.showSecond, second])
 
   return (
-    <div ref={ buttonRef }>
+    <div ref={buttonRef}>
       <div
-        className={ classNames(styles.timePickerButton, {
+        className={classNames(styles.timePickerButton, {
           [styles.timePickerButtonSm]: size === 'small',
           [styles.timePickerButtonLg]: size === 'large',
           [styles.timePickerButtonBase]: size === 'default',
           [styles.timePickerButtonError]: rule.error,
           [styles.timePickerButtonFocus]: active
-        }) }
-        onClick={ active ? deactivateDropdown : activateDropdown }
+        })}
+        onClick={active ? deactivateDropdown : activateDropdown}
       >
-        { !!props.prepend && (
+        {!!props.prepend && (
           <span
-            className={ classNames(styles.timePickerButtonInnerPrefix, {
+            className={classNames(styles.timePickerButtonInnerPrefix, {
               [styles.timePickerButtonInnerPrefixActive]: active
-            }) }
+            })}
           >
-            { props.prepend }
+            {props.prepend}
           </span>
-        ) }
+        )}
         <div
-          className={ classNames(styles.timePickerButtonInner, {
+          className={classNames(styles.timePickerButtonInner, {
             [styles.timePickerButtonInnerPlaceholder]: !selected,
             [styles.timePickerButtonInnerFocus]: active
-          }) }
+          })}
         >
-          { selected || props.defaultValue || props.placeholder }
+          {selected || props.defaultValue || props.placeholder}
         </div>
       </div>
-      { !props.hideMessage && (
-        <div className={ styles.timePickerButtonInnerWarning }>
-          { (props.error && props.errorMessage) || (rule.error && rule.message) }
+      {!props.hideMessage && (
+        <div className={styles.timePickerButtonInnerWarning}>
+          {(props.error && props.errorMessage) || (rule.error && rule.message)}
         </div>
-      ) }
-      <div
-        onClick={ (e) => e.stopPropagation() }
-        ref={ timePickerRef }
-        className={ styles.timePickerBox }
-      >
-        <div className={ styles.timePickerContainer }>
-          <div className={ styles.timePicker }>{ timePicker }</div>
-          <div className={ styles.timePickerAction }>
-            <div className={ styles.timePickerActionButton } onClick={ setNow }>
-              <span>{ props.locale === 'zh-CN' ? '现在' : 'Now' }</span>
+      )}
+      <div onClick={(e) => e.stopPropagation()} ref={timePickerRef} className={styles.timePickerBox}>
+        <div className={styles.timePickerContainer}>
+          <div className={styles.timePicker}>{timePicker}</div>
+          <div className={styles.timePickerAction}>
+            <div className={styles.timePickerActionButton} onClick={setNow}>
+              <span>{props.locale === 'zh-CN' ? '现在' : 'Now'}</span>
             </div>
-            <Button size={ 'small' } color={ 'primary' } onClick={ handleSetTime }>
-              <span>{ props.locale === 'zh-CN' ? '确定' : 'OK' }</span>
+            <Button size={'small'} color={'primary'} onClick={handleSetTime}>
+              <span>{props.locale === 'zh-CN' ? '确定' : 'OK'}</span>
             </Button>
           </div>
         </div>

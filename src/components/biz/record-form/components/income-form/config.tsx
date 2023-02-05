@@ -1,12 +1,4 @@
-export const incomeReceiptKeys = [
-  'amount',
-  'tax',
-  'account',
-  'category',
-  'subcategory',
-  'date',
-  'time'
-]
+export const incomeReceiptKeys = ['amount', 'tax', 'account', 'category', 'subcategory', 'date', 'time']
 
 export const incomeFormKeys = [
   ['account', 'category', 'subcategory'],

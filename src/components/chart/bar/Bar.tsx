@@ -16,10 +16,7 @@ const Bar = forwardRef<unknown, BarProps>((props, ref) => {
   const _paddingLeft = getValue(props.paddingLeft, !!props.showYTicks ? 16 : 0)
   const _paddingRight = getValue(props.paddingRight, 0)
   const _paddingTop = getValue(props.paddingTop, 4)
-  const _paddingBottom = getValue(
-    props.paddingBottom,
-    !!props.showXTicks ? 14 : 0
-  )
+  const _paddingBottom = getValue(props.paddingBottom, !!props.showXTicks ? 14 : 0)
 
   const draw = useCallback(
     (
@@ -53,15 +50,7 @@ const Bar = forwardRef<unknown, BarProps>((props, ref) => {
       )
 
       const barGap = xTicks[1] - xTicks[0] - gap * dpr
-      drawRect(
-        context,
-        xTicks,
-        yTicks,
-        canvasDom.height,
-        canvasDom.width,
-        barGap,
-        paddingBottom
-      )
+      drawRect(context, xTicks, yTicks, canvasDom.height, canvasDom.width, barGap, paddingBottom)
     },
     [props.showXAxes, props.showXTicks, props.showYAxes, props.showYTicks]
   )
@@ -69,30 +58,12 @@ const Bar = forwardRef<unknown, BarProps>((props, ref) => {
   const initialCanvas = useCallback(() => {
     const canvasDom = canvasRef?.current!
     adjustSize(canvasDom)
-    draw(
-      canvasDom,
-      props.xs,
-      props.ys,
-      _gap,
-      _paddingLeft,
-      _paddingRight,
-      _paddingTop,
-      _paddingBottom
-    )
-  }, [
-    draw,
-    props.xs,
-    props.ys,
-    _gap,
-    _paddingLeft,
-    _paddingRight,
-    _paddingTop,
-    _paddingBottom
-  ])
+    draw(canvasDom, props.xs, props.ys, _gap, _paddingLeft, _paddingRight, _paddingTop, _paddingBottom)
+  }, [draw, props.xs, props.ys, _gap, _paddingLeft, _paddingRight, _paddingTop, _paddingBottom])
 
   useResizeObserver(initialCanvas, canvasRef)
 
-  return <canvas ref={ canvasRef } className={ styles.bar }></canvas>
+  return <canvas ref={canvasRef} className={styles.bar}></canvas>
 })
 
 export { Bar }

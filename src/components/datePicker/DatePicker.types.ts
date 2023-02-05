@@ -1,4 +1,4 @@
-import { RuleType } from "@/components/lib/rule";
+import { RuleType } from '@/components/lib/rule'
 
 export interface DatePickerRef {
   touch: () => boolean

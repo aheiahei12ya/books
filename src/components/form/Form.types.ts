@@ -1,6 +1,5 @@
-import { RuleType } from "@/components/lib/rule";
+import { RuleType } from '@/components/lib/rule'
 import { FormStoreType } from '@/hooks/useForm/types'
-
 
 export interface FormProps {
   id?: string
