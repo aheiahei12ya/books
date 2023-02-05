@@ -1,48 +1,43 @@
 import isObject from '@/lib/pythonic/isObject'
 
 export interface RuleType {
-  required: boolean
-  message: JSX.Element
-  rule?: string
+  required?: boolean
+  message?: JSX.Element | string
+  rule?: RegExp
 }
 
-export const checkRules = (
-  rules: RuleType[],
-  setRule: Function,
-  value: any,
-  newVal?: any
-) => {
+export const checkRules = (rules: RuleType[], setRule: Function, value: any, newVal?: any) => {
   let error = false
+  let errorMessage: string | JSX.Element | undefined = ''
   const checkValue = newVal === undefined ? value : newVal
-  rules?.forEach((rule) => {
-    if (!rule.required) {
-      setRule({
-        error: false,
-        message: rule.message
-      })
-      return
-    }
-    if (isObject(checkValue)) {
-      if (checkValue === undefined) {
-        setRule({
-          error: true,
-          message: rule.message
-        })
-        error = true
-        return
+  rules?.some((rule, index) => {
+    if (rule.required) {
+      error = handleRequired(checkValue, rule)
+      if (error) {
+        errorMessage = rule.message
+        return error
       }
-    } else if (!checkValue?.length) {
-      setRule({
-        error: true,
-        message: rule.message
-      })
-      error = true
-      return
     }
-    setRule({
-      error: false,
-      message: rule.message
-    })
+    if (rule.rule instanceof RegExp) {
+      error = handleRegExp(checkValue, rule)
+      if (error) errorMessage = rule.message
+    }
+  })
+  setRule({
+    error: error,
+    message: errorMessage
   })
   return error
+}
+
+const handleRequired = (checkValue: any, rule: RuleType) => {
+  if (isObject(checkValue)) {
+    if (checkValue === undefined) return true
+  } else if (!checkValue?.length) return true
+  return false
+}
+
+const handleRegExp = (checkValue: any, rule: RuleType) => {
+  if (!checkValue) return false
+  return !rule.rule?.test(checkValue)
 }
