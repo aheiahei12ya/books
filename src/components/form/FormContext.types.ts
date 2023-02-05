@@ -1,10 +1,5 @@
+import { RuleType } from '@/components/lib/rule'
 import { FormStoreType } from '@/hooks/useForm/types'
-
-export interface RuleType {
-  required: boolean
-  message?: JSX.Element | string
-  rule?: string
-}
 
 export interface FormContextType {
   form?: FormStoreType
