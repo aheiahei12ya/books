@@ -67,5 +67,12 @@ export const en_US = {
   'pages.record.income.tax': 'tax',
   'pages.record.income.date': 'date',
   'pages.record.income.time': 'time',
-  'pages.record.income.account': 'account'
+  'pages.record.income.account': 'account',
+
+  'pages.record.transfer.amount': 'amount',
+  'pages.record.transfer.date': 'date',
+  'pages.record.transfer.time': 'time',
+  'pages.record.transfer.sourceAccount': 'from',
+  'pages.record.transfer.targetAccount': 'to',
+  'pages.record.transfer.exchangeAccount': 'exchange'
 }

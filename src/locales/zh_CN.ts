@@ -67,5 +67,12 @@ export const zh_CN = {
   'pages.record.income.tax': '缴纳税款',
   'pages.record.income.date': '入账日期',
   'pages.record.income.time': '入账时间',
-  'pages.record.income.account': '收入账户'
+  'pages.record.income.account': '收入账户',
+
+  'pages.record.transfer.amount': '转账金额',
+  'pages.record.transfer.date': '转账日期',
+  'pages.record.transfer.time': '转账时间',
+  'pages.record.transfer.sourceAccount': '转出账户',
+  'pages.record.transfer.targetAccount': '转入账户',
+  'pages.record.transfer.exchangeAccount': '交换账户'
 }
