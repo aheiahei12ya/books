@@ -1,7 +1,4 @@
-import {
-  ItemType,
-  ReceiptType
-} from '@/components/biz/record-form/components/types'
+import { ItemType, ReceiptType } from '@/components/biz/record-form/components/types'
 
 export interface ExpenseFormProps {
   defaultValue?: {}
@@ -11,6 +8,7 @@ export interface ExpenseFormProps {
   paymentMethodList: ItemType[]
   categoryList: ItemType[]
   subcategoryList: ItemType[]
+  reimbursementStateList: ItemType[]
 }
 
 export interface ExpenseDropdownType {
@@ -19,6 +17,7 @@ export interface ExpenseDropdownType {
   categoryList: ItemType[]
   subcategoryList: ItemType[]
   paymentMethodList: ItemType[]
+  reimbursementStateList: ItemType[]
 }
 
 export type ExpenseType = {

@@ -22,7 +22,12 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
     accountList: [],
     categoryList: [],
     subcategoryList: [],
-    paymentMethodList: []
+    paymentMethodList: [],
+    reimbursementStateList: [
+      { name: '待报销', key: 'waiting' },
+      { name: '报销中', key: 'ongoing' },
+      { name: '已报销', key: 'finished' }
+    ]
   })
   const [incomeDropdown, setIncomeDropdown] = useState<IncomeDropdownType>({
     accountList: [],
@@ -32,32 +37,30 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
   useRequest(() => services.expense.initial({ user: 1 }), {
     onSuccess: (data) => {
       if (data.success) {
-        setExpenseDropdown({
+        setExpenseDropdown((value) => ({
+          ...value,
           platformList: data.data.platformList,
           accountList: data.data.accountList,
           categoryList: data.data.categoryList,
           subcategoryList: data.data.subcategoryList,
           paymentMethodList: data.data.paymentMethodList
-        })
+        }))
         setExpensePreset(data.data.preset)
       }
     }
   })
-  const { loading: incomeLoading } = useRequest(
-    () => services.income.initial({ user: 1 }),
-    {
-      onSuccess: (data) => {
-        if (data.success) {
-          setIncomeDropdown({
-            accountList: data.data.accountList,
-            categoryList: data.data.categoryList,
-            subcategoryList: data.data.subcategoryList
-          })
-          setIncomePreset(data.data.preset)
-        }
+  const { loading: incomeLoading } = useRequest(() => services.income.initial({ user: 1 }), {
+    onSuccess: (data) => {
+      if (data.success) {
+        setIncomeDropdown({
+          accountList: data.data.accountList,
+          categoryList: data.data.categoryList,
+          subcategoryList: data.data.subcategoryList
+        })
+        setIncomePreset(data.data.preset)
       }
     }
-  )
+  })
   const recordButtons = useMemo(
     () =>
       ['expense', 'income', 'transfer'].map((recordType) => (
@@ -71,9 +74,7 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
           onClick={ () => setType(recordType) }
         >
           <span>
-            <FormattedMessage
-              id={ `pages.record.button.${ recordType }` }
-            ></FormattedMessage>
+            <FormattedMessage id={ `pages.record.button.${ recordType }` }></FormattedMessage>
           </span>
         </div>
       )),
@@ -91,6 +92,7 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
             paymentMethodList={ expenseDropdown.paymentMethodList }
             categoryList={ expenseDropdown.categoryList }
             subcategoryList={ expenseDropdown.subcategoryList }
+            reimbursementStateList={ expenseDropdown.reimbursementStateList }
           />
         ) }
         { type === 'income' && (

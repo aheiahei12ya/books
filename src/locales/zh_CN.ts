@@ -42,6 +42,7 @@ export const zh_CN = {
   'pages.record.error.autoDebitDate': '请选择扣款日期',
   'pages.record.error.autoDebitNumber': '请输入扣款次数',
   'pages.record.error.reimbursementState': '请选择报销状态',
+  'pages.record.error.calculator': '请输入正确的表达式',
 
   'pages.record.form.category': '一级分类',
   'pages.record.form.subcategory': '二级分类',

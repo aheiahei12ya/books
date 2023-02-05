@@ -42,6 +42,7 @@ export const en_US = {
   'pages.record.error.autoDebitDate': 'Please select auto-debit date',
   'pages.record.error.autoDebitNumber': 'Please enter auto-debit times',
   'pages.record.error.reimbursementState': 'Please select reimbursement state',
+  'pages.record.error.calculator': 'Please enter a correct expression',
 
   'pages.record.form.category': 'category',
   'pages.record.form.subcategory': 'subcategory',
