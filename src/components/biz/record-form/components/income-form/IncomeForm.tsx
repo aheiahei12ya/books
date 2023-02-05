@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import dayjs from 'dayjs'
-import React, { forwardRef, useCallback, useEffect, useMemo, useState } from 'react'
+import React, { forwardRef, useCallback, useEffect, useId, useMemo, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import styles from '@/components/biz/record-form/components/expense-form/ExpenseForm.module.sass'
@@ -20,6 +20,7 @@ import { IncomeConfigType, IncomeFormProps, IncomeType } from './IncomeForm.type
 const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
   const i18n = useIntl()
   const form = useForm()
+  const formId = useId()
   const [income, setIncome] = useState<IncomeType>({
     ...props.defaultValue,
     time: dayjs().format('HH:mm:ss'),
@@ -170,6 +171,7 @@ const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
   return (
     <div className={styles.expenseContainer}>
       <Form
+        id={formId}
         form={form}
         initialValue={income}
         rules={rules}
@@ -186,13 +188,15 @@ const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
         {incomeFormKeysAppend.map((formRow, index) => (
           <div key={`row-${index}`} className={styles.expenseFormRow}>
             {formRow.map((formKey) => makeInputUnit(formKey as keyof IncomeConfigType))}
+            <Button
+              form={formId}
+              htmlType={'submit'}
+              className={classNames(styles.expenseSubmitButton, styles.hiddenMdAndUp)}
+            >
+              <FormattedMessage id={'pages.record.form.submit'}></FormattedMessage>
+            </Button>
           </div>
         ))}
-        <div className={styles.expenseFormRow}>
-          <Button htmlType={'submit'} block>
-            <FormattedMessage id={'pages.record.form.submit'}></FormattedMessage>
-          </Button>
-        </div>
       </Form>
 
       <div className={classNames(styles.expenseReceipt, styles.hiddenSmAndDown)}>
@@ -203,6 +207,11 @@ const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
           keys={incomeReceiptKeys}
           config={incomeConfig}
         ></ReceiptForm>
+        <div className={styles.expenseFormRow}>
+          <Button block form={formId} htmlType={'submit'}>
+            <FormattedMessage id={'pages.record.form.submit'}></FormattedMessage>
+          </Button>
+        </div>
       </div>
     </div>
   )
