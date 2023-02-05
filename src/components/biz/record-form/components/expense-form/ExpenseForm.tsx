@@ -14,7 +14,14 @@ import Input from '@/components/input'
 import TimePicker from '@/components/timePicker'
 import useForm from '@/hooks/useForm'
 
-import { autoDebitKeys, expenseFormKeys, expenseFormKeysAppend, installmentKeys, reimbursementKeys } from './config'
+import {
+  autoDebitKeys,
+  expenseFormKeys,
+  expenseFormKeysAppend,
+  expenseReceiptKeys,
+  installmentKeys,
+  reimbursementKeys
+} from './config'
 import styles from './ExpenseForm.module.sass'
 import { ExpenseConfigType, ExpenseFormProps, ExpenseType } from './ExpenseForm.types'
 
@@ -284,7 +291,13 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
       </div>
 
       <div className={ classNames(styles.expenseReceipt, styles.hiddenSmAndDown) }>
-        <ReceiptForm type={ 'expense' } item={ expense } itemName={ 'name' } config={ expenseConfig }></ReceiptForm>
+        <ReceiptForm
+          type={ 'expense' }
+          item={ expense }
+          itemName={ 'name' }
+          keys={ expenseReceiptKeys }
+          config={ expenseConfig }
+        ></ReceiptForm>
         <div className={ styles.expenseFormRow }>
           <Button block form={ formId } htmlType={ 'submit' }>
             <FormattedMessage id={ 'pages.record.form.submit' }></FormattedMessage>

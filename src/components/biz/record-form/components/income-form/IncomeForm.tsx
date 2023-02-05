@@ -14,7 +14,7 @@ import Input from '@/components/input'
 import TimePicker from '@/components/timePicker'
 import useForm from '@/hooks/useForm'
 
-import { incomeFormKeys, incomeFormKeysAppend } from './config'
+import { incomeFormKeys, incomeFormKeysAppend, incomeReceiptKeys } from './config'
 import { IncomeConfigType, IncomeFormProps, IncomeType } from './IncomeForm.types'
 
 const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
@@ -196,7 +196,13 @@ const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
       </Form>
 
       <div className={classNames(styles.expenseReceipt, styles.hiddenSmAndDown)}>
-        <ReceiptForm type={'income'} item={income} itemName={'name'} config={incomeConfig}></ReceiptForm>
+        <ReceiptForm
+          type={'income'}
+          item={income}
+          itemName={'name'}
+          keys={incomeReceiptKeys}
+          config={incomeConfig}
+        ></ReceiptForm>
       </div>
     </div>
   )
