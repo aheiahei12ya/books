@@ -1,11 +1,10 @@
 import classNames from 'classnames'
 import React, { forwardRef, useCallback, useMemo } from 'react'
 
-import { expenseReceiptKeys } from '@/components/biz/record-form/components/expense-form/config'
 import { ExpenseConfigType, ExpenseType } from '@/components/biz/record-form/components/expense-form/ExpenseForm.types'
-import { incomeReceiptKeys } from '@/components/biz/record-form/components/income-form/config'
 import { IncomeConfigType, IncomeType } from '@/components/biz/record-form/components/income-form/IncomeForm.types'
 import { ReceiptFormProps } from '@/components/biz/record-form/components/receipt-form/ReceiptForm.types'
+import { TransferConfigType } from '@/components/biz/record-form/components/transfer-form/TransferForm.types'
 import get from '@/lib/pythonic/get'
 
 import styles from './ReceiptForm.module.sass'
@@ -17,12 +16,20 @@ const emptySign = '--'
 const ReceiptForm = forwardRef<unknown, ReceiptFormProps>((props, ref) => {
   ReceiptForm.displayName = 'ReceiptForm'
 
-  const isExpense = props.type === 'expense'
-
-  const receiptKeys = isExpense ? expenseReceiptKeys : incomeReceiptKeys
-  type receiptConfigType = ExpenseConfigType | IncomeConfigType
+  type receiptConfigType = ExpenseConfigType | IncomeConfigType | TransferConfigType
   type ReceiptType = ExpenseType | IncomeType
-  const sign = isExpense ? expenseSign : incomeSign
+
+  let sign = ''
+  switch (props.type) {
+    case 'expense':
+      sign = expenseSign
+      break
+    case 'income':
+      sign = incomeSign
+      break
+    default:
+      break
+  }
 
   const getReceiptValue = useCallback(
     (value: string | undefined | number, type?: string) => {
@@ -46,7 +53,7 @@ const ReceiptForm = forwardRef<unknown, ReceiptFormProps>((props, ref) => {
 
   const receiptDetail = useMemo(() => {
     let receiptValue: string
-    return receiptKeys.map((type) => {
+    return props.keys.map((type) => {
       const config = props.config[type as keyof receiptConfigType]
       if (config.type === 'select') {
         receiptValue = get(props.item, [type, props.itemName], props.item[type as keyof ReceiptType])
@@ -69,7 +76,7 @@ const ReceiptForm = forwardRef<unknown, ReceiptFormProps>((props, ref) => {
         </div>
       )
     })
-  }, [getReceiptValue, props.item, props.itemName, props.config, receiptKeys])
+  }, [props.keys, props.config, props.item, props.itemName, getReceiptValue])
 
   return (
     <>
