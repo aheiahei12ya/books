@@ -7,7 +7,7 @@ export type ItemType = {
 }
 
 export type ReceiptType = {
-  type: 'input' | 'select' | 'checkbox' | 'date-picker' | 'time-picker'
+  type: 'input' | 'select' | 'checkbox' | 'date-picker' | 'time-picker' | 'button'
   name: string
   icon: ReactNode
   items?: ItemType[]
