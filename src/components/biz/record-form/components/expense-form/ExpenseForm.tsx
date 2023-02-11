@@ -8,11 +8,14 @@ import { ItemType, ReceiptType } from '@/components/biz/record-form/components/t
 import Button from '@/components/button'
 import Checkbox from '@/components/checkbox'
 import DatePicker from '@/components/datePicker'
+import DivideLine from '@/components/divideLine'
 import Dropdown from '@/components/dropdown'
 import Form from '@/components/form'
 import Input from '@/components/input'
+import Tag from '@/components/tag'
 import TimePicker from '@/components/timePicker'
 import useForm from '@/hooks/useForm'
+import { ShortcutType } from '@/services/shortcut/types'
 
 import {
   autoDebitKeys,
@@ -261,6 +264,33 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
         return
     }
   }
+  const shortcutList = useMemo(() => {
+    const handleShortcutSelect = (items: ShortcutType) => {
+      for (let item in items) {
+        form.set(item, items[item as keyof ShortcutType])
+        setExpense(form.values())
+      }
+    }
+    return props.shortcutList.length ? (
+      <>
+        <DivideLine></DivideLine>
+        <div className={styles.expenseShortcuts}>
+          {props.shortcutList.map((item, index) => (
+            <Tag
+              key={index}
+              select
+              icon={<i className="fa-regular fa-circle-check"></i>}
+              onClick={() => handleShortcutSelect(item)}
+            >
+              {item.name}
+            </Tag>
+          ))}
+        </div>
+      </>
+    ) : (
+      <></>
+    )
+  }, [form, props.shortcutList])
   const handleSubmit = () => {
     console.log(expense)
   }
@@ -287,7 +317,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
             </div>
           ))}
         </Form>
-        <div>快捷方式</div>
+        {shortcutList}
       </div>
 
       <div className={classNames(styles.expenseReceipt, styles.hiddenSmAndDown)}>

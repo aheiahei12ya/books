@@ -9,6 +9,7 @@ export interface ExpenseFormProps {
   categoryList: ItemType[]
   subcategoryList: ItemType[]
   reimbursementStateList: ItemType[]
+  shortcutList: any[]
 }
 
 export interface ExpenseDropdownType {

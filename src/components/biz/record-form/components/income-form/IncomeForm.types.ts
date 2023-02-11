@@ -6,6 +6,7 @@ export interface IncomeFormProps {
   accountList: ItemType[]
   categoryList: ItemType[]
   subcategoryList: ItemType[]
+  shortcutList: any[]
 }
 
 export interface IncomeDropdownType {

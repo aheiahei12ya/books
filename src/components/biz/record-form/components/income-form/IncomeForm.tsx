@@ -8,11 +8,14 @@ import ReceiptForm from '@/components/biz/record-form/components/receipt-form'
 import { ItemType, ReceiptType } from '@/components/biz/record-form/components/types'
 import Button from '@/components/button'
 import DatePicker from '@/components/datePicker'
+import DivideLine from '@/components/divideLine'
 import Dropdown from '@/components/dropdown'
 import Form from '@/components/form'
 import Input from '@/components/input'
+import Tag from '@/components/tag'
 import TimePicker from '@/components/timePicker'
 import useForm from '@/hooks/useForm'
+import { ShortcutType } from '@/services/shortcut/types'
 
 import { incomeFormKeys, incomeFormKeysAppend, incomeReceiptKeys } from './config'
 import { IncomeConfigType, IncomeFormProps, IncomeType } from './IncomeForm.types'
@@ -167,37 +170,66 @@ const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
         return
     }
   }
-
+  const shortcutList = useMemo(() => {
+    const handleShortcutSelect = (items: ShortcutType) => {
+      for (let item in items) {
+        form.set(item, items[item as keyof ShortcutType])
+        setIncome(form.values())
+      }
+    }
+    return props.shortcutList.length ? (
+      <>
+        <DivideLine></DivideLine>
+        <div className={styles.expenseShortcuts}>
+          {props.shortcutList.map((item, index) => (
+            <Tag
+              key={index}
+              select
+              icon={<i className="fa-regular fa-circle-check"></i>}
+              onClick={() => handleShortcutSelect(item)}
+            >
+              {item.name}
+            </Tag>
+          ))}
+        </div>
+      </>
+    ) : (
+      <></>
+    )
+  }, [form, props.shortcutList])
   return (
     <div className={styles.expenseContainer}>
-      <Form
-        id={formId}
-        form={form}
-        initialValue={income}
-        rules={rules}
-        className={styles.expenseForm}
-        onSubmit={() => {
-          console.log(income)
-        }}
-      >
-        {incomeFormKeys.map((formRow, index) => (
-          <div key={`row-${index}`} className={styles.expenseFormRow}>
-            {formRow.map((formKey) => makeInputUnit(formKey as keyof IncomeConfigType))}
-          </div>
-        ))}
-        {incomeFormKeysAppend.map((formRow, index) => (
-          <div key={`row-${index}`} className={styles.expenseFormRow}>
-            {formRow.map((formKey) => makeInputUnit(formKey as keyof IncomeConfigType))}
-            <Button
-              form={formId}
-              htmlType={'submit'}
-              className={classNames(styles.expenseSubmitButton, styles.hiddenMdAndUp)}
-            >
-              <FormattedMessage id={'pages.record.form.submit'}></FormattedMessage>
-            </Button>
-          </div>
-        ))}
-      </Form>
+      <div className={styles.expenseForm}>
+        <Form
+          id={formId}
+          form={form}
+          initialValue={income}
+          rules={rules}
+          className={styles.expenseForm}
+          onSubmit={() => {
+            console.log(income)
+          }}
+        >
+          {incomeFormKeys.map((formRow, index) => (
+            <div key={`row-${index}`} className={styles.expenseFormRow}>
+              {formRow.map((formKey) => makeInputUnit(formKey as keyof IncomeConfigType))}
+            </div>
+          ))}
+          {incomeFormKeysAppend.map((formRow, index) => (
+            <div key={`row-${index}`} className={styles.expenseFormRow}>
+              {formRow.map((formKey) => makeInputUnit(formKey as keyof IncomeConfigType))}
+              <Button
+                form={formId}
+                htmlType={'submit'}
+                className={classNames(styles.expenseSubmitButton, styles.hiddenMdAndUp)}
+              >
+                <FormattedMessage id={'pages.record.form.submit'}></FormattedMessage>
+              </Button>
+            </div>
+          ))}
+        </Form>
+        {shortcutList}
+      </div>
 
       <div className={classNames(styles.expenseReceipt, styles.hiddenSmAndDown)}>
         <ReceiptForm

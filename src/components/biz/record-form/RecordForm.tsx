@@ -8,6 +8,7 @@ import IncomeForm from '@/components/biz/record-form/components/income-form'
 import { IncomeDropdownType } from '@/components/biz/record-form/components/income-form/IncomeForm.types'
 import { TransferForm } from '@/components/biz/record-form/components/transfer-form/TransferForm'
 import useRequest from '@/hooks/useRequest'
+import { useAuth } from '@/lib/auth'
 import services from '@/services'
 
 import styles from './RecordForm.module.sass'
@@ -15,9 +16,11 @@ import { RecordFormProps } from './RecordForm.types'
 
 const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
   RecordForm.displayName = 'RecordForm'
+  const auth = useAuth()
   const [type, setType] = useState<string>('expense')
   const [expensePreset, setExpensePreset] = useState({})
   const [incomePreset, setIncomePreset] = useState({})
+  const [shortcutList, setShortcutList] = useState([])
   const [expenseDropdown, setExpenseDropdown] = useState<ExpenseDropdownType>({
     platformList: [],
     accountList: [],
@@ -50,7 +53,7 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
       }
     }
   })
-  const { loading: incomeLoading } = useRequest(() => services.income.initial({ user: 1 }), {
+  useRequest(() => services.income.initial({ user: 1 }), {
     onSuccess: (data) => {
       if (data.success) {
         setIncomeDropdown({
@@ -62,6 +65,28 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
       }
     }
   })
+  const { run: getShortcut } = useRequest(
+    () =>
+      services.shortcut.list({
+        type: type,
+        user: auth.userInfo.userInfo.id
+      }),
+    {
+      once: true,
+      manual: true,
+      onSuccess: (data) => {
+        if (data.success) {
+          setShortcutList(data.data.shortcutList)
+        }
+      }
+    }
+  )
+
+  const handleChangeType = (recordType: string) => {
+    setShortcutList([])
+    setType(recordType)
+    getShortcut()
+  }
   const recordButtons = useMemo(
     () =>
       ['expense', 'income', 'transfer'].map((recordType) => (
@@ -72,7 +97,7 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
             [styles.recordTypeButtonIncome]: recordType === 'income',
             [styles.recordTypeButtonSelected]: type === recordType
           })}
-          onClick={() => setType(recordType)}
+          onClick={() => handleChangeType(recordType)}
         >
           <span>
             <FormattedMessage id={`pages.record.button.${recordType}`}></FormattedMessage>
@@ -94,6 +119,7 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
             categoryList={expenseDropdown.categoryList}
             subcategoryList={expenseDropdown.subcategoryList}
             reimbursementStateList={expenseDropdown.reimbursementStateList}
+            shortcutList={shortcutList}
           />
         )}
         {type === 'income' && (
@@ -102,9 +128,16 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
             accountList={incomeDropdown.accountList}
             categoryList={incomeDropdown.categoryList}
             subcategoryList={incomeDropdown.subcategoryList}
+            shortcutList={shortcutList}
           />
         )}
-        {type === 'transfer' && <TransferForm defaultValue={incomePreset} accountList={incomeDropdown.accountList} />}
+        {type === 'transfer' && (
+          <TransferForm
+            defaultValue={incomePreset}
+            accountList={incomeDropdown.accountList}
+            shortcutList={shortcutList}
+          />
+        )}
         {/*{!loading && <IncomeForm defaultValue={expensePreset} />}*/}
       </div>
 

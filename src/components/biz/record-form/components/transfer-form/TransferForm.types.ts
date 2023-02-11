@@ -4,6 +4,7 @@ export interface TransferFormProps {
   defaultValue?: {}
   value?: {}
   accountList: ItemType[]
+  shortcutList: any[]
 }
 
 export interface TransferDropdownType {
