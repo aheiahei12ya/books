@@ -200,7 +200,6 @@ const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
           form={form}
           initialValue={income}
           rules={rules}
-          className={styles.expenseForm}
           onSubmit={() => {
             console.log(income)
           }}
