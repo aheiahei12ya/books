@@ -1,10 +1,10 @@
 import classNames from 'classnames'
 import React, { forwardRef, useCallback, useMemo } from 'react'
 
-import { ExpenseConfigType, ExpenseType } from '@/components/biz/record-form/components/expense-form/ExpenseForm.types'
-import { IncomeConfigType, IncomeType } from '@/components/biz/record-form/components/income-form/IncomeForm.types'
-import { ReceiptFormProps } from '@/components/biz/record-form/components/receipt-form/ReceiptForm.types'
-import { TransferConfigType } from '@/components/biz/record-form/components/transfer-form/TransferForm.types'
+import { ExpenseConfigType, ExpenseType } from '@/components/biz/record-form/components/expense-form'
+import { IncomeConfigType, IncomeType } from '@/components/biz/record-form/components/income-form'
+import { ReceiptFormProps } from '@/components/biz/record-form/components/receipt-form'
+import { TransferConfigType } from '@/components/biz/record-form/components/transfer-form'
 import get from '@/lib/pythonic/get'
 
 import styles from './ReceiptForm.module.sass'

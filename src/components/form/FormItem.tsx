@@ -11,11 +11,11 @@ import {
 } from 'react'
 
 import Checkbox from '@/components/checkbox'
-import useFormContext from '@/components/form/FormContext'
-import { FormContextType } from '@/components/form/FormContext.types'
 import get from '@/lib/pythonic/get'
 
 import styles from './Form.module.sass'
+import useFormContext from './FormContext'
+import { FormContextType } from './FormContext.types'
 import { FormItemProps } from './FormItem.types'
 
 const FormItem = forwardRef<unknown, FormItemProps>((props, ref) => {

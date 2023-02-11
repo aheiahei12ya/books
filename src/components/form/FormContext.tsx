@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react'
 
-import { FormContextType } from '@/components/form/FormContext.types'
+import { FormContextType } from './FormContext.types'
 
 const FormContext = createContext<FormContextType>({
   form: undefined,
