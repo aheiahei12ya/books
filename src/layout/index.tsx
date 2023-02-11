@@ -32,6 +32,12 @@ const Layout = ({ children }: layoutProps) => {
       selected: true
     },
     {
+      name: <FormattedMessage id={'layout.sidebar.button.transaction'} />,
+      icon: <i className="fa-regular fa-book-section"></i>,
+      path: '/transaction',
+      selected: false
+    },
+    {
       name: <FormattedMessage id={'layout.sidebar.button.statistic'} />,
       icon: <i className="fa-solid fa-chart-column"></i>,
       path: '/statistic',

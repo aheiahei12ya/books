@@ -11,6 +11,7 @@ export const zh_CN = {
   'pages.login.button.forget': '忘记密码？',
 
   'layout.sidebar.button.dashboard': '总览',
+  'layout.sidebar.button.transaction': '账本',
   'layout.sidebar.button.statistic': '统计',
   'layout.sidebar.button.logout': '退出',
   'layout.sidebar.button.setting': '设置',

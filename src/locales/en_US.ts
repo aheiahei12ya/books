@@ -11,6 +11,7 @@ export const en_US = {
   'pages.login.button.forget': 'Forget Password?',
 
   'layout.sidebar.button.dashboard': 'Dashboard',
+  'layout.sidebar.button.transaction': 'Transaction',
   'layout.sidebar.button.statistic': 'Statistic',
   'layout.sidebar.button.logout': 'Logout',
   'layout.sidebar.button.setting': 'Setting',
