@@ -7,6 +7,7 @@ function useRequest<T = any>(requestFn: (data?: T) => Promise<any>, options?: us
   const [loading, setLoading] = useState<boolean>(false)
   const [data, setData] = useState<object>()
   const [error, setError] = useState<Error>()
+  const [once, setOnce] = useState<boolean>(true)
 
   const run = useCallback(
     (data?: T) => {
@@ -32,7 +33,11 @@ function useRequest<T = any>(requestFn: (data?: T) => Promise<any>, options?: us
     if (!options?.manual) {
       run(options?.defaultParams)
     }
-  }, [options?.defaultParams, options?.manual, run])
+    if (options?.once && once) {
+      run(options?.defaultParams)
+      setOnce(false)
+    }
+  }, [once, options?.defaultParams, options?.manual, options?.once, run])
 
   return {
     loading,

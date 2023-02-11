@@ -7,6 +7,7 @@ export interface useRequestReturn<P = any, V = any> {
 }
 
 export interface useRequestOptions<P = any> {
+  once?: boolean
   manual?: boolean
   defaultLoading?: boolean
   defaultParams?: P
