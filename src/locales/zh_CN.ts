@@ -17,7 +17,7 @@ export const zh_CN = {
 
   'pages.home.head.title': '数据概览',
   'pages.home.greet.morning': '早上好',
-  'pages.home.greet.afternoon': '中午好',
+  'pages.home.greet.afternoon': '下午好',
   'pages.home.greet.evening': '晚上好',
   'pages.home.greet.subtitle': '欢迎回来',
 
