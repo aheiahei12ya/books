@@ -1,0 +1,57 @@
+@use '@/styles/variable' as *
+
+.tag-container
+  display: inline-block
+
+  padding: 4px 8px
+
+  border-radius: $radius-s
+  font-size: $font-size-base
+  transition: all .25s ease
+
+  &-icon
+    margin-right: 6px
+
+  &-hover:hover
+    filter: brightness(0.8) contrast(120%)
+
+.tag-size
+
+  &-small
+    line-height: $height-xs
+
+  &-middle
+    line-height: $height-sm
+
+  &-large
+    line-height: $height-lg
+
+.tag-color
+
+  &-default
+    color: var(--color-text)
+    border: 1px solid var(--color-border)
+    background-color: var(--content-background-color)
+
+  &-primary
+    color: $blue-darken-3
+    border: 1px solid $blue-darken-1
+    background-color: $blue-lighten-5
+
+  &-success
+    color: $green-darken-3
+    border: 1px solid $green-darken-1
+    background-color: $green-lighten-5
+
+  &-danger
+    color: $red-darken-3
+    border: 1px solid $red-darken-1
+    background-color: $red-lighten-5
+
+  &-warning
+    color: $orange-darken-3
+    border: 1px solid $orange-darken-1
+    background-color: $orange-lighten-5
+
+
+
