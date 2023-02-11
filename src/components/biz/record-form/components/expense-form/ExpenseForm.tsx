@@ -276,12 +276,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
         <DivideLine></DivideLine>
         <div className={styles.expenseShortcuts}>
           {props.shortcutList.map((item, index) => (
-            <Tag
-              key={index}
-              select
-              icon={<i className="fa-regular fa-circle-check"></i>}
-              onClick={() => handleShortcutSelect(item)}
-            >
+            <Tag key={index} select onClick={() => handleShortcutSelect(item)}>
               {item.name}
             </Tag>
           ))}
