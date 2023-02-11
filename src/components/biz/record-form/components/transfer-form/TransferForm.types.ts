@@ -7,6 +7,8 @@ export interface TransferFormProps {
   shortcutList: any[]
 }
 
+export interface TransferFormRef {}
+
 export interface TransferDropdownType {
   accountList: ItemType[]
 }
@@ -20,7 +22,8 @@ export type TransferType = {
 }
 
 export type TransferConfigType = {
-  amount: ReceiptType
+  sourceAmount: ReceiptType
+  targetAmount: ReceiptType
   date: ReceiptType
   time: ReceiptType
   sourceAccount: ReceiptType

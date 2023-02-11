@@ -1,6 +1,7 @@
-export const transferReceiptKeys = ['amount', 'sourceAccount', 'targetAccount', 'date', 'time']
+export const transferReceiptKeys = ['sourceAmount', 'targetAmount', 'sourceAccount', 'targetAccount', 'date', 'time']
 
 export const transferFormKeys = [
+  ['date', 'time'],
   ['sourceAccount', 'exchangeAccount', 'targetAccount'],
-  ['date', 'time', 'amount']
+  ['sourceAmount', 'exchangeAmount', 'targetAmount']
 ]

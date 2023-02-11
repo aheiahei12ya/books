@@ -5,7 +5,6 @@ import { FormattedMessage, useIntl } from 'react-intl'
 
 import styles from '@/components/biz/record-form/components/expense-form/ExpenseForm.module.sass'
 import ReceiptForm from '@/components/biz/record-form/components/receipt-form'
-import { transferFormKeys, transferReceiptKeys } from '@/components/biz/record-form/components/transfer-form/config'
 import { ItemType, ReceiptType } from '@/components/biz/record-form/components/types'
 import Button from '@/components/button'
 import DatePicker from '@/components/datePicker'
@@ -18,6 +17,7 @@ import TimePicker from '@/components/timePicker'
 import useForm from '@/hooks/useForm'
 import { ShortcutType } from '@/services/shortcut/types'
 
+import { transferFormKeys, transferReceiptKeys } from './config'
 import { TransferConfigType, TransferFormProps, TransferType } from './TransferForm.types'
 
 const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
@@ -48,7 +48,8 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
       message: i18n.formatMessage({ id: i18nKey })
     })
     return {
-      amount: [requiredRule('pages.record.error.amount'), calculatorRule],
+      sourceAmount: [requiredRule('pages.record.error.amount'), calculatorRule],
+      targetAmount: [requiredRule('pages.record.error.amount'), calculatorRule],
       date: [requiredRule('pages.record.error.date')],
       time: [requiredRule('pages.record.error.time')],
       sourceAccount: [requiredRule('pages.record.error.account')],
@@ -65,7 +66,9 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
       }
     }
     return {
-      amount: makeConfig('input', 'pages.record.transfer.amount', 'sack-dollar'),
+      sourceAmount: makeConfig('input', 'pages.record.transfer.sourceAmount', 'sack-dollar'),
+      targetAmount: makeConfig('input', 'pages.record.transfer.targetAmount', 'sack-dollar'),
+      exchangeAmount: makeConfig('button', 'pages.record.transfer.exchangeAmount', 'exchange'),
       date: makeConfig('date-picker', 'pages.record.transfer.date', 'calendar'),
       time: makeConfig('time-picker', 'pages.record.transfer.time', 'clock'),
       sourceAccount: makeConfig('select', 'pages.record.transfer.sourceAccount', 'piggy-bank'),
@@ -145,7 +148,7 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
       case 'button':
         return (
           <Form.Item name={formKey} key={formKey} className={styles.expenseFormIconButton}>
-            <Button type={'text'} onClick={handleExchange}>
+            <Button type={'text'} onClick={() => handleExchange(formKey as 'exchangeAccount' | 'exchangeAmount')}>
               {transferConfig[formKey].icon}
             </Button>
           </Form.Item>
@@ -154,12 +157,27 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
         return
     }
   }
-  const handleExchange = () => {
-    const source = form.get('sourceAccount')
-    const target = form.get('targetAccount')
-    form.set('sourceAccount', target)
-    form.set('targetAccount', source)
-    setTransfer(form.values())
+  const handleExchange = (formKey: 'exchangeAccount' | 'exchangeAmount') => {
+    switch (formKey) {
+      case 'exchangeAccount': {
+        const source = form.get('sourceAccount')
+        const target = form.get('targetAccount')
+        form.set('sourceAccount', target)
+        form.set('targetAccount', source)
+        setTransfer(form.values())
+        break
+      }
+      case 'exchangeAmount': {
+        const source = form.get('sourceAmount')
+        const target = form.get('targetAmount')
+        form.set('sourceAmount', target)
+        form.set('targetAmount', source)
+        setTransfer(form.values())
+        break
+      }
+      default:
+        break
+    }
   }
   const shortcutList = useMemo(() => {
     const handleShortcutSelect = (items: ShortcutType) => {
