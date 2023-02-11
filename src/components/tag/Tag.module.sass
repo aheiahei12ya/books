@@ -1,12 +1,12 @@
 @use '@/styles/variable' as *
 
 .tag-container
-  display: inline-block
-
+  display: inline-flex
   padding: 4px 8px
+  align-items: center
 
   border-radius: $radius-s
-  font-size: $font-size-base
+  font-size: 0.925rem
   transition: all .25s ease
 
   &-icon
@@ -18,13 +18,13 @@
 .tag-size
 
   &-small
-    line-height: $height-xs
+    height: $height-xs
 
   &-middle
-    line-height: $height-sm
+    height: $height-sm
 
   &-large
-    line-height: $height-lg
+    height: $height-lg
 
 .tag-color
 

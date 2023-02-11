@@ -9,8 +9,8 @@ const Tag = forwardRef<TagRef, TagProps>((props, ref) => {
   const size = props.size || 'middle'
   return (
     <div
-      onClick={ props.onClick }
-      className={ classNames([
+      onClick={props.onClick}
+      className={classNames([
         styles.tagContainer,
         {
           [styles.tagContainerHover]: props.select,
@@ -23,10 +23,10 @@ const Tag = forwardRef<TagRef, TagProps>((props, ref) => {
           [styles.tagColorWarning]: color === 'warning',
           [styles.tagColorDanger]: color === 'danger'
         }
-      ]) }
+      ])}
     >
-      { props.icon && <span className={ styles.tagContainerIcon }>{ props.icon }</span> }
-      <span className={ classNames(styles.tagContainerText) }>iiiaaa</span>
+      {props.icon && <span className={styles.tagContainerIcon}>{props.icon}</span>}
+      <span className={classNames(styles.tagContainerText)}>{props.children}</span>
     </div>
   )
 })

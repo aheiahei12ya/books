@@ -4,6 +4,7 @@ export interface TagProps {
   icon?: React.ReactNode
   color?: 'primary' | 'success' | 'danger' | 'warning' | 'default'
   size?: 'small' | 'middle' | 'large'
+  children?: React.ReactNode
 }
 
 export interface TagRef {}
