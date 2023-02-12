@@ -33,6 +33,8 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
   const i18n = useIntl()
   const form = useForm()
   const formId = useId()
+  const [loading, setLoading] = useState<boolean>(false)
+  const [success, setSuccess] = useState<boolean>(false)
   const [expense, setExpense] = useState<ExpenseType>({
     ...props.defaultValue,
     time: dayjs().format('HH:mm:ss'),
@@ -286,8 +288,40 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
       <></>
     )
   }, [form, props.shortcutList])
+
+  const makeSubmitBtn = useCallback(
+    (hide: boolean) => {
+      const style = hide ? classNames(styles.expenseSubmitButton, styles.hiddenMdAndUp) : undefined
+      return (
+        <Button
+          form={formId}
+          htmlType={'submit'}
+          loading={loading}
+          noClick={loading || success}
+          color={success ? 'success' : 'default'}
+          className={style}
+          block={!hide}
+        >
+          {success ? (
+            <i className="fa-regular fa-check"></i>
+          ) : (
+            <FormattedMessage id={'pages.record.form.submit'}></FormattedMessage>
+          )}
+        </Button>
+      )
+    },
+    [formId, loading, success]
+  )
+
   const handleSubmit = () => {
+    if (loading || success) {
+      return
+    }
     console.log(expense)
+    setLoading(true)
+    setTimeout(() => setLoading(false), 2000)
+    setTimeout(() => setSuccess(true), 2000)
+    setTimeout(() => setSuccess(false), 5000)
   }
   return (
     <div className={styles.expenseContainer}>
@@ -302,13 +336,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
           {expenseFormKeysAppend.map((formRow, index) => (
             <div key={`row-${index}`} className={styles.expenseFormRow}>
               {formRow.map((formKey) => makeInputUnit(formKey as keyof ExpenseConfigType))}
-              <Button
-                form={formId}
-                htmlType={'submit'}
-                className={classNames(styles.expenseSubmitButton, styles.hiddenMdAndUp)}
-              >
-                <FormattedMessage id={'pages.record.form.submit'}></FormattedMessage>
-              </Button>
+              {makeSubmitBtn(true)}
             </div>
           ))}
         </Form>
@@ -323,11 +351,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
           keys={expenseReceiptKeys}
           config={expenseConfig}
         ></ReceiptForm>
-        <div className={styles.expenseFormRow}>
-          <Button block form={formId} htmlType={'submit'}>
-            <FormattedMessage id={'pages.record.form.submit'}></FormattedMessage>
-          </Button>
-        </div>
+        <div className={styles.expenseFormRow}>{makeSubmitBtn(false)}</div>
       </div>
     </div>
   )

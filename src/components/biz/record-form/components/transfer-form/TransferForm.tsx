@@ -24,6 +24,8 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
   const i18n = useIntl()
   const form = useForm()
   const formId = useId()
+  const [loading, setLoading] = useState<boolean>(false)
+  const [success, setSuccess] = useState<boolean>(false)
   const [transfer, setTransfer] = useState<TransferType>({
     ...props.defaultValue,
     time: dayjs().format('HH:mm:ss'),
@@ -201,9 +203,42 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
       <></>
     )
   }, [form, props.shortcutList])
+
+  const makeSubmitBtn = useCallback(
+    (hide: boolean) => {
+      const style = hide ? classNames(styles.expenseSubmitButton, styles.hiddenMdAndUp) : undefined
+      return (
+        <Button
+          form={formId}
+          htmlType={'submit'}
+          loading={loading}
+          noClick={loading || success}
+          color={success ? 'success' : 'default'}
+          className={style}
+          block
+        >
+          {success ? (
+            <i className="fa-regular fa-check"></i>
+          ) : (
+            <FormattedMessage id={'pages.record.form.submit'}></FormattedMessage>
+          )}
+        </Button>
+      )
+    },
+    [formId, loading, success]
+  )
+
   const handleSubmit = () => {
+    if (loading || success) {
+      return
+    }
     console.log(transfer)
+    setLoading(true)
+    setTimeout(() => setLoading(false), 2000)
+    setTimeout(() => setSuccess(true), 2000)
+    setTimeout(() => setSuccess(false), 5000)
   }
+
   return (
     <div className={styles.expenseContainer}>
       <div className={styles.expenseForm}>
@@ -213,6 +248,7 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
               {formRow.map((formKey) => makeInputUnit(formKey as keyof TransferConfigType))}
             </div>
           ))}
+          <div className={styles.expenseFormRow}>{makeSubmitBtn(true)}</div>
         </Form>
         {shortcutList}
       </div>
@@ -225,11 +261,7 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
           keys={transferReceiptKeys}
           config={transferConfig}
         ></ReceiptForm>
-        <div className={styles.expenseFormRow}>
-          <Button block form={formId} htmlType={'submit'}>
-            <FormattedMessage id={'pages.record.form.submit'}></FormattedMessage>
-          </Button>
-        </div>
+        <div className={styles.expenseFormRow}>{makeSubmitBtn(false)}</div>
       </div>
     </div>
   )

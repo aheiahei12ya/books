@@ -24,6 +24,8 @@ const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
   const i18n = useIntl()
   const form = useForm()
   const formId = useId()
+  const [loading, setLoading] = useState<boolean>(false)
+  const [success, setSuccess] = useState<boolean>(false)
   const [income, setIncome] = useState<IncomeType>({
     ...props.defaultValue,
     time: dayjs().format('HH:mm:ss'),
@@ -192,18 +194,46 @@ const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
       <></>
     )
   }, [form, props.shortcutList])
+
+  const makeSubmitBtn = useCallback(
+    (hide: boolean) => {
+      const style = hide ? classNames(styles.expenseSubmitButton, styles.hiddenMdAndUp) : undefined
+      return (
+        <Button
+          form={formId}
+          htmlType={'submit'}
+          loading={loading}
+          noClick={loading || success}
+          color={success ? 'success' : 'default'}
+          className={style}
+          block={!hide}
+        >
+          {success ? (
+            <i className="fa-regular fa-check"></i>
+          ) : (
+            <FormattedMessage id={'pages.record.form.submit'}></FormattedMessage>
+          )}
+        </Button>
+      )
+    },
+    [formId, loading, success]
+  )
+
+  const handleSubmit = () => {
+    if (loading || success) {
+      return
+    }
+    console.log(income)
+    setLoading(true)
+    setTimeout(() => setLoading(false), 2000)
+    setTimeout(() => setSuccess(true), 2000)
+    setTimeout(() => setSuccess(false), 5000)
+  }
+
   return (
     <div className={styles.expenseContainer}>
       <div className={styles.expenseForm}>
-        <Form
-          id={formId}
-          form={form}
-          initialValue={income}
-          rules={rules}
-          onSubmit={() => {
-            console.log(income)
-          }}
-        >
+        <Form id={formId} form={form} initialValue={income} rules={rules} onSubmit={handleSubmit}>
           {incomeFormKeys.map((formRow, index) => (
             <div key={`row-${index}`} className={styles.expenseFormRow}>
               {formRow.map((formKey) => makeInputUnit(formKey as keyof IncomeConfigType))}
@@ -212,13 +242,7 @@ const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
           {incomeFormKeysAppend.map((formRow, index) => (
             <div key={`row-${index}`} className={styles.expenseFormRow}>
               {formRow.map((formKey) => makeInputUnit(formKey as keyof IncomeConfigType))}
-              <Button
-                form={formId}
-                htmlType={'submit'}
-                className={classNames(styles.expenseSubmitButton, styles.hiddenMdAndUp)}
-              >
-                <FormattedMessage id={'pages.record.form.submit'}></FormattedMessage>
-              </Button>
+              {makeSubmitBtn(true)}
             </div>
           ))}
         </Form>
@@ -233,11 +257,7 @@ const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
           keys={incomeReceiptKeys}
           config={incomeConfig}
         ></ReceiptForm>
-        <div className={styles.expenseFormRow}>
-          <Button block form={formId} htmlType={'submit'}>
-            <FormattedMessage id={'pages.record.form.submit'}></FormattedMessage>
-          </Button>
-        </div>
+        <div className={styles.expenseFormRow}>{makeSubmitBtn(false)}</div>
       </div>
     </div>
   )
