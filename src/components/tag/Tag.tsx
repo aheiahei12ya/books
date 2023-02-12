@@ -12,16 +12,10 @@ const Tag = forwardRef<TagRef, TagProps>((props, ref) => {
       onClick={props.onClick}
       className={classNames([
         styles.tagContainer,
+        styles[`tag-size-${size}`],
+        styles[`tag-color-${color}`],
         {
-          [styles.tagContainerHover]: props.select,
-          [styles.tagSizeSmall]: size === 'small',
-          [styles.tagSizeMiddle]: size === 'middle',
-          [styles.tagSizeLarge]: size === 'large',
-          [styles.tagColorDefault]: color === 'default',
-          [styles.tagColorPrimary]: color === 'primary',
-          [styles.tagColorSuccess]: color === 'success',
-          [styles.tagColorWarning]: color === 'warning',
-          [styles.tagColorDanger]: color === 'danger'
+          [styles.tagContainerHover]: props.select
         }
       ])}
     >
