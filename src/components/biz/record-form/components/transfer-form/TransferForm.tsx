@@ -206,7 +206,7 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
 
   const makeSubmitBtn = useCallback(
     (hide: boolean) => {
-      const style = hide ? classNames(styles.expenseSubmitButton, styles.hiddenMdAndUp) : undefined
+      const style = hide ? classNames(styles.hiddenMdAndUp) : undefined
       return (
         <Button
           form={formId}
