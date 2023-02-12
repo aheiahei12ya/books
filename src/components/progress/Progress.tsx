@@ -11,25 +11,25 @@ const Progress = forwardRef<ProgressRef, ProgressProps>((props, ref) => {
   const textColor = props.textColor || undefined
   const percentage = props.percentage || 0
   const percentStyle = {
-    width: `${ percentage }%`,
+    width: `${percentage}%`,
     color: textColor
   }
 
   return (
-    <div className={ classNames(styles.progressContainer, styles[`progress-container-${ size }`], props.className) }>
+    <div className={classNames(styles.progressContainer, styles[`progress-container-${size}`], props.className)}>
       <div
-        style={ percentStyle }
-        className={ classNames(styles.progressContainerPercent, styles[`progress-color-${ backgroundColor }`]) }
+        style={percentStyle}
+        className={classNames(styles.progressContainerPercent, styles[`progress-color-${backgroundColor}`])}
       ></div>
-      { props.text !== undefined && (
+      {props.text !== undefined && (
         <span
-          className={ classNames(styles.progressContainerText, {
+          className={classNames(styles.progressContainerText, {
             [styles.progressContainerLineText]: type === 'line'
-          }) }
+          })}
         >
-          { props.text }
+          {props.text}
         </span>
-      ) }
+      )}
     </div>
   )
 })
