@@ -1,0 +1,67 @@
+@use '@/styles/variable' as *
+
+.progress-container
+  position: relative
+  box-sizing: border-box
+  width: 100%
+  padding: 1px 6px
+  text-align: center
+
+  background-color: var(--color-border)
+
+  &-percent
+    transition: width .35s ease
+    position: absolute
+    top: 0
+    left: 0
+    height: 100%
+    border-radius: 4px 0 0 4px
+    content: ''
+
+  &-text
+    position: relative
+
+  &-line
+    height: 6px
+    border-radius: 4px
+
+    &-text
+      position: absolute
+      font-size: 12px
+      transform: translate3d(-50%, -40%, 0)
+
+  &-small
+    height: 13px
+    border-radius: 8px
+    line-height: 11px
+    font-size: 10px
+    overflow: hidden
+
+  &-middle
+    height: 16px
+    border-radius: 10px
+    font-size: 12px
+    line-height: 14px
+    overflow: hidden
+
+
+  &-large
+    height: 18px
+    border-radius: 12px
+    font-size: 14px
+    line-height: 16px
+    overflow: hidden
+
+.progress-color
+
+  &-primary
+    background-color: $blue
+
+  &-success
+    background-color: $green
+
+  &-danger
+    background-color: $red
+
+  &-warning
+    background-color: $orange
