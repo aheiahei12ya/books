@@ -15,5 +15,6 @@ export interface ButtonProps {
   className?: string
   form?: string
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void | Promise<void> | unknown
+  noClick?: boolean
   children?: React.ReactNode
 }

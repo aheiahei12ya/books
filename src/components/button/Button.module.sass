@@ -33,7 +33,6 @@
       pointer-events: none
 
   &-loading
-    cursor: default
 
     &.button-color-default, &.button-color-text-default
       background: $blue-lighten-1
@@ -100,7 +99,7 @@
     background: transparent
     color: var(--color-text)
 
-    &:not([disabled]):hover
+    &:not([disabled], .button-loading):hover
       border: 1px solid $blue-lighten-2
       color: $blue-lighten-2
 
@@ -108,58 +107,58 @@
     background: $blue
     color: var(--color-white)
 
-    &:not([disabled]):hover
+    &:not([disabled], .button-loading):hover
       background: $blue-lighten-1
 
   &-color-success
     background: $green
     color: var(--color-white)
 
-    &:not([disabled]):hover
+    &:not([disabled], .button-loading):hover
       background: $green-lighten-1
 
   &-color-warning
     background: $orange
     color: var(--color-white)
 
-    &:not([disabled]):hover
+    &:not([disabled], .button-loading):hover
       background: $orange-lighten-1
 
   &-color-danger
     background: $red
     color: var(--color-white)
 
-    &:not([disabled]):hover
+    &:not([disabled], .button-loading):hover
       background: $red-lighten-1
 
   &-color-text-default
     color: var(--color-text)
 
-    &:not([disabled]):hover
+    &:not([disabled], .button-loading):hover
       color: $blue-lighten-2
 
   &-color-text-primary
     color: $blue-lighten-1
 
-    &:not([disabled]):hover
+    &:not([disabled], .button-loading):hover
       color: $blue-lighten-2
 
   &-color-text-success
     color: $green-lighten-1
 
-    &:not([disabled]):hover
+    &:not([disabled], .button-loading):hover
       color: $green-lighten-2
 
   &-color-text-warning
     color: $orange-lighten-1
 
-    &:not([disabled]):hover
+    &:not([disabled], .button-loading):hover
       color: $orange-lighten-2
 
   &-color-text-danger
     color: $red-lighten-1
 
-    &:not([disabled]):hover
+    &:not([disabled], .button-loading):hover
       color: $red-lighten-2
 
 

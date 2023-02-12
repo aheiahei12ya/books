@@ -24,7 +24,13 @@ export const Button = forwardRef<ButtonRef, ButtonProps>((props, ref) => {
 
   return (
     <button
-      onClick={props.onClick}
+      onClick={(e) => {
+        if (loading || props.noClick) {
+          e.preventDefault()
+          return
+        }
+        props.onClick
+      }}
       type={htmlType}
       className={classNames(
         styles.button,
