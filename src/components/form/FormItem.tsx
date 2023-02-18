@@ -13,7 +13,6 @@ import {
 import Checkbox from '@/components/checkbox'
 import get from '@/lib/pythonic/get'
 
-import styles from './Form.module.sass'
 import useFormContext from './FormContext'
 import { FormContextType } from './FormContext.types'
 import { FormItemProps } from './FormItem.types'
@@ -61,7 +60,7 @@ const FormItem = forwardRef<unknown, FormItemProps>((props, ref) => {
   useImperativeHandle(formItemRef, () => instance)
 
   return (
-    <div className={classNames(styles.formItem, props.className)}>
+    <div className={classNames(props.className)}>
       {Children.map(props.children, (child, index) => {
         if (!child) return null
         let controlKey = 'value'
