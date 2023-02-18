@@ -4,6 +4,7 @@ import Head from 'next/head'
 import React from 'react'
 import { useIntl } from 'react-intl'
 
+import BarForm from '@/components/biz/bar-form'
 import RecordForm from '@/components/biz/record-form'
 import Calendar from '@/components/calendar'
 import Card from '@/components/card'
@@ -120,14 +121,9 @@ function Home() {
             </Card>
           </div>
           <Card className={classNames(styles.booking)} elevation={1} fill>
-            <RecordForm locale={i18n.locale}></RecordForm>
+            <RecordForm></RecordForm>
           </Card>
-          <Card
-            title={'本周支出/支出分析'}
-            className={classNames(styles.booking, styles.hiddenXs)}
-            elevation={1}
-            fill
-          ></Card>
+          <Card title={'本周支出'} className={classNames(styles.booking, styles.hiddenXs)} elevation={1} fill></Card>
         </div>
         <div className={classNames(styles.viceContent, styles.hiddenSmAndDown, styles.hiddenOnPortrait)}>
           <div className={styles.spendCompare}>
@@ -159,7 +155,7 @@ function Home() {
             </Card>
           </div>
 
-          <Card className={styles.spendDiff} elevation={1}>
+          <Card className={styles.spendCalendar} elevation={1}>
             {expenseTimes?.success && (
               <Calendar
                 locale={i18n.locale}
@@ -168,12 +164,19 @@ function Home() {
                 expense={expenseTimes.data.expenseTimes}
               ></Calendar>
             )}
-            {/*{currentDate}消费 <br />*/}
-            {/*{lastYear}*/}
           </Card>
-          <Card title={'收支统计/账户余额'} className={styles.spendDays} elevation={1}>
-            {/*{currentDate}消费 <br />*/}
-            {/*{lastYear}*/}
+          <Card title={'收支统计/账户余额'} className={styles.infoForm} elevation={1}>
+            <div className={styles.infoFormContent}>
+              <div className={styles.infoFormExpense}>
+                <BarForm></BarForm>
+              </div>
+              <div className={styles.infoFormAccount}>
+                <BarForm></BarForm>
+              </div>
+              <div className={styles.infoFormReminder}>
+                <BarForm></BarForm>
+              </div>
+            </div>
           </Card>
         </div>
       </main>
