@@ -144,7 +144,7 @@ const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
         )
       case 'date-picker':
         return (
-          <Form.Item name={formKey} key={formKey}>
+          <Form.Item name={formKey} key={formKey} className={styles.expenseFormButton}>
             <DatePicker
               hideMessage
               prepend={incomeConfig[formKey].icon}

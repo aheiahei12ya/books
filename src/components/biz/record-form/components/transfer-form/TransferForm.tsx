@@ -123,7 +123,7 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
         )
       case 'date-picker':
         return (
-          <Form.Item name={formKey} key={formKey}>
+          <Form.Item name={formKey} key={formKey} className={styles.expenseFormButton}>
             <DatePicker
               hideMessage
               prepend={transferConfig[formKey].icon}

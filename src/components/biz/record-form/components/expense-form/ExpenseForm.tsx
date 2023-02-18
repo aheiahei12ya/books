@@ -204,7 +204,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
         )
       case 'date-picker':
         return (
-          <Form.Item name={formKey} key={formKey}>
+          <Form.Item name={formKey} key={formKey} className={styles.expenseFormButton}>
             <DatePicker
               hideMessage
               prepend={expenseConfig[formKey].icon}

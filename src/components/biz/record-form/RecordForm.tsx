@@ -67,7 +67,7 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
     () =>
       services.shortcut.list({
         type: type,
-        user: auth.userInfo.userInfo.id
+        user: auth?.userInfo?.userInfo?.id
       }),
     {
       once: true,

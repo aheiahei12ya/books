@@ -28,6 +28,24 @@ const BarForm = forwardRef<BarFormRef, BarFormProps>((props, ref) => {
       <Progress type={'line'} text={'93.32%'} percentage={percentage}></Progress>
       <br />
       <Progress percentage={percentage}></Progress>
+      <br />
+      <Progress text={'aarrttll'} percentage={percentage}></Progress>
+      <br />
+      <Progress size={'large'} text={'13%'} percentage={percentage}></Progress>
+      <br />
+      <Progress type={'line'} text={'93.32%'} percentage={percentage}></Progress>
+      <br />
+      <Progress percentage={percentage}></Progress>
+      <br />
+      <Progress size={'small'} text={'93.32%'} percentage={percentage}></Progress>
+      <br />
+      <Progress text={'aarrttll'} percentage={percentage}></Progress>
+      <br />
+      <Progress size={'large'} text={'13%'} percentage={percentage}></Progress>
+      <br />
+      <Progress type={'line'} text={'93.32%'} percentage={percentage}></Progress>
+      <br />
+      <Progress percentage={percentage}></Progress>
     </div>
   )
 })
