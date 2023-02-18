@@ -1,24 +1,22 @@
 import classNames from 'classnames'
-import React, { ChangeEvent, forwardRef, useId, useImperativeHandle, useRef, useState } from 'react'
+import React, { ChangeEvent, forwardRef, useEffect, useId, useImperativeHandle, useMemo, useRef, useState } from 'react'
 
 import { checkRules, RuleType } from '@/components/lib/rule'
 import useControlled from '@/hooks/useControlled'
 
 import styles from './Input.module.sass'
-import { InputProps, InputRef } from './Input.types'
+import { InputErrorType, InputProps, InputRef } from './Input.types'
 
-export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
-  Input.displayName = 'Input'
-
+const Input = forwardRef<InputRef, InputProps>((props, ref) => {
   const hasPrepend = !!props.prepend
   const hasAppend = !!props.append
   const size = props.size || 'default'
-  const [hasFocus, setHasFocus] = useState<boolean>(false)
-  const inputRef = useRef<HTMLInputElement>(null)
-  const inputId = useId()
-  const [value, setValue] = useControlled(props.value, props.onChange)
 
-  const [rule, setRule] = useState({
+  const inputId = useId()
+  const inputRef = useRef<HTMLInputElement>(null)
+  const [hasFocus, setHasFocus] = useState<boolean>(false)
+  const [value, setValue] = useControlled(props.value, props.onChange)
+  const [rule, setRule] = useState<InputErrorType>({
     error: false,
     message: <></>
   })
@@ -60,16 +58,25 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
     }
   }))
 
-  const shouldShowClear = (() => {
+  const shouldShowClear = useMemo(() => {
     if (!props.clearable || !value || props.readOnly) return false
     return props.showClearIfFill || hasFocus
-  })()
+  }, [hasFocus, props.clearable, props.readOnly, props.showClearIfFill, value])
 
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.code === 'Enter') {
       handleBlur()
     }
   }
+
+  useEffect(() => {
+    props.error &&
+      setRule({
+        error: props.error,
+        message: props.errorMessage || <></>
+      })
+  }, [props.error, props.errorMessage])
+
   return (
     <>
       <div
@@ -148,3 +155,6 @@ export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
     </>
   )
 })
+
+Input.displayName = 'Input'
+export { Input }

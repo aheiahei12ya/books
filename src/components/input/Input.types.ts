@@ -1,3 +1,5 @@
+import React from "react";
+
 import { RuleType } from '@/components/lib/rule'
 
 export interface InputProps {
@@ -23,6 +25,11 @@ export interface InputProps {
 
   prepend?: React.ReactNode
   append?: React.ReactNode
+}
+
+export type InputErrorType = {
+  error: boolean
+  message: React.ReactNode
 }
 
 export interface InputRef {
