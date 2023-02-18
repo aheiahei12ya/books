@@ -8,6 +8,7 @@ export interface FormProps {
   initialValue?: any
   children?: React.ReactNode
   orientation?: 'vertical' | 'horizontal'
+  gap?: string
   className?: string
   onSubmit?: (context: any) => void
 }

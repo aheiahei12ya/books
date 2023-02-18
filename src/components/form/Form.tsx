@@ -10,6 +10,7 @@ import { FormContextType } from './FormContext.types'
 
 const Form = forwardRef<unknown, FormProps>((props, ref) => {
   const form = useForm(props.form)
+  const gap = props.gap || '12px'
   const orientation = props.orientation || 'vertical'
   const formItemMapRef = useRef(new Map())
 
@@ -45,6 +46,7 @@ const Form = forwardRef<unknown, FormProps>((props, ref) => {
           },
           props?.className
         )}
+        style={{ gap: gap }}
         onSubmit={handleSubmit}
       >
         {props.children}
