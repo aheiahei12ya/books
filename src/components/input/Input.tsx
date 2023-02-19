@@ -4,7 +4,7 @@ import React, { ChangeEvent, forwardRef, useEffect, useId, useImperativeHandle, 
 import { checkRules, RuleType } from '@/components/lib/rule'
 import useControlled from '@/hooks/useControlled'
 
-import styles from './Input.module.sass'
+import styles from './Input.module.scss'
 import { InputErrorType, InputProps, InputRef } from './Input.types'
 
 const Input = forwardRef<InputRef, InputProps>((props, ref) => {

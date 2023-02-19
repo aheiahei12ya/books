@@ -1,0 +1,133 @@
+@use '@/styles/variable.sass' as *;
+@use '@/styles/animation.sass' as *;
+
+@mixin icon {
+  min-width: 1.5rem;
+  color: $grey-lighten-1;
+  text-align: center;
+}
+
+.input-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 auto;
+  padding: .5rem 0.75rem;
+
+  border: 1px solid var(--color-border);
+  border-radius: $radius-s;
+  box-shadow: none;
+
+  transition: all .35s ease;
+
+  &-error {
+    border-color: $red !important;
+    box-shadow: 0 0 3px $red !important;
+
+    animation-name: shake;
+    animation-duration: .1s;
+    animation-timing-function: linear;
+    animation-iteration-count: 3;
+    animation-direction: normal;
+  }
+
+  &:hover {
+    border-color: $blue;
+  }
+
+  &-focus {
+    border-color: $blue;
+    box-shadow: 0 0 3px $blue;
+  }
+
+  &-base {
+    height: $input-height-base;
+    font-size: $font-size-base;
+  }
+
+  &-sm {
+    height: $input-height-sm;
+    font-size: $font-size-sm;
+  }
+
+  &-lg {
+    height: $input-height-lg;
+    font-size: $font-size-lg;
+  }
+
+  .input {
+    display: inline-block;
+
+    box-sizing: border-box;
+    width: 100%;
+
+    font-size: 0.925rem;
+
+    appearance: none;
+    background: transparent;
+    border: none;
+    outline: none;
+
+    &::placeholder {
+      color: $grey;
+      opacity: 1;
+    }
+
+    &:focus {
+      &::placeholder {
+        color: $grey-lighten-1;
+      }
+    }
+  }
+
+  .prefix {
+    @include icon;
+
+    margin-right: 0.25rem;
+    transition: color .35s ease;
+
+    &-active {
+      color: $blue;
+    }
+  }
+
+  .append {
+    @include icon;
+
+    margin-left: 0.25rem;
+  }
+
+  .clearable {
+    @include icon;
+
+    margin-left: 0.25rem;
+
+    &-append {
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+.input-warning {
+  overflow: hidden;
+
+  height: 1.35rem;
+  margin-top: 1px;
+
+  font-size: $font-size-sm;
+  line-height: 1.35rem;
+  color: $red;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &-none {
+    display: none;
+  }
+
+  &-warning {
+    display: inline;
+  }
+}
