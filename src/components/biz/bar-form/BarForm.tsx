@@ -34,7 +34,7 @@ const BarForm = forwardRef<BarFormRef, BarFormProps>((props, ref) => {
   ) => {
     const text = hideText ? undefined : `${percentage}%`
     return (
-      <div className={styles.barFormRow}>
+      <div className={styles.barFormRow} key={itemName}>
         <div className={styles.barFormRowTag}>
           <Tag shape={'round'} size={'small'} select>
             {itemName}
