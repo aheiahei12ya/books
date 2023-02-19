@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import React, { forwardRef } from 'react'
 
-import styles from './Tag.module.sass'
+import styles from './Tag.module.scss'
 import { TagProps, TagRef } from './Tag.types'
 
 const Tag = forwardRef<TagRef, TagProps>((props, ref) => {
