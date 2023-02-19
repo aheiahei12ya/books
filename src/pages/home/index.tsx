@@ -14,7 +14,7 @@ import useRequest from '@/hooks/useRequest'
 import { range } from '@/lib/pythonic'
 import services from '@/services'
 
-import styles from './index.module.sass'
+import styles from './index.module.scss'
 
 Home.useLayout = true
 
