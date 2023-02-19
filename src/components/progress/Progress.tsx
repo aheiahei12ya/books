@@ -11,7 +11,9 @@ const Progress = forwardRef<ProgressRef, ProgressProps>((props, ref) => {
   const textColor = props.textColor || undefined
   const percentage = props.percentage || 0
   const percentStyle = {
-    width: `${percentage}%`,
+    width: `${percentage}%`
+  }
+  const textStyle = {
     color: textColor
   }
 
@@ -23,6 +25,7 @@ const Progress = forwardRef<ProgressRef, ProgressProps>((props, ref) => {
       ></div>
       {props.text !== undefined && (
         <span
+          style={textStyle}
           className={classNames(styles.progressContainerText, {
             [styles.progressContainerLineText]: type === 'line'
           })}
