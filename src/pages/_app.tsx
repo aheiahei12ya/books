@@ -1,4 +1,5 @@
 import '@/styles/global.sass'
+import '@/scripts/wdyr'
 
 import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
