@@ -3,7 +3,7 @@ import { forwardRef, useRef } from 'react'
 
 import useForm from '@/hooks/useForm'
 
-import styles from './Form.module.sass'
+import styles from './Form.module.scss'
 import { FormProps } from './Form.types'
 import { FormContext } from './FormContext'
 import { FormContextType } from './FormContext.types'
