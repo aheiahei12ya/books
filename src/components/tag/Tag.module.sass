@@ -4,24 +4,35 @@
   display: inline-flex
   padding: 4px 8px
   align-items: center
+  box-sizing: border-box
 
-  border-radius: $radius-s
   font-size: 0.925rem
   transition: all .25s ease
 
   &-icon
     margin-right: 6px
 
+  &-text
+    text-align: center
+
   &-hover:hover
     filter: brightness(0.8) contrast(120%)
+
+.tag-shape
+
+  &-rect
+    border-radius: $radius-s
+
+  &-round
+    border-radius: 12px
 
 .tag-size
 
   &-small
-    height: $height-xs
+    height: $height-sm
 
   &-middle
-    height: $height-sm
+    height: $height-base
 
   &-large
     height: $height-lg

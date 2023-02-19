@@ -7,6 +7,8 @@ import { TagProps, TagRef } from './Tag.types'
 const Tag = forwardRef<TagRef, TagProps>((props, ref) => {
   const color = props.color || 'default'
   const size = props.size || 'middle'
+  const shape = props.shape || 'rect'
+  const style = { width: props.width }
   return (
     <div
       onClick={props.onClick}
@@ -14,13 +16,16 @@ const Tag = forwardRef<TagRef, TagProps>((props, ref) => {
         styles.tagContainer,
         styles[`tag-size-${size}`],
         styles[`tag-color-${color}`],
+        styles[`tag-shape-${shape}`],
         {
           [styles.tagContainerHover]: props.select
         }
       ])}
     >
       {props.icon && <span className={styles.tagContainerIcon}>{props.icon}</span>}
-      <span className={classNames(styles.tagContainerText)}>{props.children}</span>
+      <span style={style} className={classNames(styles.tagContainerText)}>
+        {props.children}
+      </span>
     </div>
   )
 })
