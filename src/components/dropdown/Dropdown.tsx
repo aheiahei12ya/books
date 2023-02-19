@@ -6,7 +6,7 @@ import { checkRules, RuleType } from '@/components/lib/rule'
 import useControlled from '@/hooks/useControlled'
 import get from '@/lib/pythonic/get'
 
-import styles from './Dropdown.module.sass'
+import styles from './Dropdown.module.scss'
 import { DropdownProps, DropdownRef } from './Dropdown.types'
 
 const Dropdown = forwardRef<DropdownRef, DropdownProps>((props, ref) => {
