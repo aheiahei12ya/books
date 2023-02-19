@@ -17,7 +17,7 @@ import { useAuth } from '@/lib/auth'
 import { rgbDataURL } from '@/lib/image'
 import services from '@/services'
 
-import styles from './index.module.sass'
+import styles from './index.module.scss'
 
 const Login: React.FC = () => {
   Login.displayName = 'Login'

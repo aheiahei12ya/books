@@ -1,0 +1,88 @@
+@use '@/styles/variable.sass' as *;
+
+.login {
+  display: flex;
+  height: 100%;
+
+  &-panel {
+    overflow: auto;
+    flex: 4;
+
+    &-extra {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+
+    &-logo {
+      position: relative;
+
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      box-sizing: border-box;
+      height: 40%;
+
+      font-size: $text-h2;
+
+      img {
+        z-index: -1;
+        object-fit: cover;
+      }
+
+      @media (max-width: #{ $x-small-screen-max }px) {
+        min-height: 60%;
+
+        color: white;
+        vertical-align: 10px;
+
+        background-position: center;
+
+        -webkit-text-stroke: 1px $blue;
+      }
+    }
+
+    &-form {
+      position: relative;
+      box-sizing: border-box;
+      margin: 10% auto 0;
+      padding: 0 10%;
+
+      @media (max-width: #{ $x-small-screen-max }px) {
+        display: flex;
+        flex-direction: column;
+      }
+
+      @media (min-width: #{ $x-small-screen-min }px) {
+        max-width: 100%;
+      }
+
+      @media (min-width: #{ $small-screen-min }px) {
+        max-width: 90%;
+      }
+
+      @media (min-width: #{ $large-screen-min }px) {
+        max-width: 85%;
+      }
+    }
+  }
+
+  &-illustrate {
+    position: relative;
+
+    overflow: hidden;
+    flex: 9;
+
+    background-color: #fafafa;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
+    img {
+      object-fit: contain;
+    }
+  }
+}
