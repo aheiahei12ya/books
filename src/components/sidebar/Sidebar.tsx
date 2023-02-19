@@ -5,7 +5,7 @@ import React, { forwardRef, useEffect, useState } from 'react'
 import useResize from '@/hooks/useResize'
 
 import SidebarButton from './components/sidebarButton'
-import styles from './Sidebar.module.sass'
+import styles from './Sidebar.module.scss'
 import { SidebarProps } from './Sidebar.types'
 
 export const Sidebar = forwardRef<unknown, SidebarProps>((props, ref) => {
