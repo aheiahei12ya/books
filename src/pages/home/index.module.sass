@@ -3,7 +3,7 @@
 @mixin grid-box
   min-height: 100%
   height: 0
-  overflow: auto
+  padding: 0
   -ms-overflow-style: none
   scrollbar-width: none
 
@@ -83,15 +83,14 @@
     flex: 5
     height: 100%
 
-    &-content
+    &-container
       display: grid
       grid-template-columns: repeat(2, 1fr)
       grid-row: auto
       width: 100%
       min-height: 100%
       height: 0
-      overflow: hidden
-      gap: 12px
+      gap: 18px
 
     &-expense
       grid-row-start: 1
@@ -99,9 +98,15 @@
       @include grid-box
 
     &-account
-      background: orange
       @include grid-box
 
     &-reminder
-      background: #00bcd4
+      @include grid-box
+
+    &-content
+      width: 100%
+      display: flex
+      flex-direction: column
+      justify-content: flex-end
+      overflow: auto
       @include grid-box

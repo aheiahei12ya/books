@@ -165,17 +165,23 @@ function Home() {
               ></Calendar>
             )}
           </Card>
-          <Card title={'收支统计/账户余额'} className={styles.infoForm} elevation={1}>
-            <div className={styles.infoFormContent}>
-              <div className={styles.infoFormExpense}>
-                <BarForm></BarForm>
-              </div>
-              <div className={styles.infoFormAccount}>
-                <BarForm></BarForm>
-              </div>
-              <div className={styles.infoFormReminder}>
-                <BarForm></BarForm>
-              </div>
+          <Card className={styles.infoForm} elevation={1}>
+            <div className={styles.infoFormContainer}>
+              <Card className={styles.infoFormExpense} title={'收支统计'}>
+                <div className={styles.infoFormContent}>
+                  <BarForm></BarForm>
+                </div>
+              </Card>
+              <Card title={'账户余额'} className={styles.infoFormAccount}>
+                <div className={styles.infoFormContent}>
+                  <BarForm></BarForm>
+                </div>
+              </Card>
+              <Card title={'分期付款'} className={styles.infoFormReminder}>
+                <div className={styles.infoFormContent}>
+                  <BarForm></BarForm>
+                </div>
+              </Card>
             </div>
           </Card>
         </div>
