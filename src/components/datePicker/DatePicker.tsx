@@ -7,7 +7,7 @@ import { dropdownHandler } from '@/components/lib/dropdown'
 import { checkRules, RuleType } from '@/components/lib/rule'
 import useControlled from '@/hooks/useControlled'
 
-import styles from './DatePicker.module.sass'
+import styles from './DatePicker.module.scss'
 import { DatePickerProps } from './DatePicker.types'
 import { weekNames } from './locale'
 
