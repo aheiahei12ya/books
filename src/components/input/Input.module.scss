@@ -1,5 +1,5 @@
 @use '@/styles/variable.sass' as *;
-@use '@/styles/animation.sass' as *;
+@use '@/styles/animation' as *;
 
 @mixin icon {
   min-width: 1.5rem;
