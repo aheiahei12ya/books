@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react'
 
-import styles from './DivideLine.module.sass'
+import styles from './DivideLine.module.scss'
 import { DivideLineProps, DivideLineRef } from './DivideLine.types'
 
 const DivideLine = forwardRef<DivideLineRef, DivideLineProps>((props, ref) => {
