@@ -1,4 +1,4 @@
-import '@/styles/global.sass'
+import '@/styles/global.scss'
 import '@/scripts/wdyr'
 
 import { NextPage } from 'next'
