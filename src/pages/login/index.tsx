@@ -96,82 +96,81 @@ const Login: React.FC = () => {
   }
 
   return (
-    <div className={ styles.login }>
-      <div className={ styles.loginPanel }>
-        <div className={ styles.loginPanelLogo }>
+    <div className={styles.login}>
+      <div className={styles.loginPanel}>
+        <div className={styles.loginPanelLogo}>
           <span>
-            <FormattedMessage id={ 'pages.login.title.welcome' }></FormattedMessage>
+            <FormattedMessage id={'pages.login.title.welcome'}></FormattedMessage>
           </span>
-          { resize.isMobile && (
+          {resize.isMobile && (
             <Image
-              src={ illustrateUrl }
-              alt={ '' }
+              src={illustrateUrl}
+              alt={''}
               fill
               priority
               placeholder="blur"
-              blurDataURL={ rgbDataURL(250, 250, 250) }
+              blurDataURL={rgbDataURL(250, 250, 250)}
             />
-          ) }
+          )}
         </div>
-        <div className={ classNames(styles.loginPanelForm) }>
-          <Form id={ formId } form={ form } initialValue={ loginInfo } onSubmit={ handleSubmit } rules={ rules }
-                gap={ '0' }>
-            <Form.Item name={ 'username' }>
+        <div className={classNames(styles.loginPanelForm)}>
+          <Form id={formId} form={form} initialValue={loginInfo} onSubmit={handleSubmit} rules={rules} gap={'0'}>
+            <Form.Item name={'username'}>
               <Input
-                value={ form.get('username', undefined) }
-                onChange={ () => handleValue('username') }
+                value={form.get('username', undefined)}
+                onChange={() => handleValue('username')}
                 clearable
-                prepend={ <i className="fa-light fa-user"></i> }
-                placeholder={ i18n.formatMessage({
+                prepend={<i className="fa-light fa-user"></i>}
+                placeholder={i18n.formatMessage({
                   id: 'pages.login.username.placeholder'
-                }) }
-                error={ usernameIncorrect }
-                errorMessage={ <FormattedMessage id={ 'pages.login.username.incorrect' }/> }
+                })}
+                error={usernameIncorrect}
+                errorMessage={<FormattedMessage id={'pages.login.username.incorrect'} />}
               ></Input>
             </Form.Item>
-            <Form.Item name={ 'password' }>
+            <Form.Item name={'password'}>
               <Input
-                value={ form.get('password', undefined) }
-                type={ 'password' }
-                onChange={ () => handleValue('password') }
+                value={form.get('password', undefined)}
+                type={'password'}
+                onChange={() => handleValue('password')}
                 clearable
-                prepend={ <i className="fa-light fa-lock"></i> }
-                placeholder={ i18n.formatMessage({
+                prepend={<i className="fa-light fa-lock"></i>}
+                placeholder={i18n.formatMessage({
                   id: 'pages.login.password.placeholder'
-                }) }
-                error={ passwordIncorrect }
-                errorMessage={ <FormattedMessage id={ 'pages.login.password.incorrect' }/> }
+                })}
+                error={passwordIncorrect}
+                errorMessage={<FormattedMessage id={'pages.login.password.incorrect'} />}
               ></Input>
             </Form.Item>
-            <div className={ styles.loginPanelExtra }>
-              <Form.Item name={ 'remember' }>
-                <Checkbox onChange={ () => handleValue } checked={ form.get('remember') }>
-                  <FormattedMessage id={ 'pages.login.checkbox.remember' }></FormattedMessage>
+            <div className={styles.loginPanelExtra}>
+              <Form.Item name={'remember'}>
+                <Checkbox onChange={() => handleValue} checked={form.get('remember')}>
+                  <FormattedMessage id={'pages.login.checkbox.remember'}></FormattedMessage>
                 </Checkbox>
               </Form.Item>
-              <Form.Item name={ 'forget' }>
-                <Button type={ 'text' } size={ 'small' } color={ 'warning' }>
-                  <FormattedMessage id={ 'pages.login.button.forget' }></FormattedMessage>
+              <Form.Item name={'forget'}>
+                <Button type={'text'} size={'small'} color={'warning'}>
+                  <FormattedMessage id={'pages.login.button.forget'}></FormattedMessage>
                 </Button>
               </Form.Item>
             </div>
-            <Button form={ formId } block color={ 'primary' } htmlType={ 'submit' } loading={ loading }>
-              <FormattedMessage id={ 'pages.login.button.login' }></FormattedMessage>
+            <Button form={formId} block color={'primary'} htmlType={'submit'} loading={loading}>
+              <FormattedMessage id={'pages.login.button.login'}></FormattedMessage>
             </Button>
           </Form>
         </div>
       </div>
-      <div className={ classNames(styles.loginIllustrate, styles.hiddenSmAndDown) }>
-        { resize.isPC && (
+      <div className={classNames(styles.loginIllustrate, styles.hiddenSmAndDown)}>
+        {resize.isPC && (
           <Image
-            src={ illustrateUrl }
-            alt={ '' }
+            src={illustrateUrl}
+            alt={''}
             fill
             priority
             placeholder="blur"
-            blurDataURL={ rgbDataURL(250, 250, 250) }
+            blurDataURL={rgbDataURL(250, 250, 250)}
           />
-        ) }
+        )}
       </div>
     </div>
   )
