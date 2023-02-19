@@ -1,0 +1,34 @@
+@use '@/styles/variable.sass' as *;
+@use '@/styles/elevation.sass' as *;
+
+.card {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+  padding: 12px;
+
+  &-title {
+    flex: none;
+    padding: 8px 0 16px;
+    font-size: $text-h5;
+  }
+
+  &-subtitle {
+    flex: none;
+    margin-bottom: 6px;
+    color: $grey-darken-1;
+  }
+
+  &-content {
+    display: flex;
+    flex: auto;
+  }
+}
+
+.fill {
+  width: 100%;
+  height: 100%;
+}
