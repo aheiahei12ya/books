@@ -9,7 +9,7 @@ import { padNumber } from '@/components/lib/util'
 import useControlled from '@/hooks/useControlled'
 import { range } from '@/lib/pythonic'
 
-import styles from './TimePicker.module.sass'
+import styles from './TimePicker.module.scss'
 import { TimePickerProps } from './TimePicker.types'
 
 const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
