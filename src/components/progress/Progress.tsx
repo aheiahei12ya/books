@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import { forwardRef } from 'react'
 
-import styles from './Progress.module.sass'
+import styles from './Progress.module.scss'
 import { ProgressProps, ProgressRef } from './Progress.types'
 
 const Progress = forwardRef<ProgressRef, ProgressProps>((props, ref) => {
