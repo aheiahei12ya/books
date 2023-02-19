@@ -25,7 +25,7 @@ import {
   installmentKeys,
   reimbursementKeys
 } from './config'
-import styles from './ExpenseForm.module.sass'
+import styles from './ExpenseForm.module.scss'
 import { ExpenseConfigType, ExpenseFormProps, ExpenseType } from './ExpenseForm.types'
 
 const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {

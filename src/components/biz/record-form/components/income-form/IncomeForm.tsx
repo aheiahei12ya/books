@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 import React, { forwardRef, useCallback, useEffect, useId, useMemo, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import styles from '@/components/biz/record-form/components/expense-form/ExpenseForm.module.sass'
+import styles from '@/components/biz/record-form/components/expense-form/ExpenseForm.module.scss'
 import ReceiptForm from '@/components/biz/record-form/components/receipt-form'
 import { ItemType, ReceiptType } from '@/components/biz/record-form/components/types'
 import Button from '@/components/button'

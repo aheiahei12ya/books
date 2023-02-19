@@ -1,0 +1,48 @@
+@use '@/styles/variable.sass' as *;
+
+.expense-container {
+  display: flex;
+  width: 100%;
+}
+
+.expense-form {
+  display: flex;
+  flex: 7;
+  flex-direction: column;
+  gap: 8px;
+
+  &-row {
+    display: flex;
+    gap: 12px;
+  }
+
+  &-button {
+    flex: 1;
+  }
+
+  &-icon-button {
+    flex: 0;
+    width: $height-base;
+  }
+}
+
+.expense-shortcuts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.expense-receipt {
+  display: flex;
+  flex: 3;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: flex-start;
+
+  padding: 12px;
+}
+
+.expense-submit-button {
+  flex-basis: 96px;
+  font-size: 0.9rem;
+}
