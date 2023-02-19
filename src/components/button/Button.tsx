@@ -4,8 +4,7 @@ import React, { forwardRef } from 'react'
 import styles from './Button.module.sass'
 import { ButtonProps, ButtonRef } from './Button.types'
 
-export const Button = forwardRef<ButtonRef, ButtonProps>((props, ref) => {
-  Button.displayName = 'Button'
+const Button = forwardRef<ButtonRef, ButtonProps>((props, ref) => {
   const {
     color = 'default',
     shape = 'default',
@@ -54,3 +53,6 @@ export const Button = forwardRef<ButtonRef, ButtonProps>((props, ref) => {
     </button>
   )
 })
+
+Button.displayName = 'Button'
+export { Button }
