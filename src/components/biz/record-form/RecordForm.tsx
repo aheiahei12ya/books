@@ -9,7 +9,7 @@ import useRequest from '@/hooks/useRequest'
 import { useAuth } from '@/lib/auth'
 import services from '@/services'
 
-import styles from './RecordForm.module.sass'
+import styles from './RecordForm.module.scss'
 import { RecordFormProps } from './RecordForm.types'
 
 const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
