@@ -7,7 +7,7 @@ import Sidebar from '@/components/sidebar'
 import useResize from '@/hooks/useResize'
 import { useAuth } from '@/lib/auth'
 
-import styles from './index.module.sass'
+import styles from './index.module.scss'
 
 interface layoutProps {
   children: JSX.Element

@@ -1,0 +1,12 @@
+@use '@/styles/breakpoint.sass' as *;
+
+.layout {
+  display: flex;
+  height: 100%;
+
+  .container {
+    overflow: hidden;
+    padding: 0;
+    background-color: var(--content-background-color);
+  }
+}
