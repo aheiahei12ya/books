@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import React, { forwardRef } from 'react'
 
-import styles from './Button.module.sass'
+import styles from './Button.module.scss'
 import { ButtonProps, ButtonRef } from './Button.types'
 
 const Button = forwardRef<ButtonRef, ButtonProps>((props, ref) => {

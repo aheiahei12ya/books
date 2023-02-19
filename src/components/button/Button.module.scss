@@ -1,0 +1,218 @@
+@use '@/styles/variable.sass' as *;
+
+.button {
+  touch-action: manipulation;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  margin: 0;
+  padding: 0;
+
+  text-align: center;
+  white-space: nowrap;
+
+  background: transparent;
+  border: none;
+
+  transition: all 0.3s $ease-in-out;
+
+  &,
+  &:active,
+  &:focus {
+    outline: 0;
+  }
+
+  &:not([disabled]):hover {
+    text-decoration: none;
+  }
+
+  &:not([disabled]):active {
+    outline: 0;
+    box-shadow: none;
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+    color: $grey-darken-1;
+
+    > * {
+      pointer-events: none;
+    }
+  }
+
+  &-loading {
+    &.button-color-default,
+    &.button-color-text-default {
+      background: $blue-lighten-1;
+    }
+
+    &.button-color-primary,
+    &.button-color-text-primary {
+      background: $blue-lighten-1;
+    }
+
+    &.button-color-success,
+    &.button-color-text-success {
+      background: $green-lighten-1;
+    }
+
+    &.button-color-warning,
+    &.button-color-text-warning {
+      background: $orange-lighten-1;
+    }
+
+    &.button-color-danger,
+    &.button-color-text-danger {
+      background: $red-lighten-1;
+    }
+  }
+
+  &-loading i {
+    position: relative;
+    animation: rotation linear 1s infinite;
+  }
+
+  &-type-default {
+    display: inline-block;
+    width: 3rem;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 2px 0 rgb(0 0 0 / 1.5%);
+  }
+
+  &-type-text {
+    box-sizing: border-box;
+    height: 1rem;
+  }
+
+  &-type-block {
+    width: 100%;
+  }
+
+  &-size-default,
+  &-size-middle {
+    height: $height-base;
+    font-size: $font-size-base;
+  }
+
+  &-size-small {
+    height: $height-sm;
+    font-size: $font-size-sm;
+  }
+
+  &-size-large {
+    height: $height-lg;
+    font-size: $font-size-lg;
+  }
+
+  &-size-mini {
+    height: $height-xs;
+    font-size: $font-size-sm;
+  }
+
+  &-shape-default {
+    border-radius: $radius-s;
+  }
+
+  &-shape-rounded {
+    border-radius: calc($height-base / 2);
+  }
+
+  &-shape-rectangle {
+    border-radius: 0;
+  }
+
+  &-color-default {
+    color: var(--color-text);
+    background: transparent;
+
+    &:not([disabled], .button-loading):hover {
+      color: $blue-lighten-2;
+      border: 1px solid $blue-lighten-2;
+    }
+  }
+
+  &-color-primary {
+    color: var(--color-white);
+    background: $blue;
+
+    &:not([disabled], .button-loading):hover {
+      background: $blue-lighten-1;
+    }
+  }
+
+  &-color-success {
+    color: var(--color-white);
+    background: $green;
+
+    &:not([disabled], .button-loading):hover {
+      background: $green-lighten-1;
+    }
+  }
+
+  &-color-warning {
+    color: var(--color-white);
+    background: $orange;
+
+    &:not([disabled], .button-loading):hover {
+      background: $orange-lighten-1;
+    }
+  }
+
+  &-color-danger {
+    color: var(--color-white);
+    background: $red;
+
+    &:not([disabled], .button-loading):hover {
+      background: $red-lighten-1;
+    }
+  }
+
+  &-color-text-default {
+    color: var(--color-text);
+
+    &:not([disabled], .button-loading):hover {
+      color: $blue-lighten-2;
+    }
+  }
+
+  &-color-text-primary {
+    color: $blue-lighten-1;
+
+    &:not([disabled], .button-loading):hover {
+      color: $blue-lighten-2;
+    }
+  }
+
+  &-color-text-success {
+    color: $green-lighten-1;
+
+    &:not([disabled], .button-loading):hover {
+      color: $green-lighten-2;
+    }
+  }
+
+  &-color-text-warning {
+    color: $orange-lighten-1;
+
+    &:not([disabled], .button-loading):hover {
+      color: $orange-lighten-2;
+    }
+  }
+
+  &-color-text-danger {
+    color: $red-lighten-1;
+
+    &:not([disabled], .button-loading):hover {
+      color: $red-lighten-2;
+    }
+  }
+}
+
+@keyframes rotation {
+  100% {
+    transform: rotate(360deg);
+  }
+}
