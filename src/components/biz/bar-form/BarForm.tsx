@@ -3,7 +3,7 @@ import { forwardRef } from 'react'
 import Progress from '@/components/progress'
 import Tag from '@/components/tag'
 
-import styles from './BarForm.module.sass'
+import styles from './BarForm.module.scss'
 import { BarFormProps, BarFormRef } from './BarForm.types'
 
 const headList = [

@@ -1,0 +1,22 @@
+.bar-form-container {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  margin-top: 6px;
+}
+
+.bar-form-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+
+  &-tag {
+    flex: none;
+  }
+
+  &-progress {
+    flex: auto;
+  }
+}
