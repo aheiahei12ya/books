@@ -28,7 +28,7 @@ const Button = forwardRef<ButtonRef, ButtonProps>((props, ref) => {
           e.preventDefault()
           return
         }
-        props.onClick
+        props?.onClick?.(e)
       }}
       type={htmlType}
       className={classNames(
