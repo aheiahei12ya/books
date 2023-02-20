@@ -1,17 +1,9 @@
 @use '@/styles/variable' as *;
 
 @mixin grid-box {
-  scrollbar-width: none;
-
   height: 0;
   min-height: 100%;
   padding: 0;
-
-  -ms-overflow-style: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 }
 
 .main {
@@ -125,11 +117,9 @@
     &-content {
       @include grid-box;
 
-      overflow: auto;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-
       width: 100%;
     }
   }
