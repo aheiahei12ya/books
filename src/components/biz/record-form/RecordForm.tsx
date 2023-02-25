@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { forwardRef, useMemo, useState } from 'react'
+import { forwardRef, useCallback, useMemo, useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import ExpenseForm, { ExpenseDropdownType } from '@/components/biz/record-form/components/expense-form'
@@ -64,9 +64,9 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
     }
   })
   const { run: getShortcut } = useRequest(
-    () =>
+    (recordType) =>
       services.shortcut.list({
-        type: type,
+        type: recordType,
         user: auth?.userInfo?.userInfo?.id
       }),
     {
@@ -79,6 +79,15 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
       }
     }
   )
+
+  const handleChangeType = useCallback(
+    (recordType: string) => {
+      setShortcutList([])
+      setType(recordType)
+      getShortcut(recordType)
+    },
+    [getShortcut]
+  )
   const recordButtons = useMemo(
     () =>
       ['expense', 'income', 'transfer'].map((recordType) => (
@@ -89,18 +98,14 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
             [styles.recordTypeButtonIncome]: recordType === 'income',
             [styles.recordTypeButtonSelected]: type === recordType
           })}
-          onClick={() => (recordType: string) => {
-            setShortcutList([])
-            setType(recordType)
-            getShortcut()
-          }}
+          onClick={() => handleChangeType(recordType)}
         >
           <span>
             <FormattedMessage id={`pages.record.button.${recordType}`}></FormattedMessage>
           </span>
         </div>
       )),
-    [getShortcut, type]
+    [handleChangeType, type]
   )
   return (
     <div className={styles.recordForm}>
