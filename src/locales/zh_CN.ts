@@ -15,6 +15,7 @@ export const zh_CN = {
   'layout.sidebar.button.statistic': '统计',
   'layout.sidebar.button.logout': '退出',
   'layout.sidebar.button.setting': '设置',
+  'layout.sidebar.button.language': '语言',
 
   'pages.home.head.title': '数据概览',
   'pages.home.greet.morning': '早上好',

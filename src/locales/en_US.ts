@@ -15,6 +15,7 @@ export const en_US = {
   'layout.sidebar.button.statistic': 'Statistic',
   'layout.sidebar.button.logout': 'Logout',
   'layout.sidebar.button.setting': 'Setting',
+  'layout.sidebar.button.language': 'Language',
 
   'pages.home.head.title': 'Statistics',
   'pages.home.greet.morning': 'Good Morning',

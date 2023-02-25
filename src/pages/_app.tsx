@@ -23,22 +23,18 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
 
-export default function App({ Component, pageProps }: AppPropsWithLayout) {
+const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   const [locale, setLocale] = useState('zh-CN')
   const message = loadLocale(locale)
 
   const basic = (children: JSX.Element) => (
     <IntlProvider locale={locale} messages={message}>
-      <div style={{ position: 'absolute', right: '0' }}>
-        <button onClick={() => setLocale('en-US')}>en-US</button>
-        <button onClick={() => setLocale('zh-CN')}>zh-CN</button>
-      </div>
       <AuthContextProvider>{children}</AuthContextProvider>
     </IntlProvider>
   )
   if (Component.useLayout) {
     return basic(
-      <Layout>
+      <Layout locale={locale} setLocale={setLocale}>
         <Component {...pageProps} />
       </Layout>
     )
@@ -46,3 +42,5 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     return basic(<Component {...pageProps} />)
   }
 }
+
+export default App

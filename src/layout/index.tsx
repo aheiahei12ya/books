@@ -10,10 +10,12 @@ import { useAuth } from '@/lib/auth'
 import styles from './index.module.scss'
 
 interface layoutProps {
+  locale: string
+  setLocale: (val: string) => void
   children: JSX.Element
 }
 
-const Layout = ({ children }: layoutProps) => {
+const Layout = (props: layoutProps) => {
   const [loading, setLoading] = useState(true)
   const auth = useAuth()
   const router = useRouter()
@@ -46,6 +48,17 @@ const Layout = ({ children }: layoutProps) => {
   ]
   const tools = [
     {
+      name: <FormattedMessage id={'layout.sidebar.button.language'} />,
+      icon: <i className="fa-regular fa-language"></i>,
+      onClick: () => {
+        if (props.locale === 'zh-CN') {
+          props.setLocale('en-US')
+        } else {
+          props.setLocale('zh-CN')
+        }
+      }
+    },
+    {
       name: <FormattedMessage id={'layout.sidebar.button.setting'} />,
       icon: <i className="fa-regular fa-gear"></i>,
       path: '/setting'
@@ -70,7 +83,7 @@ const Layout = ({ children }: layoutProps) => {
       {resize.isLandscape && (
         <Sidebar avatar={avatar} items={items} tools={tools} defaultShrink={resize.isMobile} autoShrink />
       )}
-      <div className={styles.container}>{children}</div>
+      <div className={styles.container}>{props.children}</div>
     </div>
   )
 }
