@@ -51,11 +51,6 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
     onClickOutsideHandler as EventListener
   )
 
-  const handleSelectDate = (value: string) => {
-    setSelected(value)
-    checkRules(props.rules as RuleType[], setRule, value)
-  }
-
   useImperativeHandle(ref, () => ({
     touch: () => {
       return checkRules(props.rules as RuleType[], setRule, selected)
@@ -66,6 +61,10 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
     (selectedDay: number, type: 'past' | 'current' | 'future') => {
       const isToday = selectedDay === today && year === thisYear && month === thisMonth && type === 'current'
       const [selectedYear, selectedMonth] = handleDaySelect(type, year, month)
+      const handleSelectDate = (value: string) => {
+        setSelected(value)
+        checkRules(props.rules as RuleType[], setRule, value)
+      }
       return (
         <div
           className={classNames(styles.datePickerCalendarCell, {
@@ -98,7 +97,7 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
         </div>
       )
     },
-    [deactivateDropdown, handleSelectDate, month, selected, thisMonth, thisYear, today, year]
+    [deactivateDropdown, month, props.rules, selected, setSelected, thisMonth, thisYear, today, year]
   )
 
   return (

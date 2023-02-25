@@ -79,12 +79,6 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
       }
     }
   )
-
-  const handleChangeType = (recordType: string) => {
-    setShortcutList([])
-    setType(recordType)
-    getShortcut()
-  }
   const recordButtons = useMemo(
     () =>
       ['expense', 'income', 'transfer'].map((recordType) => (
@@ -95,14 +89,18 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
             [styles.recordTypeButtonIncome]: recordType === 'income',
             [styles.recordTypeButtonSelected]: type === recordType
           })}
-          onClick={() => handleChangeType(recordType)}
+          onClick={() => (recordType: string) => {
+            setShortcutList([])
+            setType(recordType)
+            getShortcut()
+          }}
         >
           <span>
             <FormattedMessage id={`pages.record.button.${recordType}`}></FormattedMessage>
           </span>
         </div>
       )),
-    [type]
+    [getShortcut, type]
   )
   return (
     <div className={styles.recordForm}>
@@ -136,29 +134,7 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
             shortcutList={shortcutList}
           />
         )}
-        {/*{!loading && <IncomeForm defaultValue={expensePreset} />}*/}
       </div>
-
-      {/*<div className={styles.recordTool}>*/}
-      {/*  <div className={styles.recordToolButton}>*/}
-      {/*    <span>收 入</span>*/}
-      {/*  </div>*/}
-      {/*  <div className={styles.recordToolButton}>*/}
-      {/*    <span>支 出</span>*/}
-      {/*  </div>*/}
-      {/*  <div className={styles.recordToolButton}>*/}
-      {/*    <span>分期付款</span>*/}
-      {/*  </div>*/}
-      {/*  <div className={styles.recordToolButton}>*/}
-      {/*    <span>自动扣款</span>*/}
-      {/*  </div>*/}
-      {/*  <div className={styles.recordToolButton}>*/}
-      {/*    <span>清 空</span>*/}
-      {/*  </div>*/}
-      {/*  <div className={styles.recordToolButton}>*/}
-      {/*    <span>保 存</span>*/}
-      {/*  </div>*/}
-      {/*</div>*/}
     </div>
   )
 })
