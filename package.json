@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "order": "npx stylelint src/**/*.scss --fix"
+    "order": "npx stylelint src/**/**/*.scss --fix"
   },
   "dependencies": {
     "@next/bundle-analyzer": "^13.2.1",
