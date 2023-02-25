@@ -1,0 +1,81 @@
+@use '@/styles/variable' as *;
+@use '@/styles/mixin.scss' as *;
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.table-title {
+  padding: 6px
+}
+
+.header-container {
+  display: block
+}
+
+.body-container {
+  @include no-scrollbar;
+  overflow: auto;
+}
+
+.table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+  overflow: auto;
+
+  th, td {
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  &-small {
+    padding: 6px 12px;
+  }
+
+  &-medium {
+    padding: 12px;
+  }
+
+  &-large {
+    padding: 12px;
+  }
+
+  &-header {
+    th {
+      font-weight: 450;
+    }
+
+    background-color: var(--color-header);
+
+    &-cell {
+      position: relative;
+
+      &:not(:first-child):before {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 1px;
+        height: 1.6em;
+        background-color: var(--color-border);
+        transform: translateY(-50%);
+        transition: background-color 0.3s;
+        content: '';
+      }
+    }
+  }
+
+  &-row {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  &-ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
+
