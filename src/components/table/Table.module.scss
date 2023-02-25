@@ -17,14 +17,15 @@
 
 .body-container {
   @include no-scrollbar;
+
   overflow: auto;
 }
 
 .table {
-  border-collapse: collapse;
-  table-layout: fixed;
-  width: 100%;
   overflow: auto;
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%;
 
   th, td {
     box-sizing: border-box;
@@ -44,25 +45,29 @@
   }
 
   &-header {
+    background-color: var(--color-header);
+
     th {
       font-weight: 450;
     }
 
-    background-color: var(--color-header);
-
     &-cell {
       position: relative;
 
-      &:not(:first-child):before {
+      &:not(:first-child)::before {
+        content: '';
+
         position: absolute;
         top: 50%;
         left: 0;
+        transform: translateY(-50%);
+
         width: 1px;
         height: 1.6em;
+
         background-color: var(--color-border);
-        transform: translateY(-50%);
+
         transition: background-color 0.3s;
-        content: '';
       }
     }
   }
@@ -73,8 +78,8 @@
 
   &-ellipsis {
     overflow: hidden;
-    white-space: nowrap;
     text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 
