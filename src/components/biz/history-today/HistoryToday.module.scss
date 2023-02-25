@@ -1,6 +1,6 @@
 @use '@/styles/mixin.scss' as *;
 
-.every-year {
+.history-today {
   @include no-scrollbar;
 
   overflow: auto;

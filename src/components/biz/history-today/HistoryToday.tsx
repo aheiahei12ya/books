@@ -4,7 +4,7 @@ import Empty from '@/components/empty'
 import Table from '@/components/table'
 import { ColumnType } from '@/components/table/Table.types'
 
-import styles from './EveryYear.module.scss'
+import styles from './HistoryToday.module.scss'
 
 const columns: ColumnType[] = [
   {
@@ -180,12 +180,12 @@ const records = [
   }
 ]
 
-const EveryYear = forwardRef(() => {
+const HistoryToday = forwardRef(() => {
   const makeList = useMemo(
     () =>
       records.map((record) => {
         return (
-          <ul className={styles.everyYearChildren} key={record.year}>
+          <ul className={styles.historyTodayChildren} key={record.year}>
             {record.items.map((item, index) => {
               return <li key={`${record.year}-${index}`}>{item.note}</li>
             })}
@@ -196,10 +196,10 @@ const EveryYear = forwardRef(() => {
   )
 
   return records.length ? (
-    <div className={styles.everyYear}>
+    <div className={styles.historyToday}>
       {records.map((record) => (
         <Table
-          className={styles.everyYearChildren}
+          className={styles.historyTodayChildren}
           key={record.year}
           title={record.year}
           columns={columns}
@@ -215,6 +215,6 @@ const EveryYear = forwardRef(() => {
   )
 })
 
-EveryYear.displayName = 'EveryYear'
+HistoryToday.displayName = 'HistoryToday'
 
-export { EveryYear }
+export { HistoryToday }

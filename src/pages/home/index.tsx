@@ -5,7 +5,7 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 
 import BarForm from '@/components/biz/bar-form'
-import EveryYear from '@/components/biz/every-year'
+import HistoryToday from '@/components/biz/history-today'
 import RecordForm from '@/components/biz/record-form'
 import Calendar from '@/components/calendar'
 import Card from '@/components/card'
@@ -125,7 +125,7 @@ function Home() {
             <RecordForm></RecordForm>
           </Card>
           <Card title={'历史上的今天'} className={classNames(styles.history, styles.hiddenXs)} elevation={1} fill>
-            <EveryYear></EveryYear>
+            <HistoryToday></HistoryToday>
           </Card>
         </div>
         <div className={classNames(styles.viceContent, styles.hiddenSmAndDown, styles.hiddenOnPortrait)}>
