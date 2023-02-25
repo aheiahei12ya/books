@@ -44,11 +44,6 @@
   }
 
   &-loading {
-    &.button-color-default,
-    &.button-color-text-default {
-      background: $blue-lighten-1;
-    }
-
     &.button-color-primary,
     &.button-color-text-primary {
       background: $blue-lighten-1;
