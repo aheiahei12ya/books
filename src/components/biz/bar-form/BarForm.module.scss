@@ -1,5 +1,7 @@
+@use '@/styles/mixin.scss' as *;
+
 .bar-form-container {
-  scrollbar-width: none;
+  @include no-scrollbar;
 
   overflow: auto;
   display: flex;
@@ -7,12 +9,6 @@
   gap: 6px;
 
   margin-top: 6px;
-
-  -ms-overflow-style: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 }
 
 .bar-form-row {

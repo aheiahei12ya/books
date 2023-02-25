@@ -1,5 +1,6 @@
 @use '@/styles/variable' as *;
 @use '@/styles/animation' as *;
+@use '@/styles/mixin.scss' as *;
 
 .dropdown-button {
   display: flex;
@@ -116,7 +117,7 @@
 }
 
 .dropdown-menu {
-  scrollbar-width: none;
+  @include no-scrollbar;
 
   position: absolute;
   z-index: 10;
@@ -136,12 +137,6 @@
   box-shadow: 0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px 0 rgb(0 0 0 / 8%), 0 9px 28px 8px rgb(0 0 0 / 5%);
 
   transition: max-height .3s ease;
-
-  -ms-overflow-style: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 
   ul {
     margin: 0;

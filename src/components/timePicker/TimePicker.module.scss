@@ -1,5 +1,6 @@
 @use '@/styles/variable' as *;
 @use '@/styles/animation' as *;
+@use '@/styles/mixin.scss' as *;
 
 .time-picker-button {
   display: flex;
@@ -154,7 +155,7 @@
   height: 0;
 
   &-cells {
-    scrollbar-width: none;
+    @include no-scrollbar;
 
     overflow: auto;
     display: flex;
@@ -163,12 +164,6 @@
     align-items: center;
 
     padding: 6px;
-
-    -ms-overflow-style: none;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
 
     &:not(:last-child) {
       border-right: 1px solid var(--color-border);
