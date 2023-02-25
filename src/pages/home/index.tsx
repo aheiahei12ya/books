@@ -5,6 +5,7 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 
 import BarForm from '@/components/biz/bar-form'
+import EveryYear from '@/components/biz/every-year'
 import RecordForm from '@/components/biz/record-form'
 import Calendar from '@/components/calendar'
 import Card from '@/components/card'
@@ -123,15 +124,17 @@ function Home() {
           <Card className={classNames(styles.booking)} elevation={1} fill>
             <RecordForm></RecordForm>
           </Card>
-          <Card title={'本周支出'} className={classNames(styles.booking, styles.hiddenXs)} elevation={1} fill></Card>
+          <Card title={'历史上的今天'} className={classNames(styles.history, styles.hiddenXs)} elevation={1} fill>
+            <EveryYear></EveryYear>
+          </Card>
         </div>
         <div className={classNames(styles.viceContent, styles.hiddenSmAndDown, styles.hiddenOnPortrait)}>
           <div className={styles.spendCompare}>
-            <Card subtitle={lastYearMonth} className={styles.spendCompareInner} elevation={1}>
-              {lastYearExpenseData?.success && (
+            <Card subtitle={currentYearMonth} className={styles.spendCompareInner} elevation={1}>
+              {expenseData?.success && (
                 <Bar
-                  xs={range(1, lastYearExpenseData.data.expense.length + 1)}
-                  ys={lastYearExpenseData.data.expense}
+                  xs={range(1, expenseData.data.expense.length + 1)}
+                  ys={expenseData.data.expense}
                   gap={2.5}
                   showXTicks
                   showYTicks
@@ -140,11 +143,11 @@ function Home() {
                 ></Bar>
               )}
             </Card>
-            <Card subtitle={currentYearMonth} className={styles.spendCompareInner} elevation={1}>
-              {expenseData?.success && (
+            <Card subtitle={lastYearMonth} className={styles.spendCompareInner} elevation={1}>
+              {lastYearExpenseData?.success && (
                 <Bar
-                  xs={range(1, expenseData.data.expense.length + 1)}
-                  ys={expenseData.data.expense}
+                  xs={range(1, lastYearExpenseData.data.expense.length + 1)}
+                  ys={lastYearExpenseData.data.expense}
                   gap={2.5}
                   showXTicks
                   showYTicks
