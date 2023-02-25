@@ -61,6 +61,7 @@ const Layout = ({ children }: layoutProps) => {
   ]
   useEffect(() => {
     setLoading(false)
+    return () => setLoading(true)
   }, [])
   return loading ? (
     <div></div>
