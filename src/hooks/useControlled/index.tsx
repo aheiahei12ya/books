@@ -2,9 +2,9 @@ import { useState } from 'react'
 
 const voidFunction = () => {}
 
-const useControlled = (value: any, onChange: Function | undefined) => {
+const useControlled = (value: any, onChange: Function | undefined, defaultValue?: any) => {
   const controlled = value !== undefined
-  const [innerValue, setInnerValue] = useState()
+  const [innerValue, setInnerValue] = useState(defaultValue)
 
   if (controlled) return [value, onChange || voidFunction]
   return [
