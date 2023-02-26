@@ -4,7 +4,10 @@
 .table-container {
   display: flex;
   flex-direction: column;
+
   width: 100%;
+  height: 0;
+  min-height: 100%;
 }
 
 .table-title {
