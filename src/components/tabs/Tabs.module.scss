@@ -38,7 +38,7 @@
   &-cell {
     transition: all .35s ease;
 
-    &:hover {
+    &:not(&-activated):hover {
       color: $blue-lighten-1;
     }
 
@@ -59,7 +59,6 @@
     transition: all .25s ease;
   }
 }
-
 
 .body {
   overflow: auto;
