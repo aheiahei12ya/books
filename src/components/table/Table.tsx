@@ -7,6 +7,7 @@ import styles from './Table.module.scss'
 
 const Table = forwardRef<TableRef, TableProps>((props, ref) => {
   const size = props.size || 'medium'
+  const textAlign = props.textAlign || 'center'
   const [header, colgroup] = useMemo(() => {
     const header: React.ReactNode[] = []
     const colgroup: React.ReactNode[] = []
@@ -19,13 +20,14 @@ const Table = forwardRef<TableRef, TableProps>((props, ref) => {
           className={classNames(styles.tableHeaderCell, styles[`table-${size}`], {
             [styles.tableEllipsis]: column.ellipsis
           })}
+          style={{ textAlign: textAlign }}
         >
           {column.title}
         </th>
       )
     })
     return [header, colgroup]
-  }, [props.columns, size])
+  }, [textAlign, props.columns, size])
 
   const body = useMemo(() => {
     return props.data.map((item: any, index) => {
@@ -35,6 +37,7 @@ const Table = forwardRef<TableRef, TableProps>((props, ref) => {
             <td
               key={column.key}
               className={classNames(styles[`table-${size}`], { [styles.tableEllipsis]: column.ellipsis })}
+              style={{ textAlign: textAlign }}
             >
               {column?.render ? column.render(item[column.dataIndex]) : item[column.dataIndex]}
             </td>
@@ -42,7 +45,7 @@ const Table = forwardRef<TableRef, TableProps>((props, ref) => {
         </tr>
       )
     })
-  }, [props.columns, props.data, size])
+  }, [textAlign, props.columns, props.data, size])
 
   return (
     <div className={classNames(styles.tableContainer, props?.className)}>

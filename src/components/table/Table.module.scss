@@ -29,11 +29,10 @@
 
   th, td {
     box-sizing: border-box;
-    text-align: center;
   }
 
   &-small {
-    padding: 6px 12px;
+    padding: 6px 8px;
     font-size: $font-size-sm;
   }
 

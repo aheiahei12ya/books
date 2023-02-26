@@ -7,6 +7,7 @@ export interface TableProps {
   className?: string
   fixHeader?: boolean
   showHeader?: boolean
+  textAlign?: 'left' | 'center' | 'right'
   size?: 'small' | 'medium' | 'large'
   children?: React.ReactNode
 }
