@@ -11,16 +11,16 @@ const Table = forwardRef<TableRef, TableProps>((props, ref) => {
     const header: React.ReactNode[] = []
     const colgroup: React.ReactNode[] = []
     props.columns.forEach((column) => {
-      const style = column?.width ? { width: `${ column.width }px` } : {}
-      colgroup.push(<col key={ column.key } style={ style }></col>)
+      const style = column?.width ? { width: `${column.width}px` } : {}
+      colgroup.push(<col key={column.key} style={style}></col>)
       header.push(
         <th
-          key={ column.key }
-          className={ classNames(styles.tableHeaderCell, styles[`table-${ size }`], {
+          key={column.key}
+          className={classNames(styles.tableHeaderCell, styles[`table-${size}`], {
             [styles.tableEllipsis]: column.ellipsis
-          }) }
+          })}
         >
-          { column.title }
+          {column.title}
         </th>
       )
     })
@@ -30,53 +30,53 @@ const Table = forwardRef<TableRef, TableProps>((props, ref) => {
   const body = useMemo(() => {
     return props.data.map((item: any, index) => {
       return (
-        <tr key={ index } className={ styles.tableRow }>
-          { props.columns.map((column) => (
+        <tr key={index} className={styles.tableRow}>
+          {props.columns.map((column) => (
             <td
-              key={ column.key }
-              className={ classNames(styles[`table-${ size }`], { [styles.tableEllipsis]: column.ellipsis }) }
+              key={column.key}
+              className={classNames(styles[`table-${size}`], { [styles.tableEllipsis]: column.ellipsis })}
             >
-              { column?.render ? column.render(item[column.dataIndex]) : item[column.dataIndex] }
+              {column?.render ? column.render(item[column.dataIndex]) : item[column.dataIndex]}
             </td>
-          )) }
+          ))}
         </tr>
       )
     })
   }, [props.columns, props.data, size])
 
   return (
-    <div className={ classNames(styles.tableContainer, props?.className) }>
-      { props.title && <span className={ styles.tableTitle }>{ props.title }</span> }
-      { props.fixHeader ? (
+    <div className={classNames(styles.tableContainer, props?.className)}>
+      {props.title && <span className={styles.tableTitle}>{props.title}</span>}
+      {props.fixHeader ? (
         <>
-          <div className={ styles.headerContainer }>
-            <table className={ classNames(styles.table) }>
-              <colgroup>{ colgroup }</colgroup>
-              { props.showHeader && (
-                <thead className={ styles.tableHeader }>
-                <tr className={ styles.tableRow }>{ header }</tr>
+          <div className={styles.headerContainer}>
+            <table className={classNames(styles.table)}>
+              <colgroup>{colgroup}</colgroup>
+              {props.showHeader && (
+                <thead className={styles.tableHeader}>
+                  <tr className={styles.tableRow}>{header}</tr>
                 </thead>
-              ) }
+              )}
             </table>
           </div>
-          <div className={ styles.bodyContainer }>
-            <table className={ classNames(styles.table) }>
-              <colgroup>{ colgroup }</colgroup>
-              <tbody>{ body }</tbody>
+          <div className={styles.bodyContainer}>
+            <table className={classNames(styles.table)}>
+              <colgroup>{colgroup}</colgroup>
+              <tbody>{body}</tbody>
             </table>
           </div>
         </>
       ) : (
-        <table className={ classNames(styles.table) }>
-          <colgroup>{ colgroup }</colgroup>
-          { props.showHeader && (
-            <thead className={ styles.tableHeader }>
-            <tr className={ styles.tableRow }>{ header }</tr>
+        <table className={classNames(styles.table)}>
+          <colgroup>{colgroup}</colgroup>
+          {props.showHeader && (
+            <thead className={styles.tableHeader}>
+              <tr className={styles.tableRow}>{header}</tr>
             </thead>
-          ) }
-          <tbody>{ body }</tbody>
+          )}
+          <tbody>{body}</tbody>
         </table>
-      ) }
+      )}
     </div>
   )
 })
