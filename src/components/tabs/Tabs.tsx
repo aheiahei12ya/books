@@ -2,12 +2,13 @@ import classNames from 'classnames'
 import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react'
 
 import { TabsProps, TabsRef } from '@/components/tabs/Tabs.types'
+import useControlled from '@/hooks/useControlled'
 
 import styles from './Tabs.module.scss'
 
 const Tabs = forwardRef<TabsRef, TabsProps>((props, ref) => {
   const size = props.size || 'medium'
-  const [activated, setActivated] = useState<number>(0)
+  const [activated, setActivated] = useControlled(props.selected, props.onChange, props.defaultSelect)
   const [width, setWidth] = useState<number>(0)
   const [offset, setOffset] = useState<number>(0)
   const tabRef = useRef(null)
@@ -21,10 +22,8 @@ const Tabs = forwardRef<TabsRef, TabsProps>((props, ref) => {
           className={classNames(styles.headerCell, {
             [styles.headerCellActivated]: index === activated
           })}
-          onClick={(e) => {
+          onClick={() => {
             setActivated(index)
-            setWidth((e.target as HTMLDivElement).offsetWidth)
-            setOffset((e.target as HTMLDivElement).offsetLeft)
           }}
         >
           {item.label}
@@ -42,26 +41,27 @@ const Tabs = forwardRef<TabsRef, TabsProps>((props, ref) => {
       )
     })
     return [tabs, content]
-  }, [activated, props.items])
+  }, [activated, props, setActivated])
 
   useEffect(() => {
     const node = tabRef.current!
     if (node) {
       // TODO: 修复这两个ts校验
       // @ts-ignore
-      setWidth(node.firstChild.offsetWidth)
+      setWidth(node.childNodes[activated]?.offsetWidth)
       // @ts-ignore
-      setOffset(node.firstChild.offsetLeft)
+      setOffset(node.childNodes[activated]?.offsetLeft)
     }
-  }, [])
+    return () => {}
+  }, [activated])
 
   return (
     <div className={styles.tabsContainer}>
-      <div ref={tabRef} className={classNames(styles.header, styles.headerContainer, styles[`header-${size}`])}>
+      <div ref={tabRef} className={classNames(styles.header, styles[`header-${size}`])}>
         {tabs}
         <div className={classNames(styles.headerIndicator)} style={{ width: width, left: offset }}></div>
       </div>
-      <div className={classNames(styles.bodyContainer, styles[`body-${size}`])}>{content}</div>
+      <div className={classNames(styles.body, styles[`body-${size}`], props?.bodyStyle)}>{content}</div>
     </div>
   )
 })

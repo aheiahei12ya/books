@@ -2,9 +2,13 @@ import React from 'react'
 
 export interface TabsProps {
   title?: string | number
-  className?: string
   items: ItemType[]
+  selected?: number
+  onChange?: (index: number) => void
+  defaultSelect?: number
   size?: 'small' | 'medium' | 'large'
+  className?: string
+  bodyStyle?: string
 }
 
 export interface TabsRef {}
