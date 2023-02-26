@@ -8,10 +8,11 @@ import styles from './HistoryToday.module.scss'
 
 const columns: ColumnType[] = [
   {
-    title: '金额',
-    dataIndex: 'amount',
-    key: 'amount',
-    width: 80
+    title: '备注',
+    dataIndex: 'note',
+    key: 'note',
+    ellipsis: true,
+    width: 100
   },
   {
     title: '一级分类',
@@ -26,11 +27,10 @@ const columns: ColumnType[] = [
     ellipsis: true
   },
   {
-    title: '备注',
-    dataIndex: 'note',
-    key: 'note',
-    ellipsis: true,
-    width: 100
+    title: '金额',
+    dataIndex: 'amount',
+    key: 'amount',
+    width: 80
   }
 ]
 
