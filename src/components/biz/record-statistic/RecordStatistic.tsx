@@ -3,8 +3,8 @@ import { forwardRef } from 'react'
 import Progress from '@/components/progress'
 import Tag from '@/components/tag'
 
-import styles from './BarForm.module.scss'
-import { BarFormProps, BarFormRef } from './BarForm.types'
+import styles from './RecordStatistic.module.scss'
+import { RecordStatisticProps, RecordStatisticRef } from './RecordStatistic.types'
 
 const headList = [
   { itemName: '本月收入', amount: 3333.33, percentage: 84.3 },
@@ -23,7 +23,7 @@ const itemList = [
   { itemName: '出行开销', amount: 333.23, percentage: 84.3 }
 ]
 
-const BarForm = forwardRef<BarFormRef, BarFormProps>((props, ref) => {
+const RecordStatistic = forwardRef<RecordStatisticRef, RecordStatisticProps>((props, ref) => {
   const width = `${Math.max(headList[0].amount, headList[1].amount).toString().length * 7.5}px`
   const makeRow = (
     itemName: string,
@@ -34,13 +34,13 @@ const BarForm = forwardRef<BarFormRef, BarFormProps>((props, ref) => {
   ) => {
     const text = hideText ? undefined : `${percentage}%`
     return (
-      <div className={styles.barFormRow} key={itemName}>
-        <div className={styles.barFormRowTag}>
+      <div className={styles.recordStatisticRow} key={itemName}>
+        <div className={styles.recordStatisticRowTag}>
           <Tag shape={'round'} size={'small'} select>
             {itemName}
           </Tag>
         </div>
-        <div className={styles.barFormRowProgress}>
+        <div className={styles.recordStatisticRowProgress}>
           <Progress
             size={'small'}
             text={text}
@@ -49,7 +49,7 @@ const BarForm = forwardRef<BarFormRef, BarFormProps>((props, ref) => {
             textColor={'#000'}
           ></Progress>
         </div>
-        <div className={styles.barFormRowTag}>
+        <div className={styles.recordStatisticRowTag}>
           <Tag size={'small'} width={width}>
             {amount}
           </Tag>
@@ -58,7 +58,7 @@ const BarForm = forwardRef<BarFormRef, BarFormProps>((props, ref) => {
     )
   }
   return (
-    <div className={styles.barFormContainer}>
+    <div className={styles.recordStatisticContainer}>
       {headList.map((item, index) =>
         makeRow(item.itemName, item.amount, item.percentage, index ? 'success' : 'danger', true)
       )}
@@ -67,5 +67,5 @@ const BarForm = forwardRef<BarFormRef, BarFormProps>((props, ref) => {
   )
 })
 
-BarForm.displayName = 'BarForm'
-export { BarForm }
+RecordStatistic.displayName = 'RecordStatistic'
+export { RecordStatistic }

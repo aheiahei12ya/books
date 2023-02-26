@@ -1,6 +1,6 @@
 @use '@/styles/mixin.scss' as *;
 
-.bar-form-container {
+.record-statistic-container {
   @include no-scrollbar;
 
   overflow: auto;
@@ -11,7 +11,7 @@
   margin-top: 6px;
 }
 
-.bar-form-row {
+.record-statistic-row {
   display: flex;
   gap: 12px;
   align-items: center;
