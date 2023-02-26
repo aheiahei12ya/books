@@ -204,7 +204,7 @@ const HistoryToday = forwardRef(() => {
           title={record.year}
           columns={columns}
           data={record.items}
-          size={'small'}
+          size={'medium'}
           showHeader
           fixHeader
         ></Table>
