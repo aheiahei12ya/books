@@ -16,9 +16,21 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
         [styles.fill]: props.fill
       })}
     >
-      {props.title && <span className={styles.cardTitle}>{props.title}</span>}
-      {props.subtitle && <span className={styles.cardSubtitle}>{props.subtitle}</span>}
-      {props.children && <div className={styles.cardContent}>{props.children}</div>}
+      {props.title && (
+        <span style={props.titleStyle} className={styles.cardTitle}>
+          {props.title}
+        </span>
+      )}
+      {props.subtitle && (
+        <span style={props.subtitleStyle} className={styles.cardSubtitle}>
+          {props.subtitle}
+        </span>
+      )}
+      {props.children && (
+        <div style={props.bodyStyle} className={classNames(styles.cardContent, props?.bodyClass)}>
+          {props.children}
+        </div>
+      )}
     </div>
   )
 })
