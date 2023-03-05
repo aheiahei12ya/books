@@ -82,34 +82,45 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
 
   const handleChangeType = useCallback(
     (recordType: string) => {
+      if (recordType === type) return
       setShortcutList([])
       setType(recordType)
       getShortcut(recordType)
     },
-    [getShortcut]
+    [getShortcut, type]
   )
+
   const recordButtons = useMemo(
     () =>
-      ['expense', 'income', 'transfer'].map((recordType) => (
-        <div
-          key={recordType}
-          className={classNames(styles.recordTypeButton, {
-            [styles.recordTypeButtonExpense]: recordType === 'expense',
-            [styles.recordTypeButtonIncome]: recordType === 'income',
-            [styles.recordTypeButtonSelected]: type === recordType
-          })}
-          onClick={() => handleChangeType(recordType)}
-        >
-          <span>
-            <FormattedMessage id={`pages.record.button.${recordType}`}></FormattedMessage>
-          </span>
-        </div>
-      )),
-    [handleChangeType, type]
+      ['expense', 'income', 'transfer'].map((recordType) =>
+        props[`${recordType}-button` as keyof RecordFormProps] ? (
+          <div key={recordType} onClick={() => handleChangeType(recordType)}>
+            {props[`${recordType}-button` as keyof RecordFormProps] as React.ReactNode}
+          </div>
+        ) : (
+          <div
+            key={recordType}
+            className={classNames(styles.recordTypeButton, {
+              [styles.recordTypeButtonPortrait]: props.orientation === 'portrait',
+              [styles.recordTypeButtonExpense]: recordType === 'expense',
+              [styles.recordTypeButtonIncome]: recordType === 'income',
+              [styles.recordTypeButtonSelected]: type === recordType
+            })}
+            onClick={() => handleChangeType(recordType)}
+          >
+            <span>
+              <FormattedMessage id={`pages.record.button.${recordType}`}></FormattedMessage>
+            </span>
+          </div>
+        )
+      ),
+    [handleChangeType, props, type]
   )
   return (
-    <div className={styles.recordForm}>
-      <div className={styles.recordType}>{recordButtons}</div>
+    <div className={classNames(styles.recordForm, { [styles.recordFormPortrait]: props.orientation === 'portrait' })}>
+      <div className={classNames(styles.recordType, { [styles.recordTypePortrait]: props.orientation === 'portrait' })}>
+        {recordButtons}
+      </div>
       <div className={styles.recordContainer}>
         {type === 'expense' && (
           <ExpenseForm
