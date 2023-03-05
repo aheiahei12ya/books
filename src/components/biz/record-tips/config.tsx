@@ -60,7 +60,7 @@ export const autoRecordColumns: ColumnType[] = [
     dataIndex: 'id',
     key: 'operate',
     render: (text) => (
-      <div style={{display: 'flex', gap: '6px'}}>
+      <div style={{ display: 'flex', gap: '6px' }}>
         <Button size={'mini'} type={'text'} onClick={() => console.log(text)}>
           延长
         </Button>

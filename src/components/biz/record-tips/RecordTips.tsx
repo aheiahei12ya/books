@@ -161,7 +161,7 @@ const RecordTips = forwardRef(() => {
     [autoRecordNodes, installmentNodes, reimbursementNodes]
   )
 
-  return <Tabs items={tabItems} bodyStyle={styles.content} selected={tab} onChange={setTab}></Tabs>
+  return <Tabs items={tabItems} selected={tab} onChange={setTab}></Tabs>
 })
 
 RecordTips.displayName = 'RecordTips'
