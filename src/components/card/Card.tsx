@@ -10,6 +10,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
   return (
     <div
       ref={ref}
+      style={props.style}
       className={classNames(styles.card, props?.className, {
         [styles[`elevation-${props.elevation}`]]: props.elevation,
         [styles.fill]: props.fill
