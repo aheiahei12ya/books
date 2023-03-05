@@ -78,5 +78,8 @@ export const zh_CN = {
   'pages.record.transfer.time': '转账时间',
   'pages.record.transfer.sourceAccount': '转出账户',
   'pages.record.transfer.targetAccount': '转入账户',
-  'pages.record.transfer.exchangeAccount': '交换账户'
+  'pages.record.transfer.exchangeAccount': '交换账户',
+
+  'pages.transaction.head.title': '账本',
+
 }

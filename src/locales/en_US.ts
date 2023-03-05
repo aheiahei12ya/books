@@ -78,5 +78,7 @@ export const en_US = {
   'pages.record.transfer.time': 'time',
   'pages.record.transfer.sourceAccount': 'from account',
   'pages.record.transfer.targetAccount': 'to account',
-  'pages.record.transfer.exchangeAccount': 'exchange account'
+  'pages.record.transfer.exchangeAccount': 'exchange account',
+
+  'pages.transaction.head.title': 'Transactions'
 }
