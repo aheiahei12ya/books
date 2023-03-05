@@ -76,8 +76,8 @@ function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         {/*<link rel="icon" href="/public/favicon.ico" />*/}
       </Head>
-      <main className={classNames(styles.main)}>
-        <div className={styles.mainContent}>
+      <main className={classNames(styles.page)}>
+        <div className={styles.columnLeft}>
           <div className={styles.title}>
             <Card
               title={i18n.formatMessage({ id: greet })}
@@ -129,7 +129,7 @@ function Home() {
             <HistoryToday></HistoryToday>
           </Card>
         </div>
-        <div className={classNames(styles.viceContent, styles.hiddenSmAndDown, styles.hiddenOnPortrait)}>
+        <div className={classNames(styles.columnRight, styles.hiddenSmAndDown, styles.hiddenOnPortrait)}>
           <div className={styles.spendCompare}>
             <Card subtitle={currentYearMonth} className={styles.spendCompareInner} elevation={1}>
               {expenseData?.success && (
