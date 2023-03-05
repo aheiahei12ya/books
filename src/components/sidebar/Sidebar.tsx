@@ -37,6 +37,11 @@ export const Sidebar = forwardRef<unknown, SidebarProps>((props, ref) => {
   )
 
   const handleSelect = (index: number, path: string | undefined, click?: Function) => {
+    if (path === undefined) {
+      click?.()
+      return
+    }
+    if (router.pathname === path) return
     setSelected(index)
     sessionStorage.setItem('selectedKey', index.toString())
     click?.()
