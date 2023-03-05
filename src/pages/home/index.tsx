@@ -6,7 +6,7 @@ import { useIntl } from 'react-intl'
 
 import HistoryToday from '@/components/biz/history-today'
 import RecordForm from '@/components/biz/record-form'
-import BarForm from '@/components/biz/record-statistic'
+import RecordStatistic from '@/components/biz/record-statistic'
 import RecordTips from '@/components/biz/record-tips'
 import Calendar from '@/components/calendar'
 import Card from '@/components/card'
@@ -173,12 +173,12 @@ function Home() {
             <div className={styles.infoFormContainer}>
               <Card className={styles.infoFormExpense} title={'收支统计'}>
                 <div className={styles.infoFormContent}>
-                  <BarForm></BarForm>
+                  <RecordStatistic></RecordStatistic>
                 </div>
               </Card>
               <Card title={'账户统计'} className={styles.infoFormAccount}>
                 <div className={styles.infoFormContent}>
-                  <BarForm></BarForm>
+                  <RecordStatistic></RecordStatistic>
                 </div>
               </Card>
               <Card className={styles.infoFormReminder}>
