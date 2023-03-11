@@ -9,7 +9,7 @@
   align-items: center;
 
   margin: 0;
-  padding: 0;
+  padding: 0 12px;
 
   text-align: center;
   white-space: nowrap;
@@ -72,14 +72,13 @@
 
   &-type-default {
     display: inline-block;
-    width: 3rem;
     border: 1px solid var(--color-border);
     box-shadow: 0 2px 0 rgb(0 0 0 / 1.5%);
   }
 
   &-type-text {
+    display: inline-block;
     box-sizing: border-box;
-    height: 1rem;
   }
 
   &-type-block {
