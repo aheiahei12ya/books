@@ -5,6 +5,7 @@ export interface TransferFormProps {
   value?: {}
   accountList: ItemType[]
   shortcutList: any[]
+  orientation?: 'portrait' | 'landscape'
 }
 
 export interface TransferFormRef {}

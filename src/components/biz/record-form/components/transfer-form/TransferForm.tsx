@@ -64,7 +64,7 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
       return {
         type: type,
         name: i18n.formatMessage({ id: i18nKey }),
-        icon: <i className={`fa-regular fa-${icon}`}></i>
+        icon: <i className={ `fa-regular fa-${ icon }` }></i>
       }
     }
     return {
@@ -92,66 +92,73 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
     switch (transferConfig[formKey].type) {
       case 'input':
         return (
-          <Form.Item name={formKey} key={formKey} className={styles.expenseFormButton}>
+          <Form.Item name={ formKey } key={ formKey } className={ styles.expenseFormButton }>
             <Input
-              prepend={transferConfig[formKey].icon}
+              prepend={ transferConfig[formKey].icon }
               hideMessage
-              value={form.get(formKey, undefined)}
-              placeholder={transferConfig[formKey].name}
+              value={ form.get(formKey, undefined) }
+              placeholder={ transferConfig[formKey].name }
               clearable
               showClearIfFill
-              type={'calculator'}
-              onChange={(val) => handleChange(formKey, val)}
-              onClear={() => handleChange(formKey, '')}
+              type={ 'calculator' }
+              onChange={ (val) => handleChange(formKey, val) }
+              onClear={ () => handleChange(formKey, '') }
             ></Input>
           </Form.Item>
         )
       case 'select':
         return (
-          <Form.Item name={formKey} key={formKey} className={styles.expenseFormButton}>
+          <Form.Item name={ formKey } key={ formKey } className={ styles.expenseFormButton }>
             <Dropdown
-              prepend={transferConfig[formKey].icon}
+              prepend={ transferConfig[formKey].icon }
               hideMessage
-              placeholder={transferConfig[formKey].name}
-              items={props.accountList as ItemType[]}
-              itemName={'name'}
+              placeholder={ transferConfig[formKey].name }
+              items={ props.accountList as ItemType[] }
+              itemName={ 'name' }
               returnObject
-              onChange={(val) => handleChange(formKey, val)}
-              value={(form.get(formKey) as ItemType)?.name}
+              onChange={ (val) => handleChange(formKey, val) }
+              value={ (form.get(formKey) as ItemType)?.name }
             ></Dropdown>
           </Form.Item>
         )
       case 'date-picker':
         return (
-          <Form.Item name={formKey} key={formKey} className={styles.expenseFormButton}>
+          <Form.Item name={ formKey } key={ formKey } className={ styles.expenseFormButton }>
             <DatePicker
               hideMessage
-              prepend={transferConfig[formKey].icon}
-              placeholder={transferConfig[formKey].name}
-              onChange={(date) => handleChange(formKey, date)}
-              value={form.get(formKey)}
-              locale={i18n.locale}
+              prepend={ transferConfig[formKey].icon }
+              placeholder={ transferConfig[formKey].name }
+              onChange={ (date) => handleChange(formKey, date) }
+              value={ form.get(formKey) }
+              locale={ i18n.locale }
             ></DatePicker>
           </Form.Item>
         )
       case 'time-picker':
         return (
-          <Form.Item name={formKey} key={formKey} className={styles.expenseFormButton}>
+          <Form.Item name={ formKey } key={ formKey } className={ styles.expenseFormButton }>
             <TimePicker
               hideMessage
-              prepend={transferConfig[formKey].icon}
-              placeholder={transferConfig[formKey].name}
-              onChange={(time) => handleChange(formKey, time)}
-              value={form.get(formKey)}
-              locale={i18n.locale}
+              prepend={ transferConfig[formKey].icon }
+              placeholder={ transferConfig[formKey].name }
+              onChange={ (time) => handleChange(formKey, time) }
+              value={ form.get(formKey) }
+              locale={ i18n.locale }
             ></TimePicker>
           </Form.Item>
         )
       case 'button':
         return (
-          <Form.Item name={formKey} key={formKey} className={styles.expenseFormIconButton}>
-            <Button type={'text'} onClick={() => handleExchange(formKey as 'exchangeAccount' | 'exchangeAmount')}>
-              {transferConfig[formKey].icon}
+          <Form.Item
+            name={ formKey }
+            key={ formKey }
+            className={ classNames({
+              [styles.expenseFormIconButton]: props.orientation === 'landscape',
+              [styles.expenseFormIconButtonVertical]: props.orientation === 'portrait'
+            }) }
+          >
+            <Button type={ 'text' } onClick={ () => handleExchange(formKey as 'exchangeAccount' | 'exchangeAmount') }>
+              { transferConfig[formKey].icon }
             </Button>
           </Form.Item>
         )
@@ -191,12 +198,12 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
     return props.shortcutList.length ? (
       <>
         <DivideLine></DivideLine>
-        <div className={styles.expenseShortcuts}>
-          {props.shortcutList.map((item, index) => (
-            <Tag key={index} select onClick={() => handleShortcutSelect(item)}>
-              {item.name}
+        <div className={ styles.expenseShortcuts }>
+          { props.shortcutList.map((item, index) => (
+            <Tag key={ index } select onClick={ () => handleShortcutSelect(item) }>
+              { item.name }
             </Tag>
-          ))}
+          )) }
         </div>
       </>
     ) : (
@@ -209,19 +216,19 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
       const style = hide ? classNames(styles.hiddenMdAndUp) : undefined
       return (
         <Button
-          form={formId}
-          htmlType={'submit'}
-          loading={loading}
-          noClick={loading || success}
-          color={success ? 'success' : 'default'}
-          className={style}
+          form={ formId }
+          htmlType={ 'submit' }
+          loading={ loading }
+          noClick={ loading || success }
+          color={ success ? 'success' : 'default' }
+          className={ style }
           block
         >
-          {success ? (
+          { success ? (
             <i className="fa-regular fa-check"></i>
           ) : (
-            <FormattedMessage id={'pages.record.form.submit'}></FormattedMessage>
-          )}
+            <FormattedMessage id={ 'pages.record.form.submit' }></FormattedMessage>
+          ) }
         </Button>
       )
     },
@@ -239,29 +246,53 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
     setTimeout(() => setSuccess(false), 5000)
   }
 
-  return (
-    <div className={styles.expenseContainer}>
-      <div className={styles.expenseForm}>
-        <Form id={formId} form={form} initialValue={transfer} rules={rules} onSubmit={handleSubmit}>
-          {transferFormKeys.map((formRow, index) => (
-            <div key={`row-${index}`} className={styles.expenseFormRow}>
-              {formRow.map((formKey) => makeInputUnit(formKey as keyof TransferConfigType))}
+  return props.orientation === 'portrait' ? (
+    <div className={ styles.expenseContainer } style={ { flexDirection: 'column' } }>
+      <div className={ styles.expenseForm }>
+        { shortcutList }
+        <DivideLine></DivideLine>
+        <Form id={ formId } form={ form } initialValue={ transfer } rules={ rules } onSubmit={ handleSubmit }>
+          { transferFormKeys.flat().map((formKey, index) => (
+            <div key={ `row-${ index }` } className={ styles.expenseFormRow }>
+              { makeInputUnit(formKey as keyof TransferConfigType) }
             </div>
-          ))}
-          <div className={styles.expenseFormRow}>{makeSubmitBtn(true)}</div>
+          )) }
+          <div className={ styles.expenseFormRow }>{ makeSubmitBtn(false) }</div>
         </Form>
-        {shortcutList}
+      </div>
+      <DivideLine marginTop={ '16px' } marginBottom={ '12px' }></DivideLine>
+      <ReceiptForm
+        type={ 'transfer' }
+        item={ transfer }
+        itemName={ 'name' }
+        keys={ transferReceiptKeys }
+        config={ transferConfig }
+      ></ReceiptForm>
+      <br/>
+    </div>
+  ) : (
+    <div className={ styles.expenseContainer }>
+      <div className={ styles.expenseForm }>
+        <Form id={ formId } form={ form } initialValue={ transfer } rules={ rules } onSubmit={ handleSubmit }>
+          { transferFormKeys.map((formRow, index) => (
+            <div key={ `row-${ index }` } className={ styles.expenseFormRow }>
+              { formRow.map((formKey) => makeInputUnit(formKey as keyof TransferConfigType)) }
+            </div>
+          )) }
+          <div className={ styles.expenseFormRow }>{ makeSubmitBtn(true) }</div>
+        </Form>
+        { shortcutList }
       </div>
 
-      <div className={classNames(styles.expenseReceipt, styles.hiddenSmAndDown)}>
+      <div className={ classNames(styles.expenseReceipt, styles.hiddenSmAndDown) }>
         <ReceiptForm
-          type={'transfer'}
-          item={transfer}
-          itemName={'name'}
-          keys={transferReceiptKeys}
-          config={transferConfig}
+          type={ 'transfer' }
+          item={ transfer }
+          itemName={ 'name' }
+          keys={ transferReceiptKeys }
+          config={ transferConfig }
         ></ReceiptForm>
-        <div className={styles.expenseFormRow}>{makeSubmitBtn(false)}</div>
+        <div className={ styles.expenseFormRow }>{ makeSubmitBtn(false) }</div>
       </div>
     </div>
   )
