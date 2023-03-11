@@ -10,12 +10,21 @@
   box-sizing: border-box;
   padding: 12px;
 
+  &-head {
+    display: flex;
+    width: 100%;
+    padding: 6px 0;
+  }
+
   &-title {
     flex: none;
-    padding: 6px 0;
     font-size: $text-h5;
-    line-height: $text-h5;
   }
+
+  &-tool {
+    flex: 1;
+  }
+
 
   &-subtitle {
     flex: none;

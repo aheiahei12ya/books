@@ -6,7 +6,7 @@ import { CardProps } from '@/components/card/Card.types'
 import styles from './Card.module.scss'
 
 const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
-  Card.displayName = 'Card'
+  const showHead = props.title || props.tools
   return (
     <div
       ref={ref}
@@ -16,15 +16,18 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
         [styles.fill]: props.fill
       })}
     >
-      {props.title && (
-        <span style={props.titleStyle} className={styles.cardTitle}>
-          {props.title}
-        </span>
+      {showHead && (
+        <div className={classNames(styles.cardHead, props?.headerClass)}>
+          <div style={props.titleStyle} className={styles.cardTitle}>
+            {props.title}
+          </div>
+          <div className={classNames(styles.cardTool, props?.toolClass)}>{props.tools}</div>
+        </div>
       )}
       {props.subtitle && (
-        <span style={props.subtitleStyle} className={styles.cardSubtitle}>
+        <div style={props.subtitleStyle} className={styles.cardSubtitle}>
           {props.subtitle}
-        </span>
+        </div>
       )}
       {props.children && (
         <div style={props.bodyStyle} className={classNames(styles.cardContent, props?.bodyClass)}>
@@ -35,4 +38,5 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
   )
 })
 
+Card.displayName = 'Card'
 export { Card }
