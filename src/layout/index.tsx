@@ -80,9 +80,7 @@ const Layout = (props: layoutProps) => {
     <div></div>
   ) : (
     <div className={styles.layout}>
-      {resize.isLandscape && (
-        <Sidebar avatar={avatar} items={items} tools={tools} defaultShrink={resize.isMobile} autoShrink />
-      )}
+      {resize.isLandscape && <Sidebar avatar={avatar} items={items} tools={tools} defaultShrink />}
       <div className={styles.container}>{props.children}</div>
     </div>
   )
