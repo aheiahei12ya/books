@@ -197,7 +197,6 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
     }
     return props.shortcutList.length ? (
       <>
-        <DivideLine></DivideLine>
         <div className={ styles.expenseShortcuts }>
           { props.shortcutList.map((item, index) => (
             <Tag key={ index } select onClick={ () => handleShortcutSelect(item) }>
@@ -281,6 +280,7 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
           )) }
           <div className={ styles.expenseFormRow }>{ makeSubmitBtn(true) }</div>
         </Form>
+        <DivideLine></DivideLine>
         { shortcutList }
       </div>
 

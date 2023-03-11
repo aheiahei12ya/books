@@ -274,6 +274,7 @@ const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
             </div>
           ))}
         </Form>
+        <DivideLine></DivideLine>
         {shortcutList}
       </div>
 
