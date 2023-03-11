@@ -65,7 +65,8 @@ $x-large-screen-container: $x-large-screen;
   }
 
   .container {
-    max-width: #{ $small-screen-container }px;
+    max-width: 100%;
+    //max-width: #{ $small-screen-container }px;
   }
 }
 
@@ -75,13 +76,15 @@ $x-large-screen-container: $x-large-screen;
   }
 
   .container {
-    max-width: #{ $middle-screen-container }px;
+    max-width: 100%;
+    //max-width: #{ $middle-screen-container }px;
   }
 }
 
 @media (min-width: #{ $normal-screen-min }px) {
   .container {
-    max-width: #{ $normal-screen-container }px;
+    max-width: 100%;
+    //max-width: #{ $normal-screen-container }px;
   }
 }
 
@@ -101,7 +104,7 @@ $x-large-screen-container: $x-large-screen;
   }
 
   .container {
-    max-width: #{ $x-large-screen-container }px;
+    max-width: #{ $large-screen-container }px;
   }
 }
 
