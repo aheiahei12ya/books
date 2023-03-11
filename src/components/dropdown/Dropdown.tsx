@@ -57,7 +57,7 @@ const Dropdown = forwardRef<DropdownRef, DropdownProps>((props, ref) => {
   }))
 
   return (
-    <div ref={buttonRef}>
+    <div ref={buttonRef} className={styles.dropdownContainer}>
       <div
         className={classNames(styles.dropdownButton, {
           [styles.dropdownButtonSm]: size === 'small',
