@@ -206,11 +206,11 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
         <div className={styles.timePickerContainer}>
           <div className={styles.timePicker}>{timePicker}</div>
           <div className={styles.timePickerAction}>
-            <div className={styles.timePickerActionButton} onClick={setNow}>
-              <span>{props.locale === 'zh-CN' ? '现在' : 'Now'}</span>
-            </div>
+            <Button size={'small'} type={'text'} onClick={setNow}>
+              {props.locale === 'zh-CN' ? '现在' : 'Now'}
+            </Button>
             <Button size={'small'} color={'primary'} onClick={handleSetTime}>
-              <span>{props.locale === 'zh-CN' ? '确定' : 'OK'}</span>
+              {props.locale === 'zh-CN' ? '确定' : 'OK'}
             </Button>
           </div>
         </div>
