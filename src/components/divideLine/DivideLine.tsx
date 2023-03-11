@@ -4,8 +4,14 @@ import styles from './DivideLine.module.scss'
 import { DivideLineProps, DivideLineRef } from './DivideLine.types'
 
 const DivideLine = forwardRef<DivideLineRef, DivideLineProps>((props, ref) => {
+  const style = {
+    marginTop: props.marginTop,
+    marginBottom: props.marginBottom
+  }
   return (
-    <div className={styles.divideLine}>{props.text && <span className={styles.divideLineText}>{props.text}</span>}</div>
+    <div className={styles.divideLine} style={style}>
+      {props.text && <span className={styles.divideLineText}>{props.text}</span>}
+    </div>
   )
 })
 
