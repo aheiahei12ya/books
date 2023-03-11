@@ -1,10 +1,11 @@
 import classNames from 'classnames'
-import { forwardRef, useCallback, useMemo, useState } from 'react'
+import React, { forwardRef, useCallback, useMemo, useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import ExpenseForm, { ExpenseDropdownType } from '@/components/biz/record-form/components/expense-form'
 import IncomeForm, { IncomeDropdownType } from '@/components/biz/record-form/components/income-form'
 import TransferForm from '@/components/biz/record-form/components/transfer-form'
+import DivideLine from '@/components/divideLine'
 import useRequest from '@/hooks/useRequest'
 import { useAuth } from '@/lib/auth'
 import services from '@/services'
@@ -121,35 +122,41 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
       <div className={classNames(styles.recordType, { [styles.recordTypePortrait]: props.orientation === 'portrait' })}>
         {recordButtons}
       </div>
-      <div className={styles.recordContainer}>
-        {type === 'expense' && (
-          <ExpenseForm
-            defaultValue={expensePreset}
-            accountList={expenseDropdown.accountList}
-            platformList={expenseDropdown.platformList}
-            paymentMethodList={expenseDropdown.paymentMethodList}
-            categoryList={expenseDropdown.categoryList}
-            subcategoryList={expenseDropdown.subcategoryList}
-            reimbursementStateList={expenseDropdown.reimbursementStateList}
-            shortcutList={shortcutList}
-          />
-        )}
-        {type === 'income' && (
-          <IncomeForm
-            defaultValue={incomePreset}
-            accountList={incomeDropdown.accountList}
-            categoryList={incomeDropdown.categoryList}
-            subcategoryList={incomeDropdown.subcategoryList}
-            shortcutList={shortcutList}
-          />
-        )}
-        {type === 'transfer' && (
-          <TransferForm
-            defaultValue={incomePreset}
-            accountList={incomeDropdown.accountList}
-            shortcutList={shortcutList}
-          />
-        )}
+      {props.orientation === 'portrait' && <DivideLine marginTop={'6px'} marginBottom={'6px'}></DivideLine>}
+      <div className={styles.formSheet}>
+        <div className={styles.formContainer}>
+          {type === 'expense' && (
+            <ExpenseForm
+              orientation={props.orientation}
+              defaultValue={expensePreset}
+              accountList={expenseDropdown.accountList}
+              platformList={expenseDropdown.platformList}
+              paymentMethodList={expenseDropdown.paymentMethodList}
+              categoryList={expenseDropdown.categoryList}
+              subcategoryList={expenseDropdown.subcategoryList}
+              reimbursementStateList={expenseDropdown.reimbursementStateList}
+              shortcutList={shortcutList}
+            />
+          )}
+          {type === 'income' && (
+            <IncomeForm
+              orientation={props.orientation}
+              defaultValue={incomePreset}
+              accountList={incomeDropdown.accountList}
+              categoryList={incomeDropdown.categoryList}
+              subcategoryList={incomeDropdown.subcategoryList}
+              shortcutList={shortcutList}
+            />
+          )}
+          {type === 'transfer' && (
+            <TransferForm
+              orientation={props.orientation}
+              defaultValue={incomePreset}
+              accountList={incomeDropdown.accountList}
+              shortcutList={shortcutList}
+            />
+          )}
+        </div>
       </div>
     </div>
   )
