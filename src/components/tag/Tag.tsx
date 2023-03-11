@@ -18,7 +18,8 @@ const Tag = forwardRef<TagRef, TagProps>((props, ref) => {
         styles[`tag-color-${color}`],
         styles[`tag-shape-${shape}`],
         {
-          [styles.tagContainerHover]: props.select
+          [styles.tagContainerHover]: props.select,
+          [styles.tagNoBorder]: props.hideBorder
         }
       ])}
     >

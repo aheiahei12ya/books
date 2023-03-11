@@ -6,6 +6,7 @@ export interface TagProps {
   size?: 'small' | 'middle' | 'large'
   shape?: 'rect' | 'round'
   width?: string
+  hideBorder?: boolean
   children?: React.ReactNode
 }
 
