@@ -7,6 +7,7 @@ export interface IncomeFormProps {
   categoryList: ItemType[]
   subcategoryList: ItemType[]
   shortcutList: any[]
+  orientation?: 'portrait' | 'landscape'
 }
 
 export interface IncomeDropdownType {

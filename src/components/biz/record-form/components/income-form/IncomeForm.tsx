@@ -181,7 +181,6 @@ const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
     }
     return props.shortcutList.length ? (
       <>
-        <DivideLine></DivideLine>
         <div className={styles.expenseShortcuts}>
           {props.shortcutList.map((item, index) => (
             <Tag key={index} select onClick={() => handleShortcutSelect(item)}>
@@ -230,7 +229,36 @@ const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
     setTimeout(() => setSuccess(false), 5000)
   }
 
-  return (
+  return props.orientation === 'portrait' ? (
+    <div className={styles.expenseContainer} style={{ flexDirection: 'column' }}>
+      <div className={styles.expenseForm}>
+        {shortcutList}
+        <DivideLine></DivideLine>
+        <Form id={formId} form={form} initialValue={income} rules={rules} onSubmit={handleSubmit}>
+          {incomeFormKeys.flat().map((formKey, index) => (
+            <div key={`row-${index}`} className={styles.expenseFormRow}>
+              {makeInputUnit(formKey as keyof IncomeConfigType)}
+            </div>
+          ))}
+          {incomeFormKeysAppend.flat().map((formKey, index) => (
+            <div key={`row-${index}`} className={styles.expenseFormRow}>
+              {makeInputUnit(formKey as keyof IncomeConfigType)}
+            </div>
+          ))}
+          <div className={styles.expenseFormRow}>{makeSubmitBtn(false)}</div>
+        </Form>
+      </div>
+      <DivideLine marginTop={'16px'} marginBottom={'12px'}></DivideLine>
+      <ReceiptForm
+        type={'income'}
+        item={income}
+        itemName={'name'}
+        keys={incomeReceiptKeys}
+        config={incomeConfig}
+      ></ReceiptForm>
+      <br />
+    </div>
+  ) : (
     <div className={styles.expenseContainer}>
       <div className={styles.expenseForm}>
         <Form id={formId} form={form} initialValue={income} rules={rules} onSubmit={handleSubmit}>
@@ -264,5 +292,4 @@ const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
 })
 
 IncomeForm.displayName = 'IncomeForm'
-
 export { IncomeForm }
