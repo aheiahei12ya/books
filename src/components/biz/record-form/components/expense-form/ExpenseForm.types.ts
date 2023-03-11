@@ -10,6 +10,7 @@ export interface ExpenseFormProps {
   subcategoryList: ItemType[]
   reimbursementStateList: ItemType[]
   shortcutList: any[]
+  orientation?: 'portrait' | 'landscape'
 }
 
 export interface ExpenseDropdownType {

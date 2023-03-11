@@ -21,6 +21,7 @@ import {
   autoDebitKeys,
   expenseFormKeys,
   expenseFormKeysAppend,
+  expenseFormKeysVertical,
   expenseReceiptKeys,
   installmentKeys,
   reimbursementKeys
@@ -242,26 +243,51 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
       handleChange('reimbursementAmount', 0)
     }
   }
-  const makeExtraRow = () => {
+  const makeExtraRow = (flat = false) => {
     switch (expense.paymentMethod?.key) {
       case 'installment':
-        return (
-          <div className={styles.expenseFormRow}>
-            {installmentKeys.map((formKey) => makeInputUnit(formKey as keyof ExpenseConfigType))}
-          </div>
-        )
+        if (flat) {
+          return installmentKeys.map((formKey) => (
+            <div className={styles.expenseFormRow} key={formKey}>
+              {makeInputUnit(formKey as keyof ExpenseConfigType)}
+            </div>
+          ))
+        } else {
+          return (
+            <div className={styles.expenseFormRow}>
+              {installmentKeys.map((formKey) => makeInputUnit(formKey as keyof ExpenseConfigType))}
+            </div>
+          )
+        }
       case 'auto-debit':
-        return (
-          <div className={styles.expenseFormRow}>
-            {autoDebitKeys.map((formKey) => makeInputUnit(formKey as keyof ExpenseConfigType))}
-          </div>
-        )
+        if (flat) {
+          return autoDebitKeys.map((formKey) => (
+            <div className={styles.expenseFormRow} key={formKey}>
+              {makeInputUnit(formKey as keyof ExpenseConfigType)}
+            </div>
+          ))
+        } else {
+          return (
+            <div className={styles.expenseFormRow}>
+              {autoDebitKeys.map((formKey) => makeInputUnit(formKey as keyof ExpenseConfigType))}
+            </div>
+          )
+        }
       case 'reimbursement':
-        return (
-          <div className={styles.expenseFormRow}>
-            {reimbursementKeys.map((formKey) => makeInputUnit(formKey as keyof ExpenseConfigType))}
-          </div>
-        )
+        if (flat) {
+          return reimbursementKeys.map((formKey) => (
+            <div className={styles.expenseFormRow} key={formKey}>
+              {makeInputUnit(formKey as keyof ExpenseConfigType)}
+            </div>
+          ))
+        } else {
+          return (
+            <div className={styles.expenseFormRow}>
+              {reimbursementKeys.map((formKey) => makeInputUnit(formKey as keyof ExpenseConfigType))}
+            </div>
+          )
+        }
+
       default:
         return
     }
@@ -275,7 +301,6 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
     }
     return props.shortcutList.length ? (
       <>
-        <DivideLine></DivideLine>
         <div className={styles.expenseShortcuts}>
           {props.shortcutList.map((item, index) => (
             <Tag key={index} select onClick={() => handleShortcutSelect(item)}>
@@ -323,7 +348,40 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
     setTimeout(() => setSuccess(true), 2000)
     setTimeout(() => setSuccess(false), 5000)
   }
-  return (
+  return props.orientation === 'portrait' ? (
+    <div className={styles.expenseContainer} style={{ flexDirection: 'column' }}>
+      <div className={styles.expenseForm}>
+        {shortcutList}
+        <DivideLine></DivideLine>
+        <Form id={formId} form={form} initialValue={expense} rules={rules} onSubmit={handleSubmit}>
+          {expenseFormKeysVertical.map((formKey, index) =>
+            formKey === 'extra' ? (
+              makeExtraRow(true)
+            ) : (
+              <div key={`row-${index}`} className={styles.expenseFormRow}>
+                {makeInputUnit(formKey as keyof ExpenseConfigType)}
+              </div>
+            )
+          )}
+          {expenseFormKeysAppend.flat().map((formKey, index) => (
+            <div key={`row-${index}`} className={styles.expenseFormRow}>
+              {makeInputUnit(formKey as keyof ExpenseConfigType)}
+            </div>
+          ))}
+          <div className={styles.expenseFormRow}>{makeSubmitBtn(false)}</div>
+        </Form>
+      </div>
+      <DivideLine marginTop={'16px'} marginBottom={'12px'}></DivideLine>
+      <ReceiptForm
+        type={'expense'}
+        item={expense}
+        itemName={'name'}
+        keys={expenseReceiptKeys}
+        config={expenseConfig}
+      ></ReceiptForm>
+      <br />
+    </div>
+  ) : (
     <div className={styles.expenseContainer}>
       <div className={styles.expenseForm}>
         <Form id={formId} form={form} initialValue={expense} rules={rules} onSubmit={handleSubmit}>
@@ -340,6 +398,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
             </div>
           ))}
         </Form>
+        <DivideLine></DivideLine>
         {shortcutList}
       </div>
 

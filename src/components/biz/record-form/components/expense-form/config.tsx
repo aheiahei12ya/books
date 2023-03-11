@@ -1,5 +1,3 @@
-import { ExpenseConfigType } from './ExpenseForm.types'
-
 export const expenseReceiptKeys = [
   'amount',
   'coupon',
@@ -16,6 +14,19 @@ export const expenseFormKeys = [
   ['platform', 'category', 'subcategory'],
   ['date', 'time', 'amount'],
   ['account', 'paymentMethod', 'coupon']
+]
+
+export const expenseFormKeysVertical = [
+  'paymentMethod',
+  'account',
+  'extra',
+  'platform',
+  'category',
+  'subcategory',
+  'date',
+  'time',
+  'amount',
+  'coupon'
 ]
 
 export const expenseFormKeysAppend = [['note']]
