@@ -6,7 +6,7 @@
   @include flex-column-auto-height;
 
   box-sizing: border-box;
-  border: 1px solid $grey-lighten-2;
+  border: 1px solid var(--color-border);
 
   &-container {
     display: block;
@@ -14,15 +14,15 @@
 
   &-header {
     padding: 6px 12px;
-    border-bottom: 1px solid $grey-lighten-2;
+    border-bottom: 1px solid var(--color-border);
 
     &:active {
-      background: $grey-lighten-4;
+      background: var(--color-header);
     }
 
     @media(hover: hover) and (pointer: fine) {
       &:hover {
-        background: $grey-lighten-4;
+        background: var(--color-header);
       }
     }
   }
@@ -44,7 +44,7 @@
     min-height: 0;
 
     visibility: hidden;
-    border-bottom: 1px solid $grey-lighten-2;
+    border-bottom: 1px solid var(--color-border);
 
     transition: visibility .1s ease;
 
