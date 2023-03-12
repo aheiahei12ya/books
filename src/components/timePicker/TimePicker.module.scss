@@ -18,8 +18,14 @@
 
   transition: all .25s ease;
 
-  &:hover {
+  &:active {
     border-color: $blue;
+  }
+
+  @media(hover: hover) and (pointer: fine) {
+    &:hover {
+      border-color: $blue;
+    }
   }
 
   &-error {
@@ -182,8 +188,14 @@
 
     border-radius: 5px;
 
-    &:hover {
-      background: var(--selected-background-color);
+    &:active {
+      background-color: var(--selected-background-color)
+    }
+
+    @media(hover: hover) and (pointer: fine) {
+      &:hover {
+        background: var(--selected-background-color);
+      }
     }
 
     &-selected {
@@ -218,8 +230,14 @@
     &-button {
       transition: color .3s ease;
 
-      &:hover {
+      &:active {
         color: var(--color-primary);
+      }
+
+      @media(hover: hover) and (pointer: fine) {
+        &:hover {
+          color: var(--color-primary);
+        }
       }
     }
   }

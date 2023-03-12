@@ -34,8 +34,14 @@
     animation-direction: normal;
   }
 
-  &:hover {
+  &:active {
     border-color: $blue;
+  }
+
+  @media(hover: hover) and (pointer: fine) {
+    &:hover {
+      border-color: $blue;
+    }
   }
 
   &-focus {

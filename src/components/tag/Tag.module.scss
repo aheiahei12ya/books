@@ -19,8 +19,14 @@
     text-align: center;
   }
 
-  &-hover:hover {
+  &-hover:active {
     filter: brightness(0.8) contrast(120%);
+  }
+
+  @media(hover: hover) and (pointer: fine) {
+    &-hover:hover {
+      filter: brightness(0.8) contrast(120%);
+    }
   }
 }
 

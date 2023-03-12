@@ -38,8 +38,14 @@
   &-cell {
     transition: all .35s ease;
 
-    &:not(&-activated):hover {
+    &:active {
       color: $blue-lighten-1;
+    }
+
+    @media(hover: hover) and (pointer: fine) {
+      &:not(&-activated):hover {
+        color: $blue-lighten-1;
+      }
     }
 
     &-activated {

@@ -28,8 +28,14 @@
     animation-direction: normal;
   }
 
-  &:hover {
+  &:active {
     border-color: $blue;
+  }
+
+  @media(hover: hover) and (pointer: fine) {
+    &:hover {
+      border-color: $blue;
+    }
   }
 
   &-focus {
@@ -139,8 +145,14 @@
     line-height: 24px;
     transition: color .3s ease;
 
-    &:hover {
+    &:active {
       color: var(--color-primary);
+    }
+
+    @media(hover: hover) and (pointer: fine) {
+      &:hover {
+        color: var(--color-primary);
+      }
     }
   }
 }
@@ -227,8 +239,14 @@
 
       border-radius: 5px;
 
-      &:hover {
+      &:active {
         background: var(--selected-background-color);
+      }
+
+      @media(hover: hover) and (pointer: fine) {
+        &:hover {
+          background: var(--selected-background-color);
+        }
       }
     }
 
@@ -236,8 +254,14 @@
       color: var(--color-white);
       background: $blue-darken-3;
 
-      &:hover {
+      &:active {
         background: $blue-darken-3;
+      }
+
+      @media(hover: hover) and (pointer: fine) {
+        &:hover {
+          background: $blue-darken-3;
+        }
       }
     }
 

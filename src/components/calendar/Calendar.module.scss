@@ -44,8 +44,14 @@
       font-size: 1.15rem;
     }
 
-    &:hover {
+    &:active {
       color: var(--color-primary);
+    }
+
+    @media(hover: hover) and (pointer: fine) {
+      &:hover {
+        color: var(--color-primary);
+      }
     }
   }
 }

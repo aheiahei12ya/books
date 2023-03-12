@@ -45,8 +45,14 @@
       border: 1px solid var(--color-primary);
     }
 
-    &:hover::before {
+    &:active::before {
       border: 1px solid var(--color-primary);
+    }
+
+    @media(hover: hover) and (pointer: fine) {
+      &:hover::before {
+        border: 1px solid var(--color-primary);
+      }
     }
 
     &:checked::after {
@@ -72,8 +78,14 @@
       cursor: not-allowed;
     }
 
-    &-disabled:hover::before {
+    &-disabled:active::before {
       border: 1px solid var(--color-border);
+    }
+
+    @media(hover: hover) and (pointer: fine) {
+      &-disabled:hover::before {
+        border: 1px solid var(--color-border);
+      }
     }
   }
 

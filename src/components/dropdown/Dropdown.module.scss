@@ -34,10 +34,15 @@
     animation-direction: normal;
   }
 
-  &:hover {
+  &:active {
     border-color: $blue;
   }
 
+  @media(hover: hover) and (pointer: fine) {
+    &:hover {
+      border-color: $blue;
+    }
+  }
   &-focus {
     border-color: $blue;
     box-shadow: 0 0 3px $blue;
@@ -155,8 +160,14 @@
     line-height: 1.5rem;
     border-radius: 4px;
 
-    &:hover {
+    &:active {
       background-color: var(--selected-background-color);
+    }
+
+    @media(hover: hover) and (pointer: fine) {
+      &:hover {
+        background-color: var(--selected-background-color);
+      }
     }
 
     &-selected {

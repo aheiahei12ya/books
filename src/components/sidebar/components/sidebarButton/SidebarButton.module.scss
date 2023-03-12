@@ -51,7 +51,18 @@
 .sidebar-button {
   @include sidebar-button;
 
-  &:hover,
+  &:active {
+    background: var(--selected-background-color);
+    border-radius: 4px;
+  }
+
+  @media(hover: hover) and (pointer: fine) {
+    &:hover {
+      background: var(--selected-background-color);
+      border-radius: 4px;
+    }
+  }
+
   &-selected {
     background: var(--selected-background-color);
     border-radius: 4px;
@@ -61,8 +72,14 @@
 .sidebar-tool-button {
   @include sidebar-button;
 
-  &:hover {
+  &:active {
     color: $blue;
+  }
+
+  @media(hover: hover) and (pointer: fine) {
+    &:hover {
+      color: $blue;
+    }
   }
 }
 
@@ -71,8 +88,14 @@
 
   justify-content: center;
 
-  &:hover {
+  &:active {
     color: $blue;
+  }
+
+  @media(hover: hover) and (pointer: fine) {
+    &:hover {
+      color: $blue;
+    }
   }
 }
 

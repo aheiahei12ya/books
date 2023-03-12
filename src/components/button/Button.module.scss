@@ -25,14 +25,15 @@
     outline: 0;
   }
 
-  &:not([disabled]):hover {
-    text-decoration: none;
-  }
-
   &:not([disabled]):active {
     outline: 0;
     box-shadow: none;
   }
+
+  &:not([disabled]):hover {
+    text-decoration: none;
+  }
+
 
   &[disabled] {
     cursor: not-allowed;
@@ -122,9 +123,16 @@
     color: var(--color-text);
     background: transparent;
 
-    &:not([disabled], .button-loading):hover {
+    &:not([disabled], .button-loading):active {
       color: $blue-lighten-2;
       border: 1px solid $blue-lighten-2;
+    }
+
+    @media(hover: hover) and (pointer: fine) {
+      &:not([disabled], .button-loading):hover {
+        color: $blue-lighten-2;
+        border: 1px solid $blue-lighten-2;
+      }
     }
   }
 
@@ -132,8 +140,14 @@
     color: var(--color-white);
     background: $blue;
 
-    &:not([disabled], .button-loading):hover {
+    &:not([disabled], .button-loading):active {
       background: $blue-lighten-1;
+    }
+
+    @media(hover: hover) and (pointer: fine) {
+      &:not([disabled], .button-loading):hover {
+        background: $blue-lighten-1;
+      }
     }
   }
 
@@ -141,8 +155,14 @@
     color: var(--color-white);
     background: $green;
 
-    &:not([disabled], .button-loading):hover {
+    &:not([disabled], .button-loading):active {
       background: $green-lighten-1;
+    }
+
+    @media(hover: hover) and (pointer: fine) {
+      &:not([disabled], .button-loading):hover {
+        background: $green-lighten-1;
+      }
     }
   }
 
@@ -150,8 +170,14 @@
     color: var(--color-white);
     background: $orange;
 
-    &:not([disabled], .button-loading):hover {
+    &:not([disabled], .button-loading):active {
       background: $orange-lighten-1;
+    }
+
+    @media(hover: hover) and (pointer: fine) {
+      &:not([disabled], .button-loading):hover {
+        background: $orange-lighten-1;
+      }
     }
   }
 
@@ -159,48 +185,84 @@
     color: var(--color-white);
     background: $red;
 
-    &:not([disabled], .button-loading):hover {
+    &:not([disabled], .button-loading):active {
       background: $red-lighten-1;
+    }
+
+    @media(hover: hover) and (pointer: fine) {
+      &:not([disabled], .button-loading):hover {
+        background: $red-lighten-1;
+      }
     }
   }
 
   &-color-text-default {
     color: var(--color-text);
 
-    &:not([disabled], .button-loading):hover {
+    &:not([disabled], .button-loading):active {
       color: $blue-lighten-2;
+    }
+
+    @media(hover: hover) and (pointer: fine) {
+      &:not([disabled], .button-loading):hover {
+        color: $blue-lighten-2;
+      }
     }
   }
 
   &-color-text-primary {
     color: $blue-lighten-1;
 
-    &:not([disabled], .button-loading):hover {
+    &:not([disabled], .button-loading):active {
       color: $blue-lighten-2;
+    }
+
+    @media(hover: hover) and (pointer: fine) {
+      &:not([disabled], .button-loading):hover {
+        color: $blue-lighten-2;
+      }
     }
   }
 
   &-color-text-success {
     color: $green-lighten-1;
 
-    &:not([disabled], .button-loading):hover {
+    &:not([disabled], .button-loading):active {
       color: $green-lighten-2;
+    }
+
+    @media(hover: hover) and (pointer: fine) {
+      &:not([disabled], .button-loading):hover {
+        color: $green-lighten-2;
+      }
     }
   }
 
   &-color-text-warning {
     color: $orange-lighten-1;
 
-    &:not([disabled], .button-loading):hover {
+    &:not([disabled], .button-loading):active {
       color: $orange-lighten-2;
+    }
+
+    @media(hover: hover) and (pointer: fine) {
+      &:not([disabled], .button-loading):hover {
+        color: $orange-lighten-2;
+      }
     }
   }
 
   &-color-text-danger {
     color: $red-lighten-1;
 
-    &:not([disabled], .button-loading):hover {
+    &:not([disabled], .button-loading):active {
       color: $red-lighten-2;
+    }
+
+    @media(hover: hover) and (pointer: fine) {
+      &:not([disabled], .button-loading):hover {
+        color: $red-lighten-2;
+      }
     }
   }
 }
