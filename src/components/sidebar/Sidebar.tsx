@@ -49,7 +49,7 @@ export const Sidebar = forwardRef<unknown, SidebarProps>((props, ref) => {
   }
 
   return (
-    <div className={classNames(styles.sidebar, shrink ? styles.sidebarShrink : styles.sidebarStretch)}>
+    <nav className={classNames(styles.sidebar, shrink ? styles.sidebarShrink : styles.sidebarStretch)}>
       <div>
         {props.avatar && <SidebarButton type={'avatar'} icon={props.avatar} />}
         {props.brand && (
@@ -87,6 +87,6 @@ export const Sidebar = forwardRef<unknown, SidebarProps>((props, ref) => {
           </SidebarButton>
         )}
       </div>
-    </div>
+    </nav>
   )
 })
