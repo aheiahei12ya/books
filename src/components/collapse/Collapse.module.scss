@@ -1,0 +1,54 @@
+@use '@/styles/variable' as *;
+@use '@/styles/mixin.scss' as *;
+
+.collapse {
+  @include no-scrollbar;
+  @include flex-column-auto-height;
+
+  border: 1px solid $grey-lighten-2;
+  box-sizing: border-box;
+
+  &-container {
+    display: block;
+  }
+
+  &-header {
+    padding: 6px 12px;
+    border-bottom: 1px solid $grey-lighten-2;
+
+    &:active {
+      background: $grey-lighten-4;
+    }
+
+    @media(hover: hover) and (pointer: fine) {
+      &:hover {
+        background: $grey-lighten-4;
+      }
+    }
+  }
+
+  &-panel {
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .25s ease;
+
+    &-show {
+      grid-template-rows: 1fr;
+    }
+  }
+
+  &-content {
+    transition: visibility .1s ease;
+    visibility: hidden;
+    align-self: end;
+    min-height: 0;
+
+    border-bottom: 1px solid $grey-lighten-2;
+
+    &-show {
+      visibility: visible;
+    }
+  }
+}
+
