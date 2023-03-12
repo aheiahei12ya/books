@@ -56,16 +56,16 @@
     border-radius: 4px;
   }
 
+  &-selected {
+    background: var(--selected-background-color);
+    border-radius: 4px;
+  }
+
   @media(hover: hover) and (pointer: fine) {
     &:hover {
       background: var(--selected-background-color);
       border-radius: 4px;
     }
-  }
-
-  &-selected {
-    background: var(--selected-background-color);
-    border-radius: 4px;
   }
 }
 

@@ -38,12 +38,6 @@
     border-color: $blue;
   }
 
-  @media(hover: hover) and (pointer: fine) {
-    &:hover {
-      border-color: $blue;
-    }
-  }
-
   &-focus {
     border-color: $blue;
     box-shadow: 0 0 3px $blue;
@@ -113,6 +107,12 @@
 
     &-append {
       margin-right: 0.5rem;
+    }
+  }
+
+  @media(hover: hover) and (pointer: fine) {
+    &:hover {
+      border-color: $blue;
     }
   }
 }

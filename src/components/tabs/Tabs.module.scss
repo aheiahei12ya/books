@@ -42,14 +42,14 @@
       color: $blue-lighten-1;
     }
 
+    &-activated {
+      color: $blue-darken-1;
+    }
+
     @media(hover: hover) and (pointer: fine) {
       &:not(&-activated):hover {
         color: $blue-lighten-1;
       }
-    }
-
-    &-activated {
-      color: $blue-darken-1;
     }
   }
 

@@ -5,8 +5,8 @@
   @include no-scrollbar;
   @include flex-column-auto-height;
 
-  border: 1px solid $grey-lighten-2;
   box-sizing: border-box;
+  border: 1px solid $grey-lighten-2;
 
   &-container {
     display: block;
@@ -39,12 +39,14 @@
   }
 
   &-content {
-    transition: visibility .1s ease;
-    visibility: hidden;
     align-self: end;
+
     min-height: 0;
 
+    visibility: hidden;
     border-bottom: 1px solid $grey-lighten-2;
+
+    transition: visibility .1s ease;
 
     &-show {
       visibility: visible;

@@ -10,6 +10,7 @@
   flex: 7;
   flex-direction: column;
   gap: 8px;
+
   padding: 4px;
 
   &-row {
@@ -28,9 +29,9 @@
   }
 
   &-icon-button-vertical {
+    transform: rotate(90deg);
     flex: 0;
     width: $height-base;
-    transform: rotate(90deg);
   }
 }
 

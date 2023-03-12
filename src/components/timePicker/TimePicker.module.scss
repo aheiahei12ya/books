@@ -22,12 +22,6 @@
     border-color: $blue;
   }
 
-  @media(hover: hover) and (pointer: fine) {
-    &:hover {
-      border-color: $blue;
-    }
-  }
-
   &-error {
     border-color: $red !important;
     box-shadow: 0 0 3px $red !important;
@@ -57,6 +51,12 @@
   &-lg {
     height: $input-height-lg;
     font-size: $font-size-lg;
+  }
+
+  @media(hover: hover) and (pointer: fine) {
+    &:hover {
+      border-color: $blue;
+    }
   }
 }
 
@@ -192,12 +192,6 @@
       background-color: var(--selected-background-color)
     }
 
-    @media(hover: hover) and (pointer: fine) {
-      &:hover {
-        background: var(--selected-background-color);
-      }
-    }
-
     &-selected {
       background: var(--selected-background-color);
     }
@@ -211,6 +205,12 @@
 
     &-disabled {
       color: var(--color-disabled);
+    }
+
+    @media(hover: hover) and (pointer: fine) {
+      &:hover {
+        background: var(--selected-background-color);
+      }
     }
   }
 

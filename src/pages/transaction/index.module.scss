@@ -109,15 +109,14 @@
   }
 
   .record-list {
-    flex: 3;
     @include no-scrollbar;
     @include flex-column-auto-height;
+
+    flex: 3;
   }
 
   .record-year {
-
     &-button {
-
       padding: 6px 12px;
 
       &:active {

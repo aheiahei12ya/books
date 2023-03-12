@@ -38,11 +38,6 @@
     border-color: $blue;
   }
 
-  @media(hover: hover) and (pointer: fine) {
-    &:hover {
-      border-color: $blue;
-    }
-  }
   &-focus {
     border-color: $blue;
     box-shadow: 0 0 3px $blue;
@@ -61,6 +56,12 @@
   &-lg {
     height: $input-height-lg;
     font-size: $font-size-lg;
+  }
+
+  @media(hover: hover) and (pointer: fine) {
+    &:hover {
+      border-color: $blue;
+    }
   }
 }
 
@@ -164,14 +165,14 @@
       background-color: var(--selected-background-color);
     }
 
+    &-selected {
+      background-color: var(--selected-background-color);
+    }
+
     @media(hover: hover) and (pointer: fine) {
       &:hover {
         background-color: var(--selected-background-color);
       }
-    }
-
-    &-selected {
-      background-color: var(--selected-background-color);
     }
   }
 }
