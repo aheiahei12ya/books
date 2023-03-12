@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const path = require('path')
 const withBundleAnalyser = require('@next/bundle-analyzer')({
-  enabled: (process.env.ANALYZE === 'true')
+  enabled: process.env.ANALYZE === 'true'
 })
 
 const nextConfig = {
@@ -24,6 +24,14 @@ const nextConfig = {
           options.modules.exportLocalsConvention = 'camelCase'
         }
       })
+
+    config.module.rules.push({
+      test: /\.svg$/,
+      issuer: {
+        and: [/\.[jt]sx?$/]
+      },
+      use: ['@svgr/webpack', 'url-loader']
+    })
 
     return config
   },
