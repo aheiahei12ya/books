@@ -6,23 +6,25 @@
   @include flex-column-auto-height;
 
   box-sizing: border-box;
-  border: 1px solid var(--color-border);
 
   &-container {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
   }
 
   &-header {
     padding: 6px 12px;
-    border-bottom: 1px solid var(--color-border);
+    background: var(--color-header);
+    border-radius: 6px;
 
     &:active {
-      background: var(--color-header);
+      background: var(--color-header-selected);
     }
 
     @media(hover: hover) and (pointer: fine) {
       &:hover {
-        background: var(--color-header);
+        background: var(--color-header-selected);
       }
     }
   }
@@ -40,12 +42,8 @@
 
   &-content {
     align-self: end;
-
     min-height: 0;
-
     visibility: hidden;
-    border-bottom: 1px solid var(--color-border);
-
     transition: visibility .1s ease;
 
     &-show {
