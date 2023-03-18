@@ -103,14 +103,18 @@
 
 .record-container {
   flex: 1;
-  padding: 0;
+  padding: 6px;
+  border-radius: 12px;
 
   .record-sheet {
+    display: flex;
+    gap: 6px;
     height: 100%;
   }
 
   .year-selector {
     flex: 1;
+    margin-top: 6px;
   }
 
   .record-list {
@@ -118,6 +122,7 @@
     @include flex-column-auto-height;
 
     flex: 4;
+    margin-top: 6px;
   }
 
   .record-button {
@@ -158,20 +163,19 @@
     }
 
     &:active {
-      background: $grey-lighten-4;
+      background: var(--color-header);
       border-radius: 12px;
     }
 
     @media(hover: hover) and (pointer: fine) {
       &:hover {
-        background: $grey-lighten-4;
+        background: var(--color-header);
         border-radius: 12px;
       }
     }
   }
 
 }
-
 
 .table {
   overflow: auto;
@@ -180,13 +184,13 @@
   width: 100%;
 
   &-header-cell {
-    margin: 2px 6px;
+    margin-right: 6px;
     padding: 6px 12px;
 
     font-weight: normal;
 
     background-color: var(--color-header);
-    border-radius: 12px;
+    border-radius: 8px;
   }
 
   &-row {
@@ -195,7 +199,15 @@
   }
 
   &-title-row {
-    border-bottom: 1px solid var(--color-border);
+    &-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 6px 0;
+
+      border-bottom: 1px solid var(--color-border);
+    }
 
     &-date {
       padding: 4px 12px;
@@ -214,8 +226,9 @@
     }
 
     &-expense {
-      padding: 12px;
+      width: 30%;
       font-size: 0.9rem;
+      color: $grey-lighten-1;
       text-align: center;
     }
   }

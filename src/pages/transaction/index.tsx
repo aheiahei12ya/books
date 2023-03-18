@@ -602,12 +602,16 @@ const Transaction = () => {
                     </thead>
                     <tbody>
                       <tr className={styles.tableTitleRow}>
-                        <td colSpan={8} className={styles.tableTitleRowDate}>
-                          <span className={styles.tableTitleRowDay}>23</span>/<span>3</span>/<span>2023</span>
-                        </td>
-                        <td colSpan={2} className={styles.tableTitleRowExpense}>
-                          <span>支出：</span>
-                          <span className={styles.recordButtonTextGreen}>5.00</span>
+                        <td colSpan={8}>
+                          <div className={styles.tableTitleRowBox}>
+                            <div className={styles.tableTitleRowDate}>
+                              <span className={styles.tableTitleRowDay}>23</span>/<span>3</span>/<span>2023</span>
+                            </div>
+                            <div className={styles.tableTitleRowExpense}>
+                              <span>支出：</span>
+                              <span className={styles.recordButtonTextGreen}>5.00</span>
+                            </div>
+                          </div>
                         </td>
                       </tr>
                       <tr>
