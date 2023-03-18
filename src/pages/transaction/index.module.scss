@@ -172,6 +172,62 @@
 
 }
 
+
+.table {
+  overflow: auto;
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%;
+
+  &-header-cell {
+    margin: 2px 6px;
+    padding: 6px 12px;
+
+    font-weight: normal;
+
+    background-color: var(--color-header);
+    border-radius: 12px;
+  }
+
+  &-row {
+    // border-top: 1px solid var(--color-border);
+    // border-bottom: 1px solid var(--color-border);
+  }
+
+  &-title-row {
+    border-bottom: 1px solid var(--color-border);
+
+    &-date {
+      padding: 4px 12px;
+      font-size: 0.9rem;
+      color: $grey-lighten-1;
+
+      span {
+        margin: 0 4px;
+      }
+    }
+
+    &-day {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    &-expense {
+      padding: 12px;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+  }
+
+  &-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+
 .layer-right {
   flex: 2;
   margin: 24px 18px 0 8px;

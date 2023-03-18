@@ -425,6 +425,56 @@ const data = [
     ]
   }
 ]
+const columns = [
+  {
+    title: '时间',
+    dataIndex: 'time',
+    key: 'time',
+    ellipsis: true
+  },
+  {
+    title: '类型',
+    dataIndex: 'type',
+    key: 'type',
+    ellipsis: true
+  },
+  {
+    title: '账户',
+    dataIndex: 'account',
+    key: 'account',
+    ellipsis: true
+  },
+  {
+    title: '消费方式',
+    dataIndex: 'paymentType',
+    key: 'paymentType',
+    ellipsis: true
+  },
+  {
+    title: '一级分类',
+    dataIndex: 'category',
+    key: 'category',
+    ellipsis: true
+  },
+  {
+    title: '二级分类',
+    dataIndex: 'subcategory',
+    key: 'subcategory',
+    ellipsis: true
+  },
+  {
+    title: '金额',
+    dataIndex: 'amount',
+    key: 'amount'
+  },
+  {
+    title: '备注',
+    dataIndex: 'note',
+    key: 'note',
+    ellipsis: true,
+    width: 100
+  }
+]
 
 const Transaction = () => {
   const i18n = useIntl()
@@ -457,6 +507,30 @@ const Transaction = () => {
       </>
     )
   }, [currentYearMonth, lastDay])
+
+  const [header, colgroup] = useMemo(() => {
+    const header: React.ReactNode[] = []
+    const colgroup: React.ReactNode[] = []
+    columns.forEach((column) => {
+      const style = column?.width ? { width: `${column.width}px` } : {}
+      colgroup.push(<col key={column.key} style={style}></col>)
+      header.push(
+        <th
+          key={column.key}
+          className={classNames(
+            {
+              [styles.tableEllipsis]: column.ellipsis
+            },
+            styles.recordListHeader
+          )}
+        >
+          <div className={styles.tableHeaderCell}>{column.title}</div>
+        </th>
+      )
+    })
+    return [header, colgroup]
+  }, [])
+
   return (
     <>
       <Head>
@@ -520,7 +594,35 @@ const Transaction = () => {
                     </Collapse.Panel>
                   ))}
                 </Collapse>
-                <div className={styles.recordList}>b</div>
+                <div className={styles.recordList}>
+                  <table className={styles.table}>
+                    <colgroup>{colgroup}</colgroup>
+                    <thead className={classNames(styles.tableHeader)}>
+                      <tr className={styles.tableRow}>{header}</tr>
+                    </thead>
+                    <tbody>
+                      <tr className={styles.tableTitleRow}>
+                        <td colSpan={8} className={styles.tableTitleRowDate}>
+                          <span className={styles.tableTitleRowDay}>23</span>/<span>3</span>/<span>2023</span>
+                        </td>
+                        <td colSpan={2} className={styles.tableTitleRowExpense}>
+                          <span>支出：</span>
+                          <span className={styles.recordButtonTextGreen}>5.00</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>a</td>
+                        <td>b</td>
+                        <td>c</td>
+                        <td>d</td>
+                        <td>e</td>
+                        <td>f</td>
+                        <td>g</td>
+                        <td>h</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </Card>
             </div>
           </div>
