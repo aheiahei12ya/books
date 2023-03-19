@@ -1,4 +1,5 @@
 import { Icon } from './Icon'
 
-export default Icon
+export type { IconProps } from './Icon.types'
 
+export default Icon
