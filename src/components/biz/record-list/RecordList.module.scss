@@ -1,0 +1,94 @@
+@use '@/styles/variable' as *;
+
+.record-list {
+  overflow: auto;
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%;
+
+  &-header-cell {
+    margin: 0 3px;
+    padding: 6px 12px;
+
+    font-weight: normal;
+
+    background-color: var(--color-header);
+    border-radius: 8px;
+  }
+
+  &-header-row {
+    th:first-of-type > .record-list-header-cell {
+      margin-left: 0;
+    }
+
+    th:last-of-type > .record-list-header-cell {
+      margin-right: 0;
+    }
+  }
+
+  &-title-row {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 6px 0 4px;
+
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  &-title-date {
+    padding: 4px 8px;
+    font-size: 0.9rem;
+    color: $grey-lighten-1;
+
+    span {
+      margin: 0 4px;
+    }
+
+    &-day {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+  }
+
+  &-title-expense {
+    width: 100px;
+    font-size: 0.9rem;
+    color: $grey-lighten-1;
+    text-align: center;
+
+    &-green {
+      color: $green;
+    }
+  }
+
+  &-content-row {
+    border-bottom: 1px solid var(--color-border);
+
+    &:active {
+      background: var(--color-header);
+    }
+
+    @media(hover: hover) and (pointer: fine) {
+      &:hover {
+        background: var(--color-header);
+      }
+    }
+  }
+
+  &-content-cell {
+    padding: 12px 6px;
+    font-size: 0.95rem;
+    font-weight: 300;
+    text-align: center;
+  }
+
+  &-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
