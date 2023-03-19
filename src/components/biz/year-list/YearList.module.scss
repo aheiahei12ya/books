@@ -1,0 +1,51 @@
+@use '@/styles/variable' as *;
+
+.year-list-button {
+  display: grid;
+  grid-row: auto;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  align-items: center;
+
+  margin: 4px;
+  padding: 12px;
+
+  &-date {
+    grid-row: 1 / 3;
+    text-indent: 1rem;
+
+    // direction: rtl;
+    // text-indent: 2rem;
+  }
+
+  &-month {
+    margin-right: 4px;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  &-text {
+    font-size: 0.82rem;
+    font-weight: 300;
+
+    &-green {
+      color: $green;
+    }
+
+    &-red {
+      color: $red;
+    }
+  }
+
+  &:active {
+    background: var(--color-header);
+    border-radius: 12px;
+  }
+
+  @media(hover: hover) and (pointer: fine) {
+    &:hover {
+      background: var(--color-header);
+      border-radius: 12px;
+    }
+  }
+}
