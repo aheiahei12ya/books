@@ -4,7 +4,7 @@ export const columns = [
     dataIndex: 'time',
     key: 'time',
     ellipsis: true,
-    width: 80
+    width: 70
   },
   {
     title: '类型',
@@ -48,6 +48,6 @@ export const columns = [
     dataIndex: 'note',
     key: 'note',
     ellipsis: true,
-    width: 100
+    width: 150
   }
 ]
