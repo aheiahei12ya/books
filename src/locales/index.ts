@@ -1,3 +1,5 @@
+import { createIntl, createIntlCache } from 'react-intl'
+
 import { en_US } from './en_US'
 import { zh_CN } from './zh_CN'
 
@@ -17,4 +19,13 @@ function loadLocale(lang: string) {
   return message
 }
 
-export { loadLocale }
+const cache = createIntlCache()
+const i18n = createIntl(
+  {
+    locale: 'zh-CN',
+    messages: zh_CN
+  },
+  cache
+)
+
+export { i18n, loadLocale }

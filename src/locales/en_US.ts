@@ -96,4 +96,13 @@ export const en_US = {
   'pages.transaction.record.expense': 'expense',
   'pages.transaction.list.year': ' ',
   'pages.transaction.list.month': ' ',
+
+  'pages.transaction.table.time': 'Time',
+  'pages.transaction.table.type': 'Type',
+  'pages.transaction.table.account': 'Account',
+  'pages.transaction.table.method': 'Method',
+  'pages.transaction.table.category': 'Category',
+  'pages.transaction.table.subcategory': 'Subcategory',
+  'pages.transaction.table.amount': 'Amount',
+  'pages.transaction.table.note': 'Note',
 }

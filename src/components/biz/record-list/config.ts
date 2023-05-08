@@ -1,50 +1,52 @@
+import { i18n } from '@/locales'
+
 export const columns = [
   {
-    title: '时间',
+    title: i18n.formatMessage({ id: 'pages.transaction.table.time' }),
     dataIndex: 'time',
     key: 'time',
     ellipsis: true,
     width: 70
   },
   {
-    title: '类型',
+    title: i18n.formatMessage({ id: 'pages.transaction.table.type' }),
     dataIndex: 'type',
     key: 'type',
     ellipsis: true,
     width: 70
   },
   {
-    title: '账户',
+    title: i18n.formatMessage({ id: 'pages.transaction.table.account' }),
     dataIndex: 'account',
     key: 'account',
     ellipsis: true
   },
   {
-    title: '消费方式',
+    title: i18n.formatMessage({ id: 'pages.transaction.table.method' }),
     dataIndex: 'paymentMethod',
     key: 'paymentMethod',
     ellipsis: true
   },
   {
-    title: '一级分类',
+    title: i18n.formatMessage({ id: 'pages.transaction.table.category' }),
     dataIndex: 'category',
     key: 'category',
     ellipsis: true
   },
   {
-    title: '二级分类',
+    title: i18n.formatMessage({ id: 'pages.transaction.table.subcategory' }),
     dataIndex: 'subcategory',
     key: 'subcategory',
     ellipsis: true
   },
   {
-    title: '金额',
+    title: i18n.formatMessage({ id: 'pages.transaction.table.amount' }),
     dataIndex: 'amount',
     key: 'amount',
     width: 80
   },
   {
-    title: '备注',
+    title: i18n.formatMessage({ id: 'pages.transaction.table.note' }),
     dataIndex: 'note',
     key: 'note',
     ellipsis: true,

@@ -96,4 +96,13 @@ export const zh_CN = {
   'pages.transaction.record.expense': '支出',
   'pages.transaction.list.year': '年',
   'pages.transaction.list.month': '月',
+
+  'pages.transaction.table.time': '时间',
+  'pages.transaction.table.type': '类型',
+  'pages.transaction.table.account': '账户',
+  'pages.transaction.table.method': '消费方式',
+  'pages.transaction.table.category': '一级分类',
+  'pages.transaction.table.subcategory': '二级分类',
+  'pages.transaction.table.amount': '金额',
+  'pages.transaction.table.note': '备注',
 }
