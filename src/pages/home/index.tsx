@@ -125,7 +125,12 @@ function Home() {
           <Card className={classNames(styles.booking)} elevation={1} fill>
             <RecordForm></RecordForm>
           </Card>
-          <Card title={'历史上的今天'} className={classNames(styles.history, styles.hiddenXs)} elevation={1} fill>
+          <Card
+            title={i18n.formatMessage({ id: 'pages.record.statistic.history' })}
+            className={classNames(styles.history, styles.hiddenXs)}
+            elevation={1}
+            fill
+          >
             <HistoryToday></HistoryToday>
           </Card>
         </div>
@@ -171,12 +176,18 @@ function Home() {
           </Card>
           <Card className={styles.infoForm} elevation={1}>
             <div className={styles.infoFormContainer}>
-              <Card className={styles.infoFormExpense} title={'收支统计'}>
+              <Card
+                className={styles.infoFormExpense}
+                title={i18n.formatMessage({ id: 'pages.record.statistic.payment' })}
+              >
                 <div className={styles.infoFormContent}>
                   <RecordStatistic></RecordStatistic>
                 </div>
               </Card>
-              <Card title={'账户统计'} className={styles.infoFormAccount}>
+              <Card
+                title={i18n.formatMessage({ id: 'pages.record.statistic.account' })}
+                className={styles.infoFormAccount}
+              >
                 <div className={styles.infoFormContent}>
                   <RecordStatistic></RecordStatistic>
                 </div>

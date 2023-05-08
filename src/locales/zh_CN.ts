@@ -80,6 +80,20 @@ export const zh_CN = {
   'pages.record.transfer.targetAccount': '转入账户',
   'pages.record.transfer.exchangeAccount': '交换账户',
 
-  'pages.transaction.head.title': '账本',
+  'pages.record.statistic.payment': '收支统计',
+  'pages.record.statistic.account': '账户统计',
+  'pages.record.statistic.history': '历史上的今天',
 
+  'pages.transaction.head.title': '账本',
+  'pages.transaction.greet.title': '我的口袋',
+  'pages.transaction.greet.subtitle': '今天是你记账的第1000天',
+  'pages.transaction.payment.type': '收支类型',
+  'pages.transaction.payment.detail': '收支明细',
+  'pages.transaction.payment.expense': '本月支出',
+  'pages.transaction.payment.income': '本月收入',
+  'pages.transaction.payment.balance': '本月结余',
+  'pages.transaction.button.reset': '重置',
+  'pages.transaction.record.expense': '支出',
+  'pages.transaction.list.year': '年',
+  'pages.transaction.list.month': '月',
 }

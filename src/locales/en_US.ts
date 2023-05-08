@@ -80,5 +80,20 @@ export const en_US = {
   'pages.record.transfer.targetAccount': 'to account',
   'pages.record.transfer.exchangeAccount': 'exchange account',
 
-  'pages.transaction.head.title': 'Transactions'
+  'pages.record.statistic.payment': 'Payment Statistics',
+  'pages.record.statistic.account': 'Account Statistics',
+  'pages.record.statistic.history': 'Today in History',
+
+  'pages.transaction.head.title': 'Transactions',
+  'pages.transaction.greet.title': 'My Pocket',
+  'pages.transaction.greet.subtitle': 'Today is your 1000th day of bookkeeping',
+  'pages.transaction.payment.type': 'Payment Type',
+  'pages.transaction.payment.detail': 'Payment Details',
+  'pages.transaction.payment.expense': 'Monthly Expense',
+  'pages.transaction.payment.income': 'Monthly Income',
+  'pages.transaction.payment.balance': 'Monthly Balance',
+  'pages.transaction.button.reset': 'Reset',
+  'pages.transaction.record.expense': 'expense',
+  'pages.transaction.list.year': ' ',
+  'pages.transaction.list.month': ' ',
 }
