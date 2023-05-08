@@ -31,3 +31,8 @@ export const statisticsApi = {
 export const shortcutApi = {
   list: 'api/shortcut/list'
 }
+
+export const transactionApi = {
+  yearList: 'api/transaction/year-list',
+  expense: 'api/transaction/expense'
+}
