@@ -1,5 +1,6 @@
 @use '@/styles/variable' as *;
 @use '@/styles/animation' as *;
+@use '@/styles/mixin.scss' as *;
 
 .date-picker-button {
   display: flex;
@@ -158,6 +159,8 @@
 }
 
 .date-picker-calendar {
+  @include no-scrollbar;
+
   position: absolute;
   z-index: 10;
 
