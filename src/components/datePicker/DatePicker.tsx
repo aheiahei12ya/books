@@ -135,7 +135,7 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
           {(props.error && props.errorMessage) || (rule.error && rule.message)}
         </div>
       )}
-      <div onClick={(e) => e.stopPropagation()} ref={calendarRef} className={styles.datePickerCalendar}>
+      <div tabIndex={-1} onClick={(e) => e.stopPropagation()} ref={calendarRef} className={styles.datePickerCalendar}>
         <div className={styles.datePickerCalendarInner}>
           <div className={styles.datePickerToolBar}>
             <div className={styles.datePickerToolBarButton} onClick={() => setYear(year - 1)}>
