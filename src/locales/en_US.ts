@@ -94,7 +94,7 @@ export const en_US = {
   'pages.transaction.payment.balance': 'Monthly Balance',
   'pages.transaction.button.reset': 'Reset',
   'pages.transaction.record.expense': 'expense',
-  'pages.transaction.list.year': ' ',
+  'pages.transaction.list.year': 'Year',
   'pages.transaction.list.month': ' ',
 
   'pages.transaction.table.time': 'Time',
