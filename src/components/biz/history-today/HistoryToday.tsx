@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { HistoryTodayRecord } from '@/components/biz/history-today/HistoryToday.types'
 import Empty from '@/components/empty'
 import Table from '@/components/table'
-import { ColumnType } from '@/components/table/Table.types'
+import { makeColumns } from '@/components/table/utils'
 import useRequest from '@/hooks/useRequest'
 import services from '@/services'
 
@@ -15,23 +15,12 @@ const HistoryToday = forwardRef(() => {
   const [items, setItems] = useState([])
 
   const columns = useMemo(() => {
-    const columns: ColumnType[] = []
-    for (const item of [
-      ['note', 'pages.transaction.table.note', true, 100],
-      ['category', 'pages.transaction.table.category', true, undefined],
-      ['subcategory', 'pages.transaction.table.subcategory', true, undefined],
-      ['amount', 'pages.transaction.table.amount', true, 80]
-    ]) {
-      columns.push({
-        key: item[0] as string,
-        dataIndex: item[0] as string,
-        title: i18n.formatMessage({ id: item[1] as string }),
-        ellipsis: item[2] as boolean,
-        width: item[3] as number
-      })
-    }
-
-    return columns
+    return makeColumns(i18n, [
+      { key: 'note', i18n: 'pages.transaction.table.note', ellipsis: true, width: 100 },
+      { key: 'category', i18n: 'pages.transaction.table.category', ellipsis: true, width: undefined },
+      { key: 'subcategory', i18n: 'pages.transaction.table.subcategory', ellipsis: true, width: undefined },
+      { key: 'amount', i18n: 'pages.transaction.table.amount', ellipsis: true, width: 80 }
+    ])
   }, [i18n])
 
   useRequest(

@@ -2,6 +2,7 @@ import classNames from 'classnames'
 import React, { useMemo } from 'react'
 import { useIntl } from 'react-intl'
 
+import { makeColumns } from '@/components/table/utils'
 import get from '@/lib/pythonic/get'
 
 import styles from './RecordList.module.scss'
@@ -11,27 +12,16 @@ const RecordList = (props: RecordListProps) => {
   const i18n = useIntl()
 
   const columns = useMemo(() => {
-    const columns = []
-    for (const item of [
-      ['time', 'pages.transaction.table.time', true, 70],
-      ['type', 'pages.transaction.table.type', true, 70],
-      ['account', 'pages.transaction.table.account', true, undefined],
-      ['paymentMethod', 'pages.transaction.table.method', true, undefined],
-      ['category', 'pages.transaction.table.category', true, undefined],
-      ['subcategory', 'pages.transaction.table.subcategory', true, undefined],
-      ['amount', 'pages.transaction.table.amount', true, 80],
-      ['note', 'pages.transaction.table.note', true, 150]
-    ]) {
-      columns.push({
-        key: item[0] as string,
-        dataIndex: item[0] as string,
-        title: i18n.formatMessage({ id: item[1] as string }),
-        ellipsis: item[2] as boolean,
-        width: item[3]
-      })
-    }
-
-    return columns
+    return makeColumns(i18n, [
+      { key: 'time', i18n: 'pages.transaction.table.time', ellipsis: true, width: 70 },
+      { key: 'type', i18n: 'pages.transaction.table.type', ellipsis: true, width: 70 },
+      { key: 'account', i18n: 'pages.transaction.table.account', ellipsis: true, width: undefined },
+      { key: 'paymentMethod', i18n: 'pages.transaction.table.method', ellipsis: true, width: undefined },
+      { key: 'category', i18n: 'pages.transaction.table.category', ellipsis: true, width: undefined },
+      { key: 'subcategory', i18n: 'pages.transaction.table.subcategory', ellipsis: true, width: undefined },
+      { key: 'amount', i18n: 'pages.transaction.table.amount', ellipsis: true, width: 80 },
+      { key: 'note', i18n: 'pages.transaction.table.note', ellipsis: true, width: 100 }
+    ])
   }, [i18n])
 
   const [header, colgroup] = useMemo(() => {
