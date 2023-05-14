@@ -83,6 +83,7 @@ export const zh_CN = {
   'pages.record.statistic.payment': '收支统计',
   'pages.record.statistic.account': '账户统计',
   'pages.record.statistic.history': '历史上的今天',
+  'pages.record.statistic.empty': '什么都没有',
 
   'pages.transaction.head.title': '账本',
   'pages.transaction.greet.title': '我的口袋',

@@ -33,3 +33,13 @@ export interface ExpenseTimesRequest {
 export interface ExpenseTimesResponse {
   expense: number[]
 }
+
+export interface HistoryTodayRequest {
+  year: number
+  month: number
+  date: number
+}
+
+export interface HistoryTodayResponse {
+  records: object[]
+}

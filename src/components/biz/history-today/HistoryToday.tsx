@@ -1,203 +1,60 @@
-import React, { forwardRef, useMemo } from 'react'
+import React, { forwardRef, useMemo, useState } from 'react'
+import { FormattedMessage, useIntl } from 'react-intl'
 
+import { HistoryTodayRecord } from '@/components/biz/history-today/HistoryToday.types'
 import Empty from '@/components/empty'
 import Table from '@/components/table'
 import { ColumnType } from '@/components/table/Table.types'
+import useRequest from '@/hooks/useRequest'
+import services from '@/services'
 
 import styles from './HistoryToday.module.scss'
 
-const columns: ColumnType[] = [
-  {
-    title: '备注',
-    dataIndex: 'note',
-    key: 'note',
-    ellipsis: true,
-    width: 100
-  },
-  {
-    title: '一级分类',
-    dataIndex: 'category',
-    key: 'category',
-    ellipsis: true
-  },
-  {
-    title: '二级分类',
-    dataIndex: 'subcategory',
-    key: 'subcategory',
-    ellipsis: true
-  },
-  {
-    title: '金额',
-    dataIndex: 'amount',
-    key: 'amount',
-    width: 80
-  }
-]
-
-const records = [
-  {
-    year: 2021,
-    items: [
-      {
-        type: '支出',
-        note: '商品1',
-        category: '类别类别类别',
-        subcategory: '子类别',
-        amount: '100.23',
-        time: '19:30'
-      },
-      {
-        type: '支出',
-        note: '商品2',
-        category: '类别',
-        subcategory: '子类别',
-        amount: '100.23',
-        time: '19:30'
-      },
-      {
-        type: '支出',
-        note: '商品3',
-        category: '类别',
-        subcategory: '子类别',
-        amount: '100.23',
-        time: '19:30'
-      },
-      {
-        type: '支出',
-        note: '商品4',
-        category: '类别',
-        subcategory: '子类别',
-        amount: '100.23',
-        time: '19:30'
-      }
-    ]
-  },
-  {
-    year: 2019,
-    items: [
-      {
-        type: '支出',
-        note: '商品1',
-        category: '类别',
-        subcategory: '子类别',
-        amount: '100.23',
-        time: '19:30'
-      },
-      {
-        type: '支出',
-        note: '商品2',
-        category: '类别',
-        subcategory: '子类别',
-        amount: '100.23',
-        time: '19:30'
-      },
-      {
-        type: '支出',
-        note: '商品3',
-        category: '类别',
-        subcategory: '子类别',
-        amount: '100.23',
-        time: '19:30'
-      },
-      {
-        type: '支出',
-        note: '商品4',
-        category: '类别',
-        subcategory: '子类别',
-        amount: '100.23',
-        time: '19:30'
-      },
-      {
-        type: '支出',
-        note: '商品4',
-        category: '类别',
-        subcategory: '子类别',
-        amount: '100.23',
-        time: '19:30'
-      },
-      {
-        type: '支出',
-        note: '商品4',
-        category: '类别',
-        subcategory: '子类别',
-        amount: '100.23',
-        time: '19:30'
-      },
-      {
-        type: '支出',
-        note: '商品4',
-        category: '类别',
-        subcategory: '子类别',
-        amount: '100.23',
-        time: '19:30'
-      },
-      {
-        type: '支出',
-        note: '商品4',
-        category: '类别',
-        subcategory: '子类别',
-        amount: '100.23',
-        time: '19:30'
-      }
-    ]
-  },
-  {
-    year: 2018,
-    items: [
-      {
-        type: '支出',
-        note: '商品1',
-        category: '类别',
-        subcategory: '子类别',
-        amount: '100.23',
-        time: '19:30'
-      },
-      {
-        type: '支出',
-        note: '商品2',
-        category: '类别',
-        subcategory: '子类别',
-        amount: '100.23',
-        time: '19:30'
-      },
-      {
-        type: '支出',
-        note: '商品3',
-        category: '类别',
-        subcategory: '子类别',
-        amount: '100.23',
-        time: '19:30'
-      },
-      {
-        type: '支出',
-        note: '商品4',
-        category: '类别',
-        subcategory: '子类别',
-        amount: '100.23',
-        time: '19:30'
-      }
-    ]
-  }
-]
-
 const HistoryToday = forwardRef(() => {
-  const makeList = useMemo(
-    () =>
-      records.map((record) => {
-        return (
-          <ul className={styles.historyTodayChildren} key={record.year}>
-            {record.items.map((item, index) => {
-              return <li key={`${record.year}-${index}`}>{item.note}</li>
-            })}
-          </ul>
-        )
-      }),
-    []
+  const i18n = useIntl()
+  const [items, setItems] = useState([])
+
+  const columns = useMemo(() => {
+    const columns: ColumnType[] = []
+    for (const item of [
+      ['note', 'pages.transaction.table.note', true, 100],
+      ['category', 'pages.transaction.table.category', true, undefined],
+      ['subcategory', 'pages.transaction.table.subcategory', true, undefined],
+      ['amount', 'pages.transaction.table.amount', true, 80]
+    ]) {
+      columns.push({
+        key: item[0] as string,
+        dataIndex: item[0] as string,
+        title: i18n.formatMessage({ id: item[1] as string }),
+        ellipsis: item[2] as boolean,
+        width: item[3] as number
+      })
+    }
+
+    return columns
+  }, [i18n])
+
+  useRequest(
+    () => {
+      const date = new Date()
+      return services.statistic.historyToday({
+        year: date.getFullYear(),
+        month: date.getMonth() + 1,
+        date: date.getDate()
+      })
+    },
+    {
+      onSuccess: (data) => {
+        if (data.success) {
+          setItems(data.data.records)
+        }
+      }
+    }
   )
 
-  return records.length ? (
+  return items.length ? (
     <div className={styles.historyToday}>
-      {records.map((record) => (
+      {items.map((record: HistoryTodayRecord) => (
         <Table
           className={styles.historyTodayChildren}
           key={record.year}
@@ -211,7 +68,9 @@ const HistoryToday = forwardRef(() => {
       ))}
     </div>
   ) : (
-    <Empty>什么都没有</Empty>
+    <Empty>
+      <FormattedMessage id={'pages.record.statistic.empty'}></FormattedMessage>
+    </Empty>
   )
 })
 

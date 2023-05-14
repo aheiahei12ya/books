@@ -83,6 +83,7 @@ export const en_US = {
   'pages.record.statistic.payment': 'Payment Statistics',
   'pages.record.statistic.account': 'Account Statistics',
   'pages.record.statistic.history': 'Today in History',
+  'pages.record.statistic.empty': "It's Empty",
 
   'pages.transaction.head.title': 'Transactions',
   'pages.transaction.greet.title': 'My Pocket',
@@ -104,5 +105,5 @@ export const en_US = {
   'pages.transaction.table.category': 'Category',
   'pages.transaction.table.subcategory': 'Subcategory',
   'pages.transaction.table.amount': 'Amount',
-  'pages.transaction.table.note': 'Note',
+  'pages.transaction.table.note': 'Note'
 }

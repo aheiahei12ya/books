@@ -9,7 +9,9 @@ import {
   ExpenseTimesRequest,
   ExpenseTimesResponse,
   ExpenseTrendRequest,
-  ExpenseTrendResponse
+  ExpenseTrendResponse,
+  HistoryTodayRequest,
+  HistoryTodayResponse
 } from '@/services/statistic/types'
 
 const statistic = {
@@ -24,6 +26,10 @@ const statistic = {
   expense: createRequest<ExpenseRequest, BaseResponse<ExpenseResponse>>(statisticsApi.expense, 'POST'),
   expenseTimes: createRequest<ExpenseTimesRequest, BaseResponse<ExpenseTimesResponse>>(
     statisticsApi.expenseTimes,
+    'POST'
+  ),
+  historyToday: createRequest<HistoryTodayRequest, BaseResponse<HistoryTodayResponse>>(
+    statisticsApi.historyToday,
     'POST'
   )
 }
