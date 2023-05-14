@@ -53,7 +53,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
 
   const rules = useMemo(() => {
     const calculatorRule = {
-      rule: /^\d+( *[+=*/-] *\d+)*$/,
+      rule: /^-?\d+( *[+=*/-/.] *\d+)*$/,
       message: i18n.formatMessage({ id: 'pages.record.error.calculator' })
     }
     const requiredRule = (i18nKey: string) => ({
@@ -114,7 +114,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
       const realAmount = form.get('reimbursementFullAmount') ? 0 : Math.max(amount - coupon - reimbursementAmount, 0)
       form.get('reimbursementFullAmount') &&
         form.set('reimbursementAmount', Number(Math.max(amount - coupon, 0).toFixed(2)))
-      return realAmount
+      return realAmount.toFixed(2)
     },
     [form]
   )
@@ -123,13 +123,16 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
       switch (key) {
         case 'coupon': {
           const amount = form.get('amount', 0)
-          const coupon = value ? (value as number) : 0
+          const coupon = (value as number) > 0 ? (value as number) : 0
           const reimbursementAmount = form.get('reimbursementAmount', 0)
           if (isNaN(Number(amount)) || isNaN(Number(coupon)) || isNaN(Number(reimbursementAmount))) {
             break
           }
           const realAmount = handleReimbursement(amount, coupon, reimbursementAmount)
           form.set('realAmount', realAmount)
+          if ((value as number) < 0) {
+            form.set('amount', (amount - (value as number)).toString())
+          }
           break
         }
         case 'amount': {
@@ -141,7 +144,9 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
           }
           const realAmount = handleReimbursement(amount, coupon, reimbursementAmount)
           form.set('realAmount', realAmount)
-
+          if ((value as number) < 0) {
+            form.set('amount', '0')
+          }
           break
         }
         case 'reimbursementAmount': {
@@ -342,7 +347,10 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
     if (loading || success) {
       return
     }
-    console.log(expense)
+    for (const key of ['amount', 'coupon', 'reimbursementAmount']) {
+      form.set(key, Math.abs(Number(form.get(key, 0))).toFixed(2))
+    }
+    console.log(form.values())
     setLoading(true)
     setTimeout(() => setLoading(false), 2000)
     setTimeout(() => setSuccess(true), 2000)

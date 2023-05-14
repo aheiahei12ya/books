@@ -42,7 +42,7 @@ const ReceiptForm = forwardRef<unknown, ReceiptFormProps>((props, ref) => {
           case 'tax':
             return `${expenseSign}${Math.max(Number(value), 0).toFixed(2)}`
           case 'coupon':
-            return `${incomeSign}${Math.max(Number(value), 0).toFixed(2)}`
+            return `${incomeSign}${Math.abs(Number(value)).toFixed(2)}`
           default:
             return `${sign}${Math.max(Number(value), 0).toFixed(2)}`
         }
