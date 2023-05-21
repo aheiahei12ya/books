@@ -105,5 +105,24 @@ export const en_US = {
   'pages.transaction.table.category': 'Category',
   'pages.transaction.table.subcategory': 'Subcategory',
   'pages.transaction.table.amount': 'Amount',
-  'pages.transaction.table.note': 'Note'
+  'pages.transaction.table.note': 'Note',
+  'pages.transaction.table.installment': 'installment',
+  'pages.transaction.table.autoRecord': 'auto record',
+  'pages.transaction.table.reimbursement': 'reimbursement',
+
+  'pages.transaction.installment.remain': 'remain',
+  'pages.transaction.installment.finish': 'finished',
+  'pages.transaction.installment.amount': 'amount',
+
+  'pages.transaction.autoRecord.date': 'date',
+  'pages.transaction.autoRecord.remain': 'remain',
+  'pages.transaction.autoRecord.amount': 'amount',
+  'pages.transaction.autoRecord.operate': 'operate',
+  'pages.transaction.autoRecord.prolong': 'prolong',
+  'pages.transaction.autoRecord.stop': 'stop',
+
+  'pages.transaction.reimbursement.date': 'date',
+  'pages.transaction.reimbursement.state': 'state',
+  'pages.transaction.reimbursement.operate': 'operate',
+  'pages.transaction.reimbursement.finish': 'finish'
 }

@@ -1,3 +1,4 @@
-export interface RecordTipsProps {}
+export interface RecordTipsProps {
+}
 
 export interface RecordTipsRef {}

@@ -1,164 +1,173 @@
-import { forwardRef, useMemo, useState } from 'react'
+import React, { forwardRef, useMemo, useState } from 'react'
+import { FormattedMessage, useIntl } from 'react-intl'
 
-import { autoRecordColumns, installmentColumns, reimbursementColumns } from '@/components/biz/record-tips/config'
+import { RecordTipsProps, RecordTipsRef } from '@/components/biz/record-tips/RecordTips.types'
+import Button from '@/components/button'
 import Empty from '@/components/empty'
 import Table from '@/components/table'
+import { makeColumns } from '@/components/table/utils'
 import Tabs from '@/components/tabs'
+import useRequest from '@/hooks/useRequest'
+import services from '@/services'
 
-import styles from './RecordTips.module.scss'
+const RecordTips = forwardRef<RecordTipsRef, RecordTipsProps>((props, ref) => {
+  const i18n = useIntl()
 
-const installmentItems = [
-  {
-    note: '商品1',
-    remain: '10',
-    finish: '14',
-    amount: '100.23'
-  },
-  {
-    note: '商品1',
-    remain: '10',
-    finish: '14',
-    amount: '100.23'
-  },
-  {
-    note: '商品1',
-    remain: '10',
-    finish: '14',
-    amount: '100.23'
-  },
-  {
-    note: '商品1',
-    remain: '10',
-    finish: '14',
-    amount: '100.23'
-  },
-  {
-    note: '商品1',
-    remain: '10',
-    finish: '14',
-    amount: '100.23'
-  },
-  {
-    note: '商品1',
-    remain: '10',
-    finish: '14',
-    amount: '100.23'
-  },
-  {
-    note: '商品1',
-    remain: '10',
-    finish: '14',
-    amount: '100.23'
-  },
-  {
-    note: '商品1',
-    remain: '10',
-    finish: '14',
-    amount: '100.23'
-  },
-  {
-    note: '商品1',
-    remain: '10',
-    finish: '14',
-    amount: '100.23'
-  }
-]
-
-const autoRecordItems = [
-  {
-    date: '30号/月',
-    note: '商品1',
-    remain: '10',
-    amount: '100.23',
-    id: 1
-  }
-]
-
-const reimbursementItems = [
-  {
-    note: '商品1',
-    date: '2022-02-02',
-    state: '报销中',
-    id: 1
-  }
-]
-
-const RecordTips = forwardRef(() => {
   const [tab, setTab] = useState<number>(0)
+  const [items, setItems] = useState({
+    reimbursementItems: [],
+    autoRecordItems: [],
+    installmentItems: []
+  })
+
+  useRequest(
+    () => {
+      const date = new Date()
+      return services.statistic.methodReminder({
+        year: date.getFullYear(),
+        month: date.getMonth() + 1,
+        date: date.getDate()
+      })
+    },
+    {
+      onSuccess: (data) => {
+        if (data.success) {
+          setItems(data.data)
+        }
+      }
+    }
+  )
+
+  const installmentColumns = useMemo(() => {
+    return makeColumns(i18n, [
+      { key: 'note', i18n: 'pages.transaction.table.note', ellipsis: true, width: 100 },
+      { key: 'remain', i18n: 'pages.transaction.installment.remain', ellipsis: true },
+      { key: 'finish', i18n: 'pages.transaction.installment.finish', ellipsis: true },
+      { key: 'amount', i18n: 'pages.transaction.installment.amount', ellipsis: true, width: 80 }
+    ])
+  }, [i18n])
+
+  const autoRecordColumns = useMemo(() => {
+    return makeColumns(i18n, [
+      { key: 'date', i18n: 'pages.transaction.autoRecord.date', ellipsis: true, width: 80 },
+      { key: 'note', i18n: 'pages.transaction.table.note', ellipsis: true },
+      { key: 'remain', i18n: 'pages.transaction.autoRecord.remain', ellipsis: true, width: 40 },
+      { key: 'amount', i18n: 'pages.transaction.autoRecord.amount', ellipsis: true, width: 50 },
+      {
+        key: 'operate',
+        dataIndex: 'id',
+        i18n: 'pages.transaction.autoRecord.operate',
+        render: (text) => (
+          <div style={{ display: 'flex', gap: '3px' }}>
+            <Button size={'mini'} type={'text'} onClick={() => console.log(text)}>
+              <FormattedMessage id={'pages.transaction.autoRecord.prolong'}></FormattedMessage>
+            </Button>
+            <Button size={'mini'} type={'text'} color={'danger'} onClick={() => console.log(text)}>
+              <FormattedMessage id={'pages.transaction.autoRecord.stop'}></FormattedMessage>
+            </Button>
+          </div>
+        )
+      }
+    ])
+  }, [i18n])
+
+  const reimbursementColumns = useMemo(() => {
+    return makeColumns(i18n, [
+      { key: 'date', i18n: 'pages.transaction.reimbursement.date', ellipsis: true, width: undefined },
+      { key: 'note', i18n: 'pages.transaction.table.note', ellipsis: true, width: 100 },
+      { key: 'state', i18n: 'pages.transaction.reimbursement.state', ellipsis: true, width: undefined },
+      {
+        key: 'operate',
+        dataIndex: 'id',
+        i18n: 'pages.transaction.reimbursement.operate',
+        render: (text) => (
+          <Button size={'mini'} type={'text'} onClick={() => console.log(text)}>
+            <FormattedMessage id={'pages.transaction.reimbursement.finish'}></FormattedMessage>
+          </Button>
+        )
+      }
+    ])
+  }, [i18n])
 
   const reimbursementNodes = useMemo(() => {
-    if (reimbursementItems.length) {
+    if (items.reimbursementItems.length) {
       setTab(2)
     }
-    return reimbursementItems.length ? (
+    return items.reimbursementItems.length ? (
       <Table
         columns={reimbursementColumns}
-        data={reimbursementItems}
+        data={items.reimbursementItems}
         size={'small'}
         textAlign={'left'}
         showHeader
         fixHeader
       ></Table>
     ) : (
-      <Empty>什么都没有</Empty>
+      <Empty>
+        <FormattedMessage id={'pages.record.statistic.empty'}></FormattedMessage>
+      </Empty>
     )
-  }, [])
+  }, [items.reimbursementItems, reimbursementColumns])
 
   const autoRecordNodes = useMemo(() => {
-    if (autoRecordItems.length) {
+    if (items.autoRecordItems.length) {
       setTab(1)
     }
-    return autoRecordItems.length ? (
+    return items.autoRecordItems.length ? (
       <Table
         columns={autoRecordColumns}
-        data={autoRecordItems}
+        data={items.autoRecordItems}
         size={'small'}
         textAlign={'left'}
         showHeader
         fixHeader
       ></Table>
     ) : (
-      <Empty>什么都没有</Empty>
+      <Empty>
+        <FormattedMessage id={'pages.record.statistic.empty'}></FormattedMessage>
+      </Empty>
     )
-  }, [])
+  }, [autoRecordColumns, items.autoRecordItems])
 
   const installmentNodes = useMemo(() => {
-    if (installmentItems.length) {
+    if (items.installmentItems.length) {
       setTab(0)
     }
-    return installmentItems.length ? (
+    return items.installmentItems.length ? (
       <Table
         columns={installmentColumns}
-        data={installmentItems}
+        data={items.installmentItems}
         size={'small'}
         textAlign={'left'}
         showHeader
         fixHeader
       ></Table>
     ) : (
-      <Empty>什么都没有</Empty>
+      <Empty>
+        <FormattedMessage id={'pages.record.statistic.empty'}></FormattedMessage>
+      </Empty>
     )
-  }, [])
+  }, [installmentColumns, items.installmentItems])
 
   const tabItems = useMemo(
     () => [
       {
         key: '1',
-        label: '分期付款',
+        label: i18n.formatMessage({ id: 'pages.transaction.table.installment' }),
         children: installmentNodes
       },
       {
         key: '2',
-        label: '自动记录',
+        label: i18n.formatMessage({ id: 'pages.transaction.table.autoRecord' }),
         children: autoRecordNodes
       },
       {
         key: '3',
-        label: '公司报销',
+        label: i18n.formatMessage({ id: 'pages.transaction.table.reimbursement' }),
         children: reimbursementNodes
       }
     ],
-    [autoRecordNodes, installmentNodes, reimbursementNodes]
+    [autoRecordNodes, i18n, installmentNodes, reimbursementNodes]
   )
 
   return <Tabs items={tabItems} selected={tab} onChange={setTab}></Tabs>

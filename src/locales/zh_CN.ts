@@ -106,4 +106,23 @@ export const zh_CN = {
   'pages.transaction.table.subcategory': '二级分类',
   'pages.transaction.table.amount': '金额',
   'pages.transaction.table.note': '备注',
+  'pages.transaction.table.installment': '分期付款',
+  'pages.transaction.table.autoRecord': '自动记录',
+  'pages.transaction.table.reimbursement': '公司报销',
+
+  'pages.transaction.installment.remain': '剩余期数',
+  'pages.transaction.installment.finish': '已还期数',
+  'pages.transaction.installment.amount': '每期金额',
+
+  'pages.transaction.autoRecord.date': '记录日期',
+  'pages.transaction.autoRecord.remain': '剩余期数',
+  'pages.transaction.autoRecord.amount': '金额',
+  'pages.transaction.autoRecord.operate': '操作',
+  'pages.transaction.autoRecord.prolong': '延长',
+  'pages.transaction.autoRecord.stop': '终止',
+
+  'pages.transaction.reimbursement.date': '日期',
+  'pages.transaction.reimbursement.state': '状态',
+  'pages.transaction.reimbursement.operate': '操作',
+  'pages.transaction.reimbursement.finish': '完成'
 }
