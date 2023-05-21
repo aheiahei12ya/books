@@ -37,27 +37,27 @@ const RecordStatistic = forwardRef<RecordStatisticRef, RecordStatisticProps>((pr
       bgColor: 'success' | 'warning' | 'danger' = 'warning',
       hideText: boolean = false
     ) => {
-      const width = `${ Math.max(items.headList[0].amount, items.headList[1].amount).toString().length * 7.5 }px`
-      const text = hideText ? undefined : `${ percentage }%`
+      const width = `${Math.max(items.headList[0].amount, items.headList[1].amount).toString().length * 7.5}px`
+      const text = hideText ? undefined : `${percentage}%`
       return (
-        <div className={ styles.recordStatisticRow } key={ itemName }>
-          <div className={ styles.recordStatisticRowTag }>
-            <Tag shape={ 'round' } size={ 'small' } select>
-              { itemName }
+        <div className={styles.recordStatisticRow} key={itemName}>
+          <div className={styles.recordStatisticRowTag}>
+            <Tag shape={'round'} size={'small'} select>
+              {itemName}
             </Tag>
           </div>
-          <div className={ styles.recordStatisticRowProgress }>
+          <div className={styles.recordStatisticRowProgress}>
             <Progress
-              size={ 'small' }
-              text={ text }
-              percentage={ percentage }
-              backgroundColor={ bgColor }
-              textColor={ '#000' }
+              size={'small'}
+              text={text}
+              percentage={percentage}
+              backgroundColor={bgColor}
+              textColor={'#000'}
             ></Progress>
           </div>
-          <div className={ styles.recordStatisticRowTag }>
-            <Tag size={ 'small' } width={ width }>
-              { amount }
+          <div className={styles.recordStatisticRowTag}>
+            <Tag size={'small'} width={width}>
+              {amount}
             </Tag>
           </div>
         </div>
@@ -69,19 +69,17 @@ const RecordStatistic = forwardRef<RecordStatisticRef, RecordStatisticProps>((pr
   const records = useMemo(
     () => (
       <>
-        { items.headList.length &&
-          items.headList.map((item, index) =>
-            makeRow(item.itemName, item.amount, item.percentage, index ? 'success' : 'danger', true)
-          ) }
-        { items.itemList.length &&
-          items.itemList
-            .sort((a, b) => b.amount - a.amount)
-            .map((item) => makeRow(item.itemName, item.amount, item.percentage)) }
+        {items.headList.map((item, index) =>
+          makeRow(item.itemName, item.amount, item.percentage, index ? 'success' : 'danger', true)
+        )}
+        {items.itemList
+          .sort((a, b) => b.amount - a.amount)
+          .map((item) => makeRow(item.itemName, item.amount, item.percentage))}
       </>
     ),
     [items.headList, items.itemList, makeRow]
   )
-  return <div className={ styles.recordStatisticContainer }>{ records }</div>
+  return <div className={styles.recordStatisticContainer}>{records}</div>
 })
 
 RecordStatistic.displayName = 'RecordStatistic'
