@@ -11,7 +11,8 @@ import {
   ExpenseTrendRequest,
   ExpenseTrendResponse,
   HistoryTodayRequest,
-  HistoryTodayResponse
+  HistoryTodayResponse,
+  MethodReminderResponse
 } from '@/services/statistic/types'
 
 const statistic = {
@@ -31,7 +32,8 @@ const statistic = {
   historyToday: createRequest<HistoryTodayRequest, BaseResponse<HistoryTodayResponse>>(
     statisticsApi.historyToday,
     'POST'
-  )
+  ),
+  methodReminder: createRequest<unknown, BaseResponse<MethodReminderResponse>>(statisticsApi.methodReminder, 'POST')
 }
 
 export default statistic

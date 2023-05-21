@@ -26,7 +26,8 @@ export const statisticsApi = {
   balanceTrend: 'api/statistics/balance-trend',
   expense: 'api/statistics/expense',
   expenseTimes: 'api/statistics/expense/times',
-  historyToday: 'api/statistics/history-today'
+  historyToday: 'api/statistics/history-today',
+  methodReminder: 'api/statistics/method-reminder'
 }
 
 export const shortcutApi = {
@@ -35,5 +36,5 @@ export const shortcutApi = {
 
 export const transactionApi = {
   yearList: 'api/transaction/year-list',
-  expense: 'api/transaction/expense'
+  expense: 'api/transaction/expense',
 }

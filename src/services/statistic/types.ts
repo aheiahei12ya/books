@@ -43,3 +43,7 @@ export interface HistoryTodayRequest {
 export interface HistoryTodayResponse {
   records: object[]
 }
+
+export interface MethodReminderResponse {
+
+}
