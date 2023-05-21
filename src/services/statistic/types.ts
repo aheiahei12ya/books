@@ -44,6 +44,6 @@ export interface HistoryTodayResponse {
   records: object[]
 }
 
-export interface MethodReminderResponse {
+export interface MethodReminderResponse {}
 
-}
+export interface classificationResponse {}

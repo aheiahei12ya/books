@@ -4,6 +4,7 @@ import { BaseResponse } from '@/lib/response/types'
 import {
   BalanceTrendRequest,
   BalanceTrendResponse,
+  classificationResponse,
   ExpenseRequest,
   ExpenseResponse,
   ExpenseTimesRequest,
@@ -33,7 +34,8 @@ const statistic = {
     statisticsApi.historyToday,
     'POST'
   ),
-  methodReminder: createRequest<unknown, BaseResponse<MethodReminderResponse>>(statisticsApi.methodReminder, 'POST')
+  methodReminder: createRequest<unknown, BaseResponse<MethodReminderResponse>>(statisticsApi.methodReminder, 'POST'),
+  classification: createRequest<unknown, BaseResponse<classificationResponse>>(statisticsApi.classification, 'POST')
 }
 
 export default statistic

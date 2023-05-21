@@ -27,7 +27,8 @@ export const statisticsApi = {
   expense: 'api/statistics/expense',
   expenseTimes: 'api/statistics/expense/times',
   historyToday: 'api/statistics/history-today',
-  methodReminder: 'api/statistics/method-reminder'
+  methodReminder: 'api/statistics/method-reminder',
+  classification: 'api/statistics/classification'
 }
 
 export const shortcutApi = {
