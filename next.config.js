@@ -3,13 +3,15 @@ const path = require('path')
 const withBundleAnalyser = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true'
 })
+const isProd = process.env.NODE_ENV === 'production'
+
 
 const nextConfig = {
+  output: 'export',
+  distDir: 'dist',
   reactStrictMode: true,
   swcMinify: true,
-  experimental: {
-    appDir: false
-  },
+  assetPrefix: isProd ? './' : undefined,
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')]
   },
@@ -36,6 +38,9 @@ const nextConfig = {
     return config
   },
   images: {
+    unoptimized: true,
+    loader: 'custom',
+    loaderFile: './src/config/image.ts',
     remotePatterns: [
       {
         protocol: 'http',
