@@ -4,7 +4,12 @@ const withBundleAnalyser = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true'
 })
 
+const isProd = process.env.NODE_ENV === 'production'
+
 const nextConfig = {
+  output: 'export',
+  distDir: 'dist',
+  assetPrefix: isProd ? './' : undefined,
   reactStrictMode: true,
   swcMinify: true,
   experimental: {
@@ -36,6 +41,9 @@ const nextConfig = {
     return config
   },
   images: {
+    unoptimized: true,
+    loader: 'custom',
+    loaderFile: './src/config/image.ts',
     remotePatterns: [
       {
         protocol: 'http',
