@@ -16,9 +16,9 @@ export const incomeApi = {
   initial: 'api/income/initial'
 }
 
-export const loginApi = {
-  userLogin: 'api/user-login',
-  userInfo: 'api/user-info'
+export const userApi = {
+  userLogin: 'api/user/login',
+  userInfo: 'api/user/info'
 }
 
 export const statisticsApi = {

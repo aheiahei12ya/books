@@ -1,7 +1,7 @@
 import Router from 'next/router'
 import { createContext, useContext, useEffect, useState } from 'react'
 
-import { LoginResponse } from '@/services/login/types'
+import { LoginResponse } from '@/services/user/types'
 
 interface authContext {
   isLogin: boolean
