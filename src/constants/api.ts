@@ -25,7 +25,7 @@ export const statisticsApi = {
   expenseTrend: 'api/statistics/expense-trend',
   balanceTrend: 'api/statistics/balance-trend',
   expense: 'api/statistics/expense',
-  expenseTimes: 'api/statistics/expense/times',
+  expenseTimes: 'api/statistics/expense-times',
   historyToday: 'api/statistics/history-today',
   methodReminder: 'api/statistics/method-reminder',
   classification: 'api/statistics/classification'
