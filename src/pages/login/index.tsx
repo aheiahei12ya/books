@@ -61,7 +61,7 @@ const Login: React.FC = () => {
     loading,
     run: doLogin,
     data
-  } = useRequest((val) => services.login.login(val), {
+  } = useRequest((val) => services.user.login(val), {
     manual: true,
     onSuccess: (data) => {
       if (!data.success) {
