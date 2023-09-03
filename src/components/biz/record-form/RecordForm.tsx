@@ -25,7 +25,7 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
     accountList: [],
     categoryList: [],
     subcategoryList: [],
-    paymentMethodList: [],
+    methodList: [],
     reimbursementStateList: [
       { name: '待报销', key: 'waiting' },
       { name: '报销中', key: 'ongoing' },
@@ -46,7 +46,7 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
           accountList: data.data.accountList,
           categoryList: data.data.categoryList,
           subcategoryList: data.data.subcategoryList,
-          paymentMethodList: data.data.paymentMethodList
+          methodList: data.data.methodList
         }))
         setExpensePreset(data.data.preset)
       }
@@ -132,7 +132,7 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
               defaultValue={expensePreset}
               accountList={expenseDropdown.accountList}
               platformList={expenseDropdown.platformList}
-              paymentMethodList={expenseDropdown.paymentMethodList}
+              methodList={expenseDropdown.methodList}
               categoryList={expenseDropdown.categoryList}
               subcategoryList={expenseDropdown.subcategoryList}
               reimbursementStateList={expenseDropdown.reimbursementStateList}

@@ -5,7 +5,7 @@ export interface ExpenseFormProps {
   value?: {}
   accountList: ItemType[]
   platformList: ItemType[]
-  paymentMethodList: ItemType[]
+  methodList: ItemType[]
   categoryList: ItemType[]
   subcategoryList: ItemType[]
   reimbursementStateList: ItemType[]
@@ -18,7 +18,7 @@ export interface ExpenseDropdownType {
   accountList: ItemType[]
   categoryList: ItemType[]
   subcategoryList: ItemType[]
-  paymentMethodList: ItemType[]
+  methodList: ItemType[]
   reimbursementStateList: ItemType[]
 }
 
