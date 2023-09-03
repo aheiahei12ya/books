@@ -29,6 +29,7 @@ export const zh_CN = {
   'pages.record.button.expense': '支出',
   'pages.record.button.income': '收入',
   'pages.record.button.transfer': '转账',
+  'pages.record.button.borrow': '借贷',
 
   'pages.record.error.amount': '请输入订单金额',
   'pages.record.error.platform': '请选择消费平台',

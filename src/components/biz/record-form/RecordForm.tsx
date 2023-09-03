@@ -93,7 +93,7 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
 
   const recordButtons = useMemo(
     () =>
-      ['expense', 'income', 'transfer'].map((recordType) =>
+      ['expense', 'income', 'transfer', 'borrow'].map((recordType) =>
         props[`${recordType}-button` as keyof RecordFormProps] ? (
           <div key={recordType} onClick={() => handleChangeType(recordType)}>
             {props[`${recordType}-button` as keyof RecordFormProps] as React.ReactNode}
@@ -105,6 +105,7 @@ const RecordForm = forwardRef<unknown, RecordFormProps>((props, ref) => {
               [styles.recordTypeButtonPortrait]: props.orientation === 'portrait',
               [styles.recordTypeButtonExpense]: recordType === 'expense',
               [styles.recordTypeButtonIncome]: recordType === 'income',
+              [styles.recordTypeButtonBorrow]: recordType === 'borrow',
               [styles.recordTypeButtonSelected]: type === recordType
             })}
             onClick={() => handleChangeType(recordType)}

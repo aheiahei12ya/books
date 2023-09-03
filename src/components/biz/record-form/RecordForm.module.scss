@@ -56,6 +56,10 @@
       background-color: $red-lighten-5;
     }
 
+    &-borrow {
+      background-color: $orange-lighten-5;
+    }
+
     &-selected {
       box-shadow: 0 0 0 0 transparent, inset 5px 5px 10px 0 var(--color-border);
     }

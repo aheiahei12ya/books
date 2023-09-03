@@ -29,6 +29,7 @@ export const en_US = {
   'pages.record.button.expense': 'Expense',
   'pages.record.button.income': 'Income',
   'pages.record.button.transfer': 'Transfer',
+  'pages.record.button.borrow': 'Borrow',
 
   'pages.record.error.amount': 'Please enter transaction amount',
   'pages.record.error.platform': 'Please select transaction platform',
