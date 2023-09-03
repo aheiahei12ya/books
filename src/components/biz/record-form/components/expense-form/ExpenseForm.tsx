@@ -168,15 +168,15 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
     [form, handleReimbursement]
   )
   const makeInputUnit = (formKey: keyof ExpenseConfigType) => {
-    switch (expenseConfig[formKey].type) {
+    switch (expenseConfig[formKey]!.type) {
       case 'input':
         return (
           <Form.Item name={formKey} key={formKey} className={styles.expenseFormButton}>
             <Input
-              prepend={expenseConfig[formKey].icon}
+              prepend={expenseConfig[formKey]!.icon}
               hideMessage
               value={form.get(formKey, undefined)}
-              placeholder={expenseConfig[formKey].name}
+              placeholder={expenseConfig[formKey]!.name}
               clearable
               showClearIfFill
               type={formKey === 'note' ? 'string' : 'calculator'}
@@ -189,9 +189,9 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
         return (
           <Form.Item name={formKey} key={formKey} className={styles.expenseFormButton}>
             <Dropdown
-              prepend={expenseConfig[formKey].icon}
+              prepend={expenseConfig[formKey]!.icon}
               hideMessage
-              placeholder={expenseConfig[formKey].name}
+              placeholder={expenseConfig[formKey]!.name}
               items={props[`${formKey}List` as keyof ExpenseFormProps] as ItemType[]}
               itemName={'name'}
               returnObject
@@ -204,7 +204,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
         return (
           <Form.Item name={formKey} key={formKey} className={styles.expenseFormButton}>
             <Checkbox onChange={handleCheck} checked={form.get('reimbursementFullAmount')}>
-              {expenseConfig[formKey].name}
+              {expenseConfig[formKey]!.name}
             </Checkbox>
           </Form.Item>
         )
@@ -213,8 +213,8 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
           <Form.Item name={formKey} key={formKey} className={styles.expenseFormButton}>
             <DatePicker
               hideMessage
-              prepend={expenseConfig[formKey].icon}
-              placeholder={expenseConfig[formKey].name}
+              prepend={expenseConfig[formKey]!.icon}
+              placeholder={expenseConfig[formKey]!.name}
               onChange={(date) => handleChange(formKey, date)}
               value={form.get(formKey)}
               locale={i18n.locale}
@@ -226,8 +226,8 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
           <Form.Item name={formKey} key={formKey} className={styles.expenseFormButton}>
             <TimePicker
               hideMessage
-              prepend={expenseConfig[formKey].icon}
-              placeholder={expenseConfig[formKey].name}
+              prepend={expenseConfig[formKey]!.icon}
+              placeholder={expenseConfig[formKey]!.name}
               onChange={(time) => handleChange(formKey, time)}
               value={form.get(formKey)}
               locale={i18n.locale}

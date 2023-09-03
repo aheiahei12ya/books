@@ -110,15 +110,15 @@ const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
     [form]
   )
   const makeInputUnit = (formKey: keyof IncomeConfigType) => {
-    switch (incomeConfig[formKey].type) {
+    switch (incomeConfig[formKey]!.type) {
       case 'input':
         return (
           <Form.Item name={formKey} key={formKey} className={styles.expenseFormButton}>
             <Input
-              prepend={incomeConfig[formKey].icon}
+              prepend={incomeConfig[formKey]!.icon}
               hideMessage
               value={form.get(formKey, undefined)}
-              placeholder={incomeConfig[formKey].name}
+              placeholder={incomeConfig[formKey]!.name}
               clearable
               showClearIfFill
               type={formKey === 'note' ? 'string' : 'calculator'}
@@ -131,9 +131,9 @@ const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
         return (
           <Form.Item name={formKey} key={formKey} className={styles.expenseFormButton}>
             <Dropdown
-              prepend={incomeConfig[formKey].icon}
+              prepend={incomeConfig[formKey]!.icon}
               hideMessage
-              placeholder={incomeConfig[formKey].name}
+              placeholder={incomeConfig[formKey]!.name}
               items={props[`${formKey}List` as keyof IncomeFormProps] as ItemType[]}
               itemName={'name'}
               returnObject
@@ -147,8 +147,8 @@ const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
           <Form.Item name={formKey} key={formKey} className={styles.expenseFormButton}>
             <DatePicker
               hideMessage
-              prepend={incomeConfig[formKey].icon}
-              placeholder={incomeConfig[formKey].name}
+              prepend={incomeConfig[formKey]!.icon}
+              placeholder={incomeConfig[formKey]!.name}
               onChange={(date) => handleChange(formKey, date)}
               value={form.get(formKey)}
               locale={i18n.locale}
@@ -160,8 +160,8 @@ const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
           <Form.Item name={formKey} key={formKey} className={styles.expenseFormButton}>
             <TimePicker
               hideMessage
-              prepend={incomeConfig[formKey].icon}
-              placeholder={incomeConfig[formKey].name}
+              prepend={incomeConfig[formKey]!.icon}
+              placeholder={incomeConfig[formKey]!.name}
               onChange={(time) => handleChange(formKey, time)}
               value={form.get(formKey)}
               locale={i18n.locale}

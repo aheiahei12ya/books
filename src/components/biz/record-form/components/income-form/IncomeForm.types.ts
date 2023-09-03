@@ -17,24 +17,17 @@ export interface IncomeDropdownType {
 }
 
 export type IncomeType = {
-  realAmount?: number | undefined
-  amount?: number | undefined
-  tax?: number | undefined
-  date?: string | undefined
-  time?: string | undefined
-  note?: string | undefined
-  account?: ItemType | undefined
-  category?: ItemType | undefined
-  subcategory?: ItemType | undefined
+  realAmount?: number
+  amount?: number
+  tax?: number
+  date?: string
+  time?: string
+  note?: string
+  account?: ItemType
+  category?: ItemType
+  subcategory?: ItemType
 }
 
 export type IncomeConfigType = {
-  amount: ReceiptType
-  tax: ReceiptType
-  category: ReceiptType
-  subcategory: ReceiptType
-  date: ReceiptType
-  time: ReceiptType
-  account: ReceiptType
-  note: ReceiptType
+  [Property in keyof Exclude<IncomeType, 'realAmount'>]: ReceiptType
 }
