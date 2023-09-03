@@ -39,7 +39,7 @@ export const zh_CN = {
   'pages.record.error.time': '请选择消费时间',
   'pages.record.error.account': '请选择支出账户',
   'pages.record.error.note': '请输入备注',
-  'pages.record.error.method': '请选择付款方式',
+  'pages.record.error.method': '请选择方式',
   'pages.record.error.installmentDate': '请选择扣款日期',
   'pages.record.error.installmentNumber': '请输入分期期数',
   'pages.record.error.autoDebitDate': '请选择扣款日期',
@@ -48,6 +48,7 @@ export const zh_CN = {
   'pages.record.error.calculator': '请输入正确的表达式',
   'pages.record.error.ledger': '请选账本',
   'pages.record.error.beneficiary': '请选受益人',
+  'pages.record.error.channel': '请选择收入渠道',
 
   'pages.record.form.ledger': '账本',
   'pages.record.form.beneficiary': '受益人',
@@ -75,6 +76,8 @@ export const zh_CN = {
   'pages.record.income.date': '入账日期',
   'pages.record.income.time': '入账时间',
   'pages.record.income.account': '收入账户',
+  'pages.record.income.method': '收入方式',
+  'pages.record.income.channel': '收入渠道',
 
   'pages.record.transfer.sourceAmount': '转出金额',
   'pages.record.transfer.targetAmount': '转入金额',

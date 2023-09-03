@@ -26,6 +26,9 @@ export type IncomeType = {
   account?: ItemType
   category?: ItemType
   subcategory?: ItemType
+  ledger?: ItemType
+  beneficiary?: ItemType
+  channel?: ItemType
 }
 
 export type IncomeConfigType = {

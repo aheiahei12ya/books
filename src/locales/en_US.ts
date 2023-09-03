@@ -39,7 +39,7 @@ export const en_US = {
   'pages.record.error.time': 'Please select transaction time',
   'pages.record.error.account': 'Please enter expense account',
   'pages.record.error.note': 'Please enter note',
-  'pages.record.error.method': 'Please select payment method',
+  'pages.record.error.method': 'Please select a method',
   'pages.record.error.installmentDate': 'Please select installment date',
   'pages.record.error.installmentNumber': 'Please select installment number',
   'pages.record.error.autoDebitDate': 'Please select auto-debit date',
@@ -48,6 +48,7 @@ export const en_US = {
   'pages.record.error.calculator': 'Please enter a correct expression',
   'pages.record.error.ledger': 'Please select a ledger',
   'pages.record.error.beneficiary': 'Please select a beneficiary',
+  'pages.record.error.channel': 'Please select a channel',
 
   'pages.record.form.ledger': 'Ledger',
   'pages.record.form.beneficiary': 'Beneficiary',
@@ -69,14 +70,14 @@ export const en_US = {
   'pages.record.expense.reimbursementAmount': 'reimbursement amount',
   'pages.record.expense.reimbursementFull': 'reimbursement full amount',
   'pages.record.expense.reimbursementState': 'reimbursement state',
-  'pages.record.expense.ledger': 'Ledger',
-  'pages.record.expense.beneficiary': 'Beneficiary',
 
   'pages.record.income.amount': 'amount',
   'pages.record.income.tax': 'tax',
   'pages.record.income.date': 'date',
   'pages.record.income.time': 'time',
   'pages.record.income.account': 'account',
+  'pages.record.income.method': 'income method',
+  'pages.record.income.channel': 'income channel',
 
   'pages.record.transfer.sourceAmount': 'out amount',
   'pages.record.transfer.targetAmount': 'in amount',

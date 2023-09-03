@@ -52,12 +52,16 @@ const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
     return {
       amount: [requiredRule('pages.record.error.amount'), calculatorRule],
       tax: [calculatorRule],
+      channel: [requiredRule('pages.record.error.channel')],
       category: [requiredRule('pages.record.error.category')],
       subcategory: [requiredRule('pages.record.error.subcategory')],
       date: [requiredRule('pages.record.error.date')],
       time: [requiredRule('pages.record.error.time')],
       account: [requiredRule('pages.record.error.account')],
-      note: [requiredRule('pages.record.error.note')]
+      note: [requiredRule('pages.record.error.note')],
+      ledger: [requiredRule('pages.record.error.ledger')],
+      beneficiary: [requiredRule('pages.record.error.beneficiary')],
+      method: [requiredRule('pages.record.error.method')],
     }
   }, [i18n])
 
@@ -72,12 +76,16 @@ const IncomeForm = forwardRef<unknown, IncomeFormProps>((props, ref) => {
     return {
       amount: makeConfig('input', 'pages.record.income.amount', 'sack-dollar'),
       tax: makeConfig('input', 'pages.record.income.tax', 'percent'),
+      channel: makeConfig('select', 'pages.record.income.channel', 'map-pin'),
       category: makeConfig('select', 'pages.record.form.category', 'grid-horizontal'),
       subcategory: makeConfig('select', 'pages.record.form.subcategory', 'grid'),
       date: makeConfig('date-picker', 'pages.record.income.date', 'calendar'),
       time: makeConfig('time-picker', 'pages.record.income.time', 'clock'),
       account: makeConfig('select', 'pages.record.income.account', 'piggy-bank'),
-      note: makeConfig('input', 'pages.record.form.note', 'comment')
+      note: makeConfig('input', 'pages.record.form.note', 'comment'),
+      ledger: makeConfig('select', 'pages.record.form.ledger', 'book'),
+      beneficiary: makeConfig('select', 'pages.record.form.beneficiary', 'user'),
+      method: makeConfig('select', 'pages.record.income.method', 'credit-card')
     }
   }, [i18n])
 

@@ -1,9 +1,10 @@
 export const incomeReceiptKeys = ['amount', 'tax', 'account', 'category', 'subcategory', 'date', 'time']
 
 export const incomeFormKeys = [
-  ['account', 'category', 'subcategory'],
-  ['date', 'time'],
-  ['tax', 'amount']
+  ['ledger', 'beneficiary', 'account'],
+  ['channel', 'category', 'subcategory'],
+  ['date', 'time', 'amount'],
+  ['method', 'tax']
 ]
 
 export const incomeFormKeysAppend = [['note']]
