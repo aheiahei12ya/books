@@ -17,7 +17,7 @@ import TimePicker from '@/components/timePicker'
 import useForm from '@/hooks/useForm'
 import { ShortcutType } from '@/services/shortcut/types'
 
-import { transferFormKeys, transferReceiptKeys } from './config'
+import {transferFormKeys, transferFormKeysAppend, transferReceiptKeys} from './config'
 import { TransferConfigType, TransferFormProps, TransferType } from './TransferForm.types'
 
 const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
@@ -55,7 +55,10 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
       date: [requiredRule('pages.record.error.date')],
       time: [requiredRule('pages.record.error.time')],
       sourceAccount: [requiredRule('pages.record.error.account')],
-      targetAccount: [requiredRule('pages.record.error.account')]
+      targetAccount: [requiredRule('pages.record.error.account')],
+      ledger: [requiredRule('pages.record.error.ledger')],
+      beneficiary: [requiredRule('pages.record.error.beneficiary')],
+      note: [requiredRule('pages.record.error.note')],
     }
   }, [i18n])
 
@@ -75,7 +78,10 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
       time: makeConfig('time-picker', 'pages.record.transfer.time', 'clock'),
       sourceAccount: makeConfig('select', 'pages.record.transfer.sourceAccount', 'piggy-bank'),
       targetAccount: makeConfig('select', 'pages.record.transfer.targetAccount', 'piggy-bank'),
-      exchangeAccount: makeConfig('button', 'pages.record.transfer.exchangeAccount', 'exchange')
+      exchangeAccount: makeConfig('button', 'pages.record.transfer.exchangeAccount', 'exchange'),
+      ledger: makeConfig('select', 'pages.record.form.ledger', 'book'),
+      beneficiary: makeConfig('select', 'pages.record.form.beneficiary', 'user'),
+      note: makeConfig('input', 'pages.record.form.note', 'comment'),
     }
   }, [i18n])
 
@@ -100,7 +106,7 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
               placeholder={transferConfig[formKey]!.name}
               clearable
               showClearIfFill
-              type={'calculator'}
+              type={formKey === 'note' ? 'string' : 'calculator'}
               onChange={(val) => handleChange(formKey, val)}
               onClear={() => handleChange(formKey, '')}
             ></Input>
@@ -256,6 +262,12 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
               {makeInputUnit(formKey as keyof TransferConfigType)}
             </div>
           ))}
+          {transferFormKeysAppend.map((formRow, index) => (
+              <div key={`row-${index}`} className={styles.expenseFormRow}>
+                {formRow.map((formKey) => makeInputUnit(formKey as keyof TransferConfigType))}
+                {makeSubmitBtn(true)}
+              </div>
+          ))}
           <div className={styles.expenseFormRow}>{makeSubmitBtn(false)}</div>
         </Form>
       </div>
@@ -278,7 +290,12 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
               {formRow.map((formKey) => makeInputUnit(formKey as keyof TransferConfigType))}
             </div>
           ))}
-          <div className={styles.expenseFormRow}>{makeSubmitBtn(true)}</div>
+          {transferFormKeysAppend.map((formRow, index) => (
+              <div key={`row-${index}`} className={styles.expenseFormRow}>
+                {formRow.map((formKey) => makeInputUnit(formKey as keyof TransferConfigType))}
+                {makeSubmitBtn(true)}
+              </div>
+          ))}
         </Form>
         <DivideLine></DivideLine>
         {shortcutList}

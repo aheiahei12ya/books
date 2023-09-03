@@ -21,6 +21,9 @@ export type TransferType = {
   time?: string
   sourceAccount?: ItemType
   targetAccount?: ItemType
+  note?: string
+  ledger?: ItemType
+  beneficiary?: ItemType
 }
 
 export type TransferConfigType = {

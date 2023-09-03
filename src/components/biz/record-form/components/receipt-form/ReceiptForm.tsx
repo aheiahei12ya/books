@@ -55,7 +55,7 @@ const ReceiptForm = forwardRef<unknown, ReceiptFormProps>((props, ref) => {
     let receiptValue: string
     return props.keys.map((type) => {
       const config = props.config[type as keyof receiptConfigType]
-      if (config.type === 'select') {
+      if (config!.type === 'select') {
         receiptValue = get(props.item, [type, props.itemName], props.item[type as keyof ReceiptType])
       } else {
         receiptValue = props.item[type as keyof ReceiptType] as string
@@ -64,7 +64,7 @@ const ReceiptForm = forwardRef<unknown, ReceiptFormProps>((props, ref) => {
       }
       return (
         <div key={type} className={styles.receiptDetailRow}>
-          <span className={styles.receiptDetailKey}>{config.name}</span>
+          <span className={styles.receiptDetailKey}>{config!.name}</span>
           <span
             className={classNames({
               [styles.receiptDetailCoupon]: type === 'coupon',
