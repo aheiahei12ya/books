@@ -1,3 +1,4 @@
+import {IncomeType} from "@/components/biz/record-form/components/income-form";
 import { ItemType, ReceiptType } from '@/components/biz/record-form/components/types'
 
 export interface TransferFormProps {
@@ -15,18 +16,16 @@ export interface TransferDropdownType {
 }
 
 export type TransferType = {
-  amount?: number | undefined
-  date?: string | undefined
-  time?: string | undefined
-  sourceAccount?: ItemType | undefined
-  targetAccount?: ItemType | undefined
+  amount?: number
+  date?: string
+  time?: string
+  sourceAccount?: ItemType
+  targetAccount?: ItemType
 }
 
 export type TransferConfigType = {
+  [Property in keyof Exclude<IncomeType, 'amount'>]: ReceiptType
+} & {
   sourceAmount: ReceiptType
   targetAmount: ReceiptType
-  date: ReceiptType
-  time: ReceiptType
-  sourceAccount: ReceiptType
-  targetAccount: ReceiptType
 }

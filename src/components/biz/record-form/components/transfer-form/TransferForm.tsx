@@ -89,15 +89,15 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
     [form]
   )
   const makeInputUnit = (formKey: keyof TransferConfigType) => {
-    switch (transferConfig[formKey].type) {
+    switch (transferConfig[formKey]!.type) {
       case 'input':
         return (
           <Form.Item name={formKey} key={formKey} className={styles.expenseFormButton}>
             <Input
-              prepend={transferConfig[formKey].icon}
+              prepend={transferConfig[formKey]!.icon}
               hideMessage
               value={form.get(formKey, undefined)}
-              placeholder={transferConfig[formKey].name}
+              placeholder={transferConfig[formKey]!.name}
               clearable
               showClearIfFill
               type={'calculator'}
@@ -110,9 +110,9 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
         return (
           <Form.Item name={formKey} key={formKey} className={styles.expenseFormButton}>
             <Dropdown
-              prepend={transferConfig[formKey].icon}
+              prepend={transferConfig[formKey]!.icon}
               hideMessage
-              placeholder={transferConfig[formKey].name}
+              placeholder={transferConfig[formKey]!.name}
               items={props.accountList as ItemType[]}
               itemName={'name'}
               returnObject
@@ -126,8 +126,8 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
           <Form.Item name={formKey} key={formKey} className={styles.expenseFormButton}>
             <DatePicker
               hideMessage
-              prepend={transferConfig[formKey].icon}
-              placeholder={transferConfig[formKey].name}
+              prepend={transferConfig[formKey]!.icon}
+              placeholder={transferConfig[formKey]!.name}
               onChange={(date) => handleChange(formKey, date)}
               value={form.get(formKey)}
               locale={i18n.locale}
@@ -139,8 +139,8 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
           <Form.Item name={formKey} key={formKey} className={styles.expenseFormButton}>
             <TimePicker
               hideMessage
-              prepend={transferConfig[formKey].icon}
-              placeholder={transferConfig[formKey].name}
+              prepend={transferConfig[formKey]!.icon}
+              placeholder={transferConfig[formKey]!.name}
               onChange={(time) => handleChange(formKey, time)}
               value={form.get(formKey)}
               locale={i18n.locale}
@@ -158,7 +158,7 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
             })}
           >
             <Button type={'text'} onClick={() => handleExchange(formKey as 'exchangeAccount' | 'exchangeAmount')}>
-              {transferConfig[formKey].icon}
+              {transferConfig[formKey]!.icon}
             </Button>
           </Form.Item>
         )
