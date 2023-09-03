@@ -76,7 +76,9 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
       autoDebitDate: [requiredRule('pages.record.error.autoDebitDate')],
       autoDebitNumber: [requiredRule('pages.record.error.autoDebitNumber'), calculatorRule],
       reimbursementState: [requiredRule('pages.record.error.reimbursementState')],
-      reimbursementAmount: [calculatorRule]
+      reimbursementAmount: [calculatorRule],
+      ledger: [requiredRule('pages.record.error.ledger')],
+      beneficiary: [requiredRule('pages.record.error.beneficiary')]
     }
   }, [i18n])
 
@@ -105,7 +107,9 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
       autoDebitNumber: makeConfig('input', 'pages.record.expense.autoNumber', 'hashtag'),
       reimbursementAmount: makeConfig('input', 'pages.record.expense.reimbursementAmount', 'hashtag'),
       reimbursementFullAmount: makeConfig('checkbox', 'pages.record.expense.reimbursementFull', ''),
-      reimbursementState: makeConfig('select', 'pages.record.expense.reimbursementState', 'tags')
+      reimbursementState: makeConfig('select', 'pages.record.expense.reimbursementState', 'tags'),
+      ledger: makeConfig('select', 'pages.record.expense.ledger', 'book'),
+      beneficiary: makeConfig('select', 'pages.record.expense.beneficiary', 'user')
     }
   }, [i18n])
 

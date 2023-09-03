@@ -11,12 +11,15 @@ export const expenseReceiptKeys = [
 ]
 
 export const expenseFormKeys = [
+  ['ledger', 'beneficiary', 'account'],
   ['platform', 'category', 'subcategory'],
   ['date', 'time', 'amount'],
-  ['account', 'paymentMethod', 'coupon']
+  ['paymentMethod', 'coupon']
 ]
 
 export const expenseFormKeysVertical = [
+  'ledger',
+  'beneficiary',
   'paymentMethod',
   'account',
   'extra',

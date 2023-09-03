@@ -45,6 +45,8 @@ export const zh_CN = {
   'pages.record.error.autoDebitNumber': '请输入扣款次数',
   'pages.record.error.reimbursementState': '请选择报销状态',
   'pages.record.error.calculator': '请输入正确的表达式',
+  'pages.record.error.ledger': '请选账本',
+  'pages.record.error.beneficiary': '请选受益人',
 
   'pages.record.form.category': '一级分类',
   'pages.record.form.subcategory': '二级分类',
@@ -64,6 +66,8 @@ export const zh_CN = {
   'pages.record.expense.reimbursementAmount': '报销金额',
   'pages.record.expense.reimbursementFull': '全额报销',
   'pages.record.expense.reimbursementState': '报销状态',
+  'pages.record.expense.ledger': '账本',
+  'pages.record.expense.beneficiary': '受益人',
 
   'pages.record.income.amount': '收入金额',
   'pages.record.income.tax': '缴纳税款',

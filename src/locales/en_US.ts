@@ -45,6 +45,8 @@ export const en_US = {
   'pages.record.error.autoDebitNumber': 'Please enter auto-debit times',
   'pages.record.error.reimbursementState': 'Please select reimbursement state',
   'pages.record.error.calculator': 'Please enter a correct expression',
+  'pages.record.error.ledger': 'Please select a ledger',
+  'pages.record.error.beneficiary': 'Please select a beneficiary',
 
   'pages.record.form.category': 'category',
   'pages.record.form.subcategory': 'subcategory',
@@ -64,6 +66,8 @@ export const en_US = {
   'pages.record.expense.reimbursementAmount': 'reimbursement amount',
   'pages.record.expense.reimbursementFull': 'reimbursement full amount',
   'pages.record.expense.reimbursementState': 'reimbursement state',
+  'pages.record.expense.ledger': 'Ledger',
+  'pages.record.expense.beneficiary': 'Beneficiary',
 
   'pages.record.income.amount': 'amount',
   'pages.record.income.tax': 'tax',
