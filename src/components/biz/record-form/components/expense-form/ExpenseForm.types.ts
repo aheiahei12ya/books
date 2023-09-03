@@ -30,7 +30,7 @@ export type ExpenseType = {
   time?: string
   note?: string
   account?: ItemType
-  paymentMethod?: ItemType
+  method?: ItemType
   platform?: ItemType
   category?: ItemType
   subcategory?: ItemType
