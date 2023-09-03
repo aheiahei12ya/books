@@ -16,7 +16,7 @@ const RecordList = (props: RecordListProps) => {
       { key: 'time', i18n: 'pages.transaction.table.time', ellipsis: true, width: 70 },
       { key: 'type', i18n: 'pages.transaction.table.type', ellipsis: true, width: 70 },
       { key: 'account', i18n: 'pages.transaction.table.account', ellipsis: true, width: undefined },
-      { key: 'paymentMethod', i18n: 'pages.transaction.table.method', ellipsis: true, width: undefined },
+      { key: 'method', i18n: 'pages.transaction.table.method', ellipsis: true, width: undefined },
       { key: 'category', i18n: 'pages.transaction.table.category', ellipsis: true, width: undefined },
       { key: 'subcategory', i18n: 'pages.transaction.table.subcategory', ellipsis: true, width: undefined },
       { key: 'amount', i18n: 'pages.transaction.table.amount', ellipsis: true, width: 80 },
@@ -42,7 +42,7 @@ const RecordList = (props: RecordListProps) => {
   }, [columns])
 
   const content = useMemo(() => {
-    const contentColumns = ['time', 'type', 'account', 'paymentMethod', 'category', 'subcategory', 'amount', 'note']
+    const contentColumns = ['time', 'type', 'account', 'method', 'category', 'subcategory', 'amount', 'note']
     const content: React.ReactNode[] = []
     props.expenses.forEach((singleDay) => {
       content.push(

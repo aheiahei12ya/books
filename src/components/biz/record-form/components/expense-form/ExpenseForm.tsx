@@ -70,7 +70,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
       time: [requiredRule('pages.record.error.time')],
       account: [requiredRule('pages.record.error.account')],
       note: [requiredRule('pages.record.error.note')],
-      paymentMethod: [requiredRule('pages.record.error.paymentMethod')],
+      method: [requiredRule('pages.record.error.method')],
       installmentDate: [requiredRule('pages.record.error.installmentDate')],
       installmentNumber: [requiredRule('pages.record.error.installmentNumber'), calculatorRule],
       autoDebitDate: [requiredRule('pages.record.error.autoDebitDate')],
@@ -100,7 +100,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
       time: makeConfig('time-picker', 'pages.record.expense.time', 'clock'),
       account: makeConfig('select', 'pages.record.expense.account', 'piggy-bank'),
       note: makeConfig('input', 'pages.record.form.note', 'comment'),
-      paymentMethod: makeConfig('select', 'pages.record.expense.paymentMethod', 'credit-card'),
+      method: makeConfig('select', 'pages.record.expense.method', 'credit-card'),
       installmentDate: makeConfig('date-picker', 'pages.record.expense.date', 'calendar-clock'),
       installmentNumber: makeConfig('input', 'pages.record.expense.installmentNumber', 'hashtag'),
       autoDebitDate: makeConfig('date-picker', 'pages.record.expense.autoDate', 'calendar-clock'),
@@ -108,8 +108,8 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
       reimbursementAmount: makeConfig('input', 'pages.record.expense.reimbursementAmount', 'hashtag'),
       reimbursementFullAmount: makeConfig('checkbox', 'pages.record.expense.reimbursementFull', ''),
       reimbursementState: makeConfig('select', 'pages.record.expense.reimbursementState', 'tags'),
-      ledger: makeConfig('select', 'pages.record.expense.ledger', 'book'),
-      beneficiary: makeConfig('select', 'pages.record.expense.beneficiary', 'user')
+      ledger: makeConfig('select', 'pages.record.form.ledger', 'book'),
+      beneficiary: makeConfig('select', 'pages.record.form.beneficiary', 'user')
     }
   }, [i18n])
 
@@ -253,7 +253,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
     }
   }
   const makeExtraRow = (flat = false) => {
-    switch (expense.paymentMethod?.key) {
+    switch (expense.method?.key) {
       case 'installment':
         if (flat) {
           return installmentKeys.map((formKey) => (

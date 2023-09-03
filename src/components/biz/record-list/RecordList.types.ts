@@ -11,7 +11,7 @@ export type RecordExpenseItems = {
   time: string
   form: string
   account: string
-  paymentMethod: string
+  method: string
   category: string
   subCategory: string
   amount: string

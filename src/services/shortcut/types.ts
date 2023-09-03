@@ -1,6 +1,6 @@
 import { Account } from '@/services/account/types'
 import { Category } from '@/services/category/types'
-import { PaymentMethod } from '@/services/paymentMethod/types'
+import { Method } from '@/services/method/types'
 import { Platform } from '@/services/platform/types'
 
 export type ShortcutType = {
@@ -10,7 +10,7 @@ export type ShortcutType = {
   account?: Account
   category?: Category
   subcategory?: Category
-  paymentMethod?: PaymentMethod
+  method?: Method
   platform?: Platform
   note?: string
 }

@@ -39,7 +39,7 @@ export const zh_CN = {
   'pages.record.error.time': '请选择消费时间',
   'pages.record.error.account': '请选择支出账户',
   'pages.record.error.note': '请输入备注',
-  'pages.record.error.paymentMethod': '请选择付款方式',
+  'pages.record.error.method': '请选择付款方式',
   'pages.record.error.installmentDate': '请选择扣款日期',
   'pages.record.error.installmentNumber': '请输入分期期数',
   'pages.record.error.autoDebitDate': '请选择扣款日期',
@@ -49,6 +49,8 @@ export const zh_CN = {
   'pages.record.error.ledger': '请选账本',
   'pages.record.error.beneficiary': '请选受益人',
 
+  'pages.record.form.ledger': '账本',
+  'pages.record.form.beneficiary': '受益人',
   'pages.record.form.category': '一级分类',
   'pages.record.form.subcategory': '二级分类',
   'pages.record.form.note': '备注',
@@ -56,7 +58,7 @@ export const zh_CN = {
 
   'pages.record.expense.amount': '订单金额',
   'pages.record.expense.coupon': '现金优惠',
-  'pages.record.expense.paymentMethod': '付款方式',
+  'pages.record.expense.method': '付款方式',
   'pages.record.expense.platform': '消费平台',
   'pages.record.expense.date': '消费日期',
   'pages.record.expense.time': '消费时间',
@@ -67,8 +69,6 @@ export const zh_CN = {
   'pages.record.expense.reimbursementAmount': '报销金额',
   'pages.record.expense.reimbursementFull': '全额报销',
   'pages.record.expense.reimbursementState': '报销状态',
-  'pages.record.expense.ledger': '账本',
-  'pages.record.expense.beneficiary': '受益人',
 
   'pages.record.income.amount': '收入金额',
   'pages.record.income.tax': '缴纳税款',

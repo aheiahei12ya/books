@@ -39,7 +39,7 @@ export const en_US = {
   'pages.record.error.time': 'Please select transaction time',
   'pages.record.error.account': 'Please enter expense account',
   'pages.record.error.note': 'Please enter note',
-  'pages.record.error.paymentMethod': 'Please select payment method',
+  'pages.record.error.method': 'Please select payment method',
   'pages.record.error.installmentDate': 'Please select installment date',
   'pages.record.error.installmentNumber': 'Please select installment number',
   'pages.record.error.autoDebitDate': 'Please select auto-debit date',
@@ -49,6 +49,8 @@ export const en_US = {
   'pages.record.error.ledger': 'Please select a ledger',
   'pages.record.error.beneficiary': 'Please select a beneficiary',
 
+  'pages.record.form.ledger': 'Ledger',
+  'pages.record.form.beneficiary': 'Beneficiary',
   'pages.record.form.category': 'category',
   'pages.record.form.subcategory': 'subcategory',
   'pages.record.form.note': 'note',
@@ -56,7 +58,7 @@ export const en_US = {
 
   'pages.record.expense.amount': 'amount',
   'pages.record.expense.coupon': 'coupon',
-  'pages.record.expense.paymentMethod': 'payment method',
+  'pages.record.expense.method': 'payment method',
   'pages.record.expense.platform': 'platform',
   'pages.record.expense.date': 'date',
   'pages.record.expense.time': 'time',
