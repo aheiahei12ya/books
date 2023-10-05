@@ -29,6 +29,7 @@ export type IncomeType = {
   ledger?: ItemType
   beneficiary?: ItemType
   channel?: ItemType
+  method?: ItemType
 }
 
 export type IncomeConfigType = {

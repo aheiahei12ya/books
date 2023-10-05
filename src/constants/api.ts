@@ -1,4 +1,5 @@
-export const devPrefix = 'http://dev.aheiahei.com:9200/data/book/'
+// export const devPrefix = 'http://dev.aheiahei.com:9200/data/book/'
+export const devPrefix = 'http://localhost:3001/'
 
 export const accountApi = {
   list: 'api/account/list'
