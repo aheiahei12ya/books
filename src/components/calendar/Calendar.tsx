@@ -7,10 +7,10 @@ import { weekNames } from '@/components/calendar/locale'
 import { backToToday, calendar, getDate, handleMonthChange } from '@/components/lib/calendar'
 import { getValue } from '@/lib/pythonic'
 
-import styles from './Calendar.module.scss'
+import styles from './Calendar.module.scss' // const duration = require('dayjs/plugin/duration')
 
-const duration = require('dayjs/plugin/duration')
-dayjs.extend(duration)
+// const duration = require('dayjs/plugin/duration')
+// dayjs.extend(duration)
 
 const Calendar = forwardRef<unknown, CalendarProps>((props, ref) => {
   Calendar.displayName = 'Calendar'

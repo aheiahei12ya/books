@@ -1,8 +1,8 @@
-import Image from 'next/image'
-import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import { ReactNode, useContext, useEffect, useState } from 'react'
 import { FormattedMessage } from 'react-intl'
+import { useNavigate } from 'react-router-dom'
 
+import { ConfigContext } from '@/components/configProvider'
 import Sidebar from '@/components/sidebar'
 import useResize from '@/hooks/useResize'
 import { useAuth } from '@/lib/auth'
@@ -10,18 +10,17 @@ import { useAuth } from '@/lib/auth'
 import styles from './index.module.scss'
 
 interface layoutProps {
-  locale: string
-  setLocale: (val: string) => void
-  children: JSX.Element
+  children: ReactNode
 }
 
 const Layout = (props: layoutProps) => {
   const [loading, setLoading] = useState(true)
   const auth = useAuth()
-  const router = useRouter()
+  const router = useNavigate()
   const resize = useResize()
+  const { locale, changeConfig } = useContext(ConfigContext)
   const avatar = auth?.userInfo?.avatar ? (
-    <Image src={auth?.userInfo?.avatar} width="60" height="60" alt={'avatar'} priority />
+    <img src={auth?.userInfo?.avatar} width="60" height="60" alt={'avatar'} />
   ) : (
     <span></span>
   )
@@ -51,10 +50,10 @@ const Layout = (props: layoutProps) => {
       name: <FormattedMessage id={'layout.sidebar.button.language'} />,
       icon: <i className="fa-regular fa-language"></i>,
       onClick: () => {
-        if (props.locale === 'zh-CN') {
-          props.setLocale('en-US')
+        if (locale === 'zh-CN') {
+          changeConfig?.({ locale: 'en-US' })
         } else {
-          props.setLocale('zh-CN')
+          changeConfig?.({ locale: 'zh-CN' })
         }
       }
     },
@@ -68,7 +67,7 @@ const Layout = (props: layoutProps) => {
       icon: <i className="fa-solid fa-arrow-right-from-bracket"></i>,
       onClick: () => {
         sessionStorage.clear()
-        router.replace('/login')
+        router('/login')
       }
     }
   ]

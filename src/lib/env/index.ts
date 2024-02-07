@@ -14,23 +14,28 @@ const hasWindowObject = () => {
 const disableReactDevTools = () => {
   if (hasWindowObject()) {
     // Ensure the React Developer Tools global hook exists
-    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     if (!isObject(window.__REACT_DEVTOOLS_GLOBAL_HOOK__)) {
       return
     }
 
     // Replace all global hook properties with a no-op function or a null value
-    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     for (const prop in window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
       if (prop === 'renderers') {
         // prevents console error when dev tools try to iterate of renderers
-        // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
         window.__REACT_DEVTOOLS_GLOBAL_HOOK__[prop] = new Map()
         continue
       }
-      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       window.__REACT_DEVTOOLS_GLOBAL_HOOK__[prop] = isFunction(
-        // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
         window.__REACT_DEVTOOLS_GLOBAL_HOOK__[prop]
       )
         ? Function.prototype

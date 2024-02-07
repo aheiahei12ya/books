@@ -1,5 +1,5 @@
-import Router from 'next/router'
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { LoginResponse } from '@/services/user/types'
 
@@ -13,9 +13,10 @@ interface authContext {
 
 const AuthContext = createContext<authContext>({} as authContext)
 
-export const AuthContextProvider = ({ children }: any) => {
+export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [isLogin, setLogin] = useState<boolean>(false)
   const [userInfo, setUserInfo] = useState<LoginResponse>({} as LoginResponse)
+  const navigate = useNavigate()
   const setLogout = () => {
     setLogin(false)
     setUserInfo({} as LoginResponse)
@@ -31,7 +32,7 @@ export const AuthContextProvider = ({ children }: any) => {
   useEffect(() => {
     const userInfo = JSON.parse(sessionStorage.getItem('userInfo') || '{}')
     if (!userInfo.nickName) {
-      Router.replace('/login')
+      navigate('/login')
       sessionStorage.clear()
     } else {
       setUserInfo(userInfo)

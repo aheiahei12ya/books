@@ -1,7 +1,6 @@
 import classNames from 'classnames'
 import dayjs from 'dayjs'
-import Head from 'next/head'
-import React, { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useIntl } from 'react-intl'
 
 import RecordForm from '@/components/biz/record-form'
@@ -15,8 +14,9 @@ import Dropdown from '@/components/dropdown'
 import Tag from '@/components/tag'
 import useRequest from '@/hooks/useRequest'
 import deepCopy from '@/lib/pythonic/deepCopy'
-import styles from '@/pages/transaction/index.module.scss'
 import services from '@/services'
+
+import styles from './index.module.scss'
 
 const Transaction = () => {
   const i18n = useIntl()
@@ -115,7 +115,7 @@ const Transaction = () => {
       if (filter[type] === value) return
       let source = deepCopy(expenseData.data.recordList)
       let target: RecordExpenses[] = []
-      let newVal = { ...filter }
+      const newVal = { ...filter }
       switch (type) {
         case 'type': {
           newVal.type = value
@@ -259,10 +259,6 @@ const Transaction = () => {
 
   return (
     <>
-      <Head>
-        <title>{i18n.formatMessage({ id: 'pages.transaction.head.title' })}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </Head>
       <main className={classNames(styles.page)}>
         <div className={styles.layerLeft}>
           {greetCard}

@@ -1,6 +1,6 @@
 import classNames from 'classnames'
-import { useRouter } from 'next/router'
-import React, { forwardRef, useEffect, useState } from 'react'
+import { forwardRef, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import useResize from '@/hooks/useResize'
 
@@ -13,7 +13,7 @@ export const Sidebar = forwardRef<unknown, SidebarProps>((props, ref) => {
   const [shrink, setShrink] = useState<boolean>(!!props?.defaultShrink)
   const [selected, setSelected] = useState<number>()
   const size = useResize()
-  const router = useRouter()
+  const router = useNavigate()
 
   useEffect(() => {
     const selectedKey = Number(sessionStorage.getItem('selectedKey')) || props.defaultValue || 0
@@ -36,16 +36,16 @@ export const Sidebar = forwardRef<unknown, SidebarProps>((props, ref) => {
     ></i>
   )
 
-  const handleSelect = (index: number, path: string | undefined, click?: Function) => {
+  const handleSelect = (index: number, path: string | undefined, click?: () => void) => {
     if (path === undefined) {
       click?.()
       return
     }
-    if (router.pathname === path) return
+    if (router.name === path) return
     setSelected(index)
     sessionStorage.setItem('selectedKey', index.toString())
     click?.()
-    path && router.replace(path)
+    path && router(path)
   }
 
   return (

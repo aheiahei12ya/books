@@ -1,5 +1,5 @@
-// export const devPrefix = 'http://dev.aheiahei.com:9200/data/book/'
-export const devPrefix = 'http://localhost:3001/'
+// export const DEV_PREFIX = 'http://dev.aheiahei.com:9200/data/book/'
+export const DEV_PREFIX = 'http://localhost:3001/'
 
 export const accountApi = {
   list: 'api/account/list'
@@ -38,5 +38,5 @@ export const shortcutApi = {
 
 export const transactionApi = {
   yearList: 'api/transaction/year-list',
-  expense: 'api/transaction/expense',
+  expense: 'api/transaction/expense'
 }

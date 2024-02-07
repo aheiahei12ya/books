@@ -1,5 +1,3 @@
-import { devPrefix } from '@/constants/api'
-
 const getOptions = (data?: any) => ({
   method: 'GET'
 })
@@ -14,8 +12,8 @@ const postOptions = (data?: any) => ({
 })
 
 const getUrl = (path: string) => {
-  if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
-    return `${devPrefix}${path}`
+  if (import.meta.env.VITE_DEV_PREFIX) {
+    return `${import.meta.env.VITE_DEV_PREFIX}${path}`
   } else {
     return path
   }

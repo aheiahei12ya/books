@@ -1,8 +1,7 @@
 import classNames from 'classnames'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
 import React, { useEffect, useId, useMemo, useRef, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
+import { useNavigate } from 'react-router-dom'
 
 import Button from '@/components/button'
 import Checkbox from '@/components/checkbox'
@@ -14,7 +13,6 @@ import useForm from '@/hooks/useForm'
 import useRequest from '@/hooks/useRequest'
 import useResize from '@/hooks/useResize'
 import { useAuth } from '@/lib/auth'
-import { rgbDataURL } from '@/lib/image'
 import services from '@/services'
 
 import styles from './index.module.scss'
@@ -22,7 +20,7 @@ import styles from './index.module.scss'
 const Login: React.FC = () => {
   Login.displayName = 'Login'
   const i18n = useIntl()
-  const router = useRouter()
+  const router = useNavigate()
   const auth = useAuth()
   const resize = useResize()
   const form = useForm()
@@ -85,7 +83,7 @@ const Login: React.FC = () => {
   useEffect(() => {
     if (data?.success) {
       sessionStorage.setItem('userInfo', JSON.stringify(data.data))
-      router.replace('/home')
+      router('/home')
     }
   }, [data, router])
 
@@ -102,16 +100,7 @@ const Login: React.FC = () => {
           <span>
             <FormattedMessage id={'pages.login.title.welcome'}></FormattedMessage>
           </span>
-          {resize.isMobile && (
-            <Image
-              src={illustrateUrl}
-              alt={''}
-              fill
-              priority
-              placeholder="blur"
-              blurDataURL={rgbDataURL(250, 250, 250)}
-            />
-          )}
+          {resize.isMobile && <img src={illustrateUrl} alt={''} />}
         </div>
         <div className={classNames(styles.loginPanelForm)}>
           <Form id={formId} form={form} initialValue={loginInfo} onSubmit={handleSubmit} rules={rules} gap={'0'}>
@@ -161,16 +150,7 @@ const Login: React.FC = () => {
         </div>
       </div>
       <div className={classNames(styles.loginIllustrate, styles.hiddenSmAndDown)}>
-        {resize.isPC && (
-          <Image
-            src={illustrateUrl}
-            alt={''}
-            fill
-            priority
-            placeholder="blur"
-            blurDataURL={rgbDataURL(250, 250, 250)}
-          />
-        )}
+        {resize.isPC && <img src={illustrateUrl} alt={''} />}
       </div>
     </div>
   )
