@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react'
+import { forwardRef, ReactNode, useEffect, useMemo, useRef, useState } from 'react'
 
 import { TabsProps, TabsRef } from '@/components/tabs/Tabs.types'
 import useControlled from '@/hooks/useControlled'
@@ -13,8 +13,8 @@ const Tabs = forwardRef<TabsRef, TabsProps>((props, ref) => {
   const [offset, setOffset] = useState<number>(0)
   const tabRef = useRef(null)
   const [tabs, content] = useMemo(() => {
-    const tabs: React.ReactNode[] = []
-    const content: React.ReactNode[] = []
+    const tabs: ReactNode[] = []
+    const content: ReactNode[] = []
     props.items.forEach((item, index) => {
       tabs.push(
         <div
@@ -47,9 +47,11 @@ const Tabs = forwardRef<TabsRef, TabsProps>((props, ref) => {
     const node = tabRef.current!
     if (node) {
       // TODO: 修复这两个ts校验
-      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       setWidth(node.childNodes[activated]?.offsetWidth)
-      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       setOffset(node.childNodes[activated]?.offsetLeft)
     }
     return () => {}

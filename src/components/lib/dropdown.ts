@@ -3,7 +3,7 @@ import { RefObject } from 'react'
 export const dropdownHandler = (
   menuRef: RefObject<HTMLDivElement>,
   buttonRef: RefObject<HTMLDivElement>,
-  setActive: Function,
+  setActive: (active: boolean) => void,
   maxWidth: string | undefined,
   maxHeight: string,
   callback: EventListener,

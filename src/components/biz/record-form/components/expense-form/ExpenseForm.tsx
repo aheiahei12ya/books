@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import dayjs from 'dayjs'
-import React, { forwardRef, useCallback, useEffect, useId, useMemo, useState } from 'react'
+import { forwardRef, useCallback, useEffect, useId, useMemo, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import ReceiptForm from '@/components/biz/record-form/components/receipt-form'
@@ -303,7 +303,7 @@ const ExpenseForm = forwardRef<unknown, ExpenseFormProps>((props, ref) => {
   }
   const shortcutList = useMemo(() => {
     const handleShortcutSelect = (items: ShortcutType) => {
-      for (let item in items) {
+      for (const item in items) {
         form.set(item, items[item as keyof ShortcutType])
         setExpense(form.values())
       }

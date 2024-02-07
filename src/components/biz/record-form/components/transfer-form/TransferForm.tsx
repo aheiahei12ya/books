@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import dayjs from 'dayjs'
-import React, { forwardRef, useCallback, useEffect, useId, useMemo, useState } from 'react'
+import { forwardRef, useCallback, useEffect, useId, useMemo, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import styles from '@/components/biz/record-form/components/expense-form/ExpenseForm.module.scss'
@@ -17,7 +17,7 @@ import TimePicker from '@/components/timePicker'
 import useForm from '@/hooks/useForm'
 import { ShortcutType } from '@/services/shortcut/types'
 
-import {transferFormKeys, transferFormKeysAppend, transferReceiptKeys} from './config'
+import { transferFormKeys, transferFormKeysAppend, transferReceiptKeys } from './config'
 import { TransferConfigType, TransferFormProps, TransferType } from './TransferForm.types'
 
 const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
@@ -58,7 +58,7 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
       targetAccount: [requiredRule('pages.record.error.account')],
       ledger: [requiredRule('pages.record.error.ledger')],
       beneficiary: [requiredRule('pages.record.error.beneficiary')],
-      note: [requiredRule('pages.record.error.note')],
+      note: [requiredRule('pages.record.error.note')]
     }
   }, [i18n])
 
@@ -81,7 +81,7 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
       exchangeAccount: makeConfig('button', 'pages.record.transfer.exchangeAccount', 'exchange'),
       ledger: makeConfig('select', 'pages.record.form.ledger', 'book'),
       beneficiary: makeConfig('select', 'pages.record.form.beneficiary', 'user'),
-      note: makeConfig('input', 'pages.record.form.note', 'comment'),
+      note: makeConfig('input', 'pages.record.form.note', 'comment')
     }
   }, [i18n])
 
@@ -196,7 +196,7 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
   }
   const shortcutList = useMemo(() => {
     const handleShortcutSelect = (items: ShortcutType) => {
-      for (let item in items) {
+      for (const item in items) {
         form.set(item, items[item as keyof ShortcutType])
         setTransfer(form.values())
       }
@@ -263,10 +263,10 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
             </div>
           ))}
           {transferFormKeysAppend.map((formRow, index) => (
-              <div key={`row-${index}`} className={styles.expenseFormRow}>
-                {formRow.map((formKey) => makeInputUnit(formKey as keyof TransferConfigType))}
-                {makeSubmitBtn(true)}
-              </div>
+            <div key={`row-${index}`} className={styles.expenseFormRow}>
+              {formRow.map((formKey) => makeInputUnit(formKey as keyof TransferConfigType))}
+              {makeSubmitBtn(true)}
+            </div>
           ))}
           <div className={styles.expenseFormRow}>{makeSubmitBtn(false)}</div>
         </Form>
@@ -291,10 +291,10 @@ const TransferForm = forwardRef<unknown, TransferFormProps>((props, ref) => {
             </div>
           ))}
           {transferFormKeysAppend.map((formRow, index) => (
-              <div key={`row-${index}`} className={styles.expenseFormRow}>
-                {formRow.map((formKey) => makeInputUnit(formKey as keyof TransferConfigType))}
-                {makeSubmitBtn(true)}
-              </div>
+            <div key={`row-${index}`} className={styles.expenseFormRow}>
+              {formRow.map((formKey) => makeInputUnit(formKey as keyof TransferConfigType))}
+              {makeSubmitBtn(true)}
+            </div>
           ))}
         </Form>
         <DivideLine></DivideLine>

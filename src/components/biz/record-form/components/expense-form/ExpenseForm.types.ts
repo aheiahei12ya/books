@@ -1,8 +1,8 @@
 import { ItemType, ReceiptType } from '@/components/biz/record-form/components/types'
 
 export interface ExpenseFormProps {
-  defaultValue?: {}
-  value?: {}
+  defaultValue?: Record<string, any>
+  value?: Record<string, any>
   accountList: ItemType[]
   platformList: ItemType[]
   methodList: ItemType[]

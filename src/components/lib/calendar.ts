@@ -4,7 +4,11 @@ import { ReactElement } from 'react'
 import { monthNames } from '@/components/calendar/locale'
 import { range } from '@/lib/pythonic'
 
-export const calendar = (year: number, month: number, makeCell: Function) => {
+export const calendar = (
+  year: number,
+  month: number,
+  makeCell: (date: number, type: 'past' | 'current' | 'future', index: number) => ReactElement
+) => {
   const calendar: ReactElement[] = []
   const beforeMonth: number[] = []
   const afterMonth: number[] = []
@@ -49,7 +53,12 @@ export const getDate = (locale: string | undefined, year: number, month: number)
   }
 }
 
-export const backToToday = (year: number, month: number, setYear: Function, setMonth: Function) => {
+export const backToToday = (
+  year: number,
+  month: number,
+  setYear: (year: number) => void,
+  setMonth: (year: number) => void
+) => {
   setYear(year)
   setMonth(month)
 }
@@ -57,8 +66,8 @@ export const handleMonthChange = (
   method: 'sub' | 'add',
   year: number,
   month: number,
-  setYear: Function,
-  setMonth: Function
+  setYear: (year: number) => void,
+  setMonth: (month: number) => void
 ) => {
   switch (method) {
     case 'add':
@@ -110,11 +119,11 @@ export const handleSelect = (
   selectedYear: number,
   selectedMonth: number,
   selectedDay: number,
-  setYear: Function,
-  setMonth: Function,
-  setSelected: Function,
-  deactivateDropdown: Function,
-  onChange?: Function
+  setYear: (year: number) => void,
+  setMonth: (month: number) => void,
+  setSelected: (select: string) => void,
+  deactivateDropdown: () => void,
+  onChange?: (selectedYear: number, realMonth: number, selectedDay: number) => void
 ) => {
   const realMonth = selectedMonth + 1
   const selectedDate = `${selectedYear}-${realMonth}-${selectedDay}`

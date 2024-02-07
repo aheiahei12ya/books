@@ -1,4 +1,4 @@
-import React, { forwardRef, useMemo, useState } from 'react'
+import { forwardRef, useMemo, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { HistoryTodayRecord } from '@/components/biz/history-today/HistoryToday.types'

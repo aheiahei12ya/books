@@ -19,7 +19,7 @@ const Button = forwardRef<ButtonRef, ButtonProps>((props, ref) => {
     ...rest
   } = props
 
-  let btnColor = type === 'text' ? `text-${color}` : color
+  const btnColor = type === 'text' ? `text-${color}` : color
 
   return (
     <button

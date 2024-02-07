@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "order": "npx stylelint ./src/**/*.scss --fix",
+    "style": "npx prettier --write ./src/**/*.tsx"
   },
   "dependencies": {
     "classnames": "^2.5.1",
@@ -28,6 +30,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-unused-imports": "^3.0.0",
     "prettier": "3.2.5",
     "sass": "^1.70.0",
     "stylelint": "^16.2.1",

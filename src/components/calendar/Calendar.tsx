@@ -7,7 +7,7 @@ import { weekNames } from '@/components/calendar/locale'
 import { backToToday, calendar, getDate, handleMonthChange } from '@/components/lib/calendar'
 import { getValue } from '@/lib/pythonic'
 
-import styles from './Calendar.module.scss' // const duration = require('dayjs/plugin/duration')
+import styles from './Calendar.module.scss'
 
 // const duration = require('dayjs/plugin/duration')
 // dayjs.extend(duration)

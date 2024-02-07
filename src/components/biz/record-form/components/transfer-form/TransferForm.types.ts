@@ -2,8 +2,8 @@ import {IncomeType} from "@/components/biz/record-form/components/income-form";
 import { ItemType, ReceiptType } from '@/components/biz/record-form/components/types'
 
 export interface TransferFormProps {
-  defaultValue?: {}
-  value?: {}
+  defaultValue?: Record<string, any>
+  value?: Record<string, any>
   accountList: ItemType[]
   shortcutList: any[]
   orientation?: 'portrait' | 'landscape'

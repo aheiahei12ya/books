@@ -6,9 +6,9 @@
 // import { ConfigProvider } from '@/components/configProvider'
 // import routes from '@/routes'
 //
-import {Outlet} from "react-router-dom";
+import { Outlet } from 'react-router-dom'
 
-import Layout from "@/layout";
+import Layout from '@/layout'
 
 const App = () => {
   return (
