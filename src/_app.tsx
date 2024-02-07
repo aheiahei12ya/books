@@ -1,20 +1,15 @@
-// import '@/styles/global.scss'
-// import '@/scripts/wdyr.ts'
-//
-// import { RouterProvider } from 'react-router-dom'
-//
-// import { ConfigProvider } from '@/components/configProvider'
-// import routes from '@/routes'
-//
 import { Outlet } from 'react-router-dom'
 
 import Layout from '@/layout'
+import { AuthContextProvider } from '@/lib/auth'
 
 const App = () => {
   return (
-    <Layout>
-      <Outlet />
-    </Layout>
+    <AuthContextProvider>
+      <Layout>
+        <Outlet />
+      </Layout>
+    </AuthContextProvider>
   )
 }
 

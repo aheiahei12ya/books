@@ -20,9 +20,10 @@ const getUrl = (path: string) => {
 
 const createRequest =
   <T, V>(path: string, method = 'GET') =>
-  (data?: T) => {
+  async (data?: T) => {
     const options = method === 'GET' ? getOptions : postOptions
-    return fetch(getUrl(path), options(data)).then((res) => res as V)
+    const res = await fetch(getUrl(path), options(data))
+    return res as V
   }
 
 export { createRequest }
