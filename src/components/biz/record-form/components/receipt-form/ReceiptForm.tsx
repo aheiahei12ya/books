@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import React, { forwardRef, useCallback, useMemo } from 'react'
+import { forwardRef, useCallback, useMemo } from 'react'
 
 import { ExpenseConfigType, ExpenseType } from '@/components/biz/record-form/components/expense-form'
 import { IncomeConfigType, IncomeType } from '@/components/biz/record-form/components/income-form'

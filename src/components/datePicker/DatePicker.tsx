@@ -2,6 +2,7 @@ import classNames from 'classnames'
 import dayjs from 'dayjs'
 import { forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react'
 
+import { InputErrorType } from '@/components/input/Input.types.ts'
 import { calendar, getDate, handleDaySelect, handleMonthChange, handleSelect } from '@/components/lib/calendar'
 import { dropdownHandler } from '@/components/lib/dropdown'
 import { checkRules, RuleType } from '@/components/lib/rule'
@@ -17,7 +18,7 @@ const DatePicker = forwardRef<unknown, DatePickerProps>((props, ref) => {
   const calendarRef = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState<boolean>(false)
   const [selected, setSelected] = useControlled(props.value, props.onChange)
-  const [rule, setRule] = useState({
+  const [rule, setRule] = useState<InputErrorType>({
     error: false,
     message: <></>
   })

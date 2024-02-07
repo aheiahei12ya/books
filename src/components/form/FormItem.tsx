@@ -31,10 +31,6 @@ const FormItem = forwardRef<unknown, FormItemProps>((props, ref) => {
     form.set(props.name, newVal)
   }
 
-  const handleValidate = () => {
-    console.log(formContext.rules)
-  }
-
   const instance = {
     name: props.name,
     value: formValue,

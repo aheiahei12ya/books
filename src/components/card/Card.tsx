@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import React, { forwardRef } from 'react'
+import { forwardRef } from 'react'
 
 import { CardProps } from '@/components/card/Card.types'
 

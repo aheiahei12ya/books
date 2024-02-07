@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import  { forwardRef } from 'react'
 
 import styles from './DivideLine.module.scss'
 import { DivideLineProps, DivideLineRef } from './DivideLine.types'

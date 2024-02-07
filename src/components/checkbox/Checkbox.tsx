@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import React, { forwardRef } from 'react'
+import { forwardRef } from 'react'
 
 import styles from './Checkbox.module.scss'
 import { CheckboxProps, CheckboxRef } from './Checkbox.types'

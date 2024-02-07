@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import React, { forwardRef, useState } from 'react'
+import { forwardRef, useState } from 'react'
 
 import styles from './Collapse.module.scss'
 import { CollapseProps, CollapseRef } from './Collapse.types'

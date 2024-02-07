@@ -1,4 +1,4 @@
-import React, { forwardRef, useMemo, useState } from 'react'
+import { forwardRef, useMemo, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { RecordTipsProps, RecordTipsRef } from '@/components/biz/record-tips/RecordTips.types'

@@ -3,6 +3,7 @@ import dayjs from 'dayjs'
 import { forwardRef, useCallback, useMemo, useRef, useState } from 'react'
 
 import Button from '@/components/button'
+import { InputErrorType } from '@/components/input/Input.types.ts'
 import { dropdownHandler } from '@/components/lib/dropdown'
 import { checkRules, RuleType } from '@/components/lib/rule'
 import { padNumber } from '@/components/lib/util'
@@ -29,7 +30,7 @@ const TimePicker = forwardRef<unknown, TimePickerProps>((props, ref) => {
   const [minute, setMinute] = useState(Number(defaultMinute))
   const [second, setSecond] = useState(Number(defaultSecond))
 
-  const [rule, setRule] = useState({
+  const [rule, setRule] = useState<InputErrorType>({
     error: false,
     message: <></>
   })

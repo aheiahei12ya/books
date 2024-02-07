@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import React, { useCallback, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useIntl } from 'react-intl'
 
 import Collapse from '@/components/collapse'

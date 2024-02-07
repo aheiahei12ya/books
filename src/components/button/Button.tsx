@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import React, { forwardRef } from 'react'
+import { forwardRef } from 'react'
 
 import styles from './Button.module.scss'
 import { ButtonProps, ButtonRef } from './Button.types'
@@ -15,8 +15,7 @@ const Button = forwardRef<ButtonRef, ButtonProps>((props, ref) => {
     loading,
     block,
     disabled,
-    className,
-    ...rest
+    className
   } = props
 
   const btnColor = type === 'text' ? `text-${color}` : color

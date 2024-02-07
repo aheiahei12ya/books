@@ -1,3 +1,6 @@
+import { ReactNode } from 'react'
+
+import { InputErrorType } from '@/components/input/Input.types.ts'
 import isObject from '@/lib/pythonic/isObject'
 
 export interface RuleType {
@@ -6,14 +9,9 @@ export interface RuleType {
   rule?: RegExp
 }
 
-export const checkRules = (
-  rules: RuleType[],
-  setRule: (rule: Record<string, any>) => void,
-  value: any,
-  newVal?: any
-) => {
+export const checkRules = (rules: RuleType[], setRule: (rule: InputErrorType) => void, value: any, newVal?: any) => {
   let error = false
-  let errorMessage: string | JSX.Element | undefined = ''
+  let errorMessage: string | ReactNode | undefined = ''
   const checkValue = newVal === undefined ? value : newVal
   rules?.some((rule, index) => {
     if (rule.required) {
