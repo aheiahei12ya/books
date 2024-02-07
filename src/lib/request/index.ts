@@ -14,9 +14,8 @@ const postOptions = (data?: any) => ({
 const getUrl = (path: string) => {
   if (import.meta.env.VITE_DEV_PREFIX) {
     return `${import.meta.env.VITE_DEV_PREFIX}${path}`
-  } else {
-    return path
   }
+  return `${import.meta.env.VITE_PROD_PREFIX}${path}`
 }
 
 const createRequest =

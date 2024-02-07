@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { createHashRouter } from 'react-router-dom'
 
 import App from '@/_app.tsx'
 import Home from '@/pages/home'
@@ -7,7 +7,7 @@ import Setting from '@/pages/setting'
 import Statistic from '@/pages/statistic'
 import Transaction from '@/pages/transaction'
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
     element: <App />,
