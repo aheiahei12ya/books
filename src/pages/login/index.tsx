@@ -3,11 +3,11 @@ import React, { useEffect, useId, useMemo, useRef, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
+import illustrate from '@/assets/illustrate.png'
 import Button from '@/components/button'
 import Checkbox from '@/components/checkbox'
 import Form from '@/components/form'
 import Input, { InputRef } from '@/components/input'
-import { illustrateUrl } from '@/constants/resource'
 import { accountError, passwordError } from '@/constants/resultCode'
 import useForm from '@/hooks/useForm'
 import useRequest from '@/hooks/useRequest'
@@ -100,7 +100,7 @@ const Login: React.FC = () => {
           <span>
             <FormattedMessage id={'pages.login.title.welcome'}></FormattedMessage>
           </span>
-          {resize.isMobile && <img src={illustrateUrl} alt={''} />}
+          {resize.isMobile && <img src={illustrate} alt={''} />}
         </div>
         <div className={classNames(styles.loginPanelForm)}>
           <Form id={formId} form={form} initialValue={loginInfo} onSubmit={handleSubmit} rules={rules} gap={'0'}>
@@ -150,7 +150,7 @@ const Login: React.FC = () => {
         </div>
       </div>
       <div className={classNames(styles.loginIllustrate, styles.hiddenSmAndDown)}>
-        {resize.isPC && <img src={illustrateUrl} alt={''} />}
+        {resize.isPC && <img src={illustrate} alt={''} />}
       </div>
     </div>
   )
